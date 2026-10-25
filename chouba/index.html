@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+<title>帳場</title>
+<meta name="apple-mobile-web-app-title" content="帳場">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="icon" href="../favicon-32.png" sizes="32x32">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<style>
+  :root { --ai:#24466B; --shu:#D9573A; --kinari:#F6EFE2; --ink:#3C3832; }
+  body { margin:0; background:var(--kinari); color:var(--ink); font-family:system-ui,-apple-system,"Hiragino Sans","Yu Gothic UI",sans-serif; }
+  main { max-width:480px; margin:0 auto; padding:32px 16px; text-align:center; }
+  img { width:96px; height:96px; border-radius:22px; }
+  h1 { color:var(--ai); font-size:28px; margin:12px 0 4px; }
+  p { line-height:1.8; font-size:17px; }
+  a.btn { display:block; margin:24px 0; padding:16px; border-radius:14px; background:var(--ai); color:#fff; font-size:20px; font-weight:bold; text-decoration:none; }
+  .how { text-align:left; background:#fff; border-radius:14px; padding:12px 16px; font-size:16px; }
+  .note { font-size:14px; color:#6b655c; }
+</style>
+</head>
+<body>
+<main>
+  <img src="../apple-touch-icon.png" alt="">
+  <h1>ひなが堂 帳場</h1>
+  <p id="msg">帳場を開いています…</p>
+  <a class="btn" id="go" href="https://script.google.com/macros/s/AKfycbx8T9DpBPP12TvMFQGRC_r3hP6i7-vRLsZ88qthfpglRdIVDn2UNDA4hJh9KgAWMa9wLA/exec">帳場を開く</a>
+  <div class="how" id="how" hidden>
+    <p><b>ホーム画面に置くには</b>（Safari）<br>
+    1. 下の共有ボタン（□に↑）を押す<br>
+    2.「ホーム画面に追加」→「追加」<br>
+    次からは、ホーム画面の「帳場」を押すと、そのまま帳場が開きます。</p>
+  </div>
+  <p class="note">店主だけが使うページです（Google のログインが要ります）。</p>
+</main>
+<script>
+  // 初めて開いたときは置き方を見せて止まる。2回目からは（ホーム画面から開いたときも）すぐ帳場へ。
+  // ?setup を付けて開くと、置き直し用にいつでも止まる。
+  (function () {
+    var go = document.getElementById('go').href;
+    var setup = /[?&]setup\b/.test(location.search);
+    var seen = false;
+    try { seen = localStorage.getItem('chouba_seen') === '1'; } catch (e) {}
+    if (!setup && seen) { location.replace(go); return; }
+    try { localStorage.setItem('chouba_seen', '1'); } catch (e) {}
+    document.getElementById('msg').textContent = 'このページをホーム画面に置くと、ロゴのアイコンから帳場を開けます。';
+    document.getElementById('how').hidden = false;
+  })();
+</script>
+</body>
+</html>
