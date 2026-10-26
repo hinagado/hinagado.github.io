@@ -23,3 +23,30 @@ if ('IntersectionObserver' in window) {
 
 // 年の表示
 document.querySelectorAll('[data-year]').forEach((el) => { el.textContent = new Date().getFullYear(); });
+
+// 商品一覧の検索（カナ・ひらがな、全角・半角、大文字・小文字をそろえてから、空白で区切ったことばを全部ふくむ商品だけ出す）
+(function () {
+  const q = document.getElementById('item-q');
+  if (!q) return;
+  const cards = Array.from(document.querySelectorAll('.item-card[data-search]'));
+  const secs = Array.from(document.querySelectorAll('.item-cat'));
+  const chips = document.querySelector('.cat-chips');
+  const count = document.getElementById('item-q-count');
+  const none = document.getElementById('item-q-none');
+  const norm = (s) => s.normalize('NFKC').toLowerCase()
+    .replace(/[ァ-ヶ]/g, (c) => String.fromCharCode(c.charCodeAt(0) - 0x60));
+  cards.forEach((c) => { c._s = norm(c.dataset.search); });
+  q.addEventListener('input', () => {
+    const words = norm(q.value).split(/\s+/).filter(Boolean);
+    let n = 0;
+    cards.forEach((c) => {
+      const hit = words.every((w) => c._s.includes(w));
+      c.hidden = !hit;
+      if (hit) { n++; c.classList.add('in'); }
+    });
+    secs.forEach((s) => { s.hidden = !s.querySelector('.item-card:not([hidden])'); });
+    if (chips) chips.hidden = words.length > 0;
+    count.textContent = !words.length ? '' : n ? n + ' 点あります' : '見つかりませんでした';  // 0件も読み上げる
+    none.hidden = !(words.length && n === 0);
+  });
+})();

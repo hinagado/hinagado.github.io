@@ -245,3 +245,10 @@ h1,h2,h3{font-family:var(--round);font-weight:700;letter-spacing:.06em;line-heig
 .table-wrap table{border-collapse:collapse;width:100%;min-width:480px;font-size:15px;line-height:1.6;background:#fff}
 .table-wrap th,.table-wrap td{border:1px solid #ddd3c2;padding:8px 10px;text-align:left;vertical-align:top}
 .table-wrap thead th{background:var(--ai);color:var(--kinari)}
+.item-search{margin:0 0 18px}
+.item-search label{display:block;font-weight:700;color:var(--ai);margin:0 0 6px}
+.item-search input{width:100%;max-width:520px;box-sizing:border-box;font-size:17px;padding:12px 16px;border:2px solid var(--ai);border-radius:999px;background:var(--paper);color:inherit}
+.item-search input:focus{outline:3px solid var(--shu);outline-offset:2px}
+.item-search-count{margin:6px 0 0;font-size:15px;font-weight:700;color:var(--shu);min-height:1.2em}
+.item-search-none{text-align:center;font-weight:700;margin:24px 0}
+.item-card[hidden],.item-cat[hidden],.cat-chips[hidden]{display:none}
