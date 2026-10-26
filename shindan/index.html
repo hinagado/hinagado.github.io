@@ -1,0 +1,602 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<title>おもちのうまれび診断（お試し版）</title>
+<style>
+:root {
+  --ai: #24466B;
+  --kinari: #F6EFE2;
+  --shu: #D9573A;
+  --ink: #2A2A2A;
+  --card: #FFFBF3;
+  --line: #E3D7C1;
+  --soft: #6A6A6A;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--kinari);
+  color: var(--ink);
+  font-family: "BIZ UDPGothic", "BIZ UDGothic", "Hiragino Maru Gothic ProN", "Hiragino Sans", "Yu Gothic UI", "Meiryo", system-ui, sans-serif;
+  font-size: 18px;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+.wrap { max-width: 560px; margin: 0 auto; padding: 0 16px 40px; }
+header.top {
+  background: var(--ai);
+  color: #fff;
+  padding: 18px 16px 16px;
+  text-align: center;
+  border-radius: 0 0 24px 24px;
+}
+header.top .shop { font-size: 14px; letter-spacing: .1em; opacity: .85; }
+header.top h1 { margin: 4px 0 0; font-size: 26px; line-height: 1.4; }
+.badge {
+  display: inline-block; margin-top: 6px; font-size: 13px; padding: 2px 12px;
+  border-radius: 999px; background: var(--shu); color: #fff;
+}
+.notice {
+  margin: 14px 0 0; padding: 10px 14px; border-radius: 14px;
+  background: #fff; border: 2px dashed var(--line); font-size: 15px; line-height: 1.6;
+}
+.guide { display: flex; align-items: flex-end; gap: 10px; margin: 18px 0 8px; }
+.guide img.omochi {
+  width: 88px; height: 88px; flex: 0 0 auto;
+  object-fit: cover; object-position: 50% 30%;
+  border-radius: 50%; border: 3px solid var(--ai); background: var(--kinari);
+  box-shadow: 0 2px 0 rgba(36, 70, 107, .15);
+}
+.bubble {
+  position: relative; flex: 1 1 auto; min-width: 0;
+  background: #fff; border: 2px solid var(--ai); border-radius: 18px;
+  padding: 10px 14px; font-size: 17px;
+}
+.bubble .who { display: block; font-size: 13px; color: var(--ai); font-weight: bold; }
+.tabs { display: flex; gap: 8px; margin: 14px 0 0; }
+.tabs button {
+  flex: 1 1 0; min-width: 0; font: inherit; font-size: 17px; font-weight: bold;
+  padding: 10px 6px; border-radius: 14px 14px 0 0; border: 2px solid var(--ai); border-bottom: none;
+  background: #fff; color: var(--ai); cursor: pointer;
+}
+.tabs button[aria-selected="true"] { background: var(--ai); color: #fff; }
+.panel { background: var(--card); border: 2px solid var(--ai); border-radius: 0 0 18px 18px; padding: 16px 14px; }
+.panel.solo { border-radius: 18px; margin-top: 14px; }
+fieldset { border: none; margin: 0 0 12px; padding: 0; min-width: 0; }
+legend { font-weight: bold; color: var(--ai); margin-bottom: 6px; padding: 0; }
+.ymd { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 8px; }
+.ymd label { display: block; min-width: 0; }
+.ymd span { display: block; font-size: 14px; color: var(--soft); }
+select {
+  width: 100%; min-width: 0; font: inherit; font-size: 19px; padding: 10px 6px;
+  border: 2px solid var(--line); border-radius: 12px; background: #fff; color: var(--ink);
+}
+select:focus, button:focus-visible { outline: 3px solid var(--shu); outline-offset: 2px; }
+.go {
+  display: block; width: 100%; margin-top: 8px; font: inherit; font-size: 20px; font-weight: bold;
+  padding: 14px 10px; border: none; border-radius: 999px; background: var(--shu); color: #fff; cursor: pointer;
+}
+.go:active { transform: translateY(1px); }
+.err { color: #B23A1F; font-weight: bold; margin: 8px 0 0; min-height: 1em; }
+.err:empty { display: none; }
+.result { margin-top: 18px; }
+.card {
+  background: #fff; border: 2px solid var(--line); border-radius: 18px;
+  padding: 14px 16px; margin: 0 0 14px;
+}
+.card h2 { margin: 0 0 6px; font-size: 17px; color: var(--ai); }
+.card .big { font-size: 26px; font-weight: bold; line-height: 1.4; color: var(--ink); }
+.card .sub { font-size: 15px; color: var(--soft); }
+.card p { margin: 6px 0 0; }
+.pair2 { margin-bottom: 14px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.pair2 .card { margin: 0; }
+.hitokoto .title { font-weight: bold; font-size: 20px; color: var(--shu); line-height: 1.5; }
+.swatch {
+  display: inline-block; width: 1.3em; height: 1.3em; border-radius: 50%;
+  vertical-align: -0.25em; margin-right: 6px; border: 2px solid var(--line);
+}
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.chip { padding: 2px 12px; border-radius: 999px; background: var(--kinari); border: 2px solid var(--line); font-weight: bold; }
+.promo {
+  background: #fff; border: 3px solid var(--shu); border-radius: 18px; padding: 14px 16px; margin: 6px 0 14px;
+}
+.promo h2 { margin: 0 0 6px; color: var(--shu); font-size: 18px; }
+.promo ul { margin: 6px 0; padding-left: 1.3em; }
+.promo .link { font-weight: bold; color: var(--ai); }
+.small { font-size: 14px; color: var(--soft); line-height: 1.6; }
+footer.foot { margin-top: 24px; padding-top: 12px; border-top: 2px solid var(--line); font-size: 14px; color: var(--soft); line-height: 1.7; }
+footer.foot p { margin: 4px 0; }
+[hidden] { display: none !important; }
+
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="shop">ひなが堂</div>
+  <h1>おもちのうまれび診断</h1>
+  <span class="badge">お試し版</span>  </header>
+<main class="wrap">
+  <p class="notice" id="notice-top">この診断は<strong>娯楽です。科学的な根拠はありません。</strong>入力した生年月日はこの端末の中だけで計算し、どこにも送らず、保存もしません。</p>
+
+  <div class="guide">
+    <img class="omochi" src="data:image/webp;base64,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" alt="店番のおもち" width="88" height="88" onerror="this.hidden=true">
+    <p class="bubble" id="bubble"><span class="who">店番のおもち</span><span id="bubble-text">いらっしゃいませ。生年月日を えらんでくださいね。</span></p>
+  </div>
+
+  
+  <section class="panel solo" id="panel-solo" role="tabpanel">
+    <form id="form-solo" novalidate>
+      <fieldset>
+        <legend>あなたの生年月日</legend>
+        <div class="ymd" data-ymd="solo"></div>
+      </fieldset>
+      <button class="go" type="submit" id="go-solo">しんだんする</button>
+      <p class="err" id="err-solo" role="alert"></p>
+    </form>
+  </section>
+
+  
+  <div class="result" id="result" aria-live="polite"></div>
+
+  
+  <aside class="promo" id="promo">
+    <h2>全部入りの版はBOOTHで</h2>
+    <p>お試し版では「性格のひとこと」と「干支・星座」を見られます。全部入りの版には、さらに次のものが入っています。</p>
+    <ul>
+      <li>今月の過ごし方のヒント</li>
+      <li>ラッキーカラーとラッキーアイテム</li>
+      <li>相性のよい星座</li>
+      <li>ふたりの生年月日で見る「相性」</li>
+    </ul>
+    <p class="small">ダウンロードした「遊べるファイル」1つを、スマホやパソコンのインターネットを見るアプリ（Safari・Chrome など）で開いて遊べます。</p>
+    <p class="link"><a href="../items/umarebi.html">全部入りの版のご案内（近日販売）</a></p>
+  </aside>
+  
+  <footer class="foot">
+    <p><strong>この診断は娯楽です。科学的な根拠はありません。</strong>結果は気楽な読みものとしてお楽しみください。</p>
+    <p>星座は一般的な日付の区切りで、干支は1月1日で切り替える方式（立春ではありません）で出しています。</p>
+    <p>入力した生年月日は、この端末の中だけで計算します。外部への送信も、保存もしません。</p>
+    <p>© ひなが堂</p>
+  </footer>
+</main>
+<script>
+window.UMAREBI_MODE = 'trial';
+/* おもちのうまれび診断 — 基本データ（お試し版・全部入りの版の両方に入る）
+ * 文章はすべて ひなが堂 のオリジナル。娯楽用。前向き・中立の言い方だけを使う。
+ */
+(function (root) {
+  'use strict';
+  root.UMAREBI_BASIC = {
+    // 星座: 一般的な区切り。cutDay は「その月の何日から次の星座になるか」(1月〜12月)
+    // 1/20 みずがめ, 2/19 うお, 3/21 おひつじ, 4/20 おうし, 5/21 ふたご, 6/22 かに,
+    // 7/23 しし, 8/23 おとめ, 9/23 てんびん, 10/24 さそり, 11/23 いて, 12/22 やぎ
+    cutDay: [20, 19, 21, 20, 21, 22, 23, 23, 23, 24, 23, 22],
+    elements: {
+      fire: { name: 'ほのお', note: 'あつく動くなかま' },
+      earth: { name: 'だいち', note: 'じっくり育てるなかま' },
+      air: { name: 'かぜ', note: '身軽に考えるなかま' },
+      water: { name: 'みず', note: 'こころを感じとるなかま' }
+    },
+    // 0 = おひつじ座 から順に 12 星座
+    signs: [
+      { name: 'おひつじ座', period: '3/21〜4/19', el: 'fire', word: 'まっすぐ', lines: [
+        '思い立ったらすぐ動ける、まっすぐな行動力の持ち主。',
+        '新しいことの最初の一歩を、楽しめるタイプです。',
+        '気持ちが顔に出やすく、そのぶん周りから話しかけられやすい人。'] },
+      { name: 'おうし座', period: '4/20〜5/20', el: 'earth', word: 'じっくり', lines: [
+        '好きなものを長く大切にできる、じっくり派。',
+        '五感が豊かで、おいしいものや心地よい手ざわりに気づける人。',
+        '自分のペースを守ることで、力を出しやすいタイプです。'] },
+      { name: 'ふたご座', period: '5/21〜6/21', el: 'air', word: 'ひらめき', lines: [
+        '好奇心が旺盛で、話題の引き出しがたくさんある人。',
+        'いくつかのことを同時に楽しめる、身軽さが持ち味です。',
+        '言葉を選ぶのが上手で、場の空気をやわらげられる人。'] },
+      { name: 'かに座', period: '6/22〜7/22', el: 'water', word: 'ぬくもり', lines: [
+        '身近な人を大事にする、あたたかい気くばりの人。',
+        '居心地のよい場所をつくるのが得意なタイプです。',
+        '思い出を大切にして、人とのつながりを育てていける人。'] },
+      { name: 'しし座', period: '7/23〜8/22', el: 'fire', word: 'はなやか', lines: [
+        'その場をぱっと明るくする、はなやかな存在感があります。',
+        '自分らしさを表現することで、いきいきするタイプ。',
+        '面倒見がよく、まわりを励ますのが上手な人です。'] },
+      { name: 'おとめ座', period: '8/23〜9/22', el: 'earth', word: 'ていねい', lines: [
+        '細かいところによく気がつく、ていねいな人。',
+        '段取りを整えるのが得意で、頼りにされることが多いタイプです。',
+        '小さな工夫で、毎日を心地よくできる人です。'] },
+      { name: 'てんびん座', period: '9/23〜10/23', el: 'air', word: 'バランス', lines: [
+        '物事をいろいろな角度から見られる、バランス感覚の持ち主。',
+        '美しいものや、心地よい空間に気づきやすいタイプです。',
+        '人と人との間を、なめらかにつなぐのが上手です。'] },
+      { name: 'さそり座', period: '10/24〜11/22', el: 'water', word: 'ふかみ', lines: [
+        '一度決めたことを、最後まで大切にやりとげる人。',
+        '物事を深く味わう力があり、好きなことにじっくり打ち込めます。',
+        '口数は多くなくても、まなざしに思いやりがあるタイプです。'] },
+      { name: 'いて座', period: '11/23〜12/21', el: 'fire', word: 'のびのび', lines: [
+        '遠くを見わたすような、のびのびとした考え方の人。',
+        '知らない世界にふれることで、元気がわいてくるタイプ。',
+        '明るい冗談で、まわりの肩の力をぬいてくれる人です。'] },
+      { name: 'やぎ座', period: '12/22〜1/19', el: 'earth', word: 'しっかり', lines: [
+        '目標に向かって一段ずつ進める、しっかり者。',
+        '責任感があり、任されたことをきちんと形にできる人です。',
+        '時間をかけて、信頼を積み重ねていけるタイプです。'] },
+      { name: 'みずがめ座', period: '1/20〜2/18', el: 'air', word: 'じゆう', lines: [
+        'ほかの人が思いつかない発想を持っている、自由な人。',
+        '仲間との横のつながりを大事にできるタイプです。',
+        '新しい道具や考え方を、気軽に試してみられる人です。'] },
+      { name: 'うお座', period: '2/19〜3/20', el: 'water', word: 'やさしさ', lines: [
+        '相手の気持ちにそっと寄りそえる、やさしい人。',
+        '想像力が豊かで、物語や音楽を楽しむのが得意です。',
+        'その場の雰囲気を感じとって、やわらかく合わせられるタイプです。'] }
+    ],
+    // 干支: 1月1日で切り替える方式（立春ではない）。0 = 子 から順に
+    eto: [
+      { kanji: '子', yomi: 'ね', animal: 'ねずみ', word: 'きびきび', lines: [
+        '気がきいて、よく動ける働き者。',
+        '身近な変化にすぐ気づける、するどい目を持っています。',
+        '先のことを考えて、準備しておくのが上手です。'] },
+      { kanji: '丑', yomi: 'うし', animal: 'うし', word: 'こつこつ', lines: [
+        'あせらず一歩ずつ進める、ねばり強さがあります。',
+        '落ち着いた雰囲気で、まわりを安心させる人。',
+        '続けることで、大きな形をつくっていけるタイプ。'] },
+      { kanji: '寅', yomi: 'とら', animal: 'とら', word: 'いきいき', lines: [
+        '思いきりのよさと、あたたかい情を持つ人。',
+        'やると決めたら、いきいきと取り組めます。',
+        '頼まれると放っておけない、面倒見のよいところがあります。'] },
+      { kanji: '卯', yomi: 'う', animal: 'うさぎ', word: 'おだやか', lines: [
+        'おだやかで、人あたりのやわらかい人。',
+        'ぴょんと身軽に、新しい場所になじめるタイプ。',
+        'さりげない気づかいで、場をなごませます。'] },
+      { kanji: '辰', yomi: 'たつ', animal: 'たつ', word: 'おおらか', lines: [
+        '大きな夢を描ける、おおらかな人。',
+        'ここぞというときに、力を出せるタイプです。',
+        'まわりを引っぱっていく明るさがあります。'] },
+      { kanji: '巳', yomi: 'み', animal: 'へび', word: 'しなやか', lines: [
+        '落ち着いて考えられる、しなやかな人。',
+        '好きなことを深く調べるのが得意です。',
+        'ゆっくり時間をかけて、自分を新しくしていけます。'] },
+      { kanji: '午', yomi: 'うま', animal: 'うま', word: 'かろやか', lines: [
+        '明るく人なつこい、かろやかな人。',
+        '動きながら考えるのが得意なタイプ。',
+        'みんなとわいわい過ごす時間で、元気になれます。'] },
+      { kanji: '未', yomi: 'ひつじ', animal: 'ひつじ', word: 'なごやか', lines: [
+        '争いごとを好まない、なごやかな人。',
+        'まわりとの調和を大事にできるタイプ。',
+        'やさしい手ざわりのものや、手仕事がよく似合います。'] },
+      { kanji: '申', yomi: 'さる', animal: 'さる', word: 'きよう', lines: [
+        '器用で、工夫するのが楽しい人。',
+        '人を笑わせるのが上手な、ムードメーカー。',
+        '覚えが早く、いろいろなことに挑戦できます。'] },
+      { kanji: '酉', yomi: 'とり', animal: 'にわとり', word: 'きちょうめん', lines: [
+        '時間や約束を大切にする、きちょうめんな人。',
+        '身だしなみや持ち物に、こだわりを持てるタイプ。',
+        '朝の時間を上手に使える人です。'] },
+      { kanji: '戌', yomi: 'いぬ', animal: 'いぬ', word: 'まごころ', lines: [
+        'まっすぐで、まごころのある人。',
+        '仲間を大切にして、信頼を守るタイプ。',
+        '正直な言葉で、まわりの気持ちを明るくします。'] },
+      { kanji: '亥', yomi: 'い', animal: 'いのしし', word: 'ひたむき', lines: [
+        '目標に向かって、ひたむきに進める人。',
+        '思いやりがあり、いざというときに頼りになります。',
+        '熱中できることがあると、ぐんと伸びるタイプです。'] }
+    ],
+    // 誕生日（日）からのことば。(日 - 1) % 10 で選ぶ
+    dayWords: [
+      'はじめる力', '寄りそう力', '楽しむ力', 'ととのえる力', 'ためす力',
+      'いたわる力', '考える力', '続ける力', '見守る力', 'つなぐ力'
+    ]
+  };
+})(typeof globalThis !== 'undefined' ? globalThis : this);
+
+/* おもちのうまれび診断 — 計算部分（画面に依存しない。node の試験からも読み込む）
+ * 乱数は使わない。生年月日の文字列から決まる番号（ハッシュ）で文を選ぶので、
+ * 同じ生年月日なら毎回同じ結果になる。外部への通信・保存は一切しない。
+ */
+(function (root) {
+  'use strict';
+
+  function B() { return root.UMAREBI_BASIC; }
+  function F() { return root.UMAREBI_FULL || null; }
+
+  // FNV-1a（32bit）。生年月日の文字列から決まった番号をつくる
+  function hash(str) {
+    var h = 0x811c9dc5;
+    for (var i = 0; i < str.length; i++) {
+      h ^= str.charCodeAt(i);
+      h = Math.imul(h, 0x01000193) >>> 0;
+    }
+    return h >>> 0;
+  }
+  function pick(arr, key) { return arr[hash(key) % arr.length]; }
+
+  function isLeap(y) { return (y % 4 === 0 && y % 100 !== 0) || y % 400 === 0; }
+  function daysInMonth(y, m) { return [31, isLeap(y) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][m - 1]; }
+
+  /* 入力の確認。today は {y,m,d}（省略時は端末の今日）
+   * 戻り値 { ok: true } か { ok: false, reason: 'missing'|'range'|'invalid'|'future' } */
+  function validate(y, m, d, today) {
+    y = Number(y); m = Number(m); d = Number(d);
+    if (!y || !m || !d) return { ok: false, reason: 'missing' };
+    if (!Number.isInteger(y) || !Number.isInteger(m) || !Number.isInteger(d)) return { ok: false, reason: 'invalid' };
+    if (y < 1900 || m < 1 || m > 12 || d < 1) return { ok: false, reason: 'range' };
+    if (d > daysInMonth(y, m)) return { ok: false, reason: 'invalid' };
+    var t = today || todayYMD();
+    var a = y * 10000 + m * 100 + d, b = t.y * 10000 + t.m * 100 + t.d;
+    if (a > b) return { ok: false, reason: 'future' };
+    return { ok: true };
+  }
+
+  function todayYMD() {
+    var n = new Date();
+    return { y: n.getFullYear(), m: n.getMonth() + 1, d: n.getDate() };
+  }
+
+  // 星座の番号（0 = おひつじ座 … 11 = うお座）
+  function signIndex(m, d) {
+    var startsHere = (m - 3 + 12) % 12; // その月の途中から始まる星座
+    return d >= B().cutDay[m - 1] ? startsHere : (startsHere + 11) % 12;
+  }
+
+  // 干支の番号（0 = 子 … 11 = 亥）。1月1日で切り替える方式
+  function etoIndex(y) { return ((y - 4) % 12 + 12) % 12; }
+
+  function keyOf(y, m, d) { return y + '-' + m + '-' + d; }
+
+  /* 1人ぶんの診断。now は {y,m}（「今月」に使う。省略時は端末の今日） */
+  function diagnose(y, m, d, now) {
+    y = Number(y); m = Number(m); d = Number(d);
+    var b = B(), f = F(), key = keyOf(y, m, d);
+    var si = signIndex(m, d), ei = etoIndex(y);
+    var sign = b.signs[si], eto = b.eto[ei];
+    var res = {
+      input: { y: y, m: m, d: d },
+      sign: { index: si, name: sign.name, period: sign.period, el: sign.el, elName: b.elements[sign.el].name, word: sign.word },
+      eto: { index: ei, kanji: eto.kanji, yomi: eto.yomi, animal: eto.animal, word: eto.word },
+      hitokoto: {
+        title: '「' + sign.word + '」と「' + eto.word + '」をあわせ持つ人',
+        signLine: pick(sign.lines, key + '|sign'),
+        etoLine: pick(eto.lines, key + '|eto'),
+        dayWord: b.dayWords[(d - 1) % b.dayWords.length]
+      }
+    };
+    if (f) {
+      var t = now || todayYMD();
+      var bm = f.birthMonths[m - 1];
+      var friendEl = f.friendElement[sign.el];
+      var same = [], friends = [];
+      b.signs.forEach(function (s, i) {
+        if (i === si) return;
+        if (s.el === sign.el) same.push(s.name);
+        else if (s.el === friendEl) friends.push(s.name);
+      });
+      res.full = {
+        birthMonth: { text: bm.text },
+        luckyColor: { name: bm.color, hex: bm.hex },
+        luckyItem: pick(f.luckyItems, key + '|item'),
+        monthHint: {
+          y: t.y, m: t.m,
+          season: f.monthHints[t.m - 1],
+          tip: pick(f.elementTips[sign.el], key + '|tip|' + t.y + '-' + t.m)
+        },
+        goodSigns: {
+          same: same, // 同じなかま（2つ）
+          friend: pick(friends, key + '|friend'), // 助けあうなかま から1つ
+          sameElName: b.elements[sign.el].name,
+          friendElName: b.elements[friendEl].name
+        }
+      };
+    }
+    return res;
+  }
+
+  var EL_ORDER = ['fire', 'earth', 'air', 'water'];
+
+  /* 2人の相性（全部入りの版だけ）。順番を入れ替えても同じ結果になる */
+  function compat(a, b) {
+    var f = F();
+    if (!f) return null;
+    var ka = keyOf(a.y, a.m, a.d), kb = keyOf(b.y, b.m, b.d);
+    var pa = diagnose(a.y, a.m, a.d), pb = diagnose(b.y, b.m, b.d);
+    var ea = pa.sign.el, eb = pb.sign.el;
+    var pair = EL_ORDER.indexOf(ea) <= EL_ORDER.indexOf(eb) ? ea + '-' + eb : eb + '-' + ea;
+    var diff = Math.abs(pa.eto.index - pb.eto.index);
+    if (diff > 6) diff = 12 - diff;
+    var both = [ka, kb].sort().join('&');
+    return {
+      a: pa, b: pb,
+      title: '「' + pa.sign.word + '」×「' + pb.sign.word + '」のふたり',
+      elementText: f.pairElement[pair],
+      etoText: f.pairEto[diff],
+      idea: pick(f.pairIdeas, both + '|idea'),
+      etoDiff: diff
+    };
+  }
+
+  root.UmarebiCore = {
+    hash: hash, isLeap: isLeap, daysInMonth: daysInMonth, validate: validate,
+    signIndex: signIndex, etoIndex: etoIndex, diagnose: diagnose, compat: compat, todayYMD: todayYMD
+  };
+})(typeof globalThis !== 'undefined' ? globalThis : this);
+
+/* おもちのうまれび診断 — 画面の動き。通信・保存はしない */
+(function () {
+  'use strict';
+  var C = window.UmarebiCore;
+  var FULL = window.UMAREBI_MODE === 'full';
+  var today = C.todayYMD();
+
+  function el(tag, cls, text) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text != null) e.textContent = text;
+    return e;
+  }
+
+  // 年・月・日のプルダウンをつくる
+  function buildYMD(box, name) {
+    function sel(label, part, from, to, unit) {
+      var lab = el('label');
+      lab.appendChild(el('span', null, label));
+      var s = el('select');
+      s.name = name + '-' + part;
+      s.id = name + '-' + part;
+      var o0 = el('option', null, '—');
+      o0.value = '';
+      s.appendChild(o0);
+      var step = from > to ? -1 : 1;
+      for (var v = from; step > 0 ? v <= to : v >= to; v += step) {
+        var o = el('option', null, v + unit);
+        o.value = String(v);
+        s.appendChild(o);
+      }
+      lab.appendChild(s);
+      box.appendChild(lab);
+      return s;
+    }
+    return {
+      y: sel('年', 'y', today.y, 1900, '年'),
+      m: sel('月', 'm', 1, 12, '月'),
+      d: sel('日', 'd', 1, 31, '日')
+    };
+  }
+
+  var MSG = {
+    missing: '年・月・日をすべて えらんでください。',
+    range: '1900年からあとの日付を えらんでください。',
+    invalid: 'その日付はカレンダーにありません。もう一度えらんでください。',
+    future: 'まだ来ていない日付です。今日までの日付を えらんでください。'
+  };
+
+  function read(s) { return { y: Number(s.y.value), m: Number(s.m.value), d: Number(s.d.value) }; }
+  function check(v) { return C.validate(v.y, v.m, v.d, today); }
+
+  function say(text) { document.getElementById('bubble-text').textContent = text; }
+
+  function card(title) {
+    var c = el('section', 'card');
+    c.appendChild(el('h2', null, title));
+    return c;
+  }
+
+  function renderSolo(r) {
+    var box = document.getElementById('result');
+    box.textContent = '';
+
+    var two = el('div', 'pair2');
+    var c1 = card('あなたの星座');
+    c1.appendChild(el('div', 'big', r.sign.name));
+    c1.appendChild(el('div', 'sub', r.sign.period + '・' + r.sign.elName + 'のなかま'));
+    var c2 = card('あなたの干支');
+    c2.appendChild(el('div', 'big', r.eto.kanji + '（' + r.eto.animal + '）'));
+    c2.appendChild(el('div', 'sub', r.input.y + '年・1月1日切り替え'));
+    two.appendChild(c1); two.appendChild(c2);
+    box.appendChild(two);
+
+    var h = card('性格のひとこと');
+    h.classList.add('hitokoto');
+    h.id = 'res-hitokoto';
+    h.appendChild(el('p', 'title', r.hitokoto.title));
+    h.appendChild(el('p', null, r.hitokoto.signLine));
+    h.appendChild(el('p', null, r.hitokoto.etoLine));
+    h.appendChild(el('p', null, 'うまれた日がくれたのは「' + r.hitokoto.dayWord + '」。'));
+    box.appendChild(h);
+
+    if (r.full) {
+      var f = r.full;
+      var mh = card('今月の過ごし方のヒント（' + f.monthHint.y + '年' + f.monthHint.m + '月）');
+      mh.id = 'res-month';
+      mh.appendChild(el('p', null, f.monthHint.season));
+      mh.appendChild(el('p', null, f.monthHint.tip));
+      box.appendChild(mh);
+
+      var lk = card('ラッキーカラーとアイテム');
+      lk.id = 'res-lucky';
+      var pc = el('p');
+      var sw = el('span', 'swatch');
+      sw.style.background = f.luckyColor.hex;
+      pc.appendChild(sw);
+      pc.appendChild(document.createTextNode('カラー：' + f.luckyColor.name));
+      lk.appendChild(pc);
+      lk.appendChild(el('p', null, 'アイテム：' + f.luckyItem));
+      lk.appendChild(el('p', 'small', r.input.m + '月生まれ：' + f.birthMonth.text));
+      box.appendChild(lk);
+
+      var gs = card('相性のよい星座');
+      gs.id = 'res-good';
+      var chips = el('div', 'chips');
+      f.goodSigns.same.concat([f.goodSigns.friend]).forEach(function (n) { chips.appendChild(el('span', 'chip', n)); });
+      gs.appendChild(chips);
+      gs.appendChild(el('p', 'small', '同じ「' + f.goodSigns.sameElName + '」のなかまと、助けあう「' + f.goodSigns.friendElName + '」のなかまから選んでいます。'));
+      box.appendChild(gs);
+    }
+
+    box.appendChild(el('p', 'small', 'この診断は娯楽です。科学的な根拠はありません。'));
+    say(r.sign.name + '・' + r.eto.animal + '年生まれさん、こんにちは。結果をどうぞ。');
+    box.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function renderPair(r) {
+    var box = document.getElementById('result');
+    box.textContent = '';
+    var c = card('ふたりの相性');
+    c.id = 'res-pair';
+    c.classList.add('hitokoto');
+    c.appendChild(el('p', 'title', r.title));
+    c.appendChild(el('p', 'sub', 'ひとりめ：' + r.a.sign.name + '・' + r.a.eto.kanji + '（' + r.a.eto.animal + '）'));
+    c.appendChild(el('p', 'sub', 'ふたりめ：' + r.b.sign.name + '・' + r.b.eto.kanji + '（' + r.b.eto.animal + '）'));
+    c.appendChild(el('p', null, r.elementText));
+    c.appendChild(el('p', null, r.etoText));
+    box.appendChild(c);
+    var i = card('ふたりにおすすめの過ごし方');
+    i.appendChild(el('div', 'big', r.idea));
+    box.appendChild(i);
+    box.appendChild(el('p', 'small', 'この診断は娯楽です。科学的な根拠はありません。どんな組み合わせにも、それぞれのよさがあります。'));
+    say('ふたりの相性を見てみました。楽しい時間のヒントにしてくださいね。');
+    box.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // ひとりで
+  var solo = buildYMD(document.querySelector('[data-ymd="solo"]'), 'solo');
+  document.getElementById('form-solo').addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var v = read(solo), ok = check(v), err = document.getElementById('err-solo');
+    if (!ok.ok) { err.textContent = MSG[ok.reason]; document.getElementById('result').textContent = ''; return; }
+    err.textContent = '';
+    renderSolo(C.diagnose(v.y, v.m, v.d, today));
+  });
+
+  if (!FULL) return;
+
+  // ふたりの相性（全部入りの版だけ）
+  var pa = buildYMD(document.querySelector('[data-ymd="a"]'), 'a');
+  var pb = buildYMD(document.querySelector('[data-ymd="b"]'), 'b');
+  document.getElementById('form-pair').addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var a = read(pa), b = read(pb), err = document.getElementById('err-pair');
+    var oa = check(a), ob = check(b);
+    if (!oa.ok) { err.textContent = 'ひとりめ：' + MSG[oa.reason]; document.getElementById('result').textContent = ''; return; }
+    if (!ob.ok) { err.textContent = 'ふたりめ：' + MSG[ob.reason]; document.getElementById('result').textContent = ''; return; }
+    err.textContent = '';
+    renderPair(C.compat(a, b));
+  });
+
+  var tabs = { solo: document.getElementById('tab-solo'), pair: document.getElementById('tab-pair') };
+  function show(which) {
+    Object.keys(tabs).forEach(function (k) {
+      tabs[k].setAttribute('aria-selected', String(k === which));
+      document.getElementById('panel-' + k).hidden = k !== which;
+    });
+    document.getElementById('result').textContent = '';
+    say(which === 'pair' ? 'ふたりの生年月日を えらんでくださいね。' : '生年月日を えらんでくださいね。');
+  }
+  tabs.solo.addEventListener('click', function () { show('solo'); });
+  tabs.pair.addEventListener('click', function () { show('pair'); });
+})();
+
+</script>
+</body>
+</html>

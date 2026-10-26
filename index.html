@@ -3,28 +3,206 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
 <title>ひなが堂</title>
-<meta name="description" content="くらしと仕事を少しラクにする「ひな形」と、ちょっと楽しいデジタルの小物の店。">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="icon" href="favicon-32.png" sizes="32x32">
-<link rel="icon" href="favicon.svg" type="image/svg+xml">
-<style>
-  :root { --ai:#24466B; --shu:#D9573A; --kinari:#F6EFE2; --ink:#3C3832; }
-  body { margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center; background:var(--kinari); color:var(--ink); font-family:system-ui,-apple-system,"Hiragino Sans","Yu Gothic UI",sans-serif; }
-  main { padding:32px 16px; text-align:center; }
-  img { width:120px; height:120px; border-radius:28px; }
-  h1 { color:var(--ai); font-size:36px; margin:16px 0 8px; }
-  p { font-size:17px; line-height:1.8; }
-  .shu { color:var(--shu); font-weight:bold; }
-</style>
+<meta name="description" content="ひなが堂は、くらしと仕事を少しラクにする「ひな形」と、ちょっと楽しいデジタルの小物をつくる小さなお店です。">
+<meta property="og:title" content="ひなが堂">
+<meta property="og:description" content="ひなが堂は、くらしと仕事を少しラクにする「ひな形」と、ちょっと楽しいデジタルの小物をつくる小さなお店です。">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://hinagado.github.io/assets/img/og.jpg">
+<meta property="og:site_name" content="ひなが堂">
+<meta property="og:locale" content="ja_JP">
+<link rel="canonical" href="https://hinagado.github.io/">
+<meta property="og:url" content="https://hinagado.github.io/">
+<meta name="theme-color" content="#24466b">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@1,500;1,700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Zen+Maru+Gothic:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="index.html"><img src="assets/logo.svg" alt=""><span><b>ひなが堂</b><small>HINAGADO — くらしと仕事のひな形屋</small></span></a>
+    <button class="menu-btn" aria-expanded="false" aria-controls="gnav">メニュー</button>
+    <nav class="gnav" id="gnav">
+      <a href="index.html" aria-current="page">ホーム</a>
+      <a href="items/index.html">商品</a>
+      <a href="articles/index.html">読みもの</a>
+      <a href="about.html">このお店</a>
+      <a href="contact.html">お問い合わせ</a>
+    </nav>
+  </div>
+</header>
+
 <main>
-  <img src="apple-touch-icon.png" alt="ひなが堂のおもち">
-  <h1>ひなが堂</h1>
-  <p class="shu">くらしと仕事を、少しラクにする「ひな形」</p>
-  <p>ただいま開店の準備中です。</p>
+  <section class="hero">
+    <img class="hero-img" src="assets/img/heroB.webp" alt="" width="1536" height="1024" fetchpriority="high">
+    <div class="wrap">
+      <div class="hero-text">
+        <p class="eyebrow">Hinagado</p>
+        <h1><span class="nowrap">毎日の「めんどう」を、</span><br><span class="nowrap">ひな形でひとつずつ。<span class="dot"></span></span></h1>
+        <p>くらしと仕事を少しラクにする表やひな形と、ちょっと楽しいデジタルの小物をつくる、小さなお店です。</p>
+        <div class="btns">
+          <a class="btn btn-main" href="#items">商品を見る <span class="arrow">→</span></a>
+          <a class="btn btn-sub" href="about.html">このお店について</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec grid-bg">
+    <div class="wrap split">
+      <div class="split-img reveal"><img src="assets/img/shop.webp" alt="木の屋台で店番のおもちがおじぎをしている絵" loading="lazy" width="1536" height="1024"></div>
+      <div class="reveal">
+        <p class="eyebrow">About</p>
+        <h2 class="sec-title">「あったら楽なのに」を、<br>かたちにするお店。</h2>
+        <p class="sec-lead">毎月の家計の整理、家事の分担、小さな事業所の事務。だれかが一度つくった「型」があれば、同じことで困る人の手間はぐっと減ります。ひなが堂は、そんな型をつくって届けます。</p>
+        <ul class="points">
+          <li><span class="num">1</span><div><b>買ってすぐ使える</b><span>説明書つき。むずかしい設定はいりません。</span></div></li>
+          <li><span class="num">2</span><div><b>小さく、ていねいに</b><span>たくさん並べるより、ひとつずつ確かめて出します。</span></div></li>
+          <li><span class="num">3</span><div><b>ちょっと楽しく</b><span>スタンプやミニゲームで、すき間時間にひと息。</span></div></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec items" id="items">
+    <div class="wrap">
+      <div class="center reveal">
+        <p class="eyebrow">Items</p>
+        <h2 class="sec-title">ひなが堂の商品</h2>
+        <p class="sec-lead">いまは販売の準備中で、近日販売です。商品の説明は、商品一覧からご覧いただけます。</p>
+      </div>
+      <div class="cards">
+      <article class="card reveal">
+        <img src="assets/img/hinagata.webp" alt="" loading="lazy" width="1536" height="1024">
+        <div class="card-body">
+          <span class="card-en">Templates</span>
+          <h3>ひな形</h3>
+          <p>家計・家事・小さな事業所の事務に使える表。買ってすぐ、入力するだけで使えます。</p>
+          <div class="card-foot"><span>売り場：BOOTH</span><span class="badge">近日販売</span></div>
+        </div>
+      </article>
+      <article class="card reveal">
+        <img src="assets/img/stamp.webp" alt="" loading="lazy" width="1536" height="1024">
+        <div class="card-body">
+          <span class="card-en">Stickers</span>
+          <h3>LINE スタンプ</h3>
+          <p>店番のおもちが、毎日のあいさつやお礼を代わりに伝えます。</p>
+          <div class="card-foot"><span>売り場：LINE STORE</span><span class="badge">近日販売</span></div>
+        </div>
+      </article>
+      <article class="card reveal">
+        <img src="assets/img/game.webp" alt="" loading="lazy" width="1536" height="1024">
+        <div class="card-body">
+          <span class="card-en">Mini Games</span>
+          <h3>ミニゲーム</h3>
+          <p>すき間時間にさっと遊べる、ブラウザで動く短いゲーム。</p>
+          <div class="card-foot"><span>売り場：itch.io</span><a class="badge play" href="play/omochi/">いますぐ遊ぶ（無料） →</a></div>
+        </div>
+      </article>
+      <article class="card reveal">
+        <img src="assets/img/umarebi.webp" alt="" loading="lazy" width="1536" height="1024">
+        <div class="card-body">
+          <span class="card-en">Fortune (for fun)</span>
+          <h3>うまれび診断</h3>
+          <p>生年月日をえらぶだけ。星座と干支から、おもちがやさしいひとことを届けます。娯楽です。</p>
+          <div class="card-foot"><span>売り場：BOOTH</span><a class="badge play" href="shindan/">お試し版で遊ぶ（無料） →</a></div>
+        </div>
+      </article>
+      <article class="card reveal">
+        <img src="assets/img/warikan.webp" alt="" loading="lazy" width="1536" height="1024">
+        <div class="card-body">
+          <span class="card-en">Bill Splitter</span>
+          <h3>割り勘ナビ</h3>
+          <p>合計と人数を入れるだけ。端数の持ち方も選べて、LINE に貼れる文章でコピーできます。</p>
+          <div class="card-foot"><span>売り場：BOOTH</span><a class="badge play" href="warikan/">お試し版を使う（無料） →</a></div>
+        </div>
+      </article>
+      <article class="card reveal">
+        <img src="assets/img/yomimono.webp" alt="" loading="lazy" width="1536" height="1024">
+        <div class="card-body">
+          <span class="card-en">Reading</span>
+          <h3>読みもの</h3>
+          <p>IT が苦手な人が、AI に手伝ってもらいながら物をつくった記録。</p>
+          <div class="card-foot"><span>売り場：note</span><span class="badge">近日公開</span></div>
+        </div>
+      </article>
+      <article class="card reveal">
+        <img src="assets/img/heroA.webp" alt="" loading="lazy" width="1536" height="1024">
+        <div class="card-body">
+          <span class="card-en">Articles</span>
+          <h3>くらしの読みもの</h3>
+          <p>お返しの記録、サブスクの見直し、引っ越しの期限、防災の備蓄など。毎日の「めんどう」を軽くする考え方をまとめました。</p>
+          <div class="card-foot"><span>売り場：このサイト</span><a class="badge play" href="articles/index.html">記事を読む（無料） →</a></div>
+        </div>
+      </article>
+      </div>
+      <p class="center items-more reveal"><a class="btn btn-main" href="items/index.html">商品一覧へ <span class="arrow">→</span></a></p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="mascot reveal">
+        <img src="assets/img/mascot.webp" alt="鉛筆を抱えた白いおもちの店番" loading="lazy" width="1254" height="1254">
+        <div>
+          <p class="eyebrow">Our Shopkeeper</p>
+          <h2 class="sec-title">店番の「おもち」です</h2>
+          <p class="sec-lead">ひなが堂の店番。まるくてやわらかく、藍色の前掛けがお気に入り。表のマス目を見ると、ついチェックを入れたくなります。</p>
+          <img class="faces" src="assets/img/mascot_faces.webp" alt="おもちの3つの表情" loading="lazy" width="1200" height="673">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec grid-bg">
+    <div class="wrap">
+      <div class="center reveal">
+        <p class="eyebrow">How We Make</p>
+        <h2 class="sec-title">つくり方</h2>
+        <p class="sec-lead">ひなが堂の商品は、AI（文章・プログラム・絵をつくる道具）の力を借りてつくっています。最後は人の目で確かめてからお届けします。</p>
+      </div>
+      <div class="steps">
+        <div class="step reveal"><h3>困りごとを集める</h3><p>毎日の「めんどう」や「あったら楽」を書き出します。</p></div>
+        <div class="step reveal"><h3>AI と形にする</h3><p>表やゲーム、絵の下書きを AI と一緒につくります。</p></div>
+        <div class="step reveal"><h3>人の目で確かめる</h3><p>計算・動き・言葉づかいを、ひとつずつ確かめます。</p></div>
+        <div class="step reveal"><h3>小さく届ける</h3><p>売り場に並べ、声を聞いて少しずつ直します。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="cta reveal">
+        <div>
+          <h2>はじめての商品を、近日販売します。</h2>
+          <p>販売開始までお待ちください。商品の説明は、先にご覧いただけます。</p>
+        </div>
+        <a class="btn btn-main" href="items/index.html">商品一覧へ <span class="arrow">→</span></a>
+      </div>
+    </div>
+  </section>
 </main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div>
+      <a class="logo" href="index.html"><img src="assets/logo.svg" alt=""><span><b>ひなが堂</b><small>HINAGADO</small></span></a>
+      <p>くらしと仕事を少しラクにする「ひな形」と、<br>ちょっと楽しいデジタルの小物をつくる小さなお店です。</p>
+    </div>
+    <nav class="fnav">
+      <a href="index.html">ホーム</a>
+      <a href="items/index.html">商品</a>
+      <a href="articles/index.html">読みもの</a>
+      <a href="about.html">このお店について</a>
+      <a href="contact.html">お問い合わせ</a>
+      <a href="privacy.html">プライバシーポリシー</a>
+    </nav>
+    <div class="copy">© <span data-year>2026</span> HINAGADO</div>
+  </div>
+</footer>
+<script src="assets/site.js"></script>
 </body>
 </html>
