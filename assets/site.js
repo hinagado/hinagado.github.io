@@ -50,3 +50,14 @@ document.querySelectorAll('[data-year]').forEach((el) => { el.textContent = new 
     none.hidden = !(words.length && n === 0);
   });
 })();
+
+// 商品ページの動画: 画面に入ったら音なしで再生、出たら止める。「動きを減らす」設定の人には自動で再生しない
+(function () {
+  const vids = document.querySelectorAll('video[data-autoplay]');
+  if (!vids.length || !('IntersectionObserver' in window)) return;
+  if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const io = new IntersectionObserver((es) => es.forEach((e) => {
+    if (e.isIntersecting) { const p = e.target.play(); if (p && p.catch) p.catch(() => {}); } else e.target.pause();
+  }), { threshold: 0.5 });
+  vids.forEach((v) => io.observe(v));
+})();

@@ -252,3 +252,8 @@ h1,h2,h3{font-family:var(--round);font-weight:700;letter-spacing:.06em;line-heig
 .item-search-count{margin:6px 0 0;font-size:15px;font-weight:700;color:var(--shu);min-height:1.2em}
 .item-search-none{text-align:center;font-weight:700;margin:24px 0}
 .item-card[hidden],.item-cat[hidden],.cat-chips[hidden]{display:none}
+
+/* 商品ページの「使っているところ」動画 */
+.item-demo{max-width:560px;margin:0 auto 40px;text-align:center}
+.item-demo h2{font-size:1.25rem;margin:0 0 12px}
+.demo-video{display:block;width:100%;height:auto;aspect-ratio:1/1;border-radius:var(--radius);box-shadow:var(--shadow);background:var(--paper)}
