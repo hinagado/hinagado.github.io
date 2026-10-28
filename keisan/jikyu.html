@@ -1,0 +1,565 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; img-src data:; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<meta name="color-scheme" content="light">
+<title>時給から月収・年収の計算｜ひなが堂</title>
+<meta name="description" content="時給と働く時間・日数から、日給・週・月・年の収入（額面）を計算。目標の月収に必要な時給も出せます。">
+<meta property="og:title" content="時給から月収・年収の計算｜ひなが堂">
+<meta property="og:description" content="時給と働く時間・日数から、日給・週・月・年の収入（額面）を計算。目標の月収に必要な時給も出せます。">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://hinagado.github.io/assets/img/og.jpg">
+<meta property="og:site_name" content="ひなが堂">
+<meta property="og:locale" content="ja_JP">
+<link rel="canonical" href="https://hinagado.github.io/keisan/jikyu.html">
+<meta property="og:url" content="https://hinagado.github.io/keisan/jikyu.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://hinagado.github.io/"}, {"@type": "ListItem", "position": 2, "name": "計算の道具", "item": "https://hinagado.github.io/keisan/"}, {"@type": "ListItem", "position": 3, "name": "時給から月収・年収の計算"}]}</script>
+<meta name="theme-color" content="#24466b">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120' width='42' height='42' aria-hidden='true' focusable='false'%3E%3Crect x='12' y='12' width='96' height='96' rx='30' fill='%23fffbf4' stroke='%2324466b' stroke-width='9'/%3E%3Ccircle cx='45' cy='62' r='5.2' fill='%2324466b'/%3E%3Ccircle cx='75' cy='62' r='5.2' fill='%2324466b'/%3E%3Cpath d='M53.5 71 Q60 77 66.5 71' fill='none' stroke='%2324466b' stroke-width='4.2' stroke-linecap='round'/%3E%3Cellipse cx='33.5' cy='73' rx='6.5' ry='4.2' fill='%23d9573a' opacity='.85'/%3E%3Cellipse cx='86.5' cy='73' rx='6.5' ry='4.2' fill='%23d9573a' opacity='.85'/%3E%3C/svg%3E" type="image/svg+xml">
+<style>
+:root{--ai:#24466b;--ai-deep:#172f4b;--ai-soft:#e4ebf2;--kinari:#f6efe2;--paper:#fffbf4;--shu:#d9573a;--ink:#2b2a28;--muted:#6e675c;--line:#e6dccb;--pale:#fff8d6;--ok:#2f7a4f;--warn:#b5462a;
+  --jp:"BIZ UDPGothic","BIZ UDGothic","Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic UI",Meiryo,sans-serif;
+  --round:"BIZ UDPGothic","Hiragino Maru Gothic ProN","Hiragino Sans","Yu Gothic UI",Meiryo,sans-serif;
+  --en:Georgia,"Times New Roman",serif}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--kinari);color:var(--ink);font-family:var(--jp);font-size:18px;line-height:1.85;letter-spacing:.02em}
+a{color:var(--ai)}
+h1,h2,h3{font-family:var(--round);font-weight:700;line-height:1.5;color:var(--ai-deep);letter-spacing:.04em}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+@media (max-width:600px){.wrap{padding:0 16px}}
+.grid-bg{background-image:linear-gradient(rgba(36,70,107,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(36,70,107,.045) 1px,transparent 1px);background-size:28px 28px}
+.skip{position:absolute;left:-999px;top:0}.skip:focus{left:8px;top:8px;background:#fff;padding:8px 12px;z-index:50}
+/* ヘッダー（HP と同じ形） */
+.site-header{position:sticky;top:0;z-index:20;background:rgba(255,251,244,.95);border-bottom:1px solid var(--line)}
+.site-header .wrap{display:flex;align-items:center;justify-content:space-between;height:72px;position:relative}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none;min-width:0}
+.logo svg{flex:none}
+.logo b{font-family:var(--round);font-size:23px;color:var(--ai);letter-spacing:.12em;line-height:1.2}
+.logo small{display:block;font-size:11px;color:var(--muted);letter-spacing:.08em;line-height:1.2}
+.gnav{display:flex;gap:6px}
+.gnav a{text-decoration:none;color:var(--ink);font-size:15px;font-weight:500;padding:8px 14px;border-radius:999px}
+.gnav a:hover,.gnav a[aria-current="page"]{background:var(--ai);color:var(--kinari)}
+.menu-btn{display:none;font:inherit;background:none;border:1.5px solid var(--ai);color:var(--ai);border-radius:999px;padding:6px 16px;font-weight:700;cursor:pointer;white-space:nowrap;font-size:16px}
+@media (max-width:760px){.menu-btn{display:block}.gnav{position:absolute;top:72px;left:0;right:0;flex-direction:column;background:var(--paper);border-bottom:1px solid var(--line);padding:10px 16px 18px;display:none}.gnav.open{display:flex}.gnav a{padding:14px 16px;font-size:17px}}
+@media (max-width:440px){.logo small{display:none}.logo b{font-size:21px}}
+/* 見出し */
+.crumbs{display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center;font-size:14px;color:var(--muted);padding-top:24px}
+.crumbs b{font-weight:500}
+.page-head{padding:20px 0 24px}
+.page-head h1{font-size:clamp(26px,4.4vw,38px);margin:0;overflow-wrap:anywhere}
+.eyebrow{font-family:var(--en);font-style:italic;color:var(--shu);font-size:15px;letter-spacing:.18em;display:flex;align-items:center;gap:10px;margin:0 0 6px}
+.eyebrow::before{content:"";width:26px;height:1.5px;background:var(--shu)}
+.lead{color:var(--muted);max-width:720px;margin:12px 0 0}
+/* 道具のカード */
+.tools{display:grid;gap:22px;max-width:860px}
+.tool{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:24px 26px;min-width:0}
+.tool h2{font-size:22px;margin:0 0 6px;padding-left:12px;border-left:5px solid var(--shu)}
+.tool .how{color:var(--muted);font-size:15.5px;margin:0 0 14px}
+@media (max-width:600px){.tool{padding:20px 16px;border-radius:18px}}
+.f{display:block;font-weight:700;color:var(--ai-deep);margin:12px 0 4px;font-size:17px}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end}
+.row>.cell{flex:1 1 230px;min-width:0}
+input.t,select.t{width:100%;font:inherit;font-size:20px;padding:10px 12px;border:2px solid #c9bda6;border-radius:12px;background:var(--pale);color:var(--ink);min-height:52px}
+select.t{background:var(--pale)}
+input.t:focus,select.t:focus{outline:3px solid #9cc0e6;border-color:var(--ai)}
+.chk{display:flex;gap:10px;align-items:flex-start;margin:12px 0 0;font-size:16.5px;cursor:pointer}
+.chk input{width:24px;height:24px;margin:3px 0 0;flex:none;accent-color:var(--ai)}
+.seg{display:flex;gap:8px;flex-wrap:wrap}
+.seg label{flex:1 1 0;min-width:0}
+.seg input{position:absolute;opacity:0;pointer-events:none}
+.seg span{display:block;text-align:center;border:2px solid var(--ai);border-radius:12px;padding:10px 6px;font-weight:700;color:var(--ai);background:#fff;cursor:pointer;line-height:1.3;min-height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.seg span small{font-size:13px;font-weight:500}
+.seg input:checked+span{background:var(--ai);color:#fff}
+.seg input:focus-visible+span{outline:3px solid #9cc0e6}
+.btn{appearance:none;font:inherit;font-weight:700;border-radius:999px;border:2px solid var(--ai);background:#fff;color:var(--ai);padding:8px 16px;cursor:pointer;min-height:44px;font-size:16px}
+.btn:hover{background:var(--ai-soft)}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 0}
+.result{background:#fff;border:3px solid var(--ai);border-radius:18px;padding:14px 18px;margin:16px 0 0;min-width:0}
+.result .big{font-family:var(--round);font-size:clamp(24px,6vw,32px);font-weight:700;color:var(--ai-deep);line-height:1.4;margin:0;overflow-wrap:anywhere}
+.result .big small{font-size:.6em;color:var(--muted);font-weight:700}
+.result .sub{margin:6px 0 0;color:var(--ink);font-size:16.5px;overflow-wrap:anywhere}
+.result .err{color:var(--warn);font-weight:700;margin:0}
+.result .warn{color:var(--warn);font-weight:700;margin:8px 0 0;font-size:16px}
+.facts{list-style:none;margin:6px 0 0;padding:0}
+.facts li{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 12px;border-bottom:1px dashed var(--line);padding:8px 0}
+.facts li:last-child{border-bottom:0}
+.facts li span{color:var(--muted);font-size:16px}
+.facts li b{font-size:19px;color:var(--ai-deep);overflow-wrap:anywhere;text-align:right}
+.note{font-size:15px;color:var(--muted);margin:10px 0 0}
+.privacy{font-size:14.5px;color:var(--ok);font-weight:700;margin:10px 0 0}
+/* 表 */
+.jump{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 10px}
+.table-wrap{overflow:auto;max-height:70vh;border:1px solid var(--line);border-radius:14px;background:#fff;-webkit-overflow-scrolling:touch}
+table.hy{border-collapse:collapse;width:100%;font-size:16px;line-height:1.45}
+.hy th,.hy td{border-bottom:1px solid #eee5d6;padding:8px 8px;text-align:left;vertical-align:top}
+.hy thead th{position:sticky;top:0;background:var(--ai);color:var(--kinari);font-weight:700;z-index:1;font-size:14.5px}
+.hy td.num{text-align:right;white-space:nowrap}
+.hy tr.now td{background:#fff1b8;font-weight:700}
+.hy tr.kaigen td{background:#eef3f8}
+.hy tr.now.kaigen td{background:#fff1b8}
+.hy .two{display:block;font-size:14px;color:var(--muted);white-space:nowrap}
+.tag{display:inline-block;font-size:13px;font-weight:700;border-radius:999px;padding:0 8px;margin:1px 2px 1px 0;border:1.5px solid var(--shu);color:var(--shu);white-space:nowrap}
+.tag.hon{background:var(--shu);color:#fff}
+@media (max-width:420px){table.hy{font-size:14.5px}.hy th,.hy td{padding:7px 5px}}
+/* 説明の枠（HP の .prose に合わせる） */
+.prose{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:30px 30px;margin:28px 0 0;max-width:860px;overflow-wrap:anywhere}
+.prose h2{font-size:21px;margin:30px 0 8px;padding-left:12px;border-left:5px solid var(--shu)}
+.prose h2:first-child{margin-top:0}
+.prose p,.prose li{color:#47433c}
+.prose ul{padding-left:1.3em}
+.prose .table-wrap{max-height:none;margin:10px 0}
+@media (max-width:600px){.prose{padding:22px 16px;border-radius:18px}}
+.src-list{font-size:14.5px;line-height:1.75;padding-left:1.2em}
+.src-list li{margin:8px 0}
+.rel-cards{display:grid;gap:14px;margin-top:14px}
+.rel-card{background:var(--kinari);border:1px solid var(--line);border-radius:18px;padding:16px 18px}
+.rel-card h3{margin:0;font-size:18px}
+.rel-card h3 a{text-decoration:none}
+.rel-card h3 a:hover{text-decoration:underline}
+.prose .rel-card p{margin:2px 0 0;font-size:15.5px;color:var(--muted)}
+.more{list-style:none;padding:0;display:grid;gap:8px}
+.more a{font-weight:700}
+details.hol{margin:14px 0 0}
+details.hol summary{cursor:pointer;font-weight:700;color:var(--ai);min-height:44px;display:flex;align-items:center}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1120px}
+@media (max-width:900px){.cards{grid-template-columns:1fr}}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:22px 24px;display:flex;flex-direction:column;gap:6px}
+.card .en{font-family:var(--en);font-style:italic;color:var(--shu);font-size:14px;letter-spacing:.14em}
+.card h2{margin:0;font-size:21px}
+.card h2 a{text-decoration:none;color:inherit}
+.card h2 a:hover{text-decoration:underline}
+.card p{margin:0;color:var(--muted);font-size:15.5px;flex:1}
+.card .go{margin-top:10px;font-weight:700}
+main{padding-bottom:80px}
+/* フッター（HP と同じ形） */
+.site-footer{background:var(--ai-deep);color:#d9e0e8;padding:56px 0 28px}
+.site-footer .wrap{display:grid;grid-template-columns:1.2fr 1fr;gap:36px}
+.site-footer .logo b{color:var(--kinari)}
+.site-footer .logo small{color:#aebccb}
+.site-footer p{font-size:14px;line-height:1.9;margin:16px 0 0;color:#c4cfdb}
+.fnav{display:grid;grid-template-columns:repeat(2,1fr);gap:4px 24px;align-content:start}
+.fnav a{color:#e9eef3;text-decoration:none;font-size:15px;padding:6px 0}
+.fnav a:hover{text-decoration:underline}
+.copy{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.12);padding-top:22px;font-size:13px;color:#9fb0c2;font-family:var(--en)}
+@media (max-width:700px){.site-footer .wrap{grid-template-columns:1fr}}
+@media print{.site-header,.site-footer,.jump,.btns{display:none}.table-wrap{max-height:none;overflow:visible}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">本文へ</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="../index.html"><svg viewBox="0 0 120 120" width="42" height="42" aria-hidden="true" focusable="false"><rect x="12" y="12" width="96" height="96" rx="30" fill="#fffbf4" stroke="#24466b" stroke-width="9"/><circle cx="45" cy="62" r="5.2" fill="#24466b"/><circle cx="75" cy="62" r="5.2" fill="#24466b"/><path d="M53.5 71 Q60 77 66.5 71" fill="none" stroke="#24466b" stroke-width="4.2" stroke-linecap="round"/><ellipse cx="33.5" cy="73" rx="6.5" ry="4.2" fill="#d9573a" opacity=".85"/><ellipse cx="86.5" cy="73" rx="6.5" ry="4.2" fill="#d9573a" opacity=".85"/></svg><span><b>ひなが堂</b><small>HINAGADO — くらしと仕事のひな形屋</small></span></a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="gnav">メニュー</button>
+    <nav class="gnav" id="gnav" aria-label="サイトのメニュー">
+      <a href="../index.html">ホーム</a>
+      <a href="../items/index.html">商品</a>
+      <a href="../articles/index.html">読みもの</a>
+      <a href="../about.html">このお店</a>
+      <a href="../contact.html">お問い合わせ</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="grid-bg">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="現在地"><a href="../index.html">ホーム</a><span>›</span><a href="index.html">計算の道具</a><span>›</span><b>時給から月収・年収の計算</b></nav>
+    <div class="page-head"><p class="eyebrow">Wage</p><h1>時給から月収・年収の計算</h1>
+      <p class="lead">時給と、1日に働く時間、働く日数から、日給・週・月・年の収入のめやすを出します。税金や社会保険料を引く前の金額です。</p></div>
+    <div class="tools">
+      <section class="tool" aria-labelledby="h-jk">
+        <h2 id="h-jk">時給から日給・月収・年収を出す</h2>
+        <p class="how">時給と、1日に働く時間（休憩をのぞく）、働く日数を入れます。税金や社会保険料を引く前の金額（額面）です。</p>
+        <label class="f" for="jk-wage">時給（円）</label>
+        <input class="t" type="text" id="jk-wage" inputmode="numeric" autocomplete="off" value="1100" placeholder="例：1100">
+        <div class="row">
+          <div class="cell"><label class="f" for="jk-h">1日に働く時間（時間）</label><input class="t" type="text" id="jk-h" inputmode="numeric" autocomplete="off" value="5"></div>
+          <div class="cell"><label class="f" for="jk-m">と（分）</label>
+            <select class="t" id="jk-m"><option value="0" selected>0分</option><option value="10">10分</option><option value="15">15分</option><option value="20">20分</option><option value="30">30分</option><option value="40">40分</option><option value="45">45分</option><option value="50">50分</option></select></div>
+        </div>
+        <p class="f" id="jk-per-label">働く日数の入れ方</p>
+        <div class="seg" role="radiogroup" aria-labelledby="jk-per-label">
+          <label><input type="radio" name="jk-per" value="week" checked><span>1週間に○日</span></label>
+          <label><input type="radio" name="jk-per" value="month"><span>1か月に○日</span></label>
+        </div>
+        <label class="f" for="jk-days" id="jk-days-label">1週間に働く日数</label>
+        <input class="t" type="text" id="jk-days" inputmode="decimal" autocomplete="off" value="4">
+        <div class="result" id="jk-out" aria-live="polite"></div>
+      </section>
+
+      <section class="tool" aria-labelledby="h-jk2">
+        <h2 id="h-jk2">目標の月収には、時給いくら？</h2>
+        <p class="how">上の「働く時間」と「日数」のまま、1か月にほしい金額（額面）から、必要な時給を出します。</p>
+        <label class="f" for="jk-target">ほしい月収（円）</label>
+        <input class="t" type="text" id="jk-target" inputmode="numeric" autocomplete="off" value="100000" placeholder="例：100000">
+        <div class="result" id="jk-need-out" aria-live="polite"></div>
+      </section>
+
+    </div>
+    <div class="prose">
+      <h2>計算のきまり（このページの場合）</h2>
+      <ul>
+        <li><b>日給</b> ＝ 時給 × 1日に働く時間（休憩をのぞく）。</li>
+        <li><b>週で入れたとき</b>：週 ＝ 日給 × 週の日数、年 ＝ 週 × 52週、月 ＝ 年 ÷ 12（月にならした目安）。</li>
+        <li><b>月で入れたとき</b>：月 ＝ 日給 × 月の日数、年 ＝ 月 × 12。</li>
+        <li>途中は丸めずに計算し、それぞれの金額を見せるときに円未満を切り捨てます（見えている月の金額 × 12 と年の金額が、数円ちがうことがあります）。</li>
+        <li>例：時給 1,100円・1日5時間・週4日 → 日給 5,500円、週 22,000円、月 約95,333円、年 1,144,000円。</li>
+      </ul>
+      <h2>この金額に入っていないもの</h2>
+      <p>ここで出るのは、税金や社会保険料を引く前の金額（額面）です。手取りはこれより少なくなります。残業代・深夜や休日の割増し・交通費・ボーナスも入っていません。</p>
+      <p>扶養のままでいられるか、社会保険に入るかどうかの判断には使えません。決まりがこまかく、人によってちがうので、勤め先や役所、年金事務所などでご確認ください。</p>
+
+      <h2>あわせて使える ひなが堂の表</h2>
+      <p>毎日の出勤・退勤の時刻を書くと、今月の働いた時間と残業がわかる、ひなが堂の表です。</p>
+      <div class="rel-cards">
+        <div class="rel-card">
+          <h3><a href="../items/kinmu.html">自分の勤務時間・残業 記録表（Excel）</a></h3>
+          <p>毎日の時刻を書くだけ。今月の残業と深夜がすぐ分かる</p>
+        </div>
+      </div>
+      <h2>このページについて</h2>
+      <p>このページは、かけ算・わり算だけの計算です。税金・社会保険料・扶養の決まりは使っていません（手取りは出しません）。</p>
+      <p class="note">計算はこのページの中だけで行います。入力した金額や時間は保存も送信もしません。AI の力を借りてつくり、人の目で確かめています。まちがいに気づいたら、<a href="../contact.html">お問い合わせ</a>からお知らせください。</p>
+      <h2>ほかの計算の道具</h2>
+      <ul class="more">
+        <li><a href="wareki.html">和暦と西暦の早見・変換 →</a></li>
+        <li><a href="nenrei.html">年齢の早見表と厄年の目安 →</a></li>
+        <li><a href="nissu.html">日数の計算（○日後・営業日） →</a></li>
+        <li><a href="shohizei.html">消費税の計算（税込・税抜） →</a></li>
+        <li><a href="warikan.html">割り勘の計算（端数の分け方） →</a></li>
+        <li><a href="hiwari.html">日割り計算（家賃・月額） →</a></li>
+        <li><a href="percent.html">パーセントの計算（割引・増減） →</a></li>
+        <li><a href="tani.html">単位の換算（インチ・ポンド・℉） →</a></li>
+        <li><a href="index.html">計算の道具の一覧へ →</a></li>
+      </ul>
+    </div>
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div>
+      <a class="logo" href="../index.html"><svg viewBox="0 0 120 120" width="42" height="42" aria-hidden="true" focusable="false"><rect x="12" y="12" width="96" height="96" rx="30" fill="#fffbf4" stroke="#24466b" stroke-width="9"/><circle cx="45" cy="62" r="5.2" fill="#24466b"/><circle cx="75" cy="62" r="5.2" fill="#24466b"/><path d="M53.5 71 Q60 77 66.5 71" fill="none" stroke="#24466b" stroke-width="4.2" stroke-linecap="round"/><ellipse cx="33.5" cy="73" rx="6.5" ry="4.2" fill="#d9573a" opacity=".85"/><ellipse cx="86.5" cy="73" rx="6.5" ry="4.2" fill="#d9573a" opacity=".85"/></svg><span><b>ひなが堂</b><small>HINAGADO</small></span></a>
+      <p>くらしと仕事を少しラクにする「ひな形」と、<br>ちょっと楽しいデジタルの小物をつくる小さなお店です。</p>
+    </div>
+    <nav class="fnav" aria-label="サイトの案内">
+      <a href="../index.html">ホーム</a>
+      <a href="../items/index.html">商品</a>
+      <a href="../articles/index.html">読みもの</a>
+      <a href="index.html">計算の道具</a>
+      <a href="../about.html">このお店について</a>
+      <a href="../contact.html">お問い合わせ</a>
+      <a href="../privacy.html">プライバシーポリシー</a>
+    </nav>
+    <div class="copy">© <span data-year>2026</span> HINAGADO</div>
+  </div>
+</footer>
+<script>
+(function(){var b=document.querySelector('.menu-btn'),n=document.querySelector('.gnav');
+if(b&&n){b.addEventListener('click',function(){var o=n.classList.toggle('open');b.setAttribute('aria-expanded',o);b.textContent=o?'閉じる':'メニュー';});}
+document.querySelectorAll('[data-year]').forEach(function(e){e.textContent=new Date().getFullYear();});})();
+</script>
+<script>
+// ひなが堂 計算の道具 — お金・割合・単位の計算の部品（画面のない純粋な関数）。2026-10-28 追加。
+// ページには build.py がこのファイルをそのまま埋め込む。node の試験（tests/test_calc2.js）も同じファイルを読む。
+// 小数の誤差（0.1+0.2 が 0.30000000000000004 になる など）を出さないよう、数はすべて BigInt の分数（p/q）で計算し、
+// 最後に1回だけ丸める。
+(function (root) {
+  'use strict';
+
+  // ------------------------------------------------------------ 数の読み取りと分数
+  const B = BigInt;
+  function abs(x) { return x < 0n ? -x : x; }
+  function gcd(a, b) { a = abs(a); b = abs(b); while (b) { const t = a % b; a = b; b = t; } return a || 1n; }
+  function R(p, q) { // 分数（q>0、約分）
+    p = B(p); q = q === undefined ? 1n : B(q);
+    if (q === 0n) throw new Error('0で割った');
+    if (q < 0n) { p = -p; q = -q; }
+    const g = gcd(p, q);
+    return { p: p / g, q: q / g };
+  }
+  const add = (a, b) => R(a.p * b.q + b.p * a.q, a.q * b.q);
+  const sub = (a, b) => R(a.p * b.q - b.p * a.q, a.q * b.q);
+  const mul = (a, b) => R(a.p * b.p, a.q * b.q);
+  const div = (a, b) => R(a.p * b.q, a.q * b.p);
+  const cmp = (a, b) => { const d = a.p * b.q - b.p * a.q; return d < 0n ? -1 : d > 0n ? 1 : 0; };
+  const isZero = (a) => a.p === 0n;
+
+  // 入力の文字 → 分数。全角の数字、3けたごとのカンマ（1,234,567）、前後の空白、終わりの「円」「%」をゆるして読む。
+  // 「1,2,3」「1 2」「1円2」のような、打ちまちがいかもしれない形は読まない（猪八戒の点検 2026-10-28）。
+  // opt: { dec: 小数の桁の上限（0なら整数だけ）, neg: マイナスをゆるす, min, max: 分数か数 }
+  function parseNum(s, opt) {
+    opt = opt || {};
+    let t = String(s == null ? '' : s).normalize('NFKC').trim().replace(/[−‐]/g, '-');
+    t = t.replace(/\s*[円%]$/, '').trim();
+    if (t === '') return { ok: false, empty: true, msg: '数を入れてください。' };
+    if (t.indexOf(',') >= 0) {
+      if (!/^-?\d{1,3}(,\d{3})+(\.\d*)?$/.test(t)) return { ok: false, msg: 'カンマは3けたごとに（例：1,234,567）入れてください。' };
+      t = t.replace(/,/g, '');
+    }
+    const m = /^(-?)(\d*)(?:\.(\d*))?$/.exec(t);
+    if (!m || (m[2] === '' && (m[3] === undefined || m[3] === ''))) return { ok: false, msg: '数字で入れてください。' };
+    const dec = m[3] || '';
+    const maxDec = opt.dec === undefined ? 6 : opt.dec;
+    if (dec.length > maxDec) return { ok: false, msg: maxDec === 0 ? '整数（小数点なし）で入れてください。' : '小数は' + maxDec + 'けたまでにしてください。' };
+    if (m[1] && !opt.neg) return { ok: false, msg: 'マイナスの数は入れられません。' };
+    const v = R(B((m[1] || '') + (m[2] || '0') + dec), 10n ** B(dec.length));
+    const lim = (x) => (typeof x === 'object' ? x : parseNum(String(x), { dec: 20, neg: true }).v);
+    if (opt.min !== undefined && cmp(v, lim(opt.min)) < 0) return { ok: false, msg: fmtRat(lim(opt.min), 6) + ' 以上で入れてください。' };
+    if (opt.max !== undefined && cmp(v, lim(opt.max)) > 0) return { ok: false, msg: fmtRat(lim(opt.max), 6) + ' 以下で入れてください。' };
+    return { ok: true, v: v };
+  }
+
+  // 分数 → 整数（mode: floor 切り捨て / ceil 切り上げ / half 四捨五入。切り捨て・切り上げは数直線の下・上へ。
+  // 四捨五入は 0 から遠い方へ（-2.5 → -3））
+  function roundRat(a, mode) {
+    const p = a.p, q = a.q;
+    let f = p / q; if (p % q !== 0n && p < 0n) f -= 1n; // 下へ
+    if (mode === 'floor') return f;
+    if (mode === 'ceil') return p % q === 0n ? f : f + 1n;
+    if (mode === 'half') {
+      const r = abs(p) % q * 2n; // 0 から見た端数×2
+      const t = abs(p) / q + (r >= q ? 1n : 0n);
+      return p < 0n ? -t : t;
+    }
+    throw new Error('丸め方 ' + mode);
+  }
+  // 単位（10円・100円など）で丸める
+  function roundToUnit(a, unit, mode) { const u = B(unit); return roundRat(div(a, R(u)), mode) * u; }
+
+  function commas(s) { return s.replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
+  function fmtInt(x) { x = B(x); return (x < 0n ? '-' : '') + commas(abs(x).toString()); }
+  // 分数 → 小数の文字（digits 桁で四捨五入、後ろの0は消す。keep=true なら消さない）
+  function fmtRat(a, digits, keep) {
+    const s = 10n ** B(digits);
+    const n = roundRat(mul(a, R(s)), 'half');
+    const neg = n < 0n, an = abs(n);
+    let ip = an / s, fp = (an % s).toString().padStart(digits, '0');
+    if (!keep) fp = fp.replace(/0+$/, '');
+    const out = commas(ip.toString()) + (fp ? '.' + fp : '');
+    return (neg && n !== 0n ? '-' : '') + out;
+  }
+  const exact = (a, digits) => { const s = 10n ** B(digits); return (a.p * s) % a.q === 0n; }; // digits 桁で割り切れるか
+  const toNum = (a) => Number(a.p) / Number(a.q);
+  const MODES = { floor: '切り捨て', half: '四捨五入', ceil: '切り上げ' };
+  const MODES_TE = { floor: '切り捨てて', half: '四捨五入して', ceil: '切り上げて' };
+
+  // ------------------------------------------------------------ 消費税
+  // 出典: 国税庁 タックスアンサー No.6303（標準 10%、軽減 8%）。
+  // 税抜 → 税込: 消費税 = 税抜 × 税率 を1円未満で丸める。税込 = 税抜 + 消費税。
+  // 税込 → 税抜: 消費税 = 税込 × 税率 ÷（100＋税率）を1円未満で丸める。税抜 = 税込 − 消費税。
+  //   ※ 丸め方（切り捨て・四捨五入・切り上げ）はお店や会社が決める。
+  function taxFromExcl(excl, rate, mode) {
+    const e = R(B(excl)), tax = roundRat(mul(e, R(B(rate), 100n)), mode);
+    return { excl: B(excl), tax: tax, incl: B(excl) + tax };
+  }
+  function taxFromIncl(incl, rate, mode) {
+    const i = R(B(incl)), tax = roundRat(mul(i, R(B(rate), 100n + B(rate))), mode);
+    const excl = B(incl) - tax;
+    // 出た税抜から計算し直して、同じ税込になるか（ならない税込もある。例: 切り捨てで税込 10%）
+    const back = taxFromExcl(excl, rate, mode).incl;
+    return { incl: B(incl), tax: tax, excl: excl, roundTrip: back === B(incl), back: back };
+  }
+
+  // ------------------------------------------------------------ 割り勘
+  // total 円を n 人で。unit: 集める単位（1・10・100・500・1000 円）。
+  // mode 'up': 全員が同じ額（1人分を unit に切り上げ）。集めすぎた分は「余り」。
+  // mode 'kanji': 幹事以外は1人分を unit に切り捨てた額、幹事が残りを払う（ちょうど total 円）。
+  function warikan(total, n, unit, mode) {
+    total = B(total); n = B(n); unit = B(unit);
+    if (n < 1n) return { ok: false, msg: '人数は1人以上にしてください。' };
+    const per = R(total, n);
+    if (mode === 'up') {
+      const each = roundToUnit(per, unit, 'ceil');
+      return { ok: true, mode: mode, per: per, each: each, collected: each * n, extra: each * n - total };
+    }
+    if (mode === 'kanji') {
+      const each = roundToUnit(per, unit, 'floor');
+      const kanji = total - each * (n - 1n);
+      return { ok: true, mode: mode, per: per, each: each, kanji: kanji, collected: total, extra: 0n, kanjiMore: kanji - each };
+    }
+    return { ok: false, msg: '分け方 ' + mode };
+  }
+
+  // ------------------------------------------------------------ 時給から収入（税金・社会保険料を引く前）
+  // wage: 時給（円・整数）、minutes: 1日に働く分、days: 週の日数（per='week'）か月の日数（per='month'）
+  // 週で入れたとき: 1か月 = 1週 × 52 ÷ 12（1年を52週として月にならす）、1年 = 1週 × 52。
+  // 月で入れたとき: 1年 = 1か月 × 12、1週は出さない。円未満は切り捨てて見せる（ここでは分数のまま返す）。
+  function income(wage, minutes, days, per) {
+    const day = R(B(wage) * B(minutes), 60n), d = days.p !== undefined ? days : R(B(days));
+    if (per === 'week') {
+      const week = mul(day, d), year = mul(week, R(52n)), month = div(year, R(12n));
+      return { day: day, week: week, month: month, year: year };
+    }
+    const month = mul(day, d);
+    return { day: day, week: null, month: month, year: mul(month, R(12n)) };
+  }
+  // 目標の月収にとどくには時給いくら？（1円未満は切り上げ）
+  function wageForMonthly(target, minutes, days, per) {
+    const monthMin = per === 'week' ? mul(R(B(minutes)), mul(days.p !== undefined ? days : R(B(days)), R(52n, 12n)))
+      : mul(R(B(minutes)), days.p !== undefined ? days : R(B(days)));
+    if (isZero(monthMin)) return null;
+    return roundRat(div(mul(R(B(target)), R(60n)), monthMin), 'ceil');
+  }
+
+  // ------------------------------------------------------------ 日割り
+  function isLeap(y) { return (y % 4 === 0 && y % 100 !== 0) || y % 400 === 0; }
+  function daysInMonth(y, m) { return [31, isLeap(y) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][m - 1]; }
+  // amount: 月の額（円）。kind: 'in' その日から月末まで / 'out' 月はじめからその日まで / 'range' d〜d2（同じ月）
+  // base: 'month' その月の日数で割る / '30' 30日で割る / '365' 月額×12 を 365日で割る。丸めは最後に1回（mode）。
+  function hiwari(amount, y, m, d, kind, base, mode, d2) {
+    if (!(m >= 1 && m <= 12) || !Number.isInteger(y)) return { ok: false, msg: '年と月を正しく入れてください。' };
+    const dim = daysInMonth(y, m);
+    if (!(Number.isInteger(d) && d >= 1 && d <= dim)) return { ok: false, msg: y + '年' + m + '月は ' + dim + '日までです。' };
+    let days;
+    if (kind === 'in') days = dim - d + 1;
+    else if (kind === 'out') days = d;
+    else if (kind === 'range') {
+      if (!(Number.isInteger(d2) && d2 >= 1 && d2 <= dim)) return { ok: false, msg: y + '年' + m + '月は ' + dim + '日までです。' };
+      if (d2 < d) return { ok: false, msg: '終わりの日が、はじめの日より前です。' };
+      days = d2 - d + 1;
+    } else return { ok: false, msg: '数え方 ' + kind };
+    let perDay;
+    if (base === 'month') perDay = R(B(amount), B(dim));
+    else if (base === '30') perDay = R(B(amount), 30n);
+    else if (base === '365') perDay = R(B(amount) * 12n, 365n);
+    else return { ok: false, msg: '割る日数 ' + base };
+    const exactAmt = mul(perDay, R(B(days)));
+    return { ok: true, dim: dim, days: days, perDay: perDay, exact: exactAmt, yen: roundRat(exactAmt, mode), over: cmp(exactAmt, R(B(amount))) > 0 };
+  }
+
+  // ------------------------------------------------------------ パーセント
+  // price を pct ％引き（dir=-1）／増し（dir=+1）。1円未満は mode で丸める。
+  function percentPrice(price, pct, dir, mode) {
+    const f = dir < 0 ? sub(R(100n), pct) : add(R(100n), pct);
+    const ex = mul(R(B(price)), div(f, R(100n)));
+    const yen = roundRat(ex, mode);
+    return { exact: ex, yen: yen, diff: yen - B(price) };
+  }
+  const pctOf = (a, b) => (isZero(b) ? null : mul(div(a, b), R(100n)));          // a は b の何％
+  const change = (before, after) => (isZero(before) ? null : mul(div(sub(after, before), before), R(100n))); // 何％増えた・減った
+  const partOf = (x, pct) => mul(x, div(pct, R(100n)));                             // x の pct％
+
+  // ------------------------------------------------------------ 単位の換算
+  // 出典: 計量単位令 別表第七（ヤード＝メートルの0.9144倍、インチ＝ヤードの1/36、フィート＝ヤードの1/3、マイル＝ヤードの1760倍、
+  // ポンド＝キログラムの0.45359237倍、オンス＝ポンドの1/16、カ氏温度＝熱力学温度×1.8−459.67）。
+  const YD = R(9144n, 10000n), LB = R(45359237n, 100000000n);
+  const UNITS = {
+    length: { mm: R(1n, 1000n), cm: R(1n, 100n), m: R(1n), km: R(1000n), in: div(YD, R(36n)), ft: div(YD, R(3n)), yd: YD, mi: mul(YD, R(1760n)) },
+    mass: { g: R(1n, 1000n), kg: R(1n), oz: div(LB, R(16n)), lb: LB },
+  };
+  const UNIT_NAME = { mm: 'ミリメートル（mm）', cm: 'センチメートル（cm）', m: 'メートル（m）', km: 'キロメートル（km）', in: 'インチ（in）', ft: 'フィート（ft）', yd: 'ヤード（yd）', mi: 'マイル（mi）', g: 'グラム（g）', kg: 'キログラム（kg）', oz: 'オンス（oz）', lb: 'ポンド（lb）', C: 'セ氏（℃）', F: 'カ氏（℉）' };
+  function convert(v, cat, from, to) {
+    if (cat === 'temp') {
+      // ℉ = ℃ × 9/5 + 32（カ氏温度 = (℃+273.15)×1.8 − 459.67 と同じ）
+      if (from === to) return v;
+      if (from === 'C' && to === 'F') return add(mul(v, R(9n, 5n)), R(32n));
+      if (from === 'F' && to === 'C') return mul(sub(v, R(32n)), R(5n, 9n));
+      throw new Error('温度の単位');
+    }
+    const t = UNITS[cat];
+    if (!t || !t[from] || !t[to]) throw new Error('単位 ' + cat + ' ' + from + ' ' + to);
+    return div(mul(v, t[from]), t[to]);
+  }
+  // 身長など: cm → ○フィート○インチ（インチは小数 dig 桁で四捨五入してから、12インチを1フィートに繰り上げる）
+  function cmToFtIn(cm, dig) {
+    const s = 10n ** B(dig);
+    const tenths = roundRat(mul(convert(cm, 'length', 'cm', 'in'), R(s)), 'half'); // インチ × 10^dig の整数
+    const per = 12n * s;
+    return { ft: tenths / per, inch: R(tenths % per, s) };
+  }
+  const ftInToCm = (ft, inch) => convert(add(mul(ft, R(12n)), inch), 'length', 'in', 'cm');
+  function kgToLbOz(kg, dig) {
+    const s = 10n ** B(dig);
+    const t = roundRat(mul(convert(kg, 'mass', 'kg', 'oz'), R(s)), 'half');
+    const per = 16n * s;
+    return { lb: t / per, oz: R(t % per, s) };
+  }
+  const lbOzToKg = (lb, oz) => convert(add(mul(lb, R(16n)), oz), 'mass', 'oz', 'kg');
+
+  const API = {
+    R, add, sub, mul, div, cmp, isZero, parseNum, roundRat, roundToUnit, fmtInt, fmtRat, exact, toNum, MODES, MODES_TE,
+    taxFromExcl, taxFromIncl, warikan, income, wageForMonthly, daysInMonth, hiwari,
+    percentPrice, pctOf, change, partOf, UNITS, UNIT_NAME, convert, cmToFtIn, ftInToCm, kgToLbOz, lbOzToKg,
+  };
+  root.HCalc2 = API;
+  if (typeof module !== 'undefined' && module.exports) module.exports = API;
+})(typeof window !== 'undefined' ? window : globalThis);
+
+</script>
+<script>
+// 新しい6つの道具（お金・割合・単位）で共通の、画面の小さな部品。build.py が各ページの先頭に埋め込む。
+(function () {
+  'use strict';
+  var K = window.HCalc2;
+  function $(id) { return document.getElementById(id); }
+  function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function radio(name) { var r = document.querySelector('input[name="' + name + '"]:checked'); return r ? r.value : null; }
+  // 入力欄を読む。だめなら box にわけを出して null を返す
+  function num(id, opt, box, what) {
+    var r = K.parseNum($(id).value, opt);
+    if (!r.ok) { box.innerHTML = '<p class="err">' + esc(what) + '：' + esc(r.msg) + '</p>'; return null; }
+    return r.v;
+  }
+  function yen(x) { return K.fmtInt(x) + '円'; }
+  function err(box, msg) { box.innerHTML = '<p class="err">' + esc(msg) + '</p>'; }
+  function facts(rows) {
+    return '<ul class="facts">' + rows.map(function (r) { return '<li><span>' + r[0] + '</span><b>' + r[1] + '</b></li>'; }).join('') + '</ul>';
+  }
+  // 入力が変わるたびに計算する（id の欄・name のラジオ）
+  function watch(ids, names, fn) {
+    ids.forEach(function (id) { $(id).addEventListener('input', fn); $(id).addEventListener('change', fn); });
+    (names || []).forEach(function (n) { document.querySelectorAll('input[name="' + n + '"]').forEach(function (el) { el.addEventListener('change', fn); }); });
+  }
+  window.HUI = { K: K, $: $, esc: esc, radio: radio, num: num, yen: yen, err: err, facts: facts, watch: watch };
+})();
+
+(function () {
+  'use strict';
+  var U = window.HUI, K = U.K, $ = U.$;
+  function floorYen(x) { return U.yen(K.roundRat(x, 'floor')); }
+  // 時間・日数を読む（だめなら null）
+  function readWork(box) {
+    var w = U.num('jk-wage', { dec: 0, min: 1, max: 1000000 }, box, '時給'); if (!w) return null;
+    var h = U.num('jk-h', { dec: 0, min: 0, max: 24 }, box, '1日に働く時間'); if (!h) return null;
+    var per = U.radio('jk-per'), m = Number($('jk-m').value), minutes = Number(h.p) * 60 + m;
+    if (minutes <= 0) { U.err(box, '1日に働く時間を入れてください。'); return null; }
+    if (minutes > 24 * 60) { U.err(box, '1日に働く時間は24時間までにしてください。'); return null; }
+    var d = U.num('jk-days', { dec: 1, min: 0, max: per === 'week' ? 7 : 31 }, box, (per === 'week' ? '1週間' : '1か月') + 'に働く日数'); if (!d) return null;
+    if (K.isZero(d)) { U.err(box, '働く日数を入れてください。'); return null; }
+    return { wage: w.p, minutes: minutes, days: d, per: per };
+  }
+  function hm(min) { return Math.floor(min / 60) + '時間' + (min % 60 ? (min % 60) + '分' : ''); }
+  function calc() {
+    $('jk-days-label').textContent = U.radio('jk-per') === 'week' ? '1週間に働く日数' : '1か月に働く日数';
+    var box = $('jk-out'), x = readWork(box);
+    if (!x) { $('jk-need-out').innerHTML = '<p class="sub">上の欄を正しく入れると、ここに出ます。</p>'; return; }
+    var r = K.income(x.wage, x.minutes, x.days, x.per);
+    var rows = [['日給（1日 ' + hm(x.minutes) + '）', floorYen(r.day)]];
+    if (r.week) rows.push(['週（' + K.fmtRat(x.days, 1) + '日）', floorYen(r.week)]);
+    rows.push(['月' + (x.per === 'week' ? '（ならした目安）' : '（' + K.fmtRat(x.days, 1) + '日）'), floorYen(r.month)]);
+    rows.push(['年（' + (x.per === 'week' ? '52週' : '12か月') + '）', floorYen(r.year)]);
+    box.innerHTML = '<p class="big"><small>月 約 </small>' + floorYen(r.month) + '<br><small>年 約 </small>' + floorYen(r.year) + '</p>' + U.facts(rows) +
+      '<p class="sub">' + (x.per === 'week' ? '1か月は、1年を52週として「週の金額 × 52 ÷ 12」でならしています（年は「週の金額 × 52」）。月によって働く日数が変わるので、実際の月の金額は前後します。' : '1年は「月の金額 × 12」です。') +
+      '途中は丸めずに計算し、それぞれの金額を見せるときだけ円未満を切り捨てています（そのため、見えている金額どうしをかけ算すると数円ちがうことがあります）。税金・社会保険料を引く前の金額で、残業代・深夜の割増し・交通費・ボーナスは入っていません。</p>';
+    need(x);
+  }
+  function need(x) {
+    var box = $('jk-need-out');
+    var t = U.num('jk-target', { dec: 0, min: 1, max: 100000000 }, box, 'ほしい月収'); if (!t) return;
+    var w = K.wageForMonthly(t.p, x.minutes, x.days, x.per);
+    if (w === null) { U.err(box, '働く時間と日数を入れてください。'); return; }
+    var got = K.roundRat(K.income(w, x.minutes, x.days, x.per).month, 'floor');
+    box.innerHTML = '<p class="big"><small>時給 </small>' + U.yen(w) + '<small> 以上</small></p><p class="sub">いまの働き方（1日 ' + hm(x.minutes) + '・' + (x.per === 'week' ? '週' : '月') + K.fmtRat(x.days, 1) + '日）なら、時給 ' + U.yen(w) + ' で月 約' + U.yen(got) + '（額面）。1円未満は切り上げています。</p>';
+  }
+  U.watch(['jk-wage', 'jk-h', 'jk-m', 'jk-days'], ['jk-per'], calc);
+  $('jk-target').addEventListener('input', calc);
+  calc();
+})();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; img-src data:; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<meta name="color-scheme" content="light">
+<title>計算の道具｜ひなが堂</title>
+<meta name="description" content="ひなが堂の無料の計算の道具。和暦と西暦、年齢と学年、日数と営業日、消費税、割り勘、時給から年収、日割り、パーセント、単位の換算。登録なし・入力は保存しません。">
+<meta property="og:title" content="計算の道具｜ひなが堂">
+<meta property="og:description" content="ひなが堂の無料の計算の道具。和暦と西暦、年齢と学年、日数と営業日、消費税、割り勘、時給から年収、日割り、パーセント、単位の換算。登録なし・入力は保存しません。">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://hinagado.github.io/assets/img/og.jpg">
+<meta property="og:site_name" content="ひなが堂">
+<meta property="og:locale" content="ja_JP">
+<link rel="canonical" href="https://hinagado.github.io/keisan/">
+<meta property="og:url" content="https://hinagado.github.io/keisan/">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://hinagado.github.io/"}, {"@type": "ListItem", "position": 2, "name": "計算の道具"}]}</script>
+<meta name="theme-color" content="#24466b">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120' width='42' height='42' aria-hidden='true' focusable='false'%3E%3Crect x='12' y='12' width='96' height='96' rx='30' fill='%23fffbf4' stroke='%2324466b' stroke-width='9'/%3E%3Ccircle cx='45' cy='62' r='5.2' fill='%2324466b'/%3E%3Ccircle cx='75' cy='62' r='5.2' fill='%2324466b'/%3E%3Cpath d='M53.5 71 Q60 77 66.5 71' fill='none' stroke='%2324466b' stroke-width='4.2' stroke-linecap='round'/%3E%3Cellipse cx='33.5' cy='73' rx='6.5' ry='4.2' fill='%23d9573a' opacity='.85'/%3E%3Cellipse cx='86.5' cy='73' rx='6.5' ry='4.2' fill='%23d9573a' opacity='.85'/%3E%3C/svg%3E" type="image/svg+xml">
+<style>
+:root{--ai:#24466b;--ai-deep:#172f4b;--ai-soft:#e4ebf2;--kinari:#f6efe2;--paper:#fffbf4;--shu:#d9573a;--ink:#2b2a28;--muted:#6e675c;--line:#e6dccb;--pale:#fff8d6;--ok:#2f7a4f;--warn:#b5462a;
+  --jp:"BIZ UDPGothic","BIZ UDGothic","Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic UI",Meiryo,sans-serif;
+  --round:"BIZ UDPGothic","Hiragino Maru Gothic ProN","Hiragino Sans","Yu Gothic UI",Meiryo,sans-serif;
+  --en:Georgia,"Times New Roman",serif}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--kinari);color:var(--ink);font-family:var(--jp);font-size:18px;line-height:1.85;letter-spacing:.02em}
+a{color:var(--ai)}
+h1,h2,h3{font-family:var(--round);font-weight:700;line-height:1.5;color:var(--ai-deep);letter-spacing:.04em}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+@media (max-width:600px){.wrap{padding:0 16px}}
+.grid-bg{background-image:linear-gradient(rgba(36,70,107,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(36,70,107,.045) 1px,transparent 1px);background-size:28px 28px}
+.skip{position:absolute;left:-999px;top:0}.skip:focus{left:8px;top:8px;background:#fff;padding:8px 12px;z-index:50}
+/* ヘッダー（HP と同じ形） */
+.site-header{position:sticky;top:0;z-index:20;background:rgba(255,251,244,.95);border-bottom:1px solid var(--line)}
+.site-header .wrap{display:flex;align-items:center;justify-content:space-between;height:72px;position:relative}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none;min-width:0}
+.logo svg{flex:none}
+.logo b{font-family:var(--round);font-size:23px;color:var(--ai);letter-spacing:.12em;line-height:1.2}
+.logo small{display:block;font-size:11px;color:var(--muted);letter-spacing:.08em;line-height:1.2}
+.gnav{display:flex;gap:6px}
+.gnav a{text-decoration:none;color:var(--ink);font-size:15px;font-weight:500;padding:8px 14px;border-radius:999px}
+.gnav a:hover,.gnav a[aria-current="page"]{background:var(--ai);color:var(--kinari)}
+.menu-btn{display:none;font:inherit;background:none;border:1.5px solid var(--ai);color:var(--ai);border-radius:999px;padding:6px 16px;font-weight:700;cursor:pointer;white-space:nowrap;font-size:16px}
+@media (max-width:760px){.menu-btn{display:block}.gnav{position:absolute;top:72px;left:0;right:0;flex-direction:column;background:var(--paper);border-bottom:1px solid var(--line);padding:10px 16px 18px;display:none}.gnav.open{display:flex}.gnav a{padding:14px 16px;font-size:17px}}
+@media (max-width:440px){.logo small{display:none}.logo b{font-size:21px}}
+/* 見出し */
+.crumbs{display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center;font-size:14px;color:var(--muted);padding-top:24px}
+.crumbs b{font-weight:500}
+.page-head{padding:20px 0 24px}
+.page-head h1{font-size:clamp(26px,4.4vw,38px);margin:0;overflow-wrap:anywhere}
+.eyebrow{font-family:var(--en);font-style:italic;color:var(--shu);font-size:15px;letter-spacing:.18em;display:flex;align-items:center;gap:10px;margin:0 0 6px}
+.eyebrow::before{content:"";width:26px;height:1.5px;background:var(--shu)}
+.lead{color:var(--muted);max-width:720px;margin:12px 0 0}
+/* 道具のカード */
+.tools{display:grid;gap:22px;max-width:860px}
+.tool{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:24px 26px;min-width:0}
+.tool h2{font-size:22px;margin:0 0 6px;padding-left:12px;border-left:5px solid var(--shu)}
+.tool .how{color:var(--muted);font-size:15.5px;margin:0 0 14px}
+@media (max-width:600px){.tool{padding:20px 16px;border-radius:18px}}
+.f{display:block;font-weight:700;color:var(--ai-deep);margin:12px 0 4px;font-size:17px}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end}
+.row>.cell{flex:1 1 230px;min-width:0}
+input.t,select.t{width:100%;font:inherit;font-size:20px;padding:10px 12px;border:2px solid #c9bda6;border-radius:12px;background:var(--pale);color:var(--ink);min-height:52px}
+select.t{background:var(--pale)}
+input.t:focus,select.t:focus{outline:3px solid #9cc0e6;border-color:var(--ai)}
+.chk{display:flex;gap:10px;align-items:flex-start;margin:12px 0 0;font-size:16.5px;cursor:pointer}
+.chk input{width:24px;height:24px;margin:3px 0 0;flex:none;accent-color:var(--ai)}
+.seg{display:flex;gap:8px;flex-wrap:wrap}
+.seg label{flex:1 1 0;min-width:0}
+.seg input{position:absolute;opacity:0;pointer-events:none}
+.seg span{display:block;text-align:center;border:2px solid var(--ai);border-radius:12px;padding:10px 6px;font-weight:700;color:var(--ai);background:#fff;cursor:pointer;line-height:1.3;min-height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.seg span small{font-size:13px;font-weight:500}
+.seg input:checked+span{background:var(--ai);color:#fff}
+.seg input:focus-visible+span{outline:3px solid #9cc0e6}
+.btn{appearance:none;font:inherit;font-weight:700;border-radius:999px;border:2px solid var(--ai);background:#fff;color:var(--ai);padding:8px 16px;cursor:pointer;min-height:44px;font-size:16px}
+.btn:hover{background:var(--ai-soft)}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 0}
+.result{background:#fff;border:3px solid var(--ai);border-radius:18px;padding:14px 18px;margin:16px 0 0;min-width:0}
+.result .big{font-family:var(--round);font-size:clamp(24px,6vw,32px);font-weight:700;color:var(--ai-deep);line-height:1.4;margin:0;overflow-wrap:anywhere}
+.result .big small{font-size:.6em;color:var(--muted);font-weight:700}
+.result .sub{margin:6px 0 0;color:var(--ink);font-size:16.5px;overflow-wrap:anywhere}
+.result .err{color:var(--warn);font-weight:700;margin:0}
+.result .warn{color:var(--warn);font-weight:700;margin:8px 0 0;font-size:16px}
+.facts{list-style:none;margin:6px 0 0;padding:0}
+.facts li{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 12px;border-bottom:1px dashed var(--line);padding:8px 0}
+.facts li:last-child{border-bottom:0}
+.facts li span{color:var(--muted);font-size:16px}
+.facts li b{font-size:19px;color:var(--ai-deep);overflow-wrap:anywhere;text-align:right}
+.note{font-size:15px;color:var(--muted);margin:10px 0 0}
+.privacy{font-size:14.5px;color:var(--ok);font-weight:700;margin:10px 0 0}
+/* 表 */
+.jump{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 10px}
+.table-wrap{overflow:auto;max-height:70vh;border:1px solid var(--line);border-radius:14px;background:#fff;-webkit-overflow-scrolling:touch}
+table.hy{border-collapse:collapse;width:100%;font-size:16px;line-height:1.45}
+.hy th,.hy td{border-bottom:1px solid #eee5d6;padding:8px 8px;text-align:left;vertical-align:top}
+.hy thead th{position:sticky;top:0;background:var(--ai);color:var(--kinari);font-weight:700;z-index:1;font-size:14.5px}
+.hy td.num{text-align:right;white-space:nowrap}
+.hy tr.now td{background:#fff1b8;font-weight:700}
+.hy tr.kaigen td{background:#eef3f8}
+.hy tr.now.kaigen td{background:#fff1b8}
+.hy .two{display:block;font-size:14px;color:var(--muted);white-space:nowrap}
+.tag{display:inline-block;font-size:13px;font-weight:700;border-radius:999px;padding:0 8px;margin:1px 2px 1px 0;border:1.5px solid var(--shu);color:var(--shu);white-space:nowrap}
+.tag.hon{background:var(--shu);color:#fff}
+@media (max-width:420px){table.hy{font-size:14.5px}.hy th,.hy td{padding:7px 5px}}
+/* 説明の枠（HP の .prose に合わせる） */
+.prose{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:30px 30px;margin:28px 0 0;max-width:860px;overflow-wrap:anywhere}
+.prose h2{font-size:21px;margin:30px 0 8px;padding-left:12px;border-left:5px solid var(--shu)}
+.prose h2:first-child{margin-top:0}
+.prose p,.prose li{color:#47433c}
+.prose ul{padding-left:1.3em}
+.prose .table-wrap{max-height:none;margin:10px 0}
+@media (max-width:600px){.prose{padding:22px 16px;border-radius:18px}}
+.src-list{font-size:14.5px;line-height:1.75;padding-left:1.2em}
+.src-list li{margin:8px 0}
+.rel-cards{display:grid;gap:14px;margin-top:14px}
+.rel-card{background:var(--kinari);border:1px solid var(--line);border-radius:18px;padding:16px 18px}
+.rel-card h3{margin:0;font-size:18px}
+.rel-card h3 a{text-decoration:none}
+.rel-card h3 a:hover{text-decoration:underline}
+.prose .rel-card p{margin:2px 0 0;font-size:15.5px;color:var(--muted)}
+.more{list-style:none;padding:0;display:grid;gap:8px}
+.more a{font-weight:700}
+details.hol{margin:14px 0 0}
+details.hol summary{cursor:pointer;font-weight:700;color:var(--ai);min-height:44px;display:flex;align-items:center}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1120px}
+@media (max-width:900px){.cards{grid-template-columns:1fr}}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:22px 24px;display:flex;flex-direction:column;gap:6px}
+.card .en{font-family:var(--en);font-style:italic;color:var(--shu);font-size:14px;letter-spacing:.14em}
+.card h2{margin:0;font-size:21px}
+.card h2 a{text-decoration:none;color:inherit}
+.card h2 a:hover{text-decoration:underline}
+.card p{margin:0;color:var(--muted);font-size:15.5px;flex:1}
+.card .go{margin-top:10px;font-weight:700}
+main{padding-bottom:80px}
+/* フッター（HP と同じ形） */
+.site-footer{background:var(--ai-deep);color:#d9e0e8;padding:56px 0 28px}
+.site-footer .wrap{display:grid;grid-template-columns:1.2fr 1fr;gap:36px}
+.site-footer .logo b{color:var(--kinari)}
+.site-footer .logo small{color:#aebccb}
+.site-footer p{font-size:14px;line-height:1.9;margin:16px 0 0;color:#c4cfdb}
+.fnav{display:grid;grid-template-columns:repeat(2,1fr);gap:4px 24px;align-content:start}
+.fnav a{color:#e9eef3;text-decoration:none;font-size:15px;padding:6px 0}
+.fnav a:hover{text-decoration:underline}
+.copy{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.12);padding-top:22px;font-size:13px;color:#9fb0c2;font-family:var(--en)}
+@media (max-width:700px){.site-footer .wrap{grid-template-columns:1fr}}
+@media print{.site-header,.site-footer,.jump,.btns{display:none}.table-wrap{max-height:none;overflow:visible}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">本文へ</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="../index.html"><svg viewBox="0 0 120 120" width="42" height="42" aria-hidden="true" focusable="false"><rect x="12" y="12" width="96" height="96" rx="30" fill="#fffbf4" stroke="#24466b" stroke-width="9"/><circle cx="45" cy="62" r="5.2" fill="#24466b"/><circle cx="75" cy="62" r="5.2" fill="#24466b"/><path d="M53.5 71 Q60 77 66.5 71" fill="none" stroke="#24466b" stroke-width="4.2" stroke-linecap="round"/><ellipse cx="33.5" cy="73" rx="6.5" ry="4.2" fill="#d9573a" opacity=".85"/><ellipse cx="86.5" cy="73" rx="6.5" ry="4.2" fill="#d9573a" opacity=".85"/></svg><span><b>ひなが堂</b><small>HINAGADO — くらしと仕事のひな形屋</small></span></a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="gnav">メニュー</button>
+    <nav class="gnav" id="gnav" aria-label="サイトのメニュー">
+      <a href="../index.html">ホーム</a>
+      <a href="../items/index.html">商品</a>
+      <a href="../articles/index.html">読みもの</a>
+      <a href="../about.html">このお店</a>
+      <a href="../contact.html">お問い合わせ</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="grid-bg">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="現在地"><a href="../index.html">ホーム</a><span>›</span><b>計算の道具</b></nav>
+    <div class="page-head"><p class="eyebrow">Tools</p><h1>計算の道具</h1>
+      <p class="lead">書類を書くとき、予定を立てるときに「ちょっと計算したい」を助ける、無料の道具です。登録はいりません。入力した数字や日付は保存も送信もしません。</p></div>
+    <div class="cards">
+      <article class="card">
+        <span class="en">Calendar</span>
+        <h2><a href="wareki.html">和暦と西暦の早見・変換</a></h2>
+        <p>西暦と和暦（明治・大正・昭和・平成・令和）を日付ごと変換。改元の日の境目と「元年」もわかる早見表つき。</p>
+        <a class="go" href="wareki.html">使う（無料） →</a>
+      </article>
+      <article class="card">
+        <span class="en">Age</span>
+        <h2><a href="nenrei.html">年齢の早見表と厄年の目安</a></h2>
+        <p>生まれ年から今年の満年齢・数え年・干支・学年がわかる早見表。厄年の目安（一般的な例）も。</p>
+        <a class="go" href="nenrei.html">使う（無料） →</a>
+      </article>
+      <article class="card">
+        <span class="en">Days</span>
+        <h2><a href="nissu.html">日数の計算（○日後・営業日）</a></h2>
+        <p>2つの日付の間の日数、○日後・○日前、土日と祝日を除いた営業日を数えます。祝日は2026〜2027年。</p>
+        <a class="go" href="nissu.html">使う（無料） →</a>
+      </article>
+      <article class="card">
+        <span class="en">Tax</span>
+        <h2><a href="shohizei.html">消費税の計算（税込・税抜）</a></h2>
+        <p>税抜から税込、税込から税抜と消費税額を計算。10%と8%（軽減税率）、1円未満の切り捨て・四捨五入・切り上げを選べます。</p>
+        <a class="go" href="shohizei.html">使う（無料） →</a>
+      </article>
+      <article class="card">
+        <span class="en">Split</span>
+        <h2><a href="warikan.html">割り勘の計算（端数の分け方）</a></h2>
+        <p>合計と人数から1人いくらかを計算。100円単位などで集めるときの余りや、幹事さんが端数を調整する金額もすぐ出ます。</p>
+        <a class="go" href="warikan.html">使う（無料） →</a>
+      </article>
+      <article class="card">
+        <span class="en">Wage</span>
+        <h2><a href="jikyu.html">時給から月収・年収の計算</a></h2>
+        <p>時給と働く時間・日数から、日給・週・月・年の収入（額面）を計算。目標の月収に必要な時給も出せます。</p>
+        <a class="go" href="jikyu.html">使う（無料） →</a>
+      </article>
+      <article class="card">
+        <span class="en">Pro rata</span>
+        <h2><a href="hiwari.html">日割り計算（家賃・月額）</a></h2>
+        <p>家賃や月謝などの月額を日割りで計算。入居・退去の月に、その月の日数・30日・365日のどれで割るかを選べます。</p>
+        <a class="go" href="hiwari.html">使う（無料） →</a>
+      </article>
+      <article class="card">
+        <span class="en">Percent</span>
+        <h2><a href="percent.html">パーセントの計算（割引・増減）</a></h2>
+        <p>○％引きの値段、AはBの何％か、何％増えた・減ったか、○の○％を計算。2割引・半額などの割引の確かめに。</p>
+        <a class="go" href="percent.html">使う（無料） →</a>
+      </article>
+      <article class="card">
+        <span class="en">Units</span>
+        <h2><a href="tani.html">単位の換算（インチ・ポンド・℉）</a></h2>
+        <p>cmとインチ・フィート、kgとポンド・オンス、セ氏とカ氏の温度を換算。身長の○フィート○インチにも直せます。</p>
+        <a class="go" href="tani.html">使う（無料） →</a>
+      </article>
+    </div>
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div>
+      <a class="logo" href="../index.html"><svg viewBox="0 0 120 120" width="42" height="42" aria-hidden="true" focusable="false"><rect x="12" y="12" width="96" height="96" rx="30" fill="#fffbf4" stroke="#24466b" stroke-width="9"/><circle cx="45" cy="62" r="5.2" fill="#24466b"/><circle cx="75" cy="62" r="5.2" fill="#24466b"/><path d="M53.5 71 Q60 77 66.5 71" fill="none" stroke="#24466b" stroke-width="4.2" stroke-linecap="round"/><ellipse cx="33.5" cy="73" rx="6.5" ry="4.2" fill="#d9573a" opacity=".85"/><ellipse cx="86.5" cy="73" rx="6.5" ry="4.2" fill="#d9573a" opacity=".85"/></svg><span><b>ひなが堂</b><small>HINAGADO</small></span></a>
+      <p>くらしと仕事を少しラクにする「ひな形」と、<br>ちょっと楽しいデジタルの小物をつくる小さなお店です。</p>
+    </div>
+    <nav class="fnav" aria-label="サイトの案内">
+      <a href="../index.html">ホーム</a>
+      <a href="../items/index.html">商品</a>
+      <a href="../articles/index.html">読みもの</a>
+      <a href="index.html">計算の道具</a>
+      <a href="../about.html">このお店について</a>
+      <a href="../contact.html">お問い合わせ</a>
+      <a href="../privacy.html">プライバシーポリシー</a>
+    </nav>
+    <div class="copy">© <span data-year>2026</span> HINAGADO</div>
+  </div>
+</footer>
+<script>
+(function(){var b=document.querySelector('.menu-btn'),n=document.querySelector('.gnav');
+if(b&&n){b.addEventListener('click',function(){var o=n.classList.toggle('open');b.setAttribute('aria-expanded',o);b.textContent=o?'閉じる':'メニュー';});}
+document.querySelectorAll('[data-year]').forEach(function(e){e.textContent=new Date().getFullYear();});})();
+</script>
+
+</body>
+</html>
