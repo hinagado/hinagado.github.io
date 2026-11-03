@@ -288,3 +288,15 @@ h1,h2,h3{font-family:var(--round);font-weight:700;letter-spacing:.06em;line-heig
 .quick-btns{display:flex;flex-wrap:wrap;gap:10px}
 .quick-btns .btn{font-size:15px}
 @media (max-width:520px){.quick-btns .btn{width:100%;justify-content:center}}
+
+/* 2026-11-03 トップの「おもちの動画」（押すと YouTube が開く） */
+.vcards{display:flex;flex-wrap:wrap;justify-content:center;gap:24px;margin-top:28px}
+.vcard{display:flex;flex-direction:column;gap:8px;width:220px;text-decoration:none;color:var(--ink)}
+.vthumb{position:relative;display:block;border-radius:20px;overflow:hidden;border:1px solid var(--line);box-shadow:0 8px 20px rgba(36,70,107,.12);transition:transform .2s}
+.vthumb img{display:block;width:100%;height:auto;aspect-ratio:9/16;object-fit:cover}
+.vplay{position:absolute;left:50%;top:50%;width:64px;height:64px;margin:-32px 0 0 -32px;border-radius:50%;background:rgba(36,70,107,.85)}
+.vplay::after{content:"";position:absolute;left:26px;top:20px;border-style:solid;border-width:12px 0 12px 20px;border-color:transparent transparent transparent var(--kinari)}
+.vtitle{font-weight:700;font-size:16px;line-height:1.5}
+.vnote{font-size:14px;color:var(--ai)}
+.vcard:hover .vthumb{transform:translateY(-2px)}
+@media (max-width:520px){.vcard{width:calc(50% - 12px)}}
