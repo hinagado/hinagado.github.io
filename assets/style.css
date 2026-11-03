@@ -279,3 +279,12 @@ h1,h2,h3{font-family:var(--round);font-weight:700;letter-spacing:.06em;line-heig
 /* 特集（tokushu/）: 用事ごとの商品の下に出典。今月のおすすめから特集へのリンク */
 .tokushu-foot{padding:8px 0 100px;overflow-wrap:anywhere}
 .feature .feature-more{margin:14px 0 0;font-weight:700}
+/* 2026-11-03 記事のはじめの近道（販売中の関連商品） */
+.art-quick{background:var(--ai-soft);border-radius:18px;padding:16px 20px;margin:20px 0 28px;display:flex;flex-direction:column;gap:12px}
+.prose .art-quick p{margin:0}
+.prose .art-quick .quick-head{font-family:var(--round);font-weight:700;color:var(--ai-deep);font-size:15.5px}
+.quick-row{display:flex;flex-direction:column;gap:8px}
+.prose .quick-row p{font-weight:700;font-size:16px}
+.quick-btns{display:flex;flex-wrap:wrap;gap:10px}
+.quick-btns .btn{font-size:15px}
+@media (max-width:520px){.quick-btns .btn{width:100%;justify-content:center}}
