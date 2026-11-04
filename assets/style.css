@@ -301,5 +301,26 @@ h1,h2,h3{font-family:var(--round);font-weight:700;letter-spacing:.06em;line-heig
 .vcard:hover .vthumb{transform:translateY(-2px)}
 @media (max-width:520px){.vcard{width:calc(50% - 12px)}}
 
-/* 無料ゲーム（play/index.html）の下の説明 2026-11-04 */
-.play-note{margin-top:32px}
+/* 無料ゲーム（play/index.html）2026-11-04 作り直し: カード全体を押せる・大きなボタン・日本語のジャンル */
+.game-head{margin-bottom:8px}
+.game-note{margin:10px 0 0;font-size:14px;color:var(--muted)}
+.game-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin:28px 0 64px}
+@media (max-width:980px){.game-grid{grid-template-columns:1fr 1fr}}
+@media (max-width:640px){.game-grid{grid-template-columns:1fr;gap:18px;margin-top:20px}}
+.game-card{position:relative;background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;box-shadow:var(--shadow);transition:transform .2s,box-shadow .2s}
+.game-card:hover{transform:translateY(-4px);box-shadow:0 16px 36px rgba(36,70,107,.18)}
+.game-card:focus-within{outline:3px solid var(--shu);outline-offset:3px}
+.game-card img{width:100%;aspect-ratio:3/2;object-fit:cover;display:block;background:var(--kinari)}
+.game-body{padding:18px 20px 20px;display:flex;flex-direction:column;gap:6px;flex:1}
+.game-tags{margin:0;display:flex;gap:8px;flex-wrap:wrap}
+.game-genre{background:var(--ai-soft);color:var(--ai);font-weight:700;font-size:13px;border-radius:999px;padding:4px 12px}
+.game-dev{background:#eee9e0;color:var(--muted);font-size:12.5px;border-radius:999px;padding:4px 10px}
+.game-title{margin:4px 0 0;font-size:22px;line-height:1.4}
+.game-link{color:var(--ink);text-decoration:none}
+.game-link::after{content:"";position:absolute;inset:0;z-index:1}
+.game-link:focus{outline:none}
+.game-catch{margin:0;font-weight:700;color:var(--shu);font-size:15.5px}
+.game-desc{margin:0;color:var(--muted);font-size:15px;line-height:1.75;flex:1}
+.game-btn{margin-top:12px;display:flex;justify-content:center;align-items:center;gap:8px;background:var(--ai);color:var(--kinari);font-weight:700;font-size:17px;border-radius:14px;padding:15px 18px;min-height:52px}
+.game-btn span{font-size:22px;line-height:1}
+.game-card:hover .game-btn{background:var(--ai-deep)}
