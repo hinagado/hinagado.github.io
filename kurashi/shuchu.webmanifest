@@ -1,0 +1,33 @@
+{
+  "name": "集中タイマー（ひなが堂）",
+  "short_name": "集中タイマー",
+  "description": "25分集中して5分休む、をくり返す集中タイマー。4回ごとに長い休けい、時間は変えられます。終わりは音と画面の色で。今日の集中の回数も残ります。",
+  "lang": "ja",
+  "dir": "ltr",
+  "id": "./shuchu.html",
+  "start_url": "./shuchu.html",
+  "scope": "./shuchu.html",
+  "display": "standalone",
+  "theme_color": "#24466b",
+  "background_color": "#f6efe2",
+  "icons": [
+    {
+      "src": "icons/shuchu-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/shuchu-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/shuchu-m512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

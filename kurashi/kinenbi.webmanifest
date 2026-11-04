@@ -1,0 +1,33 @@
+{
+  "name": "記念日・誕生日まで何日（ひなが堂）",
+  "short_name": "記念日",
+  "description": "家族や友だちの誕生日、記念日を入れると、次のその日まで「あと何日」と、何歳になるか・何回目かが、近い順に並びます。登録なしで使えます。",
+  "lang": "ja",
+  "dir": "ltr",
+  "id": "./kinenbi.html",
+  "start_url": "./kinenbi.html",
+  "scope": "./kinenbi.html",
+  "display": "standalone",
+  "theme_color": "#24466b",
+  "background_color": "#f6efe2",
+  "icons": [
+    {
+      "src": "icons/kinenbi-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/kinenbi-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/kinenbi-m512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

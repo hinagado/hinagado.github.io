@@ -1,0 +1,33 @@
+{
+  "name": "防災の持ち出しチェック（ひなが堂）",
+  "short_name": "防災チェック",
+  "description": "家族の人数や、乳幼児・高齢の家族・ペットのあるなしに合わせて、非常用持ち出し袋と備蓄のチェックリストが変わります。備蓄の期限のメモつき。",
+  "lang": "ja",
+  "dir": "ltr",
+  "id": "./bousai.html",
+  "start_url": "./bousai.html",
+  "scope": "./bousai.html",
+  "display": "standalone",
+  "theme_color": "#24466b",
+  "background_color": "#f6efe2",
+  "icons": [
+    {
+      "src": "icons/bousai-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/bousai-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/bousai-m512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

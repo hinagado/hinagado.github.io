@@ -1,0 +1,33 @@
+{
+  "name": "くらしのアプリ（ひなが堂）",
+  "short_name": "くらしアプリ",
+  "description": "ひなが堂の無料のくらしのアプリ11本。やること表、タイマー、ごみ出しの日、冷蔵庫の期限、予算の残り、習慣、おてつだい、サブスク、防災、記念日。ホーム画面に置けます。",
+  "lang": "ja",
+  "dir": "ltr",
+  "id": "./index.html",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "theme_color": "#24466b",
+  "background_color": "#f6efe2",
+  "icons": [
+    {
+      "src": "icons/index-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/index-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/index-m512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

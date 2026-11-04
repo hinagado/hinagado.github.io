@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; img-src data:; base-uri 'none'; form-action 'none'; connect-src https://script.google.com https://script.googleusercontent.com">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; img-src data: 'self'; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'; connect-src https://script.google.com https://script.googleusercontent.com">
 <meta name="referrer" content="no-referrer">
 <meta name="color-scheme" content="light">
 <title>やること表（今日・今週・いつか）｜ひなが堂</title>
@@ -18,6 +18,12 @@
 <meta property="og:url" content="https://hinagado.github.io/kurashi/yarukoto.html">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://hinagado.github.io/"}, {"@type": "ListItem", "position": 2, "name": "くらしのアプリ", "item": "https://hinagado.github.io/kurashi/"}, {"@type": "ListItem", "position": 3, "name": "やること表（今日・今週・いつか）"}]}</script>
 <meta name="theme-color" content="#24466b">
+<link rel="manifest" href="yarukoto.webmanifest">
+<link rel="apple-touch-icon" href="icons/yarukoto-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="やること">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120' width='42' height='42' aria-hidden='true' focusable='false'%3E%3Crect x='12' y='12' width='96' height='96' rx='30' fill='%23fffbf4' stroke='%2324466b' stroke-width='9'/%3E%3Ccircle cx='45' cy='62' r='5.2' fill='%2324466b'/%3E%3Ccircle cx='75' cy='62' r='5.2' fill='%2324466b'/%3E%3Cpath d='M53.5 71 Q60 77 66.5 71' fill='none' stroke='%2324466b' stroke-width='4.2' stroke-linecap='round'/%3E%3Cellipse cx='33.5' cy='73' rx='6.5' ry='4.2' fill='%23d9573a' opacity='.85'/%3E%3Cellipse cx='86.5' cy='73' rx='6.5' ry='4.2' fill='%23d9573a' opacity='.85'/%3E%3C/svg%3E" type="image/svg+xml">
 <style>
 :root{--ai:#24466b;--ai-deep:#172f4b;--ai-soft:#e4ebf2;--kinari:#f6efe2;--paper:#fffbf4;--shu:#d9573a;--ink:#2b2a28;--muted:#6e675c;--line:#e6dccb;--pale:#fff8d6;--ok:#2f7a4f;--warn:#b5462a;
@@ -219,6 +225,56 @@ body.ringing{animation:ring 1s steps(2,end) infinite}
 .today-box .what.none{color:var(--muted);font-size:18px}
 .item.one{grid-template-columns:1fr}
 .count-line b.bad{color:var(--warn)}
+/* ホーム画面に置く（2026-11-04 夕） */
+.home-tip{max-width:860px;margin:18px 0 0;font-size:15.5px;color:var(--muted);background:var(--paper);border:1px dashed #c9bda6;border-radius:14px;padding:10px 14px}
+.home-tip a{font-weight:700}
+/* 習慣チェック（2026-11-04 夕） */
+.item.hb{grid-template-columns:auto 1fr;align-items:center}
+.hb-btn{appearance:none;font:inherit;width:64px;height:64px;border-radius:50%;border:3px solid var(--ai);background:#fff;color:var(--ai);font-weight:700;font-size:15px;cursor:pointer;line-height:1.1;padding:0}
+.hb-btn.on{background:var(--ai);color:#fff;font-size:34px}
+.hb-btn:focus-visible{outline:3px solid #9cc0e6}
+.item.hb.on{border-color:var(--ai)}
+.cal-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:12px 0 8px}
+.cal-head b{font-family:var(--round);font-size:19px;color:var(--ai-deep);white-space:nowrap}
+.cal{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}
+.cal-wd{text-align:center;font-size:14px;font-weight:700;color:var(--muted)}
+.cal-wd.sun{color:var(--warn)}.cal-wd.sat{color:var(--ai)}
+.cal-day{appearance:none;font:inherit;min-height:52px;border:1.5px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);padding:2px 0;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.1;min-width:0}
+.cal-day span{font-size:14px}
+.cal-day i{font-style:normal;font-size:20px;font-weight:700;color:var(--ai);min-height:1.1em}
+.cal-day.on{background:var(--ai-soft);border-color:var(--ai)}
+.cal-day.now{outline:3px solid #e8a33a;outline-offset:-3px}
+.cal-day:disabled{background:#f3f1ec;color:#b6ad9e;cursor:default}
+/* おてつだいポイント（2026-11-04 夕） */
+.seg.kids label{flex:1 1 30%;min-width:90px}
+.seg.kids span{font-size:18px}
+.pt-box{text-align:center}
+.pt-big{font-size:clamp(40px,12vw,60px)!important;color:var(--shu)!important}
+.task-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media (max-width:340px){.task-grid{grid-template-columns:1fr}}
+.task-btn{appearance:none;font:inherit;border:3px solid var(--ai);background:#fff;border-radius:18px;padding:12px 8px;min-height:84px;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;color:var(--ai-deep);font-weight:700;line-height:1.35;min-width:0;overflow-wrap:anywhere}
+.task-btn span{font-size:17px}
+.task-btn b{font-size:22px;color:var(--shu)}
+.task-btn:active{background:var(--ai-soft)}
+.task-btn:disabled{opacity:.45;cursor:default}
+.task-grid .empty{grid-column:1/-1}
+.big-msg{font-size:20px;color:var(--shu);text-align:center}
+.btn-cell{display:flex;align-items:flex-end}
+.btn-cell .btn{width:100%;min-height:52px}
+.otona{border-style:dashed}
+/* 防災の持ち出しチェック（2026-11-04 夕） */
+details.grp{border:2px solid var(--line);border-radius:16px;background:#fff;margin:10px 0 0;padding:4px 12px}
+details.grp summary{cursor:pointer;min-height:48px;display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;font-size:17px;color:var(--ai-deep)}
+.cklist{list-style:none;margin:0 0 8px;padding:0}
+.cklist li{border-top:1px dashed var(--line)}
+.cklist .chk{margin:0;padding:10px 2px;min-height:48px;align-items:flex-start}
+.cklist .chk span{overflow-wrap:anywhere;min-width:0}
+.cklist .chk.on span{color:#7d776c}
+/* 記念日まで何日（2026-11-04 夕） */
+.kn-days{margin:2px 0 0;font-family:var(--round);font-size:18px;color:var(--ai-deep)}
+.kn-days b{font-size:30px;color:var(--shu)}
+.item.kn-now{border-color:var(--shu);background:#fff4ef}
+#home{scroll-margin-top:86px}
 </style>
 </head>
 <body>
@@ -280,6 +336,7 @@ body.ringing{animation:ring 1s steps(2,end) infinite}
       </section>
 
     </div>
+    <p class="home-tip">ホーム画面に置くと、アプリのように開けます（iPhone：Safari の共有ボタン →「ホーム画面に追加」／Android：Chrome のメニュー →「ホーム画面に追加」）。<a href="index.html#home">くわしく</a></p>
     <div class="prose">
       <h2>使い方</h2>
       <ul>
@@ -306,6 +363,12 @@ body.ringing{animation:ring 1s steps(2,end) infinite}
         <li><a href="alarm.html">キッチンタイマーとアラーム →</a></li>
         <li><a href="gomi.html">ごみ出しの日 早見（無料版） →</a></li>
         <li><a href="reizoko.html">冷蔵庫の期限メモ（無料版） →</a></li>
+        <li><a href="yosan.html">今月あといくら（予算の残りと1日あたり） →</a></li>
+        <li><a href="shukan.html">習慣チェック（続いた日数とカレンダー） →</a></li>
+        <li><a href="otetsudai.html">おてつだいポイント →</a></li>
+        <li><a href="subsc.html">サブスク合計（月と年の合計・次の更新日） →</a></li>
+        <li><a href="bousai.html">防災の持ち出しチェック（家族に合わせて） →</a></li>
+        <li><a href="kinenbi.html">記念日・誕生日まで何日 →</a></li>
         <li><a href="index.html">くらしのアプリの一覧へ →</a></li>
         <li><a href="../keisan/index.html">計算の道具（和暦・日数・消費税など）→</a></li>
       </ul>
@@ -532,6 +595,16 @@ document.querySelectorAll('[data-year]').forEach(function(e){e.textContent=new D
     $('yk-msg').textContent = '全部消しました。';
   });
   render();
+})();
+
+// くらしのアプリ: 電波がなくても開けるようにする係（sw.js）を登録する。https（または手元の http://localhost）のときだけ。
+// 登録できなくても、ページはふつうに使える（エラーは出さない）。
+(function () {
+  try {
+    if (!('serviceWorker' in navigator) || !window.isSecureContext || location.protocol === 'file:') return;
+    var go = function () { navigator.serviceWorker.register('sw.js', { scope: './' }).catch(function () { /* 登録できないときは何もしない */ }); };
+    if (document.readyState === 'complete') go(); else window.addEventListener('load', go);
+  } catch (e) { /* 何もしない */ }
 })();
 
 </script>

@@ -1,0 +1,33 @@
+{
+  "name": "キッチンタイマーとアラーム（ひなが堂）",
+  "short_name": "タイマー",
+  "description": "1分・3分・5分・10分をワンタッチのキッチンタイマーと、○時○分のアラーム。ページを開いて画面がついている間に鳴らすための道具です。",
+  "lang": "ja",
+  "dir": "ltr",
+  "id": "./alarm.html",
+  "start_url": "./alarm.html",
+  "scope": "./alarm.html",
+  "display": "standalone",
+  "theme_color": "#24466b",
+  "background_color": "#f6efe2",
+  "icons": [
+    {
+      "src": "icons/alarm-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/alarm-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/alarm-m512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "name": "今月あといくら（ひなが堂）",
+  "short_name": "あといくら",
+  "description": "1か月の予算と使った額を入れると、残りの金額と「1日あたりあと何円使えるか」「月末まであと何日か」がすぐわかります。給料日はじまりにもできます。",
+  "lang": "ja",
+  "dir": "ltr",
+  "id": "./yosan.html",
+  "start_url": "./yosan.html",
+  "scope": "./yosan.html",
+  "display": "standalone",
+  "theme_color": "#24466b",
+  "background_color": "#f6efe2",
+  "icons": [
+    {
+      "src": "icons/yosan-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/yosan-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/yosan-m512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "name": "ごみ出しの日 早見（ひなが堂）",
+  "short_name": "ごみの日",
+  "description": "地域のごみの種類と曜日（毎週・第○）を登録すると、今日とあしたのごみ、これから2週間の出す日がスマホですぐわかる、ごみ出しの日の早見です。",
+  "lang": "ja",
+  "dir": "ltr",
+  "id": "./gomi.html",
+  "start_url": "./gomi.html",
+  "scope": "./gomi.html",
+  "display": "standalone",
+  "theme_color": "#24466b",
+  "background_color": "#f6efe2",
+  "icons": [
+    {
+      "src": "icons/gomi-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/gomi-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/gomi-m512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

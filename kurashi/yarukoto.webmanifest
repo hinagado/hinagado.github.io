@@ -1,0 +1,33 @@
+{
+  "name": "やること表（ひなが堂）",
+  "short_name": "やること",
+  "description": "やることを足して、済んだら✓。今日・今週・いつかの分け方と期限、↑↓の並べかえ。登録なしで、入れた内容はこの端末のブラウザにだけ残ります。",
+  "lang": "ja",
+  "dir": "ltr",
+  "id": "./yarukoto.html",
+  "start_url": "./yarukoto.html",
+  "scope": "./yarukoto.html",
+  "display": "standalone",
+  "theme_color": "#24466b",
+  "background_color": "#f6efe2",
+  "icons": [
+    {
+      "src": "icons/yarukoto-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/yarukoto-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/yarukoto-m512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

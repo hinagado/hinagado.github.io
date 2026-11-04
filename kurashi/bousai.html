@@ -1,0 +1,821 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; img-src data: 'self'; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'; connect-src https://script.google.com https://script.googleusercontent.com">
+<meta name="referrer" content="no-referrer">
+<meta name="color-scheme" content="light">
+<title>防災の持ち出しチェック（家族に合わせて）｜ひなが堂</title>
+<meta name="description" content="家族の人数や、乳幼児・高齢の家族・ペットのあるなしに合わせて、非常用持ち出し袋と備蓄のチェックリストが変わります。備蓄の期限のメモつき。">
+<meta property="og:title" content="防災の持ち出しチェック（家族に合わせて）｜ひなが堂">
+<meta property="og:description" content="家族の人数や、乳幼児・高齢の家族・ペットのあるなしに合わせて、非常用持ち出し袋と備蓄のチェックリストが変わります。備蓄の期限のメモつき。">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://hinagado.github.io/assets/img/og.jpg">
+<meta property="og:site_name" content="ひなが堂">
+<meta property="og:locale" content="ja_JP">
+<link rel="canonical" href="https://hinagado.github.io/kurashi/bousai.html">
+<meta property="og:url" content="https://hinagado.github.io/kurashi/bousai.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://hinagado.github.io/"}, {"@type": "ListItem", "position": 2, "name": "くらしのアプリ", "item": "https://hinagado.github.io/kurashi/"}, {"@type": "ListItem", "position": 3, "name": "防災の持ち出しチェック（家族に合わせて）"}]}</script>
+<meta name="theme-color" content="#24466b">
+<link rel="manifest" href="bousai.webmanifest">
+<link rel="apple-touch-icon" href="icons/bousai-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="防災チェック">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120' width='42' height='42' aria-hidden='true' focusable='false'%3E%3Crect x='12' y='12' width='96' height='96' rx='30' fill='%23fffbf4' stroke='%2324466b' stroke-width='9'/%3E%3Ccircle cx='45' cy='62' r='5.2' fill='%2324466b'/%3E%3Ccircle cx='75' cy='62' r='5.2' fill='%2324466b'/%3E%3Cpath d='M53.5 71 Q60 77 66.5 71' fill='none' stroke='%2324466b' stroke-width='4.2' stroke-linecap='round'/%3E%3Cellipse cx='33.5' cy='73' rx='6.5' ry='4.2' fill='%23d9573a' opacity='.85'/%3E%3Cellipse cx='86.5' cy='73' rx='6.5' ry='4.2' fill='%23d9573a' opacity='.85'/%3E%3C/svg%3E" type="image/svg+xml">
+<style>
+:root{--ai:#24466b;--ai-deep:#172f4b;--ai-soft:#e4ebf2;--kinari:#f6efe2;--paper:#fffbf4;--shu:#d9573a;--ink:#2b2a28;--muted:#6e675c;--line:#e6dccb;--pale:#fff8d6;--ok:#2f7a4f;--warn:#b5462a;
+  --jp:"BIZ UDPGothic","BIZ UDGothic","Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic UI",Meiryo,sans-serif;
+  --round:"BIZ UDPGothic","Hiragino Maru Gothic ProN","Hiragino Sans","Yu Gothic UI",Meiryo,sans-serif;
+  --en:Georgia,"Times New Roman",serif}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--kinari);color:var(--ink);font-family:var(--jp);font-size:18px;line-height:1.85;letter-spacing:.02em}
+a{color:var(--ai)}
+h1,h2,h3{font-family:var(--round);font-weight:700;line-height:1.5;color:var(--ai-deep);letter-spacing:.04em}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+@media (max-width:600px){.wrap{padding:0 16px}}
+.grid-bg{background-image:linear-gradient(rgba(36,70,107,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(36,70,107,.045) 1px,transparent 1px);background-size:28px 28px}
+.skip{position:absolute;left:-999px;top:0}.skip:focus{left:8px;top:8px;background:#fff;padding:8px 12px;z-index:50}
+/* ヘッダー（HP と同じ形） */
+.site-header{position:sticky;top:0;z-index:20;background:rgba(255,251,244,.95);border-bottom:1px solid var(--line)}
+.site-header .wrap{display:flex;align-items:center;justify-content:space-between;height:72px;position:relative}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none;min-width:0}
+.logo svg{flex:none}
+.logo b{font-family:var(--round);font-size:23px;color:var(--ai);letter-spacing:.12em;line-height:1.2}
+.logo small{display:block;font-size:11px;color:var(--muted);letter-spacing:.08em;line-height:1.2}
+.gnav{display:flex;gap:6px}
+.gnav a{text-decoration:none;color:var(--ink);font-size:15px;font-weight:500;padding:8px 14px;border-radius:999px}
+.gnav a:hover,.gnav a[aria-current="page"]{background:var(--ai);color:var(--kinari)}
+.menu-btn{display:none;font:inherit;background:none;border:1.5px solid var(--ai);color:var(--ai);border-radius:999px;padding:6px 16px;font-weight:700;cursor:pointer;white-space:nowrap;font-size:16px}
+@media (max-width:760px){.menu-btn{display:block}.gnav{position:absolute;top:72px;left:0;right:0;flex-direction:column;background:var(--paper);border-bottom:1px solid var(--line);padding:10px 16px 18px;display:none}.gnav.open{display:flex}.gnav a{padding:14px 16px;font-size:17px}}
+@media (max-width:440px){.logo small{display:none}.logo b{font-size:21px}}
+/* 見出し */
+.crumbs{display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center;font-size:14px;color:var(--muted);padding-top:24px}
+.crumbs b{font-weight:500}
+.page-head{padding:20px 0 24px}
+.page-head h1{font-size:clamp(26px,4.4vw,38px);margin:0;overflow-wrap:anywhere}
+.eyebrow{font-family:var(--en);font-style:italic;color:var(--shu);font-size:15px;letter-spacing:.18em;display:flex;align-items:center;gap:10px;margin:0 0 6px}
+.eyebrow::before{content:"";width:26px;height:1.5px;background:var(--shu)}
+.lead{color:var(--muted);max-width:720px;margin:12px 0 0}
+/* 道具のカード */
+.tools{display:grid;gap:22px;max-width:860px}
+.tool{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:24px 26px;min-width:0}
+.tool h2{font-size:22px;margin:0 0 6px;padding-left:12px;border-left:5px solid var(--shu)}
+.tool .how{color:var(--muted);font-size:15.5px;margin:0 0 14px}
+@media (max-width:600px){.tool{padding:20px 16px;border-radius:18px}}
+.f{display:block;font-weight:700;color:var(--ai-deep);margin:12px 0 4px;font-size:17px}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end}
+.row>.cell{flex:1 1 230px;min-width:0}
+input.t,select.t{width:100%;font:inherit;font-size:20px;padding:10px 12px;border:2px solid #c9bda6;border-radius:12px;background:var(--pale);color:var(--ink);min-height:52px}
+select.t{background:var(--pale)}
+input.t:focus,select.t:focus{outline:3px solid #9cc0e6;border-color:var(--ai)}
+.chk{display:flex;gap:10px;align-items:flex-start;margin:12px 0 0;font-size:16.5px;cursor:pointer}
+.chk input{width:24px;height:24px;margin:3px 0 0;flex:none;accent-color:var(--ai)}
+.seg{display:flex;gap:8px;flex-wrap:wrap}
+.seg label{flex:1 1 0;min-width:0}
+.seg input{position:absolute;opacity:0;pointer-events:none}
+.seg span{display:block;text-align:center;border:2px solid var(--ai);border-radius:12px;padding:10px 6px;font-weight:700;color:var(--ai);background:#fff;cursor:pointer;line-height:1.3;min-height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.seg span small{font-size:13px;font-weight:500}
+.seg input:checked+span{background:var(--ai);color:#fff}
+.seg input:focus-visible+span{outline:3px solid #9cc0e6}
+.btn{appearance:none;font:inherit;font-weight:700;border-radius:999px;border:2px solid var(--ai);background:#fff;color:var(--ai);padding:8px 16px;cursor:pointer;min-height:44px;font-size:16px}
+.btn:hover{background:var(--ai-soft)}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 0}
+.result{background:#fff;border:3px solid var(--ai);border-radius:18px;padding:14px 18px;margin:16px 0 0;min-width:0}
+.result .big{font-family:var(--round);font-size:clamp(24px,6vw,32px);font-weight:700;color:var(--ai-deep);line-height:1.4;margin:0;overflow-wrap:anywhere}
+.result .big small{font-size:.6em;color:var(--muted);font-weight:700}
+.result .sub{margin:6px 0 0;color:var(--ink);font-size:16.5px;overflow-wrap:anywhere}
+.result .err{color:var(--warn);font-weight:700;margin:0}
+.result .warn{color:var(--warn);font-weight:700;margin:8px 0 0;font-size:16px}
+.facts{list-style:none;margin:6px 0 0;padding:0}
+.facts li{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 12px;border-bottom:1px dashed var(--line);padding:8px 0}
+.facts li:last-child{border-bottom:0}
+.facts li span{color:var(--muted);font-size:16px}
+.facts li b{font-size:19px;color:var(--ai-deep);overflow-wrap:anywhere;text-align:right}
+.note{font-size:15px;color:var(--muted);margin:10px 0 0}
+.privacy{font-size:14.5px;color:var(--ok);font-weight:700;margin:10px 0 0}
+/* 表 */
+.jump{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 10px}
+.table-wrap{overflow:auto;max-height:70vh;border:1px solid var(--line);border-radius:14px;background:#fff;-webkit-overflow-scrolling:touch}
+table.hy{border-collapse:collapse;width:100%;font-size:16px;line-height:1.45}
+.hy th,.hy td{border-bottom:1px solid #eee5d6;padding:8px 8px;text-align:left;vertical-align:top}
+.hy thead th{position:sticky;top:0;background:var(--ai);color:var(--kinari);font-weight:700;z-index:1;font-size:14.5px}
+.hy td.num{text-align:right;white-space:nowrap}
+.hy tr.now td{background:#fff1b8;font-weight:700}
+.hy tr.kaigen td{background:#eef3f8}
+.hy tr.now.kaigen td{background:#fff1b8}
+.hy .two{display:block;font-size:14px;color:var(--muted);white-space:nowrap}
+.tag{display:inline-block;font-size:13px;font-weight:700;border-radius:999px;padding:0 8px;margin:1px 2px 1px 0;border:1.5px solid var(--shu);color:var(--shu);white-space:nowrap}
+.tag.hon{background:var(--shu);color:#fff}
+@media (max-width:420px){table.hy{font-size:14.5px}.hy th,.hy td{padding:7px 5px}}
+/* 説明の枠（HP の .prose に合わせる） */
+.prose{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:30px 30px;margin:28px 0 0;max-width:860px;overflow-wrap:anywhere}
+.prose h2{font-size:21px;margin:30px 0 8px;padding-left:12px;border-left:5px solid var(--shu)}
+.prose h2:first-child{margin-top:0}
+.prose p,.prose li{color:#47433c}
+.prose ul{padding-left:1.3em}
+.prose .table-wrap{max-height:none;margin:10px 0}
+@media (max-width:600px){.prose{padding:22px 16px;border-radius:18px}}
+.src-list{font-size:14.5px;line-height:1.75;padding-left:1.2em}
+.src-list li{margin:8px 0}
+.rel-cards{display:grid;gap:14px;margin-top:14px}
+.rel-card{background:var(--kinari);border:1px solid var(--line);border-radius:18px;padding:16px 18px}
+.rel-card h3{margin:0;font-size:18px}
+.rel-card h3 a{text-decoration:none}
+.rel-card h3 a:hover{text-decoration:underline}
+.prose .rel-card p{margin:2px 0 0;font-size:15.5px;color:var(--muted)}
+.more{list-style:none;padding:0;display:grid;gap:8px}
+.more a{font-weight:700}
+details.hol{margin:14px 0 0}
+details.hol summary{cursor:pointer;font-weight:700;color:var(--ai);min-height:44px;display:flex;align-items:center}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1120px}
+@media (max-width:900px){.cards{grid-template-columns:1fr}}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:22px 24px;display:flex;flex-direction:column;gap:6px}
+.card .en{font-family:var(--en);font-style:italic;color:var(--shu);font-size:14px;letter-spacing:.14em}
+.card h2{margin:0;font-size:21px}
+.card h2 a{text-decoration:none;color:inherit}
+.card h2 a:hover{text-decoration:underline}
+.card p{margin:0;color:var(--muted);font-size:15.5px;flex:1}
+.card .go{margin-top:10px;font-weight:700}
+main{padding-bottom:80px}
+/* フッター（HP と同じ形） */
+.site-footer{background:var(--ai-deep);color:#d9e0e8;padding:56px 0 28px}
+.site-footer .wrap{display:grid;grid-template-columns:1.2fr 1fr;gap:36px}
+.site-footer .logo b{color:var(--kinari)}
+.site-footer .logo small{color:#aebccb}
+.site-footer p{font-size:14px;line-height:1.9;margin:16px 0 0;color:#c4cfdb}
+.fnav{display:grid;grid-template-columns:repeat(2,1fr);gap:4px 24px;align-content:start}
+.fnav a{color:#e9eef3;text-decoration:none;font-size:15px;padding:6px 0}
+.fnav a:hover{text-decoration:underline}
+.copy{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.12);padding-top:22px;font-size:13px;color:#9fb0c2;font-family:var(--en)}
+@media (max-width:700px){.site-footer .wrap{grid-template-columns:1fr}}
+@media print{.site-header,.site-footer,.jump,.btns{display:none}.table-wrap{max-height:none;overflow:visible}}
+/* くらしのアプリ（2026-11-04 追加）だけで使う見た目。計算の道具の CSS のあとに足す。 */
+.btn.main{background:var(--ai);color:#fff}
+.btn.main:hover{background:var(--ai-deep)}
+.btn.big{min-height:56px;font-size:19px;padding:10px 22px}
+.btn.warn{border-color:var(--warn);color:var(--warn)}
+.btn.warn:hover{background:#fbe9e4}
+.btn.sm{min-height:44px;min-width:44px;padding:4px 10px;font-size:15px}
+.btn:disabled{opacity:.4;cursor:default}
+.notice{background:#fff7e0;border:2px solid #e8c25a;border-radius:16px;padding:12px 16px;margin:0 0 4px;font-size:16.5px;max-width:860px}
+.notice b{color:#8a5a00}
+.notice p{margin:4px 0}
+.save-note{color:var(--warn);font-weight:700;font-size:15px;margin:8px 0 0}
+.count-line{font-size:16px;color:var(--muted);margin:10px 0 0}
+.count-line b{color:var(--ai-deep);font-size:18px}
+.empty{color:var(--muted);text-align:center;padding:18px 8px;margin:0;border:2px dashed var(--line);border-radius:14px;font-size:16px}
+/* やること・期限の一覧 */
+.list{list-style:none;margin:14px 0 0;padding:0;display:grid;gap:10px}
+.item{background:#fff;border:2px solid var(--line);border-radius:16px;padding:10px 12px;display:grid;grid-template-columns:auto 1fr;gap:4px 12px;align-items:start;min-width:0}
+.item .chk-big{width:30px;height:30px;margin:4px 0 0;accent-color:var(--ok);cursor:pointer}
+.item .main{min-width:0}
+.item .txt{font-size:18px;font-weight:700;color:var(--ink);overflow-wrap:anywhere;line-height:1.5;margin:0}
+.item .meta{font-size:14.5px;color:var(--muted);margin:2px 0 0;display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center}
+.item .ops{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-end;align-items:center}
+.item .ops select{font:inherit;font-size:15px;min-height:44px;border:2px solid #c9bda6;border-radius:10px;background:var(--pale);padding:4px 6px;max-width:100%}
+.item.done{background:#f3f1ec;border-color:#e7e2d8}
+.item.done .txt{text-decoration:line-through;color:#8d877c;font-weight:500}
+.item.late{border-color:var(--warn)}
+.item.soon{border-color:#e8a33a}
+.pill{display:inline-block;font-size:13.5px;font-weight:700;border-radius:999px;padding:0 9px;border:1.5px solid var(--ai);color:var(--ai);white-space:nowrap;line-height:1.7}
+.pill.late{border-color:var(--warn);background:var(--warn);color:#fff}
+.pill.today{border-color:#c46a00;background:#c46a00;color:#fff}
+.pill.soon{border-color:#c46a00;color:#a35800}
+.pill.gray{border-color:#b6ad9e;color:var(--muted)}
+.filter{margin:14px 0 0}
+.filter span{min-height:46px;font-size:16px;padding:8px 2px;white-space:nowrap}
+.filter span small{font-size:12.5px}
+/* タイマー */
+.clock{background:var(--ai);color:#fff;border-radius:22px;padding:16px 12px 18px;text-align:center;transition:background .4s}
+.clock.rest{background:var(--ok)}
+.clock.long{background:#5b4a8b}
+.clock .phase{font-family:var(--round);font-size:20px;font-weight:700;margin:0;letter-spacing:.08em}
+.clock .time{font-family:var(--round);font-size:clamp(64px,22vw,124px);font-weight:700;line-height:1.1;margin:4px 0;font-variant-numeric:tabular-nums;letter-spacing:.02em}
+.clock .sub2{margin:0;font-size:16px;opacity:.95}
+.dots{display:flex;justify-content:center;gap:8px;margin:8px 0 0}
+.dots i{width:14px;height:14px;border-radius:50%;border:2px solid #fff;display:block}
+.dots i.on{background:#fff}
+.ctrl{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0 0}
+.ctrl .btn{flex:1 1 120px}
+.quick{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:6px 0 0}
+.quick .btn{min-height:60px;font-size:20px;padding:6px 4px}
+.msg{font-weight:700;color:var(--ai-deep);margin:10px 0 0;min-height:1.5em;font-size:17px}
+body.ringing{animation:ring 1s steps(2,end) infinite}
+@keyframes ring{0%{background:var(--kinari)}50%{background:#ffd9a8}}
+.ringbox{position:fixed;left:0;right:0;bottom:0;z-index:40;background:var(--shu);color:#fff;padding:16px 16px 22px;text-align:center;box-shadow:0 -6px 20px rgba(0,0,0,.25)}
+.ringbox p{margin:0 0 10px;font-family:var(--round);font-size:24px;font-weight:700}
+.ringbox .btn{background:#fff;color:var(--shu);border-color:#fff;min-height:60px;font-size:22px;padding:8px 40px}
+/* 曜日の選び方 */
+.days{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.days.n5{grid-template-columns:repeat(5,1fr)}
+.days label{min-width:0}
+.days input{position:absolute;opacity:0;pointer-events:none}
+.days span{display:flex;align-items:center;justify-content:center;min-height:48px;border:2px solid var(--ai);border-radius:12px;font-weight:700;color:var(--ai);background:#fff;cursor:pointer;font-size:16px;padding:0 2px;text-align:center;line-height:1.2}
+.days input:checked+span{background:var(--ai);color:#fff}
+.days input:focus-visible+span{outline:3px solid #9cc0e6}
+.today-box{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media (max-width:420px){.today-box{grid-template-columns:1fr}}
+.today-box>div{background:#fff;border:3px solid var(--ai);border-radius:18px;padding:12px 14px;min-width:0}
+.today-box h3{margin:0;font-size:17px}
+.today-box .what{font-family:var(--round);font-size:clamp(20px,5.5vw,26px);font-weight:700;color:var(--ai-deep);margin:4px 0 0;overflow-wrap:anywhere;line-height:1.4}
+.today-box .what.none{color:var(--muted);font-size:18px}
+.item.one{grid-template-columns:1fr}
+.count-line b.bad{color:var(--warn)}
+/* ホーム画面に置く（2026-11-04 夕） */
+.home-tip{max-width:860px;margin:18px 0 0;font-size:15.5px;color:var(--muted);background:var(--paper);border:1px dashed #c9bda6;border-radius:14px;padding:10px 14px}
+.home-tip a{font-weight:700}
+/* 習慣チェック（2026-11-04 夕） */
+.item.hb{grid-template-columns:auto 1fr;align-items:center}
+.hb-btn{appearance:none;font:inherit;width:64px;height:64px;border-radius:50%;border:3px solid var(--ai);background:#fff;color:var(--ai);font-weight:700;font-size:15px;cursor:pointer;line-height:1.1;padding:0}
+.hb-btn.on{background:var(--ai);color:#fff;font-size:34px}
+.hb-btn:focus-visible{outline:3px solid #9cc0e6}
+.item.hb.on{border-color:var(--ai)}
+.cal-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:12px 0 8px}
+.cal-head b{font-family:var(--round);font-size:19px;color:var(--ai-deep);white-space:nowrap}
+.cal{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}
+.cal-wd{text-align:center;font-size:14px;font-weight:700;color:var(--muted)}
+.cal-wd.sun{color:var(--warn)}.cal-wd.sat{color:var(--ai)}
+.cal-day{appearance:none;font:inherit;min-height:52px;border:1.5px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);padding:2px 0;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.1;min-width:0}
+.cal-day span{font-size:14px}
+.cal-day i{font-style:normal;font-size:20px;font-weight:700;color:var(--ai);min-height:1.1em}
+.cal-day.on{background:var(--ai-soft);border-color:var(--ai)}
+.cal-day.now{outline:3px solid #e8a33a;outline-offset:-3px}
+.cal-day:disabled{background:#f3f1ec;color:#b6ad9e;cursor:default}
+/* おてつだいポイント（2026-11-04 夕） */
+.seg.kids label{flex:1 1 30%;min-width:90px}
+.seg.kids span{font-size:18px}
+.pt-box{text-align:center}
+.pt-big{font-size:clamp(40px,12vw,60px)!important;color:var(--shu)!important}
+.task-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media (max-width:340px){.task-grid{grid-template-columns:1fr}}
+.task-btn{appearance:none;font:inherit;border:3px solid var(--ai);background:#fff;border-radius:18px;padding:12px 8px;min-height:84px;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;color:var(--ai-deep);font-weight:700;line-height:1.35;min-width:0;overflow-wrap:anywhere}
+.task-btn span{font-size:17px}
+.task-btn b{font-size:22px;color:var(--shu)}
+.task-btn:active{background:var(--ai-soft)}
+.task-btn:disabled{opacity:.45;cursor:default}
+.task-grid .empty{grid-column:1/-1}
+.big-msg{font-size:20px;color:var(--shu);text-align:center}
+.btn-cell{display:flex;align-items:flex-end}
+.btn-cell .btn{width:100%;min-height:52px}
+.otona{border-style:dashed}
+/* 防災の持ち出しチェック（2026-11-04 夕） */
+details.grp{border:2px solid var(--line);border-radius:16px;background:#fff;margin:10px 0 0;padding:4px 12px}
+details.grp summary{cursor:pointer;min-height:48px;display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;font-size:17px;color:var(--ai-deep)}
+.cklist{list-style:none;margin:0 0 8px;padding:0}
+.cklist li{border-top:1px dashed var(--line)}
+.cklist .chk{margin:0;padding:10px 2px;min-height:48px;align-items:flex-start}
+.cklist .chk span{overflow-wrap:anywhere;min-width:0}
+.cklist .chk.on span{color:#7d776c}
+/* 記念日まで何日（2026-11-04 夕） */
+.kn-days{margin:2px 0 0;font-family:var(--round);font-size:18px;color:var(--ai-deep)}
+.kn-days b{font-size:30px;color:var(--shu)}
+.item.kn-now{border-color:var(--shu);background:#fff4ef}
+#home{scroll-margin-top:86px}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">本文へ</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="../index.html"><svg viewBox="0 0 120 120" width="42" height="42" aria-hidden="true" focusable="false"><rect x="12" y="12" width="96" height="96" rx="30" fill="#fffbf4" stroke="#24466b" stroke-width="9"/><circle cx="45" cy="62" r="5.2" fill="#24466b"/><circle cx="75" cy="62" r="5.2" fill="#24466b"/><path d="M53.5 71 Q60 77 66.5 71" fill="none" stroke="#24466b" stroke-width="4.2" stroke-linecap="round"/><ellipse cx="33.5" cy="73" rx="6.5" ry="4.2" fill="#d9573a" opacity=".85"/><ellipse cx="86.5" cy="73" rx="6.5" ry="4.2" fill="#d9573a" opacity=".85"/></svg><span><b>ひなが堂</b><small>HINAGADO — くらしと仕事のひな形屋</small></span></a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="gnav">メニュー</button>
+    <nav class="gnav" id="gnav" aria-label="サイトのメニュー">
+      <a href="../index.html">ホーム</a>
+      <a href="../items/index.html">商品</a>
+      <a href="../articles/index.html">読みもの</a>
+      <a href="../about.html">このお店</a>
+      <a href="../contact.html">お問い合わせ</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="grid-bg">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="現在地"><a href="../index.html">ホーム</a><span>›</span><a href="index.html">くらしのアプリ</a><span>›</span><b>防災の持ち出しチェック（家族に合わせて）</b></nav>
+    <div class="page-head"><p class="eyebrow">Disaster</p><h1>防災の持ち出しチェック（家族に合わせて）</h1>
+      <p class="lead">家族の人数や、乳幼児・高齢の家族・ペットがいるかを選ぶと、持ち出し袋と備蓄の項目が変わります。備蓄の期限のメモもあります。</p></div>
+    <div class="tools">
+      <section class="tool" aria-labelledby="h-bf">
+        <h2 id="h-bf">家族のようす</h2>
+        <p class="how">家族に合わせて、下のチェックリストの項目と、水・食べ物の量の目安が変わります。</p>
+        <div class="row">
+          <div class="cell"><label class="f" for="bs-people">家族の人数</label>
+            <select class="t" id="bs-people"></select></div>
+          <div class="cell"><p class="f" id="bs-days-label">備える日数</p>
+            <div class="seg" role="radiogroup" aria-labelledby="bs-days-label">
+              <label><input type="radio" name="bs-days" value="3" checked><span>3日分<small>（最低）</small></span></label>
+              <label><input type="radio" name="bs-days" value="7"><span>1週間分</span></label>
+            </div></div>
+        </div>
+        <label class="chk"><input type="checkbox" id="bs-baby"> 乳幼児（赤ちゃん・小さな子ども）がいる</label>
+        <label class="chk"><input type="checkbox" id="bs-elder"> 高齢の家族がいる</label>
+        <label class="chk"><input type="checkbox" id="bs-pet"> 犬や猫などのペットがいる</label>
+        <label class="chk"><input type="checkbox" id="bs-woman"> 生理用品などが必要な人がいる</label>
+        <div class="result" id="bs-out" aria-live="polite"></div>
+      </section>
+
+      <section class="tool" aria-labelledby="h-bc">
+        <h2 id="h-bc">チェックリスト</h2>
+        <p class="how">用意できた物に✓をつけます。</p>
+        <p class="count-line" id="bs-count" aria-live="polite"></p>
+        <div id="bs-groups"></div>
+        <div class="btns"><button class="btn" type="button" id="bs-uncheck">✓を全部外す</button></div>
+        <p class="note">ここに出す項目は、官公庁の資料にある一般的な例です（下の「出典・確認日」）。家族の体調・持病・住んでいる場所によって、ほかに必要な物があります。全部そろえても、それで十分という意味ではありません。お住まいの市区町村の案内もあわせて確かめてください。</p>
+      </section>
+
+      <section class="tool" aria-labelledby="h-bm">
+        <h2 id="h-bm">備蓄の期限メモ</h2>
+        <p class="how">水や食べ物、電池などの期限を書いておくと、近い順に並びます。30日以内は橙、過ぎた物は赤で出ます。</p>
+        <div class="row">
+          <div class="cell"><label class="f" for="bs-memo-name">名前</label>
+            <input class="t" type="text" id="bs-memo-name" maxlength="30" autocomplete="off" list="bs-memo-names" placeholder="例：保存水 2リットル×6本" enterkeyhint="done"></div>
+          <div class="cell"><label class="f" for="bs-memo-date">期限の日付</label>
+            <input class="t" type="date" id="bs-memo-date" min="2000-01-01" max="2200-12-31"></div>
+        </div>
+        <datalist id="bs-memo-names"><option value="保存水"><option value="アルファ米"><option value="レトルト食品"><option value="缶詰"><option value="乾パン"><option value="粉ミルク"><option value="液体ミルク"><option value="乾電池"><option value="カセットボンベ"><option value="携帯用トイレ"><option value="ペットフード"></datalist>
+        <div class="btns"><button class="btn main big" type="button" id="bs-memo-add">＋ 足す</button></div>
+        <p class="msg" id="bs-msg" aria-live="polite"></p>
+        <ul class="list" id="bs-memo-list"></ul>
+        <div class="btns"><button class="btn warn" type="button" id="bs-clear">全部消す</button></div>
+        <p class="privacy">家族のようす・✓・期限のメモは、この端末のこのブラウザにだけ残ります（外へは送りません）。</p>
+        <p class="save-note" id="save-note" hidden></p>
+      </section>
+
+    </div>
+    <p class="home-tip">ホーム画面に置くと、アプリのように開けます（iPhone：Safari の共有ボタン →「ホーム画面に追加」／Android：Chrome のメニュー →「ホーム画面に追加」）。<a href="index.html#home">くわしく</a></p>
+    <div class="prose">
+      <h2>使い方</h2>
+      <ul>
+        <li>家族の人数と、乳幼児・高齢の家族・ペットなどがいるかを選びます。チェックリストの項目と、水・食べ物の量の目安が変わります。</li>
+        <li>用意できた物に✓をつけます。✓はこの端末に残るので、少しずつそろえていけます。</li>
+        <li>水や食べ物、電池などの期限は「備蓄の期限メモ」に書いておくと、近い順に並びます。食べたり使ったりしたら買い足す（ローリングストック）ときの目安に。</li>
+      </ul>
+      <h2>水と食べ物の量の目安</h2>
+      <p>水は1人1日3リットルが目安、食べ物と水は最低3日分、大きな災害では1週間分の備蓄が望ましいとされています（首相官邸「災害への備え」）。このページの量は、この目安を人数と日数でかけ算したものです（食べ物は1日3食として数えています）。暑い時期や、ミルクを作る家庭では、もっと多く要ることがあります。</p>
+      <p>ペットのフードと水は、少なくとも5日分（できれば7日分以上）が例として挙げられています（環境省）。</p>
+      <h2>気をつけること</h2>
+      <ul>
+        <li>ここに出す項目は、下の官公庁の資料にある一般的な例です。全部そろえても、それで十分という意味ではありません。</li>
+        <li>持病のある人、食物アレルギーのある人、かむ・飲みこむ力が弱い人に合わせた食べ物の備え方が、農林水産省の資料にまとめられています。持病の薬のことは、かかりつけの医師や薬剤師にも相談してください。</li>
+        <li>避難の場所や方法は、お住まいの市区町村のハザードマップや案内で確かめてください。</li>
+      </ul>
+      <h2>出典・確認日</h2>
+      <p>このページの項目と目安は、次の公式の情報で確かめました（確認日：2026-11-04）。</p>
+      <ul class="src-list">
+        <li>首相官邸「災害への備え 事前にできること」（水は1人1日3リットルが目安、最低3日分の水・食料、大規模災害では1週間分が望ましい）<br><a href="https://www.kantei.go.jp/jp/headline/bousai/sonae.html" rel="noopener noreferrer" target="_blank">https://www.kantei.go.jp/jp/headline/bousai/sonae.html</a></li>
+        <li>首相官邸「災害の『備え』チェックリスト」（監修：内閣府政策統括官（防災担当）・内閣府男女共同参画局。非常用持ち出し袋、こどものための備え、女性の備え、高齢者のための備え、備蓄品）<br><a href="https://www.kantei.go.jp/jp/content/000182715.pdf" rel="noopener noreferrer" target="_blank">https://www.kantei.go.jp/jp/content/000182715.pdf</a></li>
+        <li>農林水産省「要配慮者のための災害時に備えた食品ストックガイド」の「要配慮者のための食品備蓄のポイント」（乳幼児：粉ミルク・ほ乳びん・紙コップや使い捨てスプーン・多めの飲料水・離乳食。高齢者：おかゆ・やわらかい物・食べ慣れた物など）<br><a href="https://www.maff.go.jp/j/zyukyu/foodstock/guidebook/pdf/need_consideration_stockguide-5.pdf" rel="noopener noreferrer" target="_blank">https://www.maff.go.jp/j/zyukyu/foodstock/guidebook/pdf/need_consideration_stockguide-5.pdf</a></li>
+        <li>環境省「人とペットの災害対策ガイドライン＜一般飼い主編＞」の「ペット用の避難用品や備蓄品の確保」（フードと水は少なくとも5日分、できれば7日分以上。療法食・薬、ケージ、予備の首輪・リード、トイレ用品、写真、健康の記録など）<br><a href="https://www.env.go.jp/nature/dobutsu/aigo/2_data/pamph/h3009a.html" rel="noopener noreferrer" target="_blank">https://www.env.go.jp/nature/dobutsu/aigo/2_data/pamph/h3009a.html</a></li>
+      </ul>
+      <h2>このページについて</h2>
+      <p>登録はいりません。家族のようす・✓・期限のメモは、この端末のこのブラウザの中にだけ残り、外へは送りません。住所や家族の名前を入れる欄はありません。</p>
+
+      <h2>家の備蓄の量と期限をまとめて管理したい人は</h2>
+      <div class="rel-cards">
+        <div class="rel-card">
+          <h3><a href="../items/bousai.html">防災備蓄 チェック表（Excel）</a></h3>
+          <p>人数を入れるだけで、足りない量と期限切れがわかる、ひなが堂の Excel の防災備蓄の表です。</p>
+        </div>
+      </div>
+      <p class="note">まちがいや使いにくい所に気づいたら、<a href="../contact.html">お問い合わせ</a>からお知らせください。</p>
+      <h2>ほかのくらしのアプリ</h2>
+      <ul class="more">
+        <li><a href="yarukoto.html">やること表（今日・今週・いつか） →</a></li>
+        <li><a href="shuchu.html">集中タイマー（25分集中＋5分休けい） →</a></li>
+        <li><a href="alarm.html">キッチンタイマーとアラーム →</a></li>
+        <li><a href="gomi.html">ごみ出しの日 早見（無料版） →</a></li>
+        <li><a href="reizoko.html">冷蔵庫の期限メモ（無料版） →</a></li>
+        <li><a href="yosan.html">今月あといくら（予算の残りと1日あたり） →</a></li>
+        <li><a href="shukan.html">習慣チェック（続いた日数とカレンダー） →</a></li>
+        <li><a href="otetsudai.html">おてつだいポイント →</a></li>
+        <li><a href="subsc.html">サブスク合計（月と年の合計・次の更新日） →</a></li>
+        <li><a href="kinenbi.html">記念日・誕生日まで何日 →</a></li>
+        <li><a href="index.html">くらしのアプリの一覧へ →</a></li>
+        <li><a href="../keisan/index.html">計算の道具（和暦・日数・消費税など）→</a></li>
+      </ul>
+    </div>
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div>
+      <a class="logo" href="../index.html"><svg viewBox="0 0 120 120" width="42" height="42" aria-hidden="true" focusable="false"><rect x="12" y="12" width="96" height="96" rx="30" fill="#fffbf4" stroke="#24466b" stroke-width="9"/><circle cx="45" cy="62" r="5.2" fill="#24466b"/><circle cx="75" cy="62" r="5.2" fill="#24466b"/><path d="M53.5 71 Q60 77 66.5 71" fill="none" stroke="#24466b" stroke-width="4.2" stroke-linecap="round"/><ellipse cx="33.5" cy="73" rx="6.5" ry="4.2" fill="#d9573a" opacity=".85"/><ellipse cx="86.5" cy="73" rx="6.5" ry="4.2" fill="#d9573a" opacity=".85"/></svg><span><b>ひなが堂</b><small>HINAGADO</small></span></a>
+      <p>くらしと仕事を少しラクにする「ひな形」と、<br>ちょっと楽しいデジタルの小物をつくる小さなお店です。</p>
+    </div>
+    <nav class="fnav" aria-label="サイトの案内">
+      <a href="../index.html">ホーム</a>
+      <a href="../items/index.html">商品</a>
+      <a href="../articles/index.html">読みもの</a>
+      <a href="../keisan/index.html">計算の道具</a>
+      <a href="../kurashi/index.html">くらしのアプリ</a>
+      <a href="../play/index.html">無料ゲーム</a>
+      <a href="../about.html">このお店について</a>
+      <a href="../contact.html">お問い合わせ</a>
+      <a href="../studio/index.html">ホームページ制作（制作室）</a>
+      <a href="../privacy.html">プライバシーポリシー</a>
+      <a href="../tokushoho.html">特定商取引法に基づく表記</a>
+    </nav>
+    <div class="copy">© <span data-year>2026</span> HINAGADO</div>
+  </div>
+</footer>
+<script>
+(function(){var b=document.querySelector('.menu-btn'),n=document.querySelector('.gnav');
+if(b&&n){b.addEventListener('click',function(){var o=n.classList.toggle('open');b.setAttribute('aria-expanded',o);b.textContent=o?'閉じる':'メニュー';});}
+document.querySelectorAll('[data-year]').forEach(function(e){e.textContent=new Date().getFullYear();});})();
+</script>
+<script>
+// くらしのアプリ（2026-11-04 追加）で共通の部品。build.py が各ページの先頭に埋め込む。
+// 保存はこの端末のこのブラウザの localStorage だけ（外へは送らない）。使えないブラウザ（保存を止める設定など）でも動くように、
+// 読み書きはすべて try/catch で包み、保存できないときは画面に知らせる。
+(function () {
+  'use strict';
+  function $(id) { return document.getElementById(id); }
+  function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function radio(name) { var r = document.querySelector('input[name="' + name + '"]:checked'); return r ? r.value : null; }
+
+  // ---- 保存
+  function store(key) {
+    var ok = true;
+    try { var t = '__hinagado_test__'; localStorage.setItem(t, '1'); localStorage.removeItem(t); } catch (e) { ok = false; }
+    return {
+      ok: ok,
+      load: function (def) {
+        if (!ok) return def;
+        try { var s = localStorage.getItem(key); if (!s) return def; var v = JSON.parse(s); return v && typeof v === 'object' ? v : def; } catch (e) { return def; }
+      },
+      save: function (v) { if (!ok) return false; try { localStorage.setItem(key, JSON.stringify(v)); return true; } catch (e) { return false; } },
+      clear: function () { if (!ok) return; try { localStorage.removeItem(key); } catch (e) { /* 何もしない */ } }
+    };
+  }
+  // 保存できないときの知らせ（id="save-note" の所に出す）
+  function saveNote(st) {
+    var el = $('save-note');
+    if (el && !st.ok) { el.hidden = false; el.textContent = 'このブラウザでは保存ができない設定になっています。ページを閉じると、入れた内容は消えます。'; }
+  }
+
+  // ---- 日付（端末の時計の、その日）
+  function p2(n) { return String(n).padStart(2, '0'); }
+  function ymd(d) { return d.getFullYear() + '-' + p2(d.getMonth() + 1) + '-' + p2(d.getDate()); }
+  function today() { return ymd(new Date(Date.now())); }
+  function parse(s) { var r = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(s || '')); return r ? new Date(+r[1], +r[2] - 1, +r[3]) : null; }
+  function addDays(s, n) { var d = parse(s); d.setDate(d.getDate() + n); return ymd(d); }
+  function diffDays(a, b) { var x = parse(a), y = parse(b); return Math.round((Date.UTC(y.getFullYear(), y.getMonth(), y.getDate()) - Date.UTC(x.getFullYear(), x.getMonth(), x.getDate())) / 86400000); }
+  var WD = ['日', '月', '火', '水', '木', '金', '土'];
+  function jp(s, withYear) { var d = parse(s); return (withYear ? d.getFullYear() + '年' : '') + (d.getMonth() + 1) + '月' + d.getDate() + '日（' + WD[d.getDay()] + '）'; }
+  function mmss(sec) { sec = Math.max(0, Math.ceil(sec)); var h = Math.floor(sec / 3600), m = Math.floor(sec % 3600 / 60), s = sec % 60; return (h ? h + ':' + p2(m) : String(m)) + ':' + p2(s); }
+
+  // ---- 音（Web Audio で短い音を作る。音のファイルは使わない）
+  var ctx = null;
+  function audio() {
+    try {
+      if (!ctx) { var A = window.AudioContext || window.webkitAudioContext; if (!A) return null; ctx = new A(); }
+      if (ctx.state === 'suspended' && ctx.resume) ctx.resume().catch(function () { /* 鳴らせないときは何もしない */ });
+      return ctx;
+    } catch (e) { return null; }
+  }
+  // tones: [[高さHz, 長さ秒], ...] を順に鳴らす
+  function beep(tones, vol) {
+    var c = audio(); if (!c) return false;
+    var t = c.currentTime + 0.02;
+    (tones || [[880, 0.18], [0, 0.08], [880, 0.18], [0, 0.08], [1175, 0.35]]).forEach(function (x) {
+      if (x[0] > 0) {
+        var o = c.createOscillator(), g = c.createGain();
+        o.type = 'sine'; o.frequency.value = x[0];
+        g.gain.setValueAtTime(0.0001, t);
+        g.gain.exponentialRampToValueAtTime(vol || 0.25, t + 0.02);
+        g.gain.exponentialRampToValueAtTime(0.0001, t + x[1]);
+        o.connect(g); g.connect(c.destination); o.start(t); o.stop(t + x[1] + 0.02);
+      }
+      t += x[1];
+    });
+    window.__hinagadoBeeps = (window.__hinagadoBeeps || 0) + 1; // 試験で「鳴らした」を数える
+    return true;
+  }
+
+  // ---- 画面を消さない（Screen Wake Lock）。使えないブラウザでは false
+  var lock = null, want = false;
+  function wakeSupported() { return !!(navigator.wakeLock && navigator.wakeLock.request); }
+  function wake(on, cb) {
+    want = on;
+    if (!on) { if (lock) { lock.release().catch(function () {}); lock = null; } if (cb) cb(false); return; }
+    if (!wakeSupported()) { if (cb) cb(false, 'unsupported'); return; }
+    navigator.wakeLock.request('screen').then(function (l) {
+      lock = l; l.addEventListener('release', function () { lock = null; });
+      if (cb) cb(true);
+    }).catch(function () { lock = null; if (cb) cb(false, 'denied'); });
+  }
+  document.addEventListener('visibilitychange', function () { if (want && !lock && document.visibilityState === 'visible') wake(true); });
+
+  function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
+
+  window.HAPP = { $: $, esc: esc, radio: radio, store: store, saveNote: saveNote, p2: p2, ymd: ymd, today: today, parse: parse, addDays: addDays, diffDays: diffDays, WD: WD, jp: jp, mmss: mmss, audio: audio, beep: beep, wake: wake, wakeSupported: wakeSupported, uid: uid };
+})();
+
+// ひなが堂 くらしのアプリ — 2026-11-04 追加の6本（今月あといくら・習慣チェック・おてつだいポイント・サブスク合計・防災の持ち出しチェック・記念日まで何日）の
+// 計算の部品（画面のない純粋な関数）。ページには build.py が app_common.js のあとにこのファイルをそのまま埋め込む。
+// node の試験（tests/test_kcalc.js）も同じファイルを読む。日付は 'YYYY-MM-DD' の文字列で受け渡し、時差の影響を受けないよう
+// 端末の時計（Date）は使わず、通し番号（1970-01-01 からの日数）で数える。お金は円の整数だけ（小数は使わない）。
+(function (root) {
+  'use strict';
+  // ------------------------------------------------------------ 日付の基本
+  function isLeap(y) { return (y % 4 === 0 && y % 100 !== 0) || y % 400 === 0; }
+  function dim(y, m) { return [31, isLeap(y) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][m - 1]; }
+  function serial(y, m, d) {
+    const a = Math.floor((14 - m) / 12), yy = y + 4800 - a, mm = m + 12 * a - 3;
+    return d + Math.floor((153 * mm + 2) / 5) + 365 * yy + Math.floor(yy / 4) - Math.floor(yy / 100) + Math.floor(yy / 400) - 32045 - 2440588;
+  }
+  function fromSerial(n) {
+    const a = n + 2440588 + 32044, b = Math.floor((4 * a + 3) / 146097), c = a - Math.floor(146097 * b / 4);
+    const d = Math.floor((4 * c + 3) / 1461), e = c - Math.floor(1461 * d / 4), m = Math.floor((5 * e + 2) / 153);
+    return { y: 100 * b + d - 4800 + Math.floor(m / 10), m: m + 3 - 12 * Math.floor(m / 10), d: e - Math.floor((153 * m + 2) / 5) + 1 };
+  }
+  const p2 = (n) => String(n).padStart(2, '0');
+  const fmt = (o) => String(o.y).padStart(4, '0') + '-' + p2(o.m) + '-' + p2(o.d);
+  // 'YYYY-MM-DD' → {y,m,d}（無い日・形の違う物は null）
+  function parse(s) {
+    const r = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(s || ''));
+    if (!r) return null;
+    const y = +r[1], m = +r[2], d = +r[3];
+    if (m < 1 || m > 12 || d < 1 || d > dim(y, m)) return null;
+    return { y: y, m: m, d: d };
+  }
+  const ser = (s) => { const o = parse(s); return serial(o.y, o.m, o.d); };
+  const addDays = (s, n) => fmt(fromSerial(ser(s) + n));
+  const diffDays = (a, b) => ser(b) - ser(a); // a から b まで何日（b が後ならプラス）
+  const weekday = (s) => (((ser(s) % 7) + 7 + 4) % 7); // 1970-01-01 = 木(4)。0=日
+  // n か月後の「同じ日」。その日が無い月は、その月の末日にする（anchorDay は、もとの日）
+  function addMonthsDay(y, m, anchorDay, n) {
+    const t = y * 12 + (m - 1) + n, ny = Math.floor(t / 12), nm = t - ny * 12 + 1;
+    return { y: ny, m: nm, d: Math.min(anchorDay, dim(ny, nm)) };
+  }
+
+  // ------------------------------------------------------------ 1. 今月あといくら
+  // startDay（1〜28）を「月の始まりの日」として、今日をふくむ期間（始まりの日〜次の始まりの日の前日）を出す。
+  function budgetPeriod(today, startDay) {
+    const t = parse(today), s = Math.min(Math.max(1, Math.floor(startDay) || 1), 28);
+    let st;
+    if (t.d >= s) st = { y: t.y, m: t.m, d: s };
+    else st = addMonthsDay(t.y, t.m, s, -1);
+    const nx = addMonthsDay(st.y, st.m, s, 1);
+    const start = fmt(st), end = addDays(fmt(nx), -1);
+    return { start: start, end: end, daysTotal: diffDays(start, end) + 1, daysLeft: diffDays(today, end) + 1, dayNo: diffDays(start, today) + 1 };
+  }
+  // entries: [{date, amount}]（amount は円の整数。マイナスは返金などで使った額から引く）
+  // 戻り: used（期間の中で使った額）・remain（予算 − used）・perDay（今日をふくめた残りの日数で割った「1日あたり」。円未満は切り捨て。
+  //       使いすぎなら 0）・over（使いすぎた額）・todayUsed（今日使った額）
+  function budgetSummary(budget, entries, today, startDay) {
+    const P = budgetPeriod(today, startDay);
+    let used = 0, todayUsed = 0, count = 0;
+    for (const e of entries || []) {
+      if (!parse(e.date)) continue;
+      if (e.date < P.start || e.date > P.end) continue;
+      used += e.amount; count++;
+      if (e.date === today) todayUsed += e.amount;
+    }
+    const remain = budget - used;
+    const perDay = remain > 0 ? Math.floor(remain / P.daysLeft) : 0;
+    return { period: P, used: used, remain: remain, perDay: perDay, over: remain < 0 ? -remain : 0, todayUsed: todayUsed, count: count };
+  }
+
+  // ------------------------------------------------------------ 2. 習慣チェック
+  // dates: ○をつけた日の配列。今日に○があれば今日から、なければ昨日から、さかのぼって続いた日数を数える
+  // （今日まだ○をつけていなくても、昨日まで続いていれば切れていない、とする）。
+  function streak(dates, today) {
+    const set = new Set(dates || []);
+    let s = set.has(today) ? today : addDays(today, -1), n = 0;
+    while (set.has(s)) { n++; s = addDays(s, -1); }
+    return n;
+  }
+  // いちばん長く続いた日数（今日より後の日は数えない）
+  function bestStreak(dates, today) {
+    const xs = [...new Set(dates || [])].filter((d) => parse(d) && d <= today).map(ser).sort((a, b) => a - b);
+    let best = 0, run = 0, prev = null;
+    for (const x of xs) { run = (prev !== null && x === prev + 1) ? run + 1 : 1; if (run > best) best = run; prev = x; }
+    return best;
+  }
+  // その月の○の数（y 年 m 月）
+  function monthCount(dates, y, m) {
+    const pre = String(y).padStart(4, '0') + '-' + p2(m) + '-';
+    return new Set((dates || []).filter((d) => String(d).startsWith(pre) && parse(d))).size;
+  }
+  // カレンダーの形（日曜はじまり）。cells は先頭の空き（null）と、その月の日付
+  function monthCells(y, m) {
+    const first = fmt({ y: y, m: m, d: 1 }), lead = weekday(first), cells = [];
+    for (let i = 0; i < lead; i++) cells.push(null);
+    for (let d = 1; d <= dim(y, m); d++) cells.push(fmt({ y: y, m: m, d: d }));
+    return cells;
+  }
+
+  // ------------------------------------------------------------ 3. おてつだいポイント
+  // log: [{kid, pts}]（ためた分はプラス、使った分はマイナス）
+  function balance(log, kid) { let s = 0; for (const e of log || []) if (e.kid === kid) s += e.pts; return s; }
+  function earned(log, kid) { let s = 0; for (const e of log || []) if (e.kid === kid && e.pts > 0) s += e.pts; return s; }
+  // 使えるか（足りないときは false）
+  function canUse(log, kid, pts) { return pts > 0 && balance(log, kid) >= pts; }
+
+  // ------------------------------------------------------------ 4. サブスク合計
+  // items: [{price, cycle:'m'|'y'}]。1年の合計（月額×12＋年額）と、月あたり（1年の合計÷12、四捨五入）
+  function subscTotals(items) {
+    let m = 0, y = 0;
+    for (const it of items || []) { if (it.cycle === 'y') y += it.price; else m += it.price; }
+    const year = m * 12 + y;
+    return { monthlySum: m, yearlySum: y, perYear: year, perMonth: Math.round(year / 12), perMonthExact: year % 12 === 0 };
+  }
+  // 更新日（anchor）から、今日以後で最初の更新日。月ごとは毎月同じ日（無い月は末日）、年ごとは毎年同じ日（2月29日は、うるう年でない年は2月28日）。
+  function nextRenewal(anchor, cycle, today) {
+    const a = parse(anchor), step = cycle === 'y' ? 12 : 1;
+    if (anchor >= today) return { date: anchor, days: diffDays(today, anchor) };
+    // 目安のところから数え始め、今日以後になるまで進める
+    const monthsGap = ((parse(today).y - a.y) * 12 + (parse(today).m - a.m));
+    let k = Math.max(0, Math.floor(monthsGap / step) - 1), d;
+    for (;;) { d = fmt(addMonthsDay(a.y, a.m, a.d, k * step)); if (d >= today) break; k++; }
+    return { date: d, days: diffDays(today, d) };
+  }
+
+  // ------------------------------------------------------------ 5. 防災の持ち出しチェック
+  // 水は 1人1日3リットル（首相官邸「災害への備え」）。食べ物は1日3食として「食分」で数える。
+  function bousaiAmounts(people, days) {
+    const water = 3 * people * days;
+    return { waterL: water, bottles2L: Math.ceil(water / 2), meals: 3 * people * days };
+  }
+  // 期限の状態（today から見て）
+  function expiryState(date, today, soonDays) {
+    const n = diffDays(today, date);
+    return { days: n, state: n < 0 ? 'late' : n <= (soonDays == null ? 30 : soonDays) ? 'soon' : 'ok' };
+  }
+
+  // ------------------------------------------------------------ 6. 記念日・誕生日まで何日
+  // date: もとの日（誕生日・記念日）。今日以後で最初のその日と、そのとき何回目（誕生日なら何歳）か。
+  // 2月29日は、うるう年でない年は2月28日として数える。もとの日が今日より後なら、その日まで（回数は 0）。
+  function nextAnniv(date, today) {
+    const o = parse(date), t = parse(today);
+    if (date > today) return { date: date, days: diffDays(today, date), n: 0, first: true };
+    const on = (y) => fmt({ y: y, m: o.m, d: (o.m === 2 && o.d === 29 && !isLeap(y)) ? 28 : o.d });
+    let y = t.y, d = on(y);
+    if (d < today) { y++; d = on(y); }
+    return { date: d, days: diffDays(today, d), n: y - o.y, first: false };
+  }
+
+  // ------------------------------------------------------------ 入力（金額・ポイント）
+  // 全角の数字、3けたごとのカンマ、前後の空白、終わりの「円」「ポイント」「pt」をゆるす。0 以上 max 以下の整数だけ。
+  function parseInt0(s, max) {
+    let t = String(s == null ? '' : s).replace(/[０-９]/g, (c) => String.fromCharCode(c.charCodeAt(0) - 0xFEE0))
+      .replace(/[，、]/g, ',').replace(/[\s　]/g, '').replace(/(円|ポイント|pt)$/i, '');
+    if (t === '') return { ok: false, err: 'empty' };
+    if (/^\d{1,3}(,\d{3})+$/.test(t)) t = t.replace(/,/g, '');
+    if (!/^\d+$/.test(t)) return { ok: false, err: 'bad' };
+    const v = Number(t);
+    if (!(v <= (max == null ? 1e9 : max))) return { ok: false, err: 'big' };
+    return { ok: true, v: v };
+  }
+
+  const API = { parseInt0, isLeap, dim, serial, fromSerial, parse, fmt, addDays, diffDays, weekday, addMonthsDay,
+    budgetPeriod, budgetSummary, streak, bestStreak, monthCount, monthCells, balance, earned, canUse,
+    subscTotals, nextRenewal, bousaiAmounts, expiryState, nextAnniv };
+  root.KCalc = API;
+  if (typeof module !== 'undefined' && module.exports) module.exports = API;
+})(typeof window !== 'undefined' ? window : globalThis);
+
+(function () {
+  'use strict';
+  var A = window.HAPP, K = window.KCalc, $ = A.$, esc = A.esc;
+  var st = A.store('hinagado.bousai.v1');
+  A.saveNote(st);
+  var data = st.load({ v: 1, set: {}, checks: {}, memo: [] });
+  if (!data.set || typeof data.set !== 'object') data.set = {};
+  if (!data.checks || typeof data.checks !== 'object') data.checks = {};
+  if (!Array.isArray(data.memo)) data.memo = [];
+  var S = data.set;
+  S.people = Math.min(10, Math.max(1, Number(S.people) || 2)); S.days = S.days === 7 ? 7 : 3;
+  // 項目（出典: 首相官邸「災害の『備え』チェックリスト」（内閣府 監修）、農林水産省「要配慮者のための食品備蓄のポイント」、
+  //   環境省「人とペットの災害対策ガイドライン 一般飼い主編」p.19。くわしくはページ下の出典）
+  var GROUPS = [
+    { id: 'motidasi', title: '非常用持ち出し袋（避難のときに持ち出す物）', items: [
+      ['m-water', '水'], ['m-food', '食べ物（アルファ米などのご飯・レトルト食品・ビスケット・チョコ・乾パンなど）'],
+      ['m-helmet', '防災用ヘルメット・防災ずきん'], ['m-cloth', '衣類・下着'], ['m-rain', 'レインウェア'], ['m-shoes', 'ひものない運動靴'],
+      ['m-light', '懐中電灯（手で充電できる物が便利）'], ['m-radio', '携帯ラジオ（手で充電できる物が便利）'], ['m-batt', '予備の電池・携帯の充電器'],
+      ['m-match', 'マッチ・ろうそく'], ['m-aid', '救急用品（ばんそうこう・包帯・消毒液・常備薬など）'], ['m-kairo', '使い捨てカイロ'], ['m-blanket', 'ブランケット'],
+      ['m-toilet', '携帯用トイレ'], ['m-gunte', '軍手'], ['m-senmen', '洗面用具'], ['m-ha', '歯ブラシ・歯みがき粉'], ['m-towel', 'タオル'], ['m-pen', 'ペン・ノート'],
+      ['m-mask', 'マスク'], ['m-alc', '手指消毒用アルコール'], ['m-soap', '石けん・ハンドソープ'], ['m-wet', 'ウェットティッシュ'], ['m-thermo', '体温計'],
+      ['m-kicho', '貴重品（通帳・現金・パスポート・運転免許証・マイナンバーカード・病院の診察券など）']] },
+    { id: 'bichiku', title: '家に備えておく物（備蓄）', items: [
+      ['b-water', 'WATER'], ['b-food', 'FOOD'],
+      ['b-life', '生活用品（ティッシュ・トイレットペーパー・ラップ・ごみ袋・ポリタンクなど）'], ['b-toilet', '携帯用トイレ']] },
+    { id: 'baby', when: 'baby', title: '乳幼児のための備え', items: [
+      ['c-milk', '粉ミルク（アレルギー用もふくむ）または液体ミルク'], ['c-bottle', '使い捨てのほ乳びん'], ['c-rinyu', '離乳食（レトルトなど）'],
+      ['c-water', '多めの飲み水（ミルク用）'], ['c-cup', '紙コップ・使い捨てスプーン・携帯用の食器'], ['c-omutsu', '子ども用の紙おむつ'], ['c-fuki', 'おしりふき'],
+      ['c-senjo', '携帯用のおしり洗浄器'], ['c-necklight', 'ネックライト'], ['c-dakko', '抱っこひも'], ['c-kutsu', '子どもの靴'], ['c-suki', '好きな食べ物・飲み物']] },
+    { id: 'elder', when: 'elder', title: '高齢の家族のための備え', items: [
+      ['e-pants', '大人用の紙パンツ'], ['e-pad', '吸水パッド'], ['e-tsue', '杖'], ['e-hochoki', '補聴器'], ['e-ireba', '入れ歯・入れ歯用の洗浄液'],
+      ['e-kusuri', '持病の薬'], ['e-techo', 'お薬手帳のコピー'], ['e-kaigo', '介護食・やわらかいおかゆ（レトルトなど）'], ['e-senjozai', 'デリケートゾーンの洗浄剤'],
+      ['e-suki', '食べ慣れた物・好きな食べ物']] },
+    { id: 'woman', when: 'woman', title: '生理用品などの備え', items: [
+      ['w-seiri', '生理用品'], ['w-orimono', 'おりものシート'], ['w-shorts', 'サニタリーショーツ'], ['w-bag', '中身の見えないごみ袋'], ['w-buzzer', '防犯ブザー・ホイッスル']] },
+    { id: 'pet', when: 'pet', title: 'ペットのための備え', items: [
+      ['p-med', '療法食・薬'], ['p-food', 'ペットフードと水（少なくとも5日分、できれば7日分以上）'], ['p-cage', 'キャリーバッグやケージ'],
+      ['p-lead', '予備の首輪・リード（伸びないもの）'], ['p-sheet', 'ペットシーツ'], ['p-toilet', '排せつ物の処理用具・トイレ用品（猫は使い慣れた猫砂）'], ['p-dish', '食器'],
+      ['p-info', '飼い主の連絡先と、ほかの緊急連絡先・預け先のメモ'], ['p-photo', 'ペットの写真（印刷した物と、携帯電話の中）'],
+      ['p-health', 'ワクチン・持病・飲んでいる薬・かかりつけの動物病院のメモ'], ['p-towel', 'タオル・ブラシ'], ['p-bag', 'ビニール袋'], ['p-tape', 'ガムテープ・マジック']] },
+  ];
+  function save() { st.save(data); }
+  function shown() { return GROUPS.filter(function (g) { return !g.when || S[g.when]; }); }
+  function label(id, t) {
+    var a = K.bousaiAmounts(S.people, S.days);
+    if (t === 'WATER') return '飲み水 ' + a.waterL + 'リットル（1人1日3リットル × ' + S.people + '人 × ' + S.days + '日。2リットルのペットボトルなら ' + a.bottles2L + '本）';
+    if (t === 'FOOD') return '食べ物 ' + a.meals + '食分（1日3食 × ' + S.people + '人 × ' + S.days + '日。保存期間の長い物を多めに買い、使ったら買い足す）';
+    return t;
+  }
+  function render() {
+    var a = K.bousaiAmounts(S.people, S.days), gs = shown();
+    $('bs-out').innerHTML = '<p class="sub">' + S.people + '人・' + (S.days === 7 ? '1週間' : '3日') + '分の目安</p>' +
+      '<ul class="facts"><li><span>飲み水</span><b>' + a.waterL + 'リットル</b></li>' +
+      '<li><span>2リットルのペットボトルなら</span><b>' + a.bottles2L + '本</b></li>' +
+      '<li><span>食べ物</span><b>' + a.meals + '食分</b></li>' +
+      (S.pet ? '<li><span>ペットのフードと水</span><b>少なくとも5日分</b></li>' : '') + '</ul>' +
+      '<p class="sub">水は1人1日3リットルが目安です。最低3日分、大きな災害に備えるなら1週間分が望ましいとされています（首相官邸）。' + (S.baby ? 'ミルクを作る家庭は、水を多めに。' : '') + '</p>';
+    var total = 0, done = 0;
+    $('bs-groups').innerHTML = gs.map(function (g) {
+      var n = 0;
+      var lis = g.items.map(function (it) {
+        total++; var on = !!data.checks[it[0]]; if (on) { done++; n++; }
+        return '<li><label class="chk ck' + (on ? ' on' : '') + '"><input type="checkbox" data-ck="' + it[0] + '"' + (on ? ' checked' : '') + '> <span>' + esc(label(it[0], it[1])) + '</span></label></li>';
+      }).join('');
+      return '<details class="grp" open><summary><b>' + esc(g.title) + '</b> <span class="pill' + (n === g.items.length ? ' today' : ' gray') + '">' + n + ' / ' + g.items.length + '</span></summary><ul class="cklist">' + lis + '</ul></details>';
+    }).join('');
+    $('bs-count').innerHTML = '用意できた物 <b>' + done + '</b> / ' + total;
+    var t = A.today();
+    var memo = data.memo.slice().sort(function (x, y) { return x.date < y.date ? -1 : x.date > y.date ? 1 : x.t - y.t; });
+    $('bs-memo-list').innerHTML = memo.length ? memo.map(function (m) {
+      var e = K.expiryState(m.date, t, 30), txt = e.days < 0 ? (-e.days) + '日過ぎています' : e.days === 0 ? '今日まで' : 'あと' + e.days + '日';
+      return '<li class="item one' + (e.state === 'late' ? ' late' : e.state === 'soon' ? ' soon' : '') + '"><div class="main"><p class="txt">' + esc(m.name) + '</p>' +
+        '<p class="meta"><span class="pill ' + (e.state === 'late' ? 'late' : e.state === 'soon' ? 'soon' : '') + '">' + txt + '</span><span class="pill gray">期限 ' + A.jp(m.date, true) + '</span></p></div>' +
+        '<div class="ops"><button class="btn sm" type="button" data-del="' + m.id + '" aria-label="「' + esc(m.name) + '」を消す">入れかえた・消す</button></div></li>';
+    }).join('') : '<li class="empty">まだメモがありません。</li>';
+  }
+  // 家族のようす
+  var ps = $('bs-people'), o = [];
+  for (var i = 1; i <= 10; i++) o.push('<option value="' + i + '">' + i + '人</option>');
+  ps.innerHTML = o.join(''); ps.value = String(S.people);
+  ps.addEventListener('change', function () { S.people = Number(ps.value); save(); render(); });
+  document.querySelectorAll('input[name="bs-days"]').forEach(function (r) {
+    r.checked = Number(r.value) === S.days;
+    r.addEventListener('change', function () { S.days = Number(A.radio('bs-days')) === 7 ? 7 : 3; save(); render(); });
+  });
+  ['baby', 'elder', 'pet', 'woman'].forEach(function (k) {
+    var c = $('bs-' + k); c.checked = !!S[k];
+    c.addEventListener('change', function () { S[k] = c.checked; save(); render(); });
+  });
+  $('bs-groups').addEventListener('change', function (e) {
+    var c = e.target.closest('[data-ck]'); if (!c) return;
+    if (c.checked) data.checks[c.getAttribute('data-ck')] = true; else delete data.checks[c.getAttribute('data-ck')];
+    save(); render();
+  });
+  $('bs-uncheck').addEventListener('click', function () {
+    if (!Object.keys(data.checks).length) return;
+    if (!window.confirm('チェックリストの✓を全部外します。よろしいですか？')) return;
+    data.checks = {}; save(); render();
+  });
+  function addMemo() {
+    var name = $('bs-memo-name').value.replace(/\s+/g, ' ').trim(), date = $('bs-memo-date').value, msg = $('bs-msg');
+    if (!name) { msg.textContent = '名前を書いてください。'; return; }
+    if (!K.parse(date)) { msg.textContent = '期限の日付を選んでください。'; return; }
+    data.memo.push({ id: A.uid(), name: name.slice(0, 30), date: date, t: Date.now() }); save();
+    $('bs-memo-name').value = ''; msg.textContent = '「' + name + '」（' + A.jp(date, true) + 'まで）を足しました。'; render();
+  }
+  $('bs-memo-add').addEventListener('click', addMemo);
+  $('bs-memo-name').addEventListener('keydown', function (e) { if (e.key === 'Enter' && !e.isComposing) { e.preventDefault(); addMemo(); } });
+  $('bs-memo-list').addEventListener('click', function (e) {
+    var b = e.target.closest('[data-del]'); if (!b) return;
+    data.memo = data.memo.filter(function (m) { return m.id !== b.getAttribute('data-del'); }); save(); render(); $('bs-msg').textContent = '1件消しました。';
+  });
+  $('bs-clear').addEventListener('click', function () {
+    if (!window.confirm('家族のようす・✓・期限のメモを全部消します。元にはもどせません。よろしいですか？')) return;
+    st.clear(); data = { v: 1, set: { people: 2, days: 3 }, checks: {}, memo: [] }; S = data.set;
+    ps.value = '2'; document.querySelector('input[name="bs-days"][value="3"]').checked = true;
+    ['baby', 'elder', 'pet', 'woman'].forEach(function (k) { $('bs-' + k).checked = false; });
+    render(); $('bs-msg').textContent = '全部消しました。';
+  });
+  $('bs-memo-date').value = A.addDays(A.today(), 365);
+  render();
+  var day = A.today();
+  setInterval(function () { if (A.today() !== day) { day = A.today(); render(); } }, 30000);
+})();
+
+// くらしのアプリ: 電波がなくても開けるようにする係（sw.js）を登録する。https（または手元の http://localhost）のときだけ。
+// 登録できなくても、ページはふつうに使える（エラーは出さない）。
+(function () {
+  try {
+    if (!('serviceWorker' in navigator) || !window.isSecureContext || location.protocol === 'file:') return;
+    var go = function () { navigator.serviceWorker.register('sw.js', { scope: './' }).catch(function () { /* 登録できないときは何もしない */ }); };
+    if (document.readyState === 'complete') go(); else window.addEventListener('load', go);
+  } catch (e) { /* 何もしない */ }
+})();
+
+</script>
+<!-- hinagado-count --><script>(function(){try{var n=navigator;if(location.hostname!=='hinagado.github.io'||n.webdriver||n.doNotTrack==='1'||n.globalPrivacyControl)return;var r='';try{if(document.referrer){var h=new URL(document.referrer).hostname;if(h!==location.hostname)r=h;}}catch(e){}fetch('https://script.google.com/macros/s/AKfycbwpjqQ1_9-8B6BsPATjMock46vFV-kEBeAFLwIxgC08nu0j3bL2VAwZVcjbeewVziDgoA/exec',{method:'POST',mode:'no-cors',credentials:'omit',keepalive:true,cache:'no-store',referrerPolicy:'no-referrer',headers:{'Content-Type':'text/plain'},body:JSON.stringify({p:"/kurashi/bousai.html",r:r})}).catch(function(){});}catch(e){}})();</script>
+</body>
+</html>

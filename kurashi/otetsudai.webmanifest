@@ -1,0 +1,33 @@
+{
+  "name": "おてつだいポイント（ひなが堂）",
+  "short_name": "おてつだい",
+  "description": "子どものおてつだいをポイントでためるアプリ。おてつだいごとにポイントを決めて、できたら押すだけ。ごほうびに使った分は引けます。登録なしで使えます。",
+  "lang": "ja",
+  "dir": "ltr",
+  "id": "./otetsudai.html",
+  "start_url": "./otetsudai.html",
+  "scope": "./otetsudai.html",
+  "display": "standalone",
+  "theme_color": "#24466b",
+  "background_color": "#f6efe2",
+  "icons": [
+    {
+      "src": "icons/otetsudai-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/otetsudai-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/otetsudai-m512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "name": "冷蔵庫の期限メモ（ひなが堂）",
+  "short_name": "冷蔵庫メモ",
+  "description": "冷蔵庫・冷凍庫・常温の食べ物の名前と期限の日付を入れると、期限が近い順に並ぶメモ。過ぎた物・3日以内の物が色でわかります。登録なしで使えます。",
+  "lang": "ja",
+  "dir": "ltr",
+  "id": "./reizoko.html",
+  "start_url": "./reizoko.html",
+  "scope": "./reizoko.html",
+  "display": "standalone",
+  "theme_color": "#24466b",
+  "background_color": "#f6efe2",
+  "icons": [
+    {
+      "src": "icons/reizoko-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/reizoko-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/reizoko-m512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

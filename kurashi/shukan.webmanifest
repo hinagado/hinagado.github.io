@@ -1,0 +1,33 @@
+{
+  "name": "習慣チェック（ひなが堂）",
+  "short_name": "習慣チェック",
+  "description": "続けたい習慣を登録して、できた日に○をつけるだけ。続いた日数、今月の○の数、カレンダーで○の並びが見えます。登録なしで、スマホですぐ使えます。",
+  "lang": "ja",
+  "dir": "ltr",
+  "id": "./shukan.html",
+  "start_url": "./shukan.html",
+  "scope": "./shukan.html",
+  "display": "standalone",
+  "theme_color": "#24466b",
+  "background_color": "#f6efe2",
+  "icons": [
+    {
+      "src": "icons/shukan-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/shukan-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/shukan-m512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
