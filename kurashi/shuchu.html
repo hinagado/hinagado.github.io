@@ -1,0 +1,539 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; img-src data:; base-uri 'none'; form-action 'none'; connect-src https://script.google.com https://script.googleusercontent.com">
+<meta name="referrer" content="no-referrer">
+<meta name="color-scheme" content="light">
+<title>集中タイマー（25分集中＋5分休けい）｜ひなが堂</title>
+<meta name="description" content="25分集中して5分休む、をくり返す集中タイマー。4回ごとに長い休けい、時間は変えられます。終わりは音と画面の色で。今日の集中の回数も残ります。">
+<meta property="og:title" content="集中タイマー（25分集中＋5分休けい）｜ひなが堂">
+<meta property="og:description" content="25分集中して5分休む、をくり返す集中タイマー。4回ごとに長い休けい、時間は変えられます。終わりは音と画面の色で。今日の集中の回数も残ります。">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://hinagado.github.io/assets/img/og.jpg">
+<meta property="og:site_name" content="ひなが堂">
+<meta property="og:locale" content="ja_JP">
+<link rel="canonical" href="https://hinagado.github.io/kurashi/shuchu.html">
+<meta property="og:url" content="https://hinagado.github.io/kurashi/shuchu.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://hinagado.github.io/"}, {"@type": "ListItem", "position": 2, "name": "くらしのアプリ", "item": "https://hinagado.github.io/kurashi/"}, {"@type": "ListItem", "position": 3, "name": "集中タイマー（25分集中＋5分休けい）"}]}</script>
+<meta name="theme-color" content="#24466b">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120' width='42' height='42' aria-hidden='true' focusable='false'%3E%3Crect x='12' y='12' width='96' height='96' rx='30' fill='%23fffbf4' stroke='%2324466b' stroke-width='9'/%3E%3Ccircle cx='45' cy='62' r='5.2' fill='%2324466b'/%3E%3Ccircle cx='75' cy='62' r='5.2' fill='%2324466b'/%3E%3Cpath d='M53.5 71 Q60 77 66.5 71' fill='none' stroke='%2324466b' stroke-width='4.2' stroke-linecap='round'/%3E%3Cellipse cx='33.5' cy='73' rx='6.5' ry='4.2' fill='%23d9573a' opacity='.85'/%3E%3Cellipse cx='86.5' cy='73' rx='6.5' ry='4.2' fill='%23d9573a' opacity='.85'/%3E%3C/svg%3E" type="image/svg+xml">
+<style>
+:root{--ai:#24466b;--ai-deep:#172f4b;--ai-soft:#e4ebf2;--kinari:#f6efe2;--paper:#fffbf4;--shu:#d9573a;--ink:#2b2a28;--muted:#6e675c;--line:#e6dccb;--pale:#fff8d6;--ok:#2f7a4f;--warn:#b5462a;
+  --jp:"BIZ UDPGothic","BIZ UDGothic","Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic UI",Meiryo,sans-serif;
+  --round:"BIZ UDPGothic","Hiragino Maru Gothic ProN","Hiragino Sans","Yu Gothic UI",Meiryo,sans-serif;
+  --en:Georgia,"Times New Roman",serif}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--kinari);color:var(--ink);font-family:var(--jp);font-size:18px;line-height:1.85;letter-spacing:.02em}
+a{color:var(--ai)}
+h1,h2,h3{font-family:var(--round);font-weight:700;line-height:1.5;color:var(--ai-deep);letter-spacing:.04em}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+@media (max-width:600px){.wrap{padding:0 16px}}
+.grid-bg{background-image:linear-gradient(rgba(36,70,107,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(36,70,107,.045) 1px,transparent 1px);background-size:28px 28px}
+.skip{position:absolute;left:-999px;top:0}.skip:focus{left:8px;top:8px;background:#fff;padding:8px 12px;z-index:50}
+/* ヘッダー（HP と同じ形） */
+.site-header{position:sticky;top:0;z-index:20;background:rgba(255,251,244,.95);border-bottom:1px solid var(--line)}
+.site-header .wrap{display:flex;align-items:center;justify-content:space-between;height:72px;position:relative}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none;min-width:0}
+.logo svg{flex:none}
+.logo b{font-family:var(--round);font-size:23px;color:var(--ai);letter-spacing:.12em;line-height:1.2}
+.logo small{display:block;font-size:11px;color:var(--muted);letter-spacing:.08em;line-height:1.2}
+.gnav{display:flex;gap:6px}
+.gnav a{text-decoration:none;color:var(--ink);font-size:15px;font-weight:500;padding:8px 14px;border-radius:999px}
+.gnav a:hover,.gnav a[aria-current="page"]{background:var(--ai);color:var(--kinari)}
+.menu-btn{display:none;font:inherit;background:none;border:1.5px solid var(--ai);color:var(--ai);border-radius:999px;padding:6px 16px;font-weight:700;cursor:pointer;white-space:nowrap;font-size:16px}
+@media (max-width:760px){.menu-btn{display:block}.gnav{position:absolute;top:72px;left:0;right:0;flex-direction:column;background:var(--paper);border-bottom:1px solid var(--line);padding:10px 16px 18px;display:none}.gnav.open{display:flex}.gnav a{padding:14px 16px;font-size:17px}}
+@media (max-width:440px){.logo small{display:none}.logo b{font-size:21px}}
+/* 見出し */
+.crumbs{display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center;font-size:14px;color:var(--muted);padding-top:24px}
+.crumbs b{font-weight:500}
+.page-head{padding:20px 0 24px}
+.page-head h1{font-size:clamp(26px,4.4vw,38px);margin:0;overflow-wrap:anywhere}
+.eyebrow{font-family:var(--en);font-style:italic;color:var(--shu);font-size:15px;letter-spacing:.18em;display:flex;align-items:center;gap:10px;margin:0 0 6px}
+.eyebrow::before{content:"";width:26px;height:1.5px;background:var(--shu)}
+.lead{color:var(--muted);max-width:720px;margin:12px 0 0}
+/* 道具のカード */
+.tools{display:grid;gap:22px;max-width:860px}
+.tool{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:24px 26px;min-width:0}
+.tool h2{font-size:22px;margin:0 0 6px;padding-left:12px;border-left:5px solid var(--shu)}
+.tool .how{color:var(--muted);font-size:15.5px;margin:0 0 14px}
+@media (max-width:600px){.tool{padding:20px 16px;border-radius:18px}}
+.f{display:block;font-weight:700;color:var(--ai-deep);margin:12px 0 4px;font-size:17px}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end}
+.row>.cell{flex:1 1 230px;min-width:0}
+input.t,select.t{width:100%;font:inherit;font-size:20px;padding:10px 12px;border:2px solid #c9bda6;border-radius:12px;background:var(--pale);color:var(--ink);min-height:52px}
+select.t{background:var(--pale)}
+input.t:focus,select.t:focus{outline:3px solid #9cc0e6;border-color:var(--ai)}
+.chk{display:flex;gap:10px;align-items:flex-start;margin:12px 0 0;font-size:16.5px;cursor:pointer}
+.chk input{width:24px;height:24px;margin:3px 0 0;flex:none;accent-color:var(--ai)}
+.seg{display:flex;gap:8px;flex-wrap:wrap}
+.seg label{flex:1 1 0;min-width:0}
+.seg input{position:absolute;opacity:0;pointer-events:none}
+.seg span{display:block;text-align:center;border:2px solid var(--ai);border-radius:12px;padding:10px 6px;font-weight:700;color:var(--ai);background:#fff;cursor:pointer;line-height:1.3;min-height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.seg span small{font-size:13px;font-weight:500}
+.seg input:checked+span{background:var(--ai);color:#fff}
+.seg input:focus-visible+span{outline:3px solid #9cc0e6}
+.btn{appearance:none;font:inherit;font-weight:700;border-radius:999px;border:2px solid var(--ai);background:#fff;color:var(--ai);padding:8px 16px;cursor:pointer;min-height:44px;font-size:16px}
+.btn:hover{background:var(--ai-soft)}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 0}
+.result{background:#fff;border:3px solid var(--ai);border-radius:18px;padding:14px 18px;margin:16px 0 0;min-width:0}
+.result .big{font-family:var(--round);font-size:clamp(24px,6vw,32px);font-weight:700;color:var(--ai-deep);line-height:1.4;margin:0;overflow-wrap:anywhere}
+.result .big small{font-size:.6em;color:var(--muted);font-weight:700}
+.result .sub{margin:6px 0 0;color:var(--ink);font-size:16.5px;overflow-wrap:anywhere}
+.result .err{color:var(--warn);font-weight:700;margin:0}
+.result .warn{color:var(--warn);font-weight:700;margin:8px 0 0;font-size:16px}
+.facts{list-style:none;margin:6px 0 0;padding:0}
+.facts li{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 12px;border-bottom:1px dashed var(--line);padding:8px 0}
+.facts li:last-child{border-bottom:0}
+.facts li span{color:var(--muted);font-size:16px}
+.facts li b{font-size:19px;color:var(--ai-deep);overflow-wrap:anywhere;text-align:right}
+.note{font-size:15px;color:var(--muted);margin:10px 0 0}
+.privacy{font-size:14.5px;color:var(--ok);font-weight:700;margin:10px 0 0}
+/* 表 */
+.jump{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 10px}
+.table-wrap{overflow:auto;max-height:70vh;border:1px solid var(--line);border-radius:14px;background:#fff;-webkit-overflow-scrolling:touch}
+table.hy{border-collapse:collapse;width:100%;font-size:16px;line-height:1.45}
+.hy th,.hy td{border-bottom:1px solid #eee5d6;padding:8px 8px;text-align:left;vertical-align:top}
+.hy thead th{position:sticky;top:0;background:var(--ai);color:var(--kinari);font-weight:700;z-index:1;font-size:14.5px}
+.hy td.num{text-align:right;white-space:nowrap}
+.hy tr.now td{background:#fff1b8;font-weight:700}
+.hy tr.kaigen td{background:#eef3f8}
+.hy tr.now.kaigen td{background:#fff1b8}
+.hy .two{display:block;font-size:14px;color:var(--muted);white-space:nowrap}
+.tag{display:inline-block;font-size:13px;font-weight:700;border-radius:999px;padding:0 8px;margin:1px 2px 1px 0;border:1.5px solid var(--shu);color:var(--shu);white-space:nowrap}
+.tag.hon{background:var(--shu);color:#fff}
+@media (max-width:420px){table.hy{font-size:14.5px}.hy th,.hy td{padding:7px 5px}}
+/* 説明の枠（HP の .prose に合わせる） */
+.prose{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:30px 30px;margin:28px 0 0;max-width:860px;overflow-wrap:anywhere}
+.prose h2{font-size:21px;margin:30px 0 8px;padding-left:12px;border-left:5px solid var(--shu)}
+.prose h2:first-child{margin-top:0}
+.prose p,.prose li{color:#47433c}
+.prose ul{padding-left:1.3em}
+.prose .table-wrap{max-height:none;margin:10px 0}
+@media (max-width:600px){.prose{padding:22px 16px;border-radius:18px}}
+.src-list{font-size:14.5px;line-height:1.75;padding-left:1.2em}
+.src-list li{margin:8px 0}
+.rel-cards{display:grid;gap:14px;margin-top:14px}
+.rel-card{background:var(--kinari);border:1px solid var(--line);border-radius:18px;padding:16px 18px}
+.rel-card h3{margin:0;font-size:18px}
+.rel-card h3 a{text-decoration:none}
+.rel-card h3 a:hover{text-decoration:underline}
+.prose .rel-card p{margin:2px 0 0;font-size:15.5px;color:var(--muted)}
+.more{list-style:none;padding:0;display:grid;gap:8px}
+.more a{font-weight:700}
+details.hol{margin:14px 0 0}
+details.hol summary{cursor:pointer;font-weight:700;color:var(--ai);min-height:44px;display:flex;align-items:center}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1120px}
+@media (max-width:900px){.cards{grid-template-columns:1fr}}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:22px 24px;display:flex;flex-direction:column;gap:6px}
+.card .en{font-family:var(--en);font-style:italic;color:var(--shu);font-size:14px;letter-spacing:.14em}
+.card h2{margin:0;font-size:21px}
+.card h2 a{text-decoration:none;color:inherit}
+.card h2 a:hover{text-decoration:underline}
+.card p{margin:0;color:var(--muted);font-size:15.5px;flex:1}
+.card .go{margin-top:10px;font-weight:700}
+main{padding-bottom:80px}
+/* フッター（HP と同じ形） */
+.site-footer{background:var(--ai-deep);color:#d9e0e8;padding:56px 0 28px}
+.site-footer .wrap{display:grid;grid-template-columns:1.2fr 1fr;gap:36px}
+.site-footer .logo b{color:var(--kinari)}
+.site-footer .logo small{color:#aebccb}
+.site-footer p{font-size:14px;line-height:1.9;margin:16px 0 0;color:#c4cfdb}
+.fnav{display:grid;grid-template-columns:repeat(2,1fr);gap:4px 24px;align-content:start}
+.fnav a{color:#e9eef3;text-decoration:none;font-size:15px;padding:6px 0}
+.fnav a:hover{text-decoration:underline}
+.copy{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.12);padding-top:22px;font-size:13px;color:#9fb0c2;font-family:var(--en)}
+@media (max-width:700px){.site-footer .wrap{grid-template-columns:1fr}}
+@media print{.site-header,.site-footer,.jump,.btns{display:none}.table-wrap{max-height:none;overflow:visible}}
+/* くらしのアプリ（2026-11-04 追加）だけで使う見た目。計算の道具の CSS のあとに足す。 */
+.btn.main{background:var(--ai);color:#fff}
+.btn.main:hover{background:var(--ai-deep)}
+.btn.big{min-height:56px;font-size:19px;padding:10px 22px}
+.btn.warn{border-color:var(--warn);color:var(--warn)}
+.btn.warn:hover{background:#fbe9e4}
+.btn.sm{min-height:44px;min-width:44px;padding:4px 10px;font-size:15px}
+.btn:disabled{opacity:.4;cursor:default}
+.notice{background:#fff7e0;border:2px solid #e8c25a;border-radius:16px;padding:12px 16px;margin:0 0 4px;font-size:16.5px;max-width:860px}
+.notice b{color:#8a5a00}
+.notice p{margin:4px 0}
+.save-note{color:var(--warn);font-weight:700;font-size:15px;margin:8px 0 0}
+.count-line{font-size:16px;color:var(--muted);margin:10px 0 0}
+.count-line b{color:var(--ai-deep);font-size:18px}
+.empty{color:var(--muted);text-align:center;padding:18px 8px;margin:0;border:2px dashed var(--line);border-radius:14px;font-size:16px}
+/* やること・期限の一覧 */
+.list{list-style:none;margin:14px 0 0;padding:0;display:grid;gap:10px}
+.item{background:#fff;border:2px solid var(--line);border-radius:16px;padding:10px 12px;display:grid;grid-template-columns:auto 1fr;gap:4px 12px;align-items:start;min-width:0}
+.item .chk-big{width:30px;height:30px;margin:4px 0 0;accent-color:var(--ok);cursor:pointer}
+.item .main{min-width:0}
+.item .txt{font-size:18px;font-weight:700;color:var(--ink);overflow-wrap:anywhere;line-height:1.5;margin:0}
+.item .meta{font-size:14.5px;color:var(--muted);margin:2px 0 0;display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center}
+.item .ops{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-end;align-items:center}
+.item .ops select{font:inherit;font-size:15px;min-height:44px;border:2px solid #c9bda6;border-radius:10px;background:var(--pale);padding:4px 6px;max-width:100%}
+.item.done{background:#f3f1ec;border-color:#e7e2d8}
+.item.done .txt{text-decoration:line-through;color:#8d877c;font-weight:500}
+.item.late{border-color:var(--warn)}
+.item.soon{border-color:#e8a33a}
+.pill{display:inline-block;font-size:13.5px;font-weight:700;border-radius:999px;padding:0 9px;border:1.5px solid var(--ai);color:var(--ai);white-space:nowrap;line-height:1.7}
+.pill.late{border-color:var(--warn);background:var(--warn);color:#fff}
+.pill.today{border-color:#c46a00;background:#c46a00;color:#fff}
+.pill.soon{border-color:#c46a00;color:#a35800}
+.pill.gray{border-color:#b6ad9e;color:var(--muted)}
+.filter{margin:14px 0 0}
+.filter span{min-height:46px;font-size:16px;padding:8px 2px;white-space:nowrap}
+.filter span small{font-size:12.5px}
+/* タイマー */
+.clock{background:var(--ai);color:#fff;border-radius:22px;padding:16px 12px 18px;text-align:center;transition:background .4s}
+.clock.rest{background:var(--ok)}
+.clock.long{background:#5b4a8b}
+.clock .phase{font-family:var(--round);font-size:20px;font-weight:700;margin:0;letter-spacing:.08em}
+.clock .time{font-family:var(--round);font-size:clamp(64px,22vw,124px);font-weight:700;line-height:1.1;margin:4px 0;font-variant-numeric:tabular-nums;letter-spacing:.02em}
+.clock .sub2{margin:0;font-size:16px;opacity:.95}
+.dots{display:flex;justify-content:center;gap:8px;margin:8px 0 0}
+.dots i{width:14px;height:14px;border-radius:50%;border:2px solid #fff;display:block}
+.dots i.on{background:#fff}
+.ctrl{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0 0}
+.ctrl .btn{flex:1 1 120px}
+.quick{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:6px 0 0}
+.quick .btn{min-height:60px;font-size:20px;padding:6px 4px}
+.msg{font-weight:700;color:var(--ai-deep);margin:10px 0 0;min-height:1.5em;font-size:17px}
+body.ringing{animation:ring 1s steps(2,end) infinite}
+@keyframes ring{0%{background:var(--kinari)}50%{background:#ffd9a8}}
+.ringbox{position:fixed;left:0;right:0;bottom:0;z-index:40;background:var(--shu);color:#fff;padding:16px 16px 22px;text-align:center;box-shadow:0 -6px 20px rgba(0,0,0,.25)}
+.ringbox p{margin:0 0 10px;font-family:var(--round);font-size:24px;font-weight:700}
+.ringbox .btn{background:#fff;color:var(--shu);border-color:#fff;min-height:60px;font-size:22px;padding:8px 40px}
+/* 曜日の選び方 */
+.days{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.days.n5{grid-template-columns:repeat(5,1fr)}
+.days label{min-width:0}
+.days input{position:absolute;opacity:0;pointer-events:none}
+.days span{display:flex;align-items:center;justify-content:center;min-height:48px;border:2px solid var(--ai);border-radius:12px;font-weight:700;color:var(--ai);background:#fff;cursor:pointer;font-size:16px;padding:0 2px;text-align:center;line-height:1.2}
+.days input:checked+span{background:var(--ai);color:#fff}
+.days input:focus-visible+span{outline:3px solid #9cc0e6}
+.today-box{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media (max-width:420px){.today-box{grid-template-columns:1fr}}
+.today-box>div{background:#fff;border:3px solid var(--ai);border-radius:18px;padding:12px 14px;min-width:0}
+.today-box h3{margin:0;font-size:17px}
+.today-box .what{font-family:var(--round);font-size:clamp(20px,5.5vw,26px);font-weight:700;color:var(--ai-deep);margin:4px 0 0;overflow-wrap:anywhere;line-height:1.4}
+.today-box .what.none{color:var(--muted);font-size:18px}
+.item.one{grid-template-columns:1fr}
+.count-line b.bad{color:var(--warn)}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">本文へ</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="../index.html"><svg viewBox="0 0 120 120" width="42" height="42" aria-hidden="true" focusable="false"><rect x="12" y="12" width="96" height="96" rx="30" fill="#fffbf4" stroke="#24466b" stroke-width="9"/><circle cx="45" cy="62" r="5.2" fill="#24466b"/><circle cx="75" cy="62" r="5.2" fill="#24466b"/><path d="M53.5 71 Q60 77 66.5 71" fill="none" stroke="#24466b" stroke-width="4.2" stroke-linecap="round"/><ellipse cx="33.5" cy="73" rx="6.5" ry="4.2" fill="#d9573a" opacity=".85"/><ellipse cx="86.5" cy="73" rx="6.5" ry="4.2" fill="#d9573a" opacity=".85"/></svg><span><b>ひなが堂</b><small>HINAGADO — くらしと仕事のひな形屋</small></span></a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="gnav">メニュー</button>
+    <nav class="gnav" id="gnav" aria-label="サイトのメニュー">
+      <a href="../index.html">ホーム</a>
+      <a href="../items/index.html">商品</a>
+      <a href="../articles/index.html">読みもの</a>
+      <a href="../about.html">このお店</a>
+      <a href="../contact.html">お問い合わせ</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="grid-bg">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="現在地"><a href="../index.html">ホーム</a><span>›</span><a href="index.html">くらしのアプリ</a><span>›</span><b>集中タイマー（25分集中＋5分休けい）</b></nav>
+    <div class="page-head"><p class="eyebrow">Focus</p><h1>集中タイマー（25分集中＋5分休けい）</h1>
+      <p class="lead">集中と休けいを交互にくり返すタイマーです。はじめは25分集中・5分休けい・4回ごとに15分の長い休けい。時間は自由に変えられます。</p></div>
+    <div class="tools">
+      <section class="tool" aria-labelledby="h-tm">
+        <h2 id="h-tm">タイマー</h2>
+        <div class="clock" id="sc-clock">
+          <p class="phase" id="sc-phase">集中</p>
+          <p class="time" id="sc-time" role="timer" aria-live="off">25:00</p>
+          <p class="sub2" id="sc-sub">「はじめる」を押すと始まります</p>
+          <div class="dots" id="sc-dots" aria-hidden="true"></div>
+        </div>
+        <div class="ctrl">
+          <button class="btn main big" type="button" id="sc-start">はじめる</button>
+          <button class="btn big" type="button" id="sc-reset">やり直し</button>
+          <button class="btn big" type="button" id="sc-skip">次へすすむ</button>
+        </div>
+        <p class="msg" id="sc-msg" aria-live="polite"></p>
+        <p class="count-line" id="sc-today" aria-live="polite"></p>
+      </section>
+
+      <section class="tool" aria-labelledby="h-set">
+        <h2 id="h-set">時間と合図</h2>
+        <p class="how">はじめは「25分集中・5分休けい・4回ごとに15分の長い休けい」です。変えた時間は、次の区切りから使います（止まっているときは、すぐ変わります）。</p>
+        <div class="row">
+          <div class="cell"><label class="f" for="sc-focus">集中（分）</label>
+            <select class="t" id="sc-focus"><option>5</option><option>10</option><option>15</option><option>20</option><option selected>25</option><option>30</option><option>40</option><option>45</option><option>50</option><option>60</option><option>90</option></select></div>
+          <div class="cell"><label class="f" for="sc-short">休けい（分）</label>
+            <select class="t" id="sc-short"><option>1</option><option>3</option><option selected>5</option><option>10</option><option>15</option></select></div>
+        </div>
+        <div class="row">
+          <div class="cell"><label class="f" for="sc-long">長い休けい（分）</label>
+            <select class="t" id="sc-long"><option>10</option><option selected>15</option><option>20</option><option>30</option></select></div>
+          <div class="cell"><label class="f" for="sc-every">長い休けいは、集中の何回ごと？</label>
+            <select class="t" id="sc-every"><option>2</option><option>3</option><option selected>4</option><option>5</option><option>6</option></select></div>
+        </div>
+        <p class="f" id="sc-sound-label">終わりの音</p>
+        <div class="seg" role="radiogroup" aria-labelledby="sc-sound-label">
+          <label><input type="radio" name="sc-sound" value="1" checked><span>音：あり</span></label>
+          <label><input type="radio" name="sc-sound" value="0"><span>音：なし</span></label>
+        </div>
+        <label class="chk"><input type="checkbox" id="sc-auto"> 区切りが来たら、次（休けい・集中）も自動で始める</label>
+        <div class="btns"><button class="btn" type="button" id="sc-test">音をためす</button></div>
+        <p class="note">終わると、音（音：ありのとき）と、画面の色が変わって知らせます。音はこのページで作る短い音です。マナーモードや音量によっては聞こえません。</p>
+        <p class="note">このページを開いている間だけ動きます。ほかのアプリに切りかえたり、画面が消えたりすると、合図がおくれることがあります。</p>
+        <div class="btns"><button class="btn warn" type="button" id="sc-clear">今日の回数と設定を消す</button></div>
+        <p class="privacy">時間の設定と今日の集中の回数は、この端末のこのブラウザにだけ残ります（外へは送りません）。</p>
+        <p class="save-note" id="save-note" hidden></p>
+      </section>
+
+    </div>
+    <div class="prose">
+      <h2>使い方</h2>
+      <ul>
+        <li>「はじめる」で集中の時間が始まります。終わると音と画面の色で知らせ、次の休けいの時間に切りかわります。</li>
+        <li>集中を決めた回数（はじめは4回）終えるごとに、長い休けいになります。上の丸の数が、いま何回目かの目印です。</li>
+        <li>「一時停止」で止め、「つづける」で続きから。「やり直し」はいまの区切りを最初から。「次へすすむ」は、いまの区切りを飛ばします（飛ばした集中は回数に数えません）。</li>
+        <li>今日の集中の回数と合計の分は、日付が変わると0から数え直します。</li>
+      </ul>
+      <p>集中と休けいを交互にくり返すやり方は、勉強や家の作業、書きものなどに使われています。合う長さは人や作業によってちがうので、時間は自由に変えてください。</p>
+      <h2>このページについて</h2>
+      <p>登録はいりません。時間の設定と今日の回数は、この端末のこのブラウザの中にだけ残り、外へは送りません。タイマーは、このページを開いている間だけ動きます。ページを閉じたり読み直したりすると、動いているタイマーは止まります。</p>
+
+      <h2>あわせて使える ひなが堂の表</h2>
+      <div class="rel-cards">
+        <div class="rel-card">
+          <h3><a href="../items/benkyo.html">資格・受験の 勉強時間 記録表（Excel）</a></h3>
+          <p>資格や受験の勉強時間を分で書いていくと、試験まであと何時間かが見える、ひなが堂の Excel の表です。</p>
+        </div>
+      </div>
+      <p class="note">まちがいや使いにくい所に気づいたら、<a href="../contact.html">お問い合わせ</a>からお知らせください。</p>
+      <h2>ほかのくらしのアプリ</h2>
+      <ul class="more">
+        <li><a href="yarukoto.html">やること表（今日・今週・いつか） →</a></li>
+        <li><a href="alarm.html">キッチンタイマーとアラーム →</a></li>
+        <li><a href="gomi.html">ごみ出しの日 早見（無料版） →</a></li>
+        <li><a href="reizoko.html">冷蔵庫の期限メモ（無料版） →</a></li>
+        <li><a href="index.html">くらしのアプリの一覧へ →</a></li>
+        <li><a href="../keisan/index.html">計算の道具（和暦・日数・消費税など）→</a></li>
+      </ul>
+    </div>
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div>
+      <a class="logo" href="../index.html"><svg viewBox="0 0 120 120" width="42" height="42" aria-hidden="true" focusable="false"><rect x="12" y="12" width="96" height="96" rx="30" fill="#fffbf4" stroke="#24466b" stroke-width="9"/><circle cx="45" cy="62" r="5.2" fill="#24466b"/><circle cx="75" cy="62" r="5.2" fill="#24466b"/><path d="M53.5 71 Q60 77 66.5 71" fill="none" stroke="#24466b" stroke-width="4.2" stroke-linecap="round"/><ellipse cx="33.5" cy="73" rx="6.5" ry="4.2" fill="#d9573a" opacity=".85"/><ellipse cx="86.5" cy="73" rx="6.5" ry="4.2" fill="#d9573a" opacity=".85"/></svg><span><b>ひなが堂</b><small>HINAGADO</small></span></a>
+      <p>くらしと仕事を少しラクにする「ひな形」と、<br>ちょっと楽しいデジタルの小物をつくる小さなお店です。</p>
+    </div>
+    <nav class="fnav" aria-label="サイトの案内">
+      <a href="../index.html">ホーム</a>
+      <a href="../items/index.html">商品</a>
+      <a href="../articles/index.html">読みもの</a>
+      <a href="../keisan/index.html">計算の道具</a>
+      <a href="../kurashi/index.html">くらしのアプリ</a>
+      <a href="../play/index.html">無料ゲーム</a>
+      <a href="../about.html">このお店について</a>
+      <a href="../contact.html">お問い合わせ</a>
+      <a href="../studio/index.html">ホームページ制作（制作室）</a>
+      <a href="../privacy.html">プライバシーポリシー</a>
+      <a href="../tokushoho.html">特定商取引法に基づく表記</a>
+    </nav>
+    <div class="copy">© <span data-year>2026</span> HINAGADO</div>
+  </div>
+</footer>
+<script>
+(function(){var b=document.querySelector('.menu-btn'),n=document.querySelector('.gnav');
+if(b&&n){b.addEventListener('click',function(){var o=n.classList.toggle('open');b.setAttribute('aria-expanded',o);b.textContent=o?'閉じる':'メニュー';});}
+document.querySelectorAll('[data-year]').forEach(function(e){e.textContent=new Date().getFullYear();});})();
+</script>
+<script>
+// くらしのアプリ（2026-11-04 追加）で共通の部品。build.py が各ページの先頭に埋め込む。
+// 保存はこの端末のこのブラウザの localStorage だけ（外へは送らない）。使えないブラウザ（保存を止める設定など）でも動くように、
+// 読み書きはすべて try/catch で包み、保存できないときは画面に知らせる。
+(function () {
+  'use strict';
+  function $(id) { return document.getElementById(id); }
+  function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function radio(name) { var r = document.querySelector('input[name="' + name + '"]:checked'); return r ? r.value : null; }
+
+  // ---- 保存
+  function store(key) {
+    var ok = true;
+    try { var t = '__hinagado_test__'; localStorage.setItem(t, '1'); localStorage.removeItem(t); } catch (e) { ok = false; }
+    return {
+      ok: ok,
+      load: function (def) {
+        if (!ok) return def;
+        try { var s = localStorage.getItem(key); if (!s) return def; var v = JSON.parse(s); return v && typeof v === 'object' ? v : def; } catch (e) { return def; }
+      },
+      save: function (v) { if (!ok) return false; try { localStorage.setItem(key, JSON.stringify(v)); return true; } catch (e) { return false; } },
+      clear: function () { if (!ok) return; try { localStorage.removeItem(key); } catch (e) { /* 何もしない */ } }
+    };
+  }
+  // 保存できないときの知らせ（id="save-note" の所に出す）
+  function saveNote(st) {
+    var el = $('save-note');
+    if (el && !st.ok) { el.hidden = false; el.textContent = 'このブラウザでは保存ができない設定になっています。ページを閉じると、入れた内容は消えます。'; }
+  }
+
+  // ---- 日付（端末の時計の、その日）
+  function p2(n) { return String(n).padStart(2, '0'); }
+  function ymd(d) { return d.getFullYear() + '-' + p2(d.getMonth() + 1) + '-' + p2(d.getDate()); }
+  function today() { return ymd(new Date(Date.now())); }
+  function parse(s) { var r = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(s || '')); return r ? new Date(+r[1], +r[2] - 1, +r[3]) : null; }
+  function addDays(s, n) { var d = parse(s); d.setDate(d.getDate() + n); return ymd(d); }
+  function diffDays(a, b) { var x = parse(a), y = parse(b); return Math.round((Date.UTC(y.getFullYear(), y.getMonth(), y.getDate()) - Date.UTC(x.getFullYear(), x.getMonth(), x.getDate())) / 86400000); }
+  var WD = ['日', '月', '火', '水', '木', '金', '土'];
+  function jp(s, withYear) { var d = parse(s); return (withYear ? d.getFullYear() + '年' : '') + (d.getMonth() + 1) + '月' + d.getDate() + '日（' + WD[d.getDay()] + '）'; }
+  function mmss(sec) { sec = Math.max(0, Math.ceil(sec)); var h = Math.floor(sec / 3600), m = Math.floor(sec % 3600 / 60), s = sec % 60; return (h ? h + ':' + p2(m) : String(m)) + ':' + p2(s); }
+
+  // ---- 音（Web Audio で短い音を作る。音のファイルは使わない）
+  var ctx = null;
+  function audio() {
+    try {
+      if (!ctx) { var A = window.AudioContext || window.webkitAudioContext; if (!A) return null; ctx = new A(); }
+      if (ctx.state === 'suspended' && ctx.resume) ctx.resume().catch(function () { /* 鳴らせないときは何もしない */ });
+      return ctx;
+    } catch (e) { return null; }
+  }
+  // tones: [[高さHz, 長さ秒], ...] を順に鳴らす
+  function beep(tones, vol) {
+    var c = audio(); if (!c) return false;
+    var t = c.currentTime + 0.02;
+    (tones || [[880, 0.18], [0, 0.08], [880, 0.18], [0, 0.08], [1175, 0.35]]).forEach(function (x) {
+      if (x[0] > 0) {
+        var o = c.createOscillator(), g = c.createGain();
+        o.type = 'sine'; o.frequency.value = x[0];
+        g.gain.setValueAtTime(0.0001, t);
+        g.gain.exponentialRampToValueAtTime(vol || 0.25, t + 0.02);
+        g.gain.exponentialRampToValueAtTime(0.0001, t + x[1]);
+        o.connect(g); g.connect(c.destination); o.start(t); o.stop(t + x[1] + 0.02);
+      }
+      t += x[1];
+    });
+    window.__hinagadoBeeps = (window.__hinagadoBeeps || 0) + 1; // 試験で「鳴らした」を数える
+    return true;
+  }
+
+  // ---- 画面を消さない（Screen Wake Lock）。使えないブラウザでは false
+  var lock = null, want = false;
+  function wakeSupported() { return !!(navigator.wakeLock && navigator.wakeLock.request); }
+  function wake(on, cb) {
+    want = on;
+    if (!on) { if (lock) { lock.release().catch(function () {}); lock = null; } if (cb) cb(false); return; }
+    if (!wakeSupported()) { if (cb) cb(false, 'unsupported'); return; }
+    navigator.wakeLock.request('screen').then(function (l) {
+      lock = l; l.addEventListener('release', function () { lock = null; });
+      if (cb) cb(true);
+    }).catch(function () { lock = null; if (cb) cb(false, 'denied'); });
+  }
+  document.addEventListener('visibilitychange', function () { if (want && !lock && document.visibilityState === 'visible') wake(true); });
+
+  function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
+
+  window.HAPP = { $: $, esc: esc, radio: radio, store: store, saveNote: saveNote, p2: p2, ymd: ymd, today: today, parse: parse, addDays: addDays, diffDays: diffDays, WD: WD, jp: jp, mmss: mmss, audio: audio, beep: beep, wake: wake, wakeSupported: wakeSupported, uid: uid };
+})();
+
+(function () {
+  'use strict';
+  var A = window.HAPP, $ = A.$;
+  var st = A.store('hinagado.shuchu.v1');
+  A.saveNote(st);
+  var saved = st.load({ v: 1 });
+  var IDS = ['sc-focus', 'sc-short', 'sc-long', 'sc-every'];
+  // 保存した設定をもどす（選べる値だけ）
+  IDS.forEach(function (id) {
+    var v = saved.set && saved.set[id];
+    if (v && [].some.call($(id).options, function (o) { return o.value === String(v); })) $(id).value = String(v);
+  });
+  if (saved.set && saved.set.sound === '0') document.querySelector('input[name="sc-sound"][value="0"]').checked = true;
+  if (saved.set && saved.set.auto) $('sc-auto').checked = true;
+  var day = saved.day === A.today() ? saved : { day: A.today(), count: 0, mins: 0 };
+
+  var PH = { focus: '集中', short: '休けい', long: '長い休けい' };
+  var S = { phase: 'focus', done: 0, running: false, endAt: 0, left: 0, full: 0 };
+  function mins(ph) { return Number($(ph === 'focus' ? 'sc-focus' : ph === 'short' ? 'sc-short' : 'sc-long').value); }
+  function every() { return Number($('sc-every').value); }
+  function persist() {
+    var set = { sound: A.radio('sc-sound'), auto: $('sc-auto').checked };
+    IDS.forEach(function (id) { set[id] = $(id).value; });
+    st.save({ v: 1, set: set, day: day.day, count: day.count, mins: day.mins });
+  }
+  function setPhase(ph) { S.phase = ph; S.full = mins(ph) * 60; S.left = S.full; }
+  var baseTitle = document.title;
+  function draw() {
+    $('sc-phase').textContent = PH[S.phase];
+    $('sc-time').textContent = A.mmss(S.left);
+    $('sc-clock').className = 'clock' + (S.phase === 'short' ? ' rest' : S.phase === 'long' ? ' long' : '');
+    $('sc-start').textContent = S.running ? '一時停止' : (S.left < S.full ? 'つづける' : 'はじめる');
+    var n = every(), k = S.done % n, dots = '';
+    for (var i = 0; i < n; i++) dots += '<i class="' + (i < k || (S.phase === 'long' && S.done > 0 && k === 0) ? 'on' : '') + '"></i>';
+    $('sc-dots').innerHTML = dots;
+    $('sc-sub').textContent = S.running ? (S.phase === 'focus' ? 'いまは集中の時間です' : 'ひと休みしましょう') : (S.left < S.full ? '一時停止中' : '「' + $('sc-start').textContent + '」を押すと始まります');
+    $('sc-today').innerHTML = '今日の集中 <b>' + day.count + '</b> 回（' + day.mins + '分）';
+    document.title = S.running ? A.mmss(S.left) + ' ' + PH[S.phase] + '｜' + baseTitle : baseTitle;
+  }
+  function start() {
+    A.audio(); // ボタンを押したときに音の準備をしておく（スマホは、押したときでないと音を出せない）
+    S.running = true; S.endAt = Date.now() + S.left * 1000; draw();
+  }
+  function pause() { S.left = Math.max(0, (S.endAt - Date.now()) / 1000); S.running = false; draw(); }
+  function ring() {
+    if (A.radio('sc-sound') === '1') A.beep();
+    document.body.classList.add('ringing');
+    setTimeout(function () { document.body.classList.remove('ringing'); }, 6000);
+  }
+  function finish(skipped) {
+    var was = S.phase, next;
+    if (was === 'focus') {
+      S.done++;
+      if (!skipped) {
+        if (day.day !== A.today()) day = { day: A.today(), count: 0, mins: 0 };
+        day.count++; day.mins += Math.round(S.full / 60); persist();
+      }
+      next = S.done % every() === 0 ? 'long' : 'short';
+    } else next = 'focus';
+    setPhase(next);
+    if (!skipped) ring();
+    $('sc-msg').textContent = skipped ? PH[next] + 'に進みました。' :
+      (was === 'focus' ? '集中おわり！ ' + mins(next) + '分の' + PH[next] + 'です。' : PH[was] + 'おわり。次は' + mins('focus') + '分の集中です。');
+    S.running = false;
+    if ($('sc-auto').checked && !skipped) start(); else draw();
+  }
+  function tick() {
+    if (!S.running) return;
+    S.left = (S.endAt - Date.now()) / 1000;
+    if (S.left <= 0) { S.left = 0; finish(false); return; }
+    draw();
+  }
+  $('sc-start').addEventListener('click', function () { if (S.running) pause(); else start(); });
+  $('sc-reset').addEventListener('click', function () { S.running = false; setPhase(S.phase); $('sc-msg').textContent = PH[S.phase] + 'を最初からにしました。'; draw(); });
+  $('sc-skip').addEventListener('click', function () { finish(true); });
+  $('sc-test').addEventListener('click', function () { if (!A.beep()) $('sc-msg').textContent = 'このブラウザでは音を出せませんでした。'; else $('sc-msg').textContent = '音を鳴らしました。'; });
+  IDS.forEach(function (id) {
+    $(id).addEventListener('change', function () {
+      if (!S.running && S.left === S.full) setPhase(S.phase); // 止まっていて、まだ進めていないなら、すぐ変える
+      persist(); draw();
+    });
+  });
+  document.querySelectorAll('input[name="sc-sound"]').forEach(function (r) { r.addEventListener('change', persist); });
+  $('sc-auto').addEventListener('change', persist);
+  $('sc-clear').addEventListener('click', function () {
+    if (!window.confirm('今日の集中の回数と、時間の設定を消します。よろしいですか？')) return;
+    st.clear(); day = { day: A.today(), count: 0, mins: 0 }; S.done = 0;
+    $('sc-focus').value = '25'; $('sc-short').value = '5'; $('sc-long').value = '15'; $('sc-every').value = '4';
+    document.querySelector('input[name="sc-sound"][value="1"]').checked = true; $('sc-auto').checked = false;
+    S.running = false; setPhase('focus'); $('sc-msg').textContent = '消しました。'; draw();
+  });
+  setPhase('focus'); draw();
+  setInterval(tick, 250);
+  document.addEventListener('visibilitychange', tick);
+})();
+
+</script>
+<!-- hinagado-count --><script>(function(){try{var n=navigator;if(location.hostname!=='hinagado.github.io'||n.webdriver||n.doNotTrack==='1'||n.globalPrivacyControl)return;var r='';try{if(document.referrer){var h=new URL(document.referrer).hostname;if(h!==location.hostname)r=h;}}catch(e){}fetch('https://script.google.com/macros/s/AKfycbwpjqQ1_9-8B6BsPATjMock46vFV-kEBeAFLwIxgC08nu0j3bL2VAwZVcjbeewVziDgoA/exec',{method:'POST',mode:'no-cors',credentials:'omit',keepalive:true,cache:'no-store',referrerPolicy:'no-referrer',headers:{'Content-Type':'text/plain'},body:JSON.stringify({p:"/kurashi/shuchu.html",r:r})}).catch(function(){});}catch(e){}})();</script>
+</body>
+</html>
