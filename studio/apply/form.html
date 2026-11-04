@@ -191,6 +191,7 @@ textarea.inp{min-height:132px;resize:vertical}
 .flow b{display:block;font-size:17px;line-height:1.5;padding-top:7px}
 .flow span{display:block;font-size:14px;color:var(--ink-3);line-height:1.6}
 .promise{background:var(--kinari);border-radius:14px;padding:16px 18px;margin:0 0 8px}
+.promise[hidden]{display:none}
 .promise h3{margin:0 0 8px;font-size:16px}
 .promise ul{margin:0;padding:0;list-style:none}
 .promise li{position:relative;padding-left:22px;margin:0 0 6px;font-size:15.5px;line-height:1.7;color:var(--ink-2)}
@@ -370,6 +371,18 @@ textarea.inp{min-height:132px;resize:vertical}
       </div>
       <p class="err" role="alert">どれか1つを選んでください。</p>
     </fieldset>
+    <div class="cond" data-if="hpKind">
+      <fieldset class="q" data-req="hp_mk" data-short="集客の立ち上げ（②）">
+        <legend>ホームページと一緒に、お客さんに見つけてもらう「集客の立ち上げ」も頼みますか？</legend>
+        <p class="hint">Google マップの店の情報の整備／Instagram の開設とプロフィールの整備（今あるアカウントがあれば、それを整えます）／最初の9投稿／投稿のひな形／写真の撮り方の手引き／更新の手引き。<br>来店や問い合わせの数を約束するものではありません。お店が見つかりやすく、選ばれやすい状態に整えるところまでです。日数は、ホームページの日数に約<span data-mk-days></span>営業日を足した目安です。</p>
+        <div class="choices">
+          <label class="ch"><input type="radio" name="hp_mk" value="yes"><span class="mk">✓</span><span class="tx"><b>頼む（② HP＋集客）</b><span class="yen" data-mk-price></span></span></label>
+          <label class="ch"><input type="radio" name="hp_mk" value="no"><span class="mk">✓</span><span class="tx"><b>頼まない（ホームページだけ）</b></span></label>
+          <label class="ch dontknow"><input type="radio" name="hp_mk" value="unknown"><span class="mk">✓</span><span class="tx"><b>わからない</b><small>目安は、頼まない場合と頼む場合の幅で出します</small></span></label>
+        </div>
+        <p class="err" role="alert">どれか1つを選んでください。</p>
+      </fieldset>
+    </div>
     <fieldset class="q" data-req="deadline" data-short="欲しい時期">
       <legend>いつごろまでに欲しいですか？</legend>
       <p class="hint">日数は、文章や写真などの内容がそろってから数えます。</p>
@@ -721,6 +734,17 @@ textarea.inp{min-height:132px;resize:vertical}
         </div></div>
       </div>
     </fieldset>
+    <div class="cond" data-if="careOn">
+      <fieldset class="q" data-req="sns" data-short="SNS 運用">
+        <legend>月ごとのプランに「SNS 運用（Instagram に月4本）」も足しますか？</legend>
+        <p class="hint">お客様が写真とひとことを共有フォルダに入れる → 当店が投稿の文・ハッシュタグ・画像の整えを作る → お客様が下書きを見て承認 → 予約投稿。月1回、見られた数などを1枚で報告します。<br><b>投稿は、お客様の承認をいただいてから</b>出します。コメント・DM（メッセージ）への返事は、お客様がします。扱うのは Instagram です（Threads・Facebook ページは、ご希望があればご相談ください。別のお見積もりになります）。</p>
+        <div class="choices two">
+          <label class="ch"><input type="radio" name="sns" value="yes"><span class="mk">✓</span><span class="tx"><b>足す</b><span class="yen" data-sns-price></span></span></label>
+          <label class="ch"><input type="radio" name="sns" value="no"><span class="mk">✓</span><span class="tx"><b>足さない</b></span></label>
+        </div>
+        <p class="err" role="alert">どちらかを選んでください。</p>
+      </fieldset>
+    </div>
   </section>
 
   <!-- ========== チラシ ========== -->
@@ -908,6 +932,7 @@ textarea.inp{min-height:132px;resize:vertical}
       <p class="lead"><b>（見本のため、送られません）</b></p>
       <p>本番では、ここで当店に届き、画面に受付番号が出ます。そのあと、hinagado.official@gmail.com から見積書をお送りします。</p>
     </div>
+    <div class="promise" id="doneExtra" hidden><h3>あわせてご希望の物</h3><ul id="doneExtraList"></ul></div>
     <div class="promise"><h3>このあとの流れ</h3><ul>
       <li>見積書が届かないときは、迷惑メールのフォルダもご覧ください。2営業日たっても届かないときは、受付番号を書いて hinagado.official@gmail.com へご連絡ください。</li>
       <li>「わからない」を選んだ所は、当店から文字で1問ずつお聞きします。</li>
@@ -949,7 +974,10 @@ var HQ_RULES = {
       ai_image_each: 2000, web_version: 9800, with_hp_discount_rate: 0.2
     },
     rush_rate: 0.3, rush_max_days: 20,
-    care: { light: { name: "ライト", monthly: 3980 }, standard: { name: "スタンダード", monthly: 9800 }, safe: { name: "しっかり", monthly: 19800 } }
+    care: { light: { name: "ライト", monthly: 3980 }, standard: { name: "スタンダード", monthly: 9800 }, safe: { name: "しっかり", monthly: 19800 } },
+    /* 2026-11-05 追加（plans.md 1-4・3-2）。② HP＋集客＝HP の値段＋集客の立ち上げ。SNS 運用は保守の月額に足す（SNS 運用だけの契約はしない） */
+    marketing: { name: "集客の立ち上げ（②）", price: 110000, days: 10 },
+    sns: { name: "SNS 運用（Instagram に月4本）", monthly: 9800 }
   },
   regulated_industries: ["medical_care", "office_legal", "health_beauty", "salon", "realestate_finance"],
   flyer_size_map: { a4_single: "a4_single", a4_double: "a4_double", tri_fold: "large", b4_plus: "large", unknown: "a4_single" },
@@ -1000,6 +1028,13 @@ function hinagaQuote(inp) {
     if (inp.hp_text === "none") add("文章の書き起こし", H.text_writing_per_page * pages, H.text_writing_per_page.toLocaleString("ja-JP") + "円 × " + pages + "ページ");
     hpDays = (custom ? 15 : 10) + 2 * Math.max(0, pages - 5) + (inp.hp_sheet === "yes" ? 5 : 0) + (inp.hp_migrate === "yes" ? 5 : 0) + Math.ceil(art / 2);
   }
+  /* ② 集客の立ち上げ（HP があるときだけ）。特急の30％は掛けない・特急の可否は制作の日数（HP＋チラシ）で決める */
+  var mkSub = 0, mkDays = 0, mkLine = null;
+  if (hasHp && inp.hp_mk === "yes") {
+    mkSub = P.marketing.price; mkDays = P.marketing.days;
+    mkLine = { group: "mk", label: P.marketing.name, amount: mkSub, note: "地図の店の情報・Instagram の整備、最初の9投稿、手引きなど。日数は約" + mkDays + "営業日を足した目安" };
+    lines.push(mkLine);
+  }
   if (hasFl) {
     var F = P.flyer;
     var sizeKey = R.flyer_size_map[inp.flyer_size] || "a4_single";
@@ -1018,30 +1053,31 @@ function hinagaQuote(inp) {
     }
     flDays = S.days;
   }
-  days = hpDays + flDays;
+  var prodDays = hpDays + flDays;
+  days = prodDays + mkDays;
   var rush = 0;
-  var rushable = inp.deadline === "rush" && days <= P.rush_max_days;
+  var rushable = inp.deadline === "rush" && prodDays <= P.rush_max_days;
   if (rushable) {
     rush = Math.floor((hpSub + flSub) * P.rush_rate);
-    lines.push({ group: "rush", label: "特急（制作費の30％）", amount: rush, note: "空きがあるときだけ" });
+    lines.push({ group: "rush", label: "特急（制作費の30％）", amount: rush, note: mkSub ? "空きがあるときだけ。集客の立ち上げには掛けません" : "空きがあるときだけ" });
   }
-  var total = hpSub + flSub + rush;
+  var total = hpSub + flSub + rush + mkSub;
   /* しるし（規則の順） */
   var flags = [];
   var reg = R.regulated_industries.indexOf(inp.industry) >= 0;
   if (kind !== "flyer" && inp.hp_shop === "need") flags.push("declined_shop");
   if (reg) flags.push("regulated");
   if (inp.referral_partner === "yes") flags.push("referral_partner");
-  if ((kind !== "flyer" && (inp.hp_form === "unknown" || inp.hp_sheet === "unknown" || inp.hp_migrate === "unknown" || inp.hp_design === "unknown")) || (kind !== "hp" && inp.flyer_size === "unknown")) flags.push("ask_more");
+  if ((kind !== "flyer" && (inp.hp_form === "unknown" || inp.hp_sheet === "unknown" || inp.hp_migrate === "unknown" || inp.hp_design === "unknown" || inp.hp_mk === "unknown")) || (kind !== "hp" && inp.flyer_size === "unknown")) flags.push("ask_more");
   if (kind !== "flyer" && inp.hp_design === "premium" && rawArt < P.hp.premium_default_art) flags.push("art_default");
   if (kind !== "flyer" && inp.hp_photo === "none") flags.push("photo_ai");
-  if (inp.deadline === "rush" && days <= P.rush_max_days) flags.push("rush_check");
-  if (inp.deadline === "rush" && days > P.rush_max_days) flags.push("rush_declined");
+  if (inp.deadline === "rush" && prodDays <= P.rush_max_days) flags.push("rush_check");
+  if (inp.deadline === "rush" && prodDays > P.rush_max_days) flags.push("rush_declined");
   if (kind !== "flyer" && inp.hp_domain !== "have") flags.push("domain_guide");
   if (kind !== "flyer" && inp.hp_news === "yes" && inp.hp_sheet !== "yes" && inp.care !== "monthly_few" && inp.care !== "heavy") flags.push("news_no_update");
   /* 「わからない」があるときは幅で出す（上は、わからない所を全部『あり』にして計算） */
   var totalMax = total, daysMax = days, unk = false;
-  if (kind !== "flyer" && (inp.hp_form === "unknown" || inp.hp_sheet === "unknown" || inp.hp_migrate === "unknown" || inp.hp_design === "unknown")) unk = true;
+  if (kind !== "flyer" && (inp.hp_form === "unknown" || inp.hp_sheet === "unknown" || inp.hp_migrate === "unknown" || inp.hp_design === "unknown" || inp.hp_mk === "unknown")) unk = true;
   if (kind !== "hp" && inp.flyer_size === "unknown") unk = true;
   if (unk && !inp._upper) {
     var hi = {};
@@ -1052,6 +1088,7 @@ function hinagaQuote(inp) {
       if (hi.hp_sheet === "unknown") hi.hp_sheet = "yes";
       if (hi.hp_migrate === "unknown") hi.hp_migrate = "yes";
       if (hi.hp_design === "unknown") hi.hp_design = "custom";
+      if (hi.hp_mk === "unknown") hi.hp_mk = "yes";
     }
     if (kind !== "hp" && hi.flyer_size === "unknown") hi.flyer_size = "b4_plus";
     var hq = hinagaQuote(hi);
@@ -1059,10 +1096,13 @@ function hinagaQuote(inp) {
   }
   var care = null;
   if (hasHp && inp.care !== undefined && inp.care !== null && Object.prototype.hasOwnProperty.call(R.care_suggest, inp.care)) care = R.care_suggest[inp.care];
+  /* SNS 運用は保守のプランがあるときだけ（保守なし・チラシだけでは足さない） */
+  var sns = !!(care && inp.sns === "yes");
+  var monthly = care ? P.care[care].monthly + (sns ? P.sns.monthly : 0) : null;
   return {
-    total: total, totalMax: totalMax, days: days, daysMax: daysMax, hpSub: hpSub, flSub: flSub, rush: rush, lines: lines, flags: flags,
+    total: total, totalMax: totalMax, days: days, daysMax: daysMax, hpSub: hpSub, flSub: flSub, rush: rush, mkSub: mkSub, mkDays: mkDays, lines: lines, flags: flags,
     messages: flags.map(function (f) { return { flag: f, text: R.messages[f], shopOnly: R.shop_only_flags.indexOf(f) >= 0 }; }),
-    care: care, carePlan: care ? P.care[care] : null
+    care: care, carePlan: care ? P.care[care] : null, sns: sns, snsPlan: sns ? P.sns : null, monthly: monthly
   };
 }
 if (typeof module !== "undefined" && module.exports) { module.exports = { hinagaQuote: hinagaQuote, HQ_RULES: HQ_RULES }; }
@@ -1114,8 +1154,17 @@ if (typeof module !== "undefined" && module.exports) { module.exports = { hinaga
     pgOther: function () { return val("pg_other") === "1"; },
     fPurposeOther: function () { return val("f_purpose") === "other"; },
     fTargetOther: function () { return val("f_target") === "other"; },
-    fAi: function () { var v = val("f_img"); return v === "ai" || v === "both"; }
+    fAi: function () { var v = val("f_img"); return v === "ai" || v === "both"; },
+    hpKind: function () { var v = val("kind"); return v === "hp" || v === "both"; },
+    careOn: function () { var c = val("care"); return c !== "" && Object.prototype.hasOwnProperty.call(HQ_RULES.care_suggest, c) && HQ_RULES.care_suggest[c] !== null; }
   };
+  /* 値段の表示は HQ_RULES から入れる（画面の文字に数字を直書きしない） */
+  (function () {
+    var P = HQ_RULES.prices;
+    Array.prototype.forEach.call(document.querySelectorAll("[data-mk-price]"), function (e) { e.textContent = "＋" + P.marketing.price.toLocaleString("ja-JP") + "円"; });
+    Array.prototype.forEach.call(document.querySelectorAll("[data-mk-days]"), function (e) { e.textContent = String(P.marketing.days); });
+    Array.prototype.forEach.call(document.querySelectorAll("[data-sns-price]"), function (e) { e.textContent = "月＋" + P.sns.monthly.toLocaleString("ja-JP") + "円"; });
+  })();
   function stepActive(s) {
     var w = s.getAttribute("data-when");
     if (!w) return true;
@@ -1179,6 +1228,7 @@ if (typeof module !== "undefined" && module.exports) { module.exports = { hinaga
     steps.forEach(function (s) { s.classList.toggle("on", s.getAttribute("data-step") === id); });
     if (id === "review") renderReview();
     if (id === "quote") renderQuote();
+    if (id === "done") renderDone();
     var back = document.getElementById("back");
     back.hidden = (id === "intro" || id === "done");
     var nextL = document.getElementById("nextLabel");
@@ -1273,6 +1323,9 @@ if (typeof module !== "undefined" && module.exports) { module.exports = { hinaga
       a.hp_art = val("hp_art_choice") === "yes" ? intIn("hp_art_n") : 0;
       a.care = val("care");
       a.hp_news = checkedAll("pg").some(function (x) { return x.value === "news"; }) ? "yes" : "no";
+      a.hp_mk = val("hp_mk");
+      /* 保守なし（頼まない）のときは、前に選んだ SNS の答えが残っていても送らない */
+      if (conds.careOn()) a.sns = val("sns");
     }
     var sub = { medical_care: "sub_med", salon: "sub_salon", health_beauty: "sub_hb", realestate_finance: "sub_re" }[a.industry];
     if (sub) a.industry_sub = val(sub);
@@ -1298,6 +1351,7 @@ if (typeof module !== "undefined" && module.exports) { module.exports = { hinaga
       var d = val("hp_design"), dl = d === "template" ? "当店の型から" : d === "custom" ? "一から" : d === "premium" ? "絵も入れて本格的に" : "作り方はご相談";
       var ex = val("hp_existing") === "rebuild" ? "作り直し" : val("hp_existing") === "keep_and_new" ? "別にもう1つ" : "新しく";
       parts.push("ホームページを" + ex + "（" + pageCount() + "ページ・" + dl + "）");
+      if (val("hp_mk") === "yes") parts.push("集客の立ち上げ（②）");
     }
     if (k !== "hp") parts.push("チラシ（" + (labelOf("flyer_size") || "大きさはご相談").replace("（おすすめを聞きたい）", "") + (val("flyer_web") === "yes" ? "・ウェブ版つき" : "") + "）");
     var dd = { rush: "急ぎ（2週間以内）で", "1month": "1か月くらいで", "2_3months": "2〜3か月で", none: "時期は決めずに" }[val("deadline")] || "";
@@ -1369,12 +1423,13 @@ if (typeof module !== "undefined" && module.exports) { module.exports = { hinaga
     html += '<div class="est-label"><span class="tag">目安</span>制作の料金の目安（当店へのお支払い）</div>';
     if (!range) html += '<div class="est-total" id="estTotal" data-min="' + q.total + '" data-max="' + q.totalMax + '"><span class="ya">約</span>' + q.total.toLocaleString("ja-JP") + '<small>円</small></div>';
     else html += '<div class="est-range" id="estTotal" data-min="' + q.total + '" data-max="' + q.totalMax + '"><span class="part"><span class="ya">約</span>' + q.total.toLocaleString("ja-JP") + '<small>円</small><span class="to">〜</span></span><span class="part"><span class="ya">約</span>' + q.totalMax.toLocaleString("ja-JP") + '<small>円</small></span></div>';
-    html += '<div class="est-days">制作の日数の目安　<b id="estDays" data-min="' + q.days + '" data-max="' + q.daysMax + '">' + (q.daysMax > q.days ? q.days + "〜" + q.daysMax : q.days) + '営業日</b>　<span class="small" style="display:block">文章・写真などの内容がそろってから数えます</span></div>';
+    html += '<div class="est-days">制作の日数の目安　<b id="estDays" data-min="' + q.days + '" data-max="' + q.daysMax + '">' + (q.daysMax > q.days ? q.days + "〜" + q.daysMax : q.days) + '営業日</b>　<span class="small" style="display:block">文章・写真などの内容がそろってから数えます' + (q.mkSub ? "。集客の立ち上げの約" + P.marketing.days + "営業日を含みます" : "") + '</span></div>';
     html += '<p class="est-fix">目安です。見積書で確定します。<span style="display:block;font-weight:400;font-size:14px;color:var(--ink-2)">' + (range ? "「わからない」の所があるので、幅で出しています。" : "") + '文章・写真の量によって変わることがあります。</span></p></div><p class="lines-h">内訳' + (range ? "（安い方）" : "") + '</p><ul class="lines" aria-label="内訳">';
     var lastG = "";
-    var gname = { hp: "ホームページ", flyer: "チラシ", rush: "お急ぎ" };
+    var gname = { hp: "ホームページ", mk: "集客の立ち上げ（②）", flyer: "チラシ", rush: "お急ぎ" };
+    var grouped = k === "both" || q.mkSub > 0;
     q.lines.forEach(function (l) {
-      if (k === "both" && l.group !== lastG && l.group !== "rush") html += '<li class="grp">' + gname[l.group] + '</li>';
+      if (grouped && l.group !== lastG && l.group !== "rush") html += '<li class="grp">' + gname[l.group] + '</li>';
       lastG = l.group;
       html += '<li class="' + (l.amount < 0 ? "minus" : "") + '"><span class="nm">' + esc(l.label) + (l.note ? '<small>' + esc(l.note) + '</small>' : '') + '</span><span class="am">' + (l.amount > 0 && l.label.indexOf("基本") < 0 ? "＋" : "") + yen(l.amount) + '</span></li>';
     });
@@ -1386,6 +1441,7 @@ if (typeof module !== "undefined" && module.exports) { module.exports = { hinaga
         if (a.hp_form === "unknown") up.push("お問い合わせフォーム（＋" + yen(P.hp.form) + "）");
         if (a.hp_sheet === "unknown") up.push("表計算との連携（＋" + yen(P.hp.sheet_link) + "）");
         if (a.hp_migrate === "unknown") up.push("旧サイトからの移行（＋" + yen(P.hp.migrate) + "）");
+        if (a.hp_mk === "unknown") up.push("集客の立ち上げ（＋" + yen(P.marketing.price) + "・日数は約" + P.marketing.days + "営業日を足す）");
       }
       if (k !== "hp" && a.flyer_size === "unknown") up.push("チラシを三つ折り・B4 以上に（＋" + yen(P.flyer.size_addon.large.add) + "）");
       html += '<p class="small" id="upperNote" style="margin:0;padding:0 20px 16px">高い方は、「わからない」の所を全部足した場合です：' + esc(up.join("、")) + (k === "both" || a.deadline === "rush" ? "（割引・特急も同じ決まりで計算）" : "") + '。</p>';
@@ -1398,7 +1454,9 @@ if (typeof module !== "undefined" && module.exports) { module.exports = { hinaga
     if (k !== "flyer") ex.push("公開の後の月々の更新のプラン（頼む場合だけ。月 " + P.care.light.monthly.toLocaleString("ja-JP") + "円から）");
     html += '<div class="extra" id="extraCosts"><h3>当店の料金とは別にかかる物</h3><ul>' + ex.map(function (x) { return "<li>" + esc(x) + "</li>"; }).join("") + '</ul></div>';
     if (q.carePlan) {
-      html += '<div class="care-box"><div class="t">公開の後の更新は、<b>' + esc(q.carePlan.name) + 'プラン　月 ' + q.carePlan.monthly.toLocaleString("ja-JP") + '円</b>がおすすめです（制作の料金とは別）。</div></div>';
+      html += '<div class="care-box" id="monthlyBox" data-monthly="' + q.monthly + '" data-sns="' + (q.sns ? "1" : "0") + '"><div class="t">公開の後の更新は、<b>' + esc(q.carePlan.name) + 'プラン　月 ' + q.carePlan.monthly.toLocaleString("ja-JP") + '円</b>がおすすめです（制作の料金とは別）。';
+      if (q.sns) html += '<span style="display:block;margin-top:6px">' + esc(q.snsPlan.name) + '　月＋' + q.snsPlan.monthly.toLocaleString("ja-JP") + '円を足して、<b style="display:inline">月々 ' + q.monthly.toLocaleString("ja-JP") + '円</b>の目安です。</span>';
+      html += '</div></div>';
     }
     var notes = q.messages.filter(function (m) { return !m.shopOnly; });
     var order = { declined_shop: 0, rush_declined: 1, regulated: 2, news_no_update: 3 };
@@ -1415,6 +1473,16 @@ if (typeof module !== "undefined" && module.exports) { module.exports = { hinaga
     document.getElementById("quoteBox").innerHTML = html;
   }
 
+
+  /* 受付の後の画面：② 集客の立ち上げ・SNS 運用を選んだときだけ、受け付けた中身を1行ずつ出す */
+  function renderDone() {
+    var a = answers(), q = hinagaQuote(a), items = [];
+    if (a.kind !== "flyer" && a.hp_mk === "yes") items.push(HQ_RULES.prices.marketing.name + "（＋" + yen(HQ_RULES.prices.marketing.price) + "）も、見積書に入れてお送りします。");
+    if (a.kind !== "flyer" && a.hp_mk === "unknown") items.push(HQ_RULES.prices.marketing.name + "は「わからない」として受け付けました。見積書の前に当店からお聞きします。");
+    if (q.sns) items.push(q.snsPlan.name + "（月＋" + yen(q.snsPlan.monthly) + "）を、月ごとのプラン（おすすめは" + q.carePlan.name + "プラン）に足すご希望として受け付けました。月々の料金は見積書でお知らせします。");
+    document.getElementById("doneExtraList").innerHTML = items.map(function (x) { return "<li>" + esc(x) + "</li>"; }).join("");
+    document.getElementById("doneExtra").hidden = items.length === 0;
+  }
 
   /* ---- 送る（送り先が空なら見本のまま送らない） ---- */
   var ENDPOINT = (function () { var m = document.querySelector('meta[name="hq-endpoint"]'); var u = m ? m.getAttribute("content") || "" : ""; return /^https:\/\/script\.google\.com\/macros\/s\/[A-Za-z0-9_-]+\/exec$/.test(u) ? u : ""; })();
@@ -1435,7 +1503,8 @@ if (typeof module !== "undefined" && module.exports) { module.exports = { hinaga
         total: q.total, totalMax: q.totalMax, days: q.days, daysMax: q.daysMax,
         lines: q.lines.map(function (l) { return { label: l.label, amount: l.amount, note: l.note || "" }; }),
         notes: q.messages.map(function (m) { return m.text; }),
-        carePlan: q.carePlan ? q.carePlan.name + "プラン 月" + q.carePlan.monthly.toLocaleString("ja-JP") + "円" : ""
+        /* 受付（Apply.js）は carePlan を80字までの文字で受けるので、SNS 運用もこの1つの文字に入れる */
+        carePlan: q.carePlan ? q.carePlan.name + "プラン 月" + q.carePlan.monthly.toLocaleString("ja-JP") + "円" + (q.sns ? "＋" + q.snsPlan.name + " 月" + q.snsPlan.monthly.toLocaleString("ja-JP") + "円＝月" + q.monthly.toLocaleString("ja-JP") + "円" : "") : ""
       }
     };
   }
