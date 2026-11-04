@@ -1,0 +1,1529 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; img-src data:; base-uri 'none'; form-action 'none'; connect-src https://script.google.com https://script.googleusercontent.com">
+<meta name="referrer" content="no-referrer">
+<!-- 受付の送り先（Apps Script「ひなが堂 制作室の受付」の公開 URL）。ここは空のまま。hinagado-site/tools/build_studio.py の APPLY_ENDPOINT が写しに入れる（空なら見本のまま送らない） -->
+<meta name="hq-endpoint" content="https://script.google.com/macros/s/AKfycbyJ1lamVfvlBC97_G04_5WeUxZh8nU57NaOYWyXxNz5H0Ych5pSsCIVGPI2Bi43lU7S/exec">
+<meta name="theme-color" content="#F6EFE2">
+<title>見積もりのご依頼｜ひなが堂 制作室</title>
+<style>
+:root{
+  --ai:#24466B; --sumi:#15283C; --suna:#B9AE98; --kinari:#F6EFE2; --shu:#D9573A;
+  --paper:#FFFCF6; --line:#DDD3C1; --line-strong:#C9BDA6;
+  --ink:#15283C; --ink-2:#36465A; --ink-3:#4B586A;
+  --ai-wash:rgba(36,70,107,.07); --ai-wash-2:rgba(36,70,107,.12);
+  --suna-wash:rgba(185,174,152,.22);
+  --radius:16px;
+  --font:"BIZ UDPGothic","Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic UI","Yu Gothic","Meiryo",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{margin:0;background:var(--kinari);color:var(--ink);font-family:var(--font);font-size:18px;line-height:1.75;
+  font-feature-settings:"palt" 0;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+button,input,textarea,select{font:inherit;color:inherit}
+h1,h2,h3,legend,.lead,.qlabel,.fact,.ch .tx b,.flow b,.gist p{word-break:auto-phrase}
+a{color:var(--ai)}
+.sr{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+:focus-visible{outline:3px solid var(--ai);outline-offset:3px;border-radius:6px}
+
+/* ===== 上の帯 ===== */
+.sample-band{background:var(--sumi);color:var(--kinari);font-size:13px;text-align:center;padding:5px 16px;letter-spacing:.04em}
+.top{position:sticky;top:0;z-index:20;background:rgba(246,239,226,.94);backdrop-filter:saturate(1.2) blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top-in{max-width:1120px;margin:0 auto;padding:10px 16px 10px;display:flex;align-items:center;gap:14px}
+.logo svg{display:block;height:40px;width:auto}
+.top-title{margin-left:auto;font-size:13px;color:var(--ink-2);text-align:right;line-height:1.4}
+.top-title b{display:block;font-size:14px;color:var(--ink);letter-spacing:.02em}
+.prog{max-width:1120px;margin:0 auto;padding:0 16px 10px}
+.prog-row{display:flex;align-items:baseline;justify-content:space-between;gap:10px;font-size:15px;color:var(--ink-2)}
+.prog-where{font-weight:700;color:var(--ink);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.prog-where .sec{color:var(--ai)}
+.prog-count{flex:none;font-variant-numeric:tabular-nums}
+.prog-count b{font-size:17px;color:var(--ai)}
+.bar{display:flex;gap:3px;margin-top:6px}
+.bar i{flex:1;height:6px;border-radius:3px;background:var(--line)}
+.bar i.done{background:var(--ai)}
+.bar i.now{background:var(--ai);opacity:.45}
+.top.is-intro .prog{display:none}
+
+/* ===== 全体の枠 ===== */
+.wrap{max-width:1120px;margin:0 auto;padding:20px 16px 40px;display:grid;grid-template-columns:1fr;gap:28px}
+.rail{display:none}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:22px;box-shadow:0 1px 0 rgba(21,40,60,.03),0 18px 40px -28px rgba(21,40,60,.35);padding:26px 20px 8px;min-width:0}
+@media (min-width:960px){
+  .logo svg{height:46px}
+  .wrap{grid-template-columns:250px minmax(0,1fr);padding-top:36px;align-items:start}
+  .rail{display:block;position:sticky;top:132px}
+  .card{padding:44px 56px 16px}
+}
+
+/* 左の道しるべ（PC） */
+.rail h2{font-size:13px;letter-spacing:.12em;color:var(--ink-3);margin:0 0 12px;font-weight:700}
+.rail ol{list-style:none;margin:0;padding:0;border-left:2px solid var(--line)}
+.rail li{position:relative;padding:7px 0 7px 22px;font-size:15px;color:var(--ink-3);line-height:1.45}
+.rail li::before{content:"";position:absolute;left:-7px;top:13px;width:12px;height:12px;border-radius:50%;background:var(--kinari);border:2px solid var(--line-strong)}
+.rail li.sec-head{font-weight:700;color:var(--ink-2);padding-top:14px;font-size:14px;letter-spacing:.04em}
+.rail li.sec-head::before{display:none}
+.rail li.done{color:var(--ink-2)}
+.rail li.done::before{background:var(--ai);border-color:var(--ai)}
+.rail li.now{color:var(--ai);font-weight:700}
+.rail li.now::before{background:var(--paper);border-color:var(--ai);box-shadow:0 0 0 4px var(--ai-wash-2)}
+.rail .rail-note{margin-top:22px;font-size:13px;color:var(--ink-3);line-height:1.7;padding:14px;border:1px dashed var(--line-strong);border-radius:12px}
+
+/* ===== 画面 ===== */
+.step{display:none}
+.step.on{display:block;animation:stepIn .35s ease both}
+@keyframes stepIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.eyebrow{font-size:14px;font-weight:700;color:var(--ai);letter-spacing:.08em;margin:0 0 6px}
+.step h1,.step h2.title{font-size:26px;line-height:1.45;margin:0 0 8px;letter-spacing:.02em;color:var(--sumi)}
+.step h2.title:focus{outline:none}
+.lead{color:var(--ink-2);margin:0 0 22px;font-size:17px}
+@media (min-width:960px){.step h1{font-size:36px}.step h2.title{font-size:30px}}
+
+/* 質問 */
+.q{border:0;margin:0 0 30px;padding:0;min-width:0}
+.q legend,.q .qlabel{display:block;padding:0;margin:0 0 4px;font-size:20px;font-weight:700;line-height:1.5;color:var(--sumi)}
+.qno{display:inline-block;font-size:13px;font-weight:700;color:var(--ai);background:var(--ai-wash);border-radius:999px;padding:1px 10px;margin:0 0 8px;letter-spacing:.06em}
+.qno.opt{color:var(--ink-2);background:var(--suna-wash)}
+.hint{font-size:16px;color:var(--ink-3);margin:0 0 12px;line-height:1.7}
+.q .hint:last-child{margin-bottom:0}
+
+/* 選ぶカード */
+.choices{display:grid;gap:10px;grid-template-columns:1fr}
+.choices.two{grid-template-columns:1fr}
+@media (min-width:640px){.choices.two{grid-template-columns:1fr 1fr}}
+.ch{position:relative;display:flex;align-items:center;gap:14px;min-height:62px;padding:14px 16px;border:1.5px solid var(--line);border-radius:14px;background:#fff;cursor:pointer;transition:border-color .15s,background .15s,box-shadow .15s;line-height:1.5}
+.ch:hover{border-color:rgba(36,70,107,.55)}
+.ch input{position:absolute;opacity:0;width:1px;height:1px}
+.ch .mk{flex:none;width:26px;height:26px;border-radius:50%;border:2px solid var(--line-strong);background:#fff;display:grid;place-items:center;transition:all .15s}
+.ch .mk.box{border-radius:7px}
+.ch .mk{color:transparent;font-size:15px;font-weight:700;line-height:1}
+.ch:has(input:checked) .mk{color:#fff}
+.ch .mk svg{width:15px;height:15px;opacity:0;transform:scale(.6);transition:all .15s}
+.ch .tx{min-width:0}
+.ch .tx b{display:block;font-weight:700;font-size:18px}
+.ch .tx small{display:block;font-size:15px;color:var(--ink-3);margin-top:2px;line-height:1.55}
+.ch:has(input:checked){border-color:var(--ai);background:#EDF2F8;box-shadow:inset 0 0 0 1px var(--ai)}
+.ch:has(input:checked) .mk{background:var(--ai);border-color:var(--ai)}
+.ch:has(input:checked) .mk svg{opacity:1;transform:none}
+.ch:has(input:focus-visible){outline:3px solid var(--ai);outline-offset:3px}
+.ch.dontknow .tx b{font-weight:700;color:var(--ink-2)}
+
+/* 大きな絵つきカード（作りたい物） */
+.kinds{display:grid;gap:12px;grid-template-columns:1fr}
+@media (min-width:640px){.kinds{grid-template-columns:repeat(3,1fr)}}
+.kind{flex-direction:row;padding:14px 16px}
+.kind .mk{order:3;margin-left:auto}
+.kind .tx{flex:1}
+.kind .art{flex:none;width:76px;height:60px}
+.kind .art svg{width:100%;height:100%}
+@media (min-width:640px){
+  .kind{flex-direction:column;align-items:flex-start;padding:18px}
+  .kind .art{width:100%;height:96px;background:var(--kinari);border-radius:10px;padding:10px}
+  .kind .mk{position:absolute;top:14px;right:14px;margin:0}
+}
+
+/* 入力欄 */
+.field{margin:0 0 14px}
+.field label.fl{display:block;font-weight:700;font-size:16px;margin:0 0 6px;color:var(--ink)}
+.inp{width:100%;min-height:56px;padding:12px 14px;border:1.5px solid var(--line-strong);border-radius:12px;background:#fff;font-size:18px;line-height:1.5}
+textarea.inp{min-height:132px;resize:vertical}
+.inp::placeholder{color:#8A93A0}
+.inp:focus{outline:none;border-color:var(--ai);box-shadow:0 0 0 4px var(--ai-wash-2)}
+.ref{border:1px solid var(--line);border-radius:14px;padding:14px;margin:0 0 12px;background:#fff}
+.ref .rno{font-size:14px;font-weight:700;color:var(--ai);margin:0 0 8px}
+.ref .field{margin-bottom:10px}
+.ref .field:last-child{margin-bottom:0}
+.ref .inp{min-height:52px;font-size:17px}
+
+/* 数を入れる */
+.num{display:flex;align-items:center;gap:8px;flex-wrap:nowrap}
+.num .inp{width:84px;flex:none;text-align:center;font-size:22px;font-weight:700;font-variant-numeric:tabular-nums;padding:8px}
+.num button{flex:none;width:54px;height:54px;border-radius:12px;border:1.5px solid var(--line-strong);background:#fff;font-size:26px;line-height:1;cursor:pointer;color:var(--ai)}
+.num button:hover{border-color:var(--ai)}
+.num .unit{font-size:17px;color:var(--ink-2)}
+
+/* 条件で出る質問 */
+.cond{display:none}
+.cond.show{display:block;animation:condIn .4s ease both}
+@keyframes condIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.sub{margin:12px 0 0 0;padding:16px 16px 4px;border-left:3px solid var(--ai);background:linear-gradient(90deg,var(--ai-wash),rgba(36,70,107,0) 90%);border-radius:0 12px 12px 0}
+.sub .q{margin-bottom:16px}
+.sub-tag{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:var(--ai);margin-bottom:6px}
+.sub-tag svg{width:14px;height:14px}
+
+/* ページ数の表示 */
+.count-pill{display:inline-flex;align-items:baseline;gap:6px;margin-top:12px;padding:8px 16px;border-radius:999px;background:var(--sumi);color:var(--kinari);font-size:15px}
+.count-pill b{font-size:22px;font-variant-numeric:tabular-nums}
+
+/* お知らせ */
+.note{display:grid;grid-template-columns:30px 1fr;gap:12px;padding:16px 16px;border-radius:14px;margin:14px 0 4px;font-size:16px;line-height:1.75}
+.note .ic{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:16px}
+.note h3{margin:0 0 4px;font-size:17px;line-height:1.5}
+.note p{margin:0 0 6px}
+.note p:last-child{margin-bottom:0}
+.note.info{background:#EDF1F5;border:1.5px solid rgba(36,70,107,.35)}
+.note.info .ic{background:var(--ai);color:#fff}
+.note.info h3{color:var(--ai)}
+.note.stop{background:#EFEAE0;border:1.5px solid var(--sumi)}
+.note.stop .ic{background:var(--sumi);color:var(--kinari)}
+.note.soft{background:var(--suna-wash);border:1px solid var(--line)}
+.note.soft .ic{background:var(--paper);color:var(--ink-2);border:1px solid var(--line-strong)}
+.go-on{display:inline-block;margin-top:6px;font-size:14px;font-weight:700;color:var(--ai)}
+
+/* 入れ忘れ */
+.err{display:none;margin:8px 0 0;font-size:15px;font-weight:700;color:var(--sumi);padding:8px 12px;border-radius:10px;background:#F1E9DA;border-left:4px solid var(--sumi)}
+.need .err{display:block}
+.need .choices .ch,.need>.inp,.need .inp.must{border-color:var(--sumi)}
+
+/* はじめの画面 */
+.hero-facts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 0 22px}
+.fact{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 8px;text-align:center}
+.fact b{display:block;font-size:20px;white-space:nowrap;color:var(--ai);line-height:1.3;letter-spacing:.02em}
+.fact span{font-size:13px;color:var(--ink-2);line-height:1.4;display:block}
+.flow{list-style:none;margin:0 0 22px;padding:0;display:grid;gap:0}
+.flow li{display:grid;grid-template-columns:40px 1fr;gap:12px;padding:0 0 16px;position:relative}
+.flow li:not(:last-child)::after{content:"";position:absolute;left:19px;top:40px;bottom:2px;width:2px;background:var(--line)}
+.flow .n{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-weight:700;background:#fff;border:1.5px solid var(--line-strong);color:var(--ink-2);font-size:16px}
+.flow li.here .n{background:var(--ai);border-color:var(--ai);color:#fff}
+.flow b{display:block;font-size:17px;line-height:1.5;padding-top:7px}
+.flow span{display:block;font-size:14px;color:var(--ink-3);line-height:1.6}
+.promise{background:var(--kinari);border-radius:14px;padding:16px 18px;margin:0 0 8px}
+.promise h3{margin:0 0 8px;font-size:16px}
+.promise ul{margin:0;padding:0;list-style:none}
+.promise li{position:relative;padding-left:22px;margin:0 0 6px;font-size:15.5px;line-height:1.7;color:var(--ink-2)}
+.promise li::before{content:"";position:absolute;left:4px;top:.72em;width:8px;height:8px;border-radius:2px;background:var(--ai)}
+
+/* まとめ */
+.gist{background:var(--sumi);color:var(--kinari);border-radius:16px;padding:18px 20px;margin:0 0 20px}
+.gist .k{font-size:13px;letter-spacing:.1em;opacity:.8;margin:0 0 4px}
+.gist p{margin:0;font-size:19px;line-height:1.7;font-weight:700}
+.sum{border:1px solid var(--line);border-radius:16px;background:#fff;margin:0 0 14px;overflow:hidden}
+.sum-h{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 16px;background:var(--kinari);border-bottom:1px solid var(--line)}
+.sum-h h3{margin:0;font-size:17px;line-height:1.45}
+.sum-h h3 small{display:block;font-size:12px;font-weight:700;color:var(--ai);letter-spacing:.06em}
+.edit{flex:none;min-height:44px;padding:6px 16px;border-radius:999px;border:1.5px solid var(--ai);background:#fff;color:var(--ai);font-weight:700;font-size:15px;cursor:pointer}
+.edit:hover{background:var(--ai-wash)}
+.sum dl{margin:0;padding:6px 16px 10px}
+.ask{border:1.5px solid var(--ai);border-radius:14px;padding:14px 16px;margin:0 0 18px;background:#EDF2F8;font-size:16px}
+.ask b{display:block;color:var(--ai);margin-bottom:4px}
+.ask ul{margin:0;padding-left:1.3em}
+.sum dt{font-size:15px;color:var(--ink-3);margin-top:10px;line-height:1.5}
+.sum dd{margin:2px 0 0;font-size:18px;font-weight:700;line-height:1.6;overflow-wrap:anywhere}
+.sum dd.none{color:var(--ink-3);font-weight:400}
+
+/* 目安 */
+.est{border-radius:20px;background:#fff;border:1.5px solid var(--ai);overflow:hidden;margin:0 0 18px}
+.est-top{padding:20px 20px 18px;background:linear-gradient(180deg,var(--ai-wash),rgba(36,70,107,0))}
+.est-label{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:700;color:var(--ai)}
+.est-label .tag{flex:none;white-space:nowrap;border:1.5px solid var(--ai);border-radius:6px;padding:0 8px;font-size:13px;letter-spacing:.08em}
+.est-total{font-size:clamp(34px,11vw,48px);white-space:nowrap;font-weight:700;color:var(--sumi);line-height:1.25;margin:8px 0 2px;font-variant-numeric:tabular-nums;letter-spacing:.01em}
+.est-total small{font-size:22px;margin-left:4px}
+.est-total .ya{font-size:20px;margin-right:6px;color:var(--ink-2)}
+.est-days{font-size:16px;color:var(--ink-2)}
+.est-days b{color:var(--sumi);font-size:19px}
+.est-fix{margin:12px 0 0;font-size:15px;font-weight:700;color:var(--sumi);background:var(--kinari);border-radius:10px;padding:10px 12px;line-height:1.6}
+.lines-h{margin:0;padding:14px 20px 0;font-size:13px;font-weight:700;letter-spacing:.12em;color:var(--ink-3)}
+.lines{list-style:none;margin:0;padding:2px 20px 14px}
+.lines li{display:flex;align-items:baseline;gap:8px;padding:10px 0;border-bottom:1px dashed var(--line);font-size:16px;line-height:1.5}
+.lines li:last-child{border-bottom:0}
+.lines .nm{min-width:0;flex:1}
+.lines .nm small{display:block;font-size:13px;color:var(--ink-3)}
+.lines .am{flex:none;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+.lines li.minus .am{color:var(--ai)}
+.lines li.grp{border-bottom:0;padding:12px 0 2px;font-size:13px;letter-spacing:.08em;color:var(--ink-3);font-weight:700}
+.sendinfo{margin:0 0 14px;padding:14px 16px;border-left:4px solid var(--ai);background:var(--kinari);border-radius:0 12px 12px 0;font-size:16px;line-height:1.75}
+.sendinfo b{display:block;color:var(--sumi)}
+.care-box{display:flex;gap:14px;align-items:center;border:1px solid var(--line);border-radius:16px;background:var(--kinari);padding:14px 16px;margin:0 0 18px}
+.care-box .t{font-size:14px;color:var(--ink-2);line-height:1.5}
+.care-box b{display:block;font-size:18px;color:var(--sumi)}
+.small{font-size:15px;color:var(--ink-3);line-height:1.7}
+
+/* 同意 */
+.agree{display:flex;gap:14px;align-items:flex-start;padding:16px;border:1.5px solid var(--line-strong);border-radius:14px;background:#fff;margin:0 0 10px;cursor:pointer;line-height:1.6}
+.agree input{position:absolute;opacity:0;width:1px;height:1px}
+.agree .mk{flex:none;width:28px;height:28px;border-radius:7px;border:2px solid var(--line-strong);display:grid;place-items:center;margin-top:1px}
+.agree .mk svg{width:16px;height:16px;opacity:0}
+.agree:has(input:checked){border-color:var(--ai);background:var(--ai-wash)}
+.agree:has(input:checked) .mk{background:var(--ai);border-color:var(--ai)}
+.agree:has(input:checked) .mk svg{opacity:1}
+.agree:has(input:focus-visible){outline:3px solid var(--ai);outline-offset:3px}
+.agree .linkish{color:var(--ai);text-decoration:underline;font-weight:700}
+
+/* 送った後 */
+.done-mark{width:76px;height:76px;border-radius:50%;background:var(--ai);display:grid;place-items:center;margin:4px 0 18px}
+.done-mark svg{width:38px;height:38px}
+.receipt{border:1.5px solid var(--ai);border-radius:14px;background:#fff;padding:14px 16px;margin:0 0 16px}
+.receipt .k{margin:0;font-size:14px;font-weight:700;color:var(--ai);letter-spacing:.06em}
+.receipt .no{margin:2px 0 0;font-size:clamp(28px,9vw,36px);font-weight:700;color:var(--sumi);letter-spacing:.08em;font-variant-numeric:tabular-nums}
+.mail-addr{overflow-wrap:anywhere;font-weight:700}
+.send-err[hidden]{display:none}
+/* 見えない入力欄（自動で送ってくる機械をはじく）。人には見えず、読み上げにも出ない */
+.hp-trap{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden}
+
+/* ===== 下のボタン ===== */
+.nav{position:sticky;bottom:0;z-index:15;margin:8px -20px 0;padding:12px 16px calc(12px + env(safe-area-inset-bottom));background:rgba(255,252,246,.95);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-top:1px solid var(--line);display:flex;gap:10px;align-items:center}
+@media (min-width:960px){.nav{position:static;margin:16px 0 0;padding:22px 0 28px;background:none;backdrop-filter:none;border-top:1px solid var(--line)}}
+.btn{min-height:58px;border-radius:14px;font-weight:700;font-size:18px;white-space:nowrap;cursor:pointer;border:0;padding:0 20px;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:background .15s,transform .05s}
+.btn:active{transform:translateY(1px)}
+.btn[disabled]{opacity:.65;cursor:wait}
+.btn-go{flex:1;background:var(--ai);color:#fff;box-shadow:0 6px 16px -8px rgba(36,70,107,.8)}
+.btn-go:hover{background:#1d3a59}
+.btn-back{flex:none;background:#fff;color:var(--ai);border:1.5px solid var(--line-strong);padding:0 14px 0 10px}
+@media (max-width:380px){.btn{font-size:17px}.btn-go{padding:0 12px}}
+.btn-back:hover{border-color:var(--ai)}
+.btn-back[hidden]{display:none}
+.btn-rev{flex:none;background:var(--kinari);color:var(--sumi);border:1.5px solid var(--sumi);font-size:15px;padding:0 12px}
+.btn-rev[hidden]{display:none}
+@media (min-width:960px){.btn-go{flex:0 0 auto;min-width:260px;margin-left:auto}}
+.btn svg{width:20px;height:20px}
+
+.foot{max-width:1120px;margin:0 auto;padding:0 16px 40px;font-size:13px;color:var(--ink-3);text-align:center;line-height:1.7}
+.foot-links{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 18px;margin:0 0 8px;padding:0;list-style:none;font-size:15px}
+.foot-links a{display:inline-block;min-height:44px;line-height:44px;color:var(--ai);font-weight:700}
+.foot-note{margin:0 0 6px;font-size:13px}
+/* 料金の目安を選ぶ所に出す */
+.yen{display:inline-block;margin-top:3px;font-size:13.5px;font-weight:700;color:var(--ai);background:var(--ai-wash);border-radius:6px;padding:0 7px;line-height:1.7}
+/* 個人情報の使い道 */
+.purpose{border:1.5px solid var(--line-strong);border-radius:14px;background:#fff;padding:14px 16px;margin:0 0 14px;font-size:15.5px;line-height:1.75}
+.purpose h3{margin:0 0 6px;font-size:16.5px;color:var(--sumi)}
+.purpose ol{margin:0 0 6px;padding-left:1.4em}
+.purpose p{margin:0 0 6px}
+.purpose p:last-child{margin-bottom:0}
+/* 目安の幅と別にかかる物 */
+.est-range{font-size:clamp(26px,8.2vw,40px);white-space:nowrap;font-weight:700;color:var(--sumi);line-height:1.3;margin:2px 0 4px;font-variant-numeric:tabular-nums}
+.est-range small{font-size:18px;margin-left:3px}
+.est-range .ya{font-size:17px;margin-right:4px;color:var(--ink-2)}
+.est-range .part{display:block}
+.est-range .to{font-size:18px;color:var(--ink-2);margin-left:4px}
+.extra{border:1.5px dashed var(--line-strong);border-radius:14px;background:var(--paper);padding:14px 16px;margin:0 0 18px;font-size:15.5px;line-height:1.7}
+.extra h3{margin:0 0 6px;font-size:16.5px;color:var(--sumi)}
+.extra ul{margin:0;padding-left:1.3em}
+.extra li{margin:0 0 4px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="sample-band" id="sampleBand" hidden>見本の画面です。入力しても送信・保存はされません。　<a href="../apply.html" style="color:inherit;font-weight:700">← 制作室のページへ戻る</a></div>
+<header class="top is-intro" id="top">
+  <div class="top-in">
+    <div class="logo" aria-label="ひなが堂 制作室"><svg xmlns="http://www.w3.org/2000/svg" viewBox="-3.00 -3.00 342.55 126.00" aria-hidden="true" focusable="false"><g transform="scale(1.0)"><path d="M12.0 12.0 H108.0 V78.0 A30.0 30.0 0 0 1 78.0 108.0 H12.0 Z" fill="#24466B"/><circle cx="78.0" cy="78.0" r="9.0" fill="#D9573A"/></g><g transform="translate(123.000,45.557)"><path d="M19.6824 3.256800000000002Q19.880640000000003 4.58784 20.248800000000003 6.0746400000000005Q20.616960000000002 7.561440000000001 21.28248 9.119040000000002Q21.948 10.67664 23.024160000000002 12.23424Q24.100320000000004 13.79184 25.714560000000002 15.292800000000002L23.420640000000002 18.577920000000002Q21.891360000000002 16.82208 20.58864 14.68392Q19.28592 12.545760000000001 18.181440000000002 9.940320000000002Q17.076960000000003 7.334880000000002 16.08576 4.248000000000001ZM0.9912000000000001 4.672800000000002Q1.75584 4.72944 2.6054399999999998 4.672800000000002Q3.6249600000000006 4.616160000000001 4.91352 4.488720000000001Q6.2020800000000005 4.361280000000001 7.54728 4.1630400000000005Q8.892479999999999 3.9648000000000003 10.039439999999999 3.738240000000001Q11.186399999999999 3.511680000000002 11.894400000000001 3.256800000000002L12.942240000000002 6.400320000000001Q12.63072 6.5136 12.23424 6.669360000000001Q11.83776 6.825120000000002 11.526240000000001 7.02336Q10.931519999999999 7.476480000000002 10.18104 8.241120000000002Q9.43056 9.00576 8.65176 10.0536Q7.87296 11.10144 7.2216000000000005 12.39Q6.570240000000001 13.678560000000001 6.173760000000001 15.165360000000002Q5.77728 16.652160000000002 5.77728 18.29472Q5.77728 19.5408 6.145440000000001 20.41872Q6.513600000000001 21.29664 7.179120000000001 21.84888Q7.844640000000001 22.401120000000002 8.722560000000001 22.656000000000002Q9.600480000000001 22.910880000000002 10.620000000000001 22.910880000000002Q13.848480000000002 22.910880000000002 15.547680000000001 20.70192Q17.24688 18.49296 17.473440000000004 14.471520000000002Q17.700000000000003 10.450080000000002 16.425600000000003 5.040960000000002L19.767360000000004 10.450080000000002Q20.248800000000003 12.744000000000002 20.3196 15.06624Q20.390400000000003 17.38848 19.923120000000004 19.47Q19.455840000000002 21.55152 18.337200000000003 23.19408Q17.21856 24.836640000000003 15.30696 25.785360000000004Q13.39536 26.734080000000002 10.535040000000002 26.734080000000002Q8.835840000000001 26.734080000000002 7.320720000000001 26.25264Q5.8056 25.7712 4.63032 24.836640000000003Q3.4550400000000003 23.90208 2.7895200000000004 22.45776Q2.124 21.013440000000003 2.124 19.087680000000002Q2.124 17.36016 2.4638400000000003 15.83088Q2.80368 14.3016 3.41256 12.913920000000001Q4.02144 11.526240000000001 4.85688 10.22352Q5.6923200000000005 8.9208 6.683520000000001 7.674720000000001Q6.145440000000001 7.731360000000002 5.42328 7.802160000000001Q4.70112 7.872959999999999 4.049760000000001 7.95792Q3.3984000000000005 8.04288 2.9736000000000002 8.099520000000002Q2.52048 8.15616 2.13816 8.2128Q1.75584 8.26944 1.2744 8.354400000000002Z M28.489920000000005 6.372Q29.396160000000002 6.4852799999999995 30.429840000000002 6.527760000000001Q31.463520000000003 6.570240000000002 32.25648 6.570240000000002Q34.01232 6.570240000000002 35.81064000000001 6.372000000000002Q37.60896 6.1737600000000015 39.27984000000001 5.848080000000001Q40.950720000000004 5.522400000000001 42.31008 5.0976L42.42336 8.382719999999999Q41.205600000000004 8.69424 39.52056 9.01992Q37.83552 9.345600000000001 35.96640000000001 9.558Q34.097280000000005 9.7704 32.284800000000004 9.7704Q31.435200000000002 9.7704 30.557280000000002 9.742080000000001Q29.679360000000003 9.71376 28.744800000000005 9.65712ZM39.506400000000006 2.1239999999999988Q39.33648 2.8320000000000007 39.05328 3.9648000000000003Q38.77008000000001 5.0976 38.41608000000001 6.343680000000001Q38.06208 7.589760000000002 37.665600000000005 8.80752Q37.04256 10.84656 36.02304 13.14048Q35.00352 15.434400000000002 33.814080000000004 17.61504Q32.62464000000001 19.79568 31.406880000000005 21.494880000000002L27.980160000000005 19.739040000000003Q28.943040000000003 18.5496 29.877600000000005 17.10528Q30.812160000000006 15.660960000000001 31.633440000000004 14.131680000000001Q32.45472 12.602400000000001 33.12024 11.172240000000002Q33.78576 9.742080000000001 34.18224000000001 8.580960000000001Q34.72032 7.080000000000002 35.13096 5.225040000000002Q35.5416 3.3700800000000015 35.598240000000004 1.727520000000002ZM46.13328 10.93152Q46.076640000000005 11.837760000000001 46.0908 12.729840000000001Q46.104960000000005 13.621920000000001 46.13328 14.55648Q46.16160000000001 15.207840000000001 46.204080000000005 16.2132Q46.24656 17.21856 46.303200000000004 18.337200000000003Q46.359840000000005 19.455840000000002 46.40232 20.4612Q46.4448 21.46656 46.4448 22.06128Q46.4448 23.364 45.90672 24.426000000000002Q45.36864 25.488000000000003 44.19336 26.111040000000003Q43.018080000000005 26.734080000000002 40.979040000000005 26.734080000000002Q39.223200000000006 26.734080000000002 37.80720000000001 26.210160000000002Q36.391200000000005 25.68624 35.5416 24.65256Q34.69200000000001 23.61888 34.69200000000001 22.06128Q34.69200000000001 20.6736 35.42832000000001 19.55496Q36.164640000000006 18.436320000000002 37.566480000000006 17.799120000000002Q38.968320000000006 17.161920000000002 40.950720000000004 17.161920000000002Q43.44288 17.161920000000002 45.538560000000004 17.855760000000004Q47.634240000000005 18.5496 49.30512 19.62576Q50.976000000000006 20.70192 52.165440000000004 21.778080000000003L50.268 24.808320000000002Q49.50336 24.12864 48.52632 23.279040000000002Q47.54928 22.42944 46.34568 21.69312Q45.14208000000001 20.9568 43.74024000000001 20.475360000000002Q42.33840000000001 19.993920000000003 40.724160000000005 19.993920000000003Q39.506400000000006 19.993920000000003 38.77008000000001 20.475360000000002Q38.03376 20.9568 38.03376 21.72144Q38.03376 22.514400000000002 38.67096 22.99584Q39.30816 23.47728 40.469280000000005 23.47728Q41.43216 23.47728 41.99856 23.151600000000002Q42.56496 22.82592 42.791520000000006 22.21704Q43.018080000000005 21.60816 43.018080000000005 20.84352Q43.018080000000005 20.19216 42.96144000000001 19.002720000000004Q42.90480000000001 17.813280000000002 42.834 16.36896Q42.763200000000005 14.924640000000002 42.70656000000001 13.480320000000003Q42.64992000000001 12.036000000000001 42.59328000000001 10.93152ZM51.00432000000001 12.432480000000002Q50.183040000000005 11.7528 48.96528000000001 10.98816Q47.74752000000001 10.22352 46.458960000000005 9.52968Q45.1704 8.835840000000001 44.20752 8.41104L46.02 5.60736Q46.78464 5.947200000000002 47.76168 6.442800000000002Q48.73872 6.9384000000000015 49.744080000000004 7.4764800000000005Q50.74944000000001 8.01456 51.613200000000006 8.53848Q52.476960000000005 9.0624 53.015040000000006 9.45888Z M66.77856000000001 2.747040000000002Q66.66528000000001 3.285119999999999 66.52368000000001 3.922319999999999Q66.38208 4.559519999999999 66.26880000000001 5.0976Q66.15552000000001 5.7206399999999995 65.9856 6.49944Q65.81568000000001 7.27824 65.65992000000001 8.05704Q65.50416000000001 8.835840000000001 65.33424000000001 9.57216Q65.05104000000001 10.78992 64.62624000000001 12.404160000000001Q64.20144 14.018400000000002 63.635040000000004 15.873360000000002Q63.06864000000001 17.72832 62.36064000000001 19.59744Q61.65264000000001 21.46656 60.85968000000001 23.23656Q60.06672000000001 25.00656 59.16048000000001 26.42256L55.47888000000001 24.949920000000002Q56.47008000000001 23.61888 57.33384000000001 21.96216Q58.19760000000001 20.30544 58.90560000000001 18.563760000000002Q59.61360000000001 16.82208 60.16584000000001 15.10872Q60.71808000000001 13.39536 61.12872000000001 11.922720000000002Q61.53936000000001 10.450080000000002 61.76592000000001 9.40224Q62.16240000000001 7.476480000000002 62.38896000000001 5.6923200000000005Q62.61552000000001 3.9081599999999987 62.55888000000001 2.3222400000000007ZM76.52064000000001 5.60736Q77.20032 6.541920000000001 77.92248000000001 7.887120000000001Q78.64464000000001 9.232320000000001 79.35264000000001 10.73328Q80.06064 12.234240000000002 80.62704000000001 13.621920000000001Q81.19344000000001 15.0096 81.50496000000001 16.02912L77.90832 17.671680000000002Q77.65344000000002 16.48224 77.15784000000002 15.03792Q76.66224000000001 13.5936 76.01088000000001 12.1068Q75.35952 10.620000000000001 74.63736 9.288960000000001Q73.91520000000001 7.957920000000001 73.15056000000001 7.051680000000001ZM55.28064000000001 8.55264Q56.04528000000001 8.609280000000002 56.795760000000016 8.595120000000001Q57.54624000000001 8.580960000000001 58.31088000000001 8.55264Q59.01888000000001 8.52432 60.01008000000001 8.45352Q61.00128000000001 8.382719999999999 62.11992000000001 8.29776Q63.23856000000001 8.212800000000001 64.37136000000001 8.11368Q65.50416000000001 8.01456 66.46704000000001 7.95792Q67.42992000000001 7.90128 68.05296000000001 7.90128Q69.58224000000001 7.90128 70.71504000000002 8.39688Q71.84784 8.892479999999999 72.51336 10.08192Q73.17888 11.271360000000001 73.17888 13.310400000000001Q73.17888 14.981280000000002 73.03728000000001 16.935360000000003Q72.89568000000001 18.88944 72.54168000000001 20.6736Q72.18768000000001 22.45776 71.56464000000001 23.703840000000003Q70.88496 25.17648 69.70968 25.74288Q68.5344 26.30928 66.92016000000001 26.30928Q66.12720000000002 26.30928 65.19264000000001 26.18184Q64.25808 26.0544 63.52176000000001 25.9128L62.92704000000001 22.17456Q63.46512000000001 22.31616 64.13064000000001 22.45776Q64.79616000000001 22.59936 65.40504000000001 22.68432Q66.01392000000001 22.769280000000002 66.38208 22.769280000000002Q67.09008000000001 22.769280000000002 67.62816000000001 22.50024Q68.16624000000002 22.2312 68.50608000000001 21.55152Q68.90256000000001 20.730240000000002 69.15744000000001 19.42752Q69.41232000000001 18.1248 69.53976 16.60968Q69.66720000000001 15.094560000000001 69.66720000000001 13.706880000000002Q69.66720000000001 12.57408 69.34152 12.036000000000001Q69.01584000000001 11.49792 68.40696000000001 11.31384Q67.79808000000001 11.129760000000001 66.92016000000001 11.129760000000001Q66.26880000000001 11.129760000000001 65.16432 11.22888Q64.05984000000001 11.328000000000001 62.79960000000001 11.455440000000001Q61.53936000000001 11.582880000000001 60.463200000000015 11.72448Q59.38704000000001 11.86608 58.79232000000001 11.922720000000002Q58.16928000000001 12.036000000000001 57.220560000000006 12.163440000000001Q56.27184000000001 12.290880000000001 55.62048000000001 12.404160000000001ZM76.01088000000001 1.6708800000000004Q76.37904 2.1806400000000004 76.78968 2.8886400000000005Q77.20032 3.5966400000000007 77.5968 4.304640000000001Q77.99328000000001 5.012640000000001 78.27648 5.550720000000002L75.98256 6.541920000000001Q75.69936000000001 5.947200000000002 75.33120000000001 5.239200000000002Q74.96304 4.531200000000002 74.56656000000001 3.8232000000000017Q74.17008000000001 3.1152000000000015 73.77360000000002 2.6054400000000015ZM79.38096000000002 0.3964800000000004Q79.74912 0.9345600000000012 80.17392000000001 1.6425600000000014Q80.59872000000001 2.3505600000000015 81.00936000000002 3.0585600000000017Q81.42000000000002 3.766560000000002 81.64656000000001 4.248000000000001L79.40928000000001 5.2108799999999995Q78.95616000000001 4.33296 78.33312000000001 3.2143200000000007Q77.71008 2.0956800000000015 77.11536000000001 1.3027200000000008Z M83.94048000000001 23.788800000000002H109.06032V26.734080000000002H83.94048000000001ZM86.54592000000001 18.66288H106.82304V21.57984H86.54592000000001ZM94.67376 16.34064H98.10048V25.43136H94.67376ZM94.67376 0.8212800000000016H98.10048V6.11712H94.67376ZM83.91216 5.069279999999999H109.11696V11.837760000000001H105.86016000000001V7.986240000000002H86.99904000000001V11.837760000000001H83.91216ZM91.67184 12.092640000000001V14.216640000000002H101.1024V12.092640000000001ZM88.5 9.51552H104.44416000000001V16.82208H88.5ZM86.376 2.237280000000002 89.37792 1.0478400000000008Q90.08592 1.8691199999999988 90.73728 2.8461599999999994Q91.38864000000001 3.8232 91.72848 4.58784L88.55664 6.00384Q88.27344000000001 5.2392 87.6504 4.1630400000000005Q87.02736 3.0868800000000007 86.376 2.237280000000002ZM103.33968 0.962880000000002 106.96464 2.010719999999999Q106.2 3.05856 105.40704 3.993120000000001Q104.61408 4.927680000000002 103.99104 5.579039999999999L101.13072000000001 4.616160000000001Q101.49888000000001 4.07808 101.92368000000002 3.44088Q102.34848000000001 2.80368 102.71664000000001 2.1523199999999996Q103.0848 1.5009599999999992 103.33968 0.962880000000002Z" fill="#24466B"/><path d="M137.57855999999998 3.738240000000001H139.58927999999997V19.42752H137.57855999999998ZM142.61952 1.4160000000000004H144.71519999999998V24.24192Q144.71519999999998 25.28976 144.432 25.827840000000002Q144.1488 26.365920000000003 143.49743999999998 26.67744Q142.84608 26.93232 141.69912 27.003120000000003Q140.55216 27.07392 138.96624 27.07392Q138.88128 26.620800000000003 138.68304 25.983600000000003Q138.48479999999998 25.346400000000003 138.25824 24.836640000000003Q139.53264 24.86496 140.59463999999997 24.87912Q141.65663999999998 24.89328 142.05311999999998 24.86496Q142.36463999999998 24.86496 142.49208 24.73752Q142.61952 24.61008 142.61952 24.27024ZM126.61872 1.2460799999999992H128.65776V27.158880000000003H126.61872ZM132.59423999999999 14.981280000000002H134.54832V22.74096Q134.54832 23.47728 134.3784 23.916240000000002Q134.20847999999998 24.3552 133.6704 24.61008Q133.18895999999998 24.836640000000003 132.35352 24.893280000000004Q131.51808 24.949920000000002 130.35696 24.949920000000002Q130.30032 24.52512 130.1304 24.0012Q129.96048 23.47728 129.76224 23.0808Q130.66848 23.10912 131.31984 23.10912Q131.97119999999998 23.10912 132.19776 23.10912Q132.59423999999999 23.10912 132.59423999999999 22.71264ZM121.01135999999998 14.981280000000002H133.38719999999998V16.907040000000002H122.93712V24.86496H121.01135999999998ZM119.70863999999999 10.13856H135.53951999999998V12.092640000000001H119.70863999999999ZM122.42736 5.2108799999999995H134.43504V7.164960000000001H122.03087999999998ZM122.45567999999999 1.8124800000000008 124.43807999999999 2.208960000000001Q123.92831999999999 4.417919999999999 123.14952 6.527759999999999Q122.37071999999999 8.637599999999999 121.49279999999999 10.08192Q121.26623999999998 9.96864 120.92639999999999 9.81288Q120.58655999999999 9.65712 120.23255999999999 9.51552Q119.87856 9.37392 119.59535999999999 9.288960000000001Q120.58655999999999 7.844640000000002 121.29455999999999 5.848080000000001Q122.00255999999999 3.8515200000000007 122.45567999999999 1.8124800000000008Z M159.75312 5.86224H173.20512V7.90128H158.76191999999998ZM163.29312 12.00768H172.55375999999998V13.961760000000002H163.29312ZM163.29312 18.2664H172.92192V20.27712H163.29312ZM162.24527999999998 6.541920000000001H164.39759999999998V27.158880000000003H162.24527999999998ZM160.8576 1.472640000000002 162.89664 2.010719999999999Q162.10368 4.248000000000001 161.04167999999999 6.414480000000001Q159.97968 8.580960000000001 158.76191999999998 10.4784Q157.54415999999998 12.37584 156.24143999999998 13.84848Q156.07152 13.678560000000001 155.77416 13.39536Q155.4768 13.112160000000001 155.15112 12.828960000000002Q154.82544 12.545760000000001 154.59887999999998 12.404160000000001Q155.87328 11.073120000000001 157.0344 9.31728Q158.19552 7.561440000000001 159.17255999999998 5.55072Q160.1496 3.539999999999999 160.8576 1.472640000000002ZM154.03248 1.2460799999999992 156.07152 1.8691199999999988Q155.16528 4.248000000000001 153.9192 6.612720000000001Q152.67311999999998 8.977440000000001 151.22879999999998 11.030640000000002Q149.78448 13.08384 148.22688 14.698080000000001Q148.1136 14.443200000000001 147.88703999999998 14.03256Q147.66047999999998 13.621920000000001 147.41976 13.197120000000002Q147.17904 12.77232 146.9808 12.545760000000001Q148.39679999999998 11.15808 149.69952 9.345600000000001Q151.00224 7.53312 152.12088 5.451600000000001Q153.23952 3.3700800000000015 154.03248 1.2460799999999992ZM151.03055999999998 8.52432 153.12624 6.400320000000001 153.15455999999998 6.456960000000002V27.130560000000003H151.03055999999998Z M186.79872 15.576H188.97936V25.204800000000002H186.79872ZM178.67088 8.099520000000002H197.44704000000002V9.96864H178.67088ZM175.47072000000003 24.468480000000003H200.56224000000003V26.394240000000003H175.47072000000003ZM178.04784 19.03104H198.09840000000003V20.90016H178.04784ZM184.33488000000003 9.0624 186.54384000000002 9.685440000000002Q185.94912000000002 10.67664 185.28360000000004 11.73864Q184.61808000000002 12.800640000000001 183.9384 13.763520000000002Q183.25872 14.726400000000002 182.66400000000002 15.491040000000002L180.96480000000003 14.896320000000001Q181.55952000000002 14.10336 182.18256000000002 13.08384Q182.80560000000003 12.06432 183.38616000000002 11.002320000000001Q183.96672 9.940320000000002 184.33488000000003 9.0624ZM177.53808 14.131680000000001Q179.88864 14.10336 183.00384000000003 14.03256Q186.11904 13.961760000000002 189.63072 13.862640000000003Q193.1424 13.763520000000002 196.65408000000002 13.678560000000001L196.54080000000002 15.462720000000001Q193.11408000000003 15.604320000000001 189.6732 15.731760000000001Q186.23232000000002 15.859200000000001 183.14544 15.94416Q180.05856000000003 16.02912 177.65136 16.08576ZM191.21664 11.66784 192.74592 10.563360000000001Q193.96368 11.328000000000001 195.22392000000002 12.290880000000001Q196.48416000000003 13.253760000000002 197.60280000000003 14.230800000000002Q198.72144000000003 15.207840000000001 199.40112000000002 16.05744L197.75856000000002 17.24688Q197.10720000000003 16.425600000000003 196.03104000000002 15.434400000000002Q194.95488 14.443200000000001 193.69464 13.437840000000001Q192.4344 12.432480000000002 191.21664 11.66784ZM186.79872 1.1327999999999996H188.97936V4.616160000000001H186.79872ZM175.78224000000003 3.285119999999999H200.22240000000002V8.52432H198.07008000000002V5.2392H177.8496V8.52432H175.78224000000003Z" fill="#24466B"/></g></svg></div>
+    <div class="top-title"><b>見積もりのご依頼</b>ホームページ・チラシ</div>
+  </div>
+  <div class="prog" aria-live="polite">
+    <div class="prog-row"><div class="prog-where" id="progWhere"></div><div class="prog-count" id="progCount"></div></div>
+    <div class="bar" id="bar" aria-hidden="true"></div>
+  </div>
+</header>
+
+<div class="wrap">
+  <nav class="rail" aria-label="質問の順番">
+    <h2>いまどこ？</h2>
+    <ol id="railList"></ol>
+    <div class="rail-note">わからない質問は「わからない」を選んで先へ進んでください。当店から文字で1問ずつお聞きします。</div>
+  </nav>
+
+  <main class="card">
+  <form id="f" novalidate autocomplete="off">
+
+  <!-- ========== はじめに ========== -->
+  <section class="step" data-step="intro" data-title="はじめに">
+    <p class="eyebrow">ひなが堂 制作室</p>
+    <h1 class="title" tabindex="-1">ホームページ・チラシの<br>見積もりのご依頼</h1>
+    <p class="lead">質問に、ほとんど「選ぶだけ」で答えていきます。最後に、<b>料金と日数の目安</b>が出ます。</p>
+    <div class="hero-facts">
+      <div class="fact"><b>約10分</b><span>かかる時間</span></div>
+      <div class="fact"><b>選ぶだけ</b><span>書く所は少し</span></div>
+      <div class="fact"><b>直せる</b><span>前の画面に戻って</span></div>
+    </div>
+    <ol class="flow" aria-label="ご依頼の流れ">
+      <li class="here"><div class="n">1</div><div><b>この画面で、ご依頼の内容を送る</b><span>いまここです。まだ契約ではありません。</span></div></li>
+      <li><div class="n">2</div><div><b>当店から見積書がメールで届く</b><span>わからなかった所は、文字で1問ずつお聞きします。</span></div></li>
+      <li><div class="n">3</div><div><b>見積書を承諾されたら、契約</b><span>承諾しなければ、費用はかかりません。</span></div></li>
+      <li><div class="n">4</div><div><b>制作・確認・公開</b><span>途中の案をお見せしながら進めます。</span></div></li>
+    </ol>
+    <div class="promise">
+      <h3>はじめる前に</h3>
+      <ul>
+        <li>前の画面に戻って、答えを直せます。ただし、画面を閉じると答えは消えます（どこにも保存しません）。</li>
+        <li>やりとりは文字（メール）で行います。電話はかかってきません。</li>
+        <li>写真や資料は、この画面では送りません。見積もりの後にお願いします。</li>
+        <li>お店のお客様・患者さん・利用者さんなど、<b>ほかの人のお名前や、病気・障がいのこと</b>は書かないでください。</li>
+        <li>文章やお店の細かいことは、見積書と一緒にお送りする<b>「2回目の質問票」</b>でお聞きします。この画面では、目安を出すのに要ることだけを聞きます。</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ========== ご依頼 ========== -->
+  <section class="step" data-step="kind" data-sec="ご依頼" data-title="作りたい物">
+    <p class="eyebrow">ご依頼の内容</p>
+    <h2 class="title" tabindex="-1">何を作りたいですか？</h2>
+    <p class="lead">選んだ物に合わせて、次の質問が変わります。</p>
+    <fieldset class="q" data-req="kind" data-short="作りたい物">
+      <legend class="sr">作りたい物</legend>
+      <div class="kinds">
+        <label class="ch kind"><input type="radio" name="kind" value="hp"><span class="art" aria-hidden="true"><svg viewBox="0 0 120 80"><rect x="8" y="8" width="104" height="66" rx="7" fill="#fff" stroke="#24466B" stroke-width="3"/><path d="M8 22h104" stroke="#24466B" stroke-width="3"/><circle cx="18" cy="15" r="2.4" fill="#B9AE98"/><circle cx="26" cy="15" r="2.4" fill="#B9AE98"/><rect x="18" y="31" width="40" height="34" rx="3" fill="#B9AE98" opacity=".55"/><rect x="66" y="32" width="36" height="5" rx="2.5" fill="#24466B"/><rect x="66" y="43" width="30" height="4" rx="2" fill="#B9AE98"/><rect x="66" y="52" width="33" height="4" rx="2" fill="#B9AE98"/></svg></span><span class="mk"><svg viewBox="0 0 16 16"><path d="M3 8.5l3.2 3L13 4.5" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="tx"><b>ホームページ</b><small>お店・教室・事務所などのサイト</small></span></label>
+        <label class="ch kind"><input type="radio" name="kind" value="flyer"><span class="art" aria-hidden="true"><svg viewBox="0 0 120 80"><path d="M38 6h34l14 14v54H38z" fill="#fff" stroke="#24466B" stroke-width="3" stroke-linejoin="round"/><path d="M72 6v14h14" fill="none" stroke="#24466B" stroke-width="3" stroke-linejoin="round"/><rect x="46" y="26" width="32" height="20" rx="2" fill="#B9AE98" opacity=".55"/><rect x="46" y="52" width="24" height="4.5" rx="2.2" fill="#24466B"/><rect x="46" y="61" width="30" height="3.5" rx="1.7" fill="#B9AE98"/></svg></span><span class="mk"><svg viewBox="0 0 16 16"><path d="M3 8.5l3.2 3L13 4.5" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="tx"><b>チラシ</b><small>配る・貼る・置くための紙</small></span></label>
+        <label class="ch kind"><input type="radio" name="kind" value="both"><span class="art" aria-hidden="true"><svg viewBox="0 0 120 80"><rect x="6" y="10" width="78" height="52" rx="6" fill="#fff" stroke="#24466B" stroke-width="3"/><path d="M6 21h78" stroke="#24466B" stroke-width="3"/><rect x="14" y="28" width="28" height="24" rx="2" fill="#B9AE98" opacity=".55"/><rect x="48" y="29" width="26" height="4" rx="2" fill="#24466B"/><path d="M74 26h26l12 12v38H74z" fill="#fff" stroke="#24466B" stroke-width="3" stroke-linejoin="round"/><path d="M100 26v12h12" fill="none" stroke="#24466B" stroke-width="3" stroke-linejoin="round"/><rect x="81" y="44" width="22" height="13" rx="2" fill="#B9AE98" opacity=".55"/><rect x="81" y="62" width="18" height="3.5" rx="1.7" fill="#24466B"/></svg></span><span class="mk"><svg viewBox="0 0 16 16"><path d="M3 8.5l3.2 3L13 4.5" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="tx"><b>両方</b><small>一緒のご依頼は、チラシがセットの値段になります（料金表のとおり）</small></span></label>
+      </div>
+      <p class="err" role="alert">どれか1つを選んでください。</p>
+    </fieldset>
+    <fieldset class="q" data-req="deadline" data-short="欲しい時期">
+      <legend>いつごろまでに欲しいですか？</legend>
+      <p class="hint">日数は、文章や写真などの内容がそろってから数えます。</p>
+      <div class="choices two">
+        <label class="ch"><input type="radio" name="deadline" value="rush"><span class="mk">✓</span><span class="tx"><b>急ぎ（2週間以内）</b><small>空きがあるときだけ</small><span class="yen">制作の料金の＋30％</span></span></label>
+        <label class="ch"><input type="radio" name="deadline" value="1month"><span class="mk">✓</span><span class="tx"><b>1か月くらい</b></span></label>
+        <label class="ch"><input type="radio" name="deadline" value="2_3months"><span class="mk">✓</span><span class="tx"><b>2〜3か月</b></span></label>
+        <label class="ch dontknow"><input type="radio" name="deadline" value="none"><span class="mk">✓</span><span class="tx"><b>特に決まっていない</b></span></label>
+      </div>
+      <p class="err" role="alert">どれか1つを選んでください。</p>
+      <div class="cond" data-if="hasDeadline">
+        <div class="sub">
+          <fieldset class="q" data-short="その時期の理由">
+            <legend>その時期までに要る理由はありますか？</legend>
+            <p class="hint">なくても大丈夫です。動かせない日かどうかが分かると、日程を組みやすくなります。</p>
+            <div class="choices two">
+              <label class="ch"><input type="radio" name="deadline_why" value="open"><span class="mk">✓</span><span class="tx"><b>開店・開業の日</b></span></label>
+              <label class="ch"><input type="radio" name="deadline_why" value="event"><span class="mk">✓</span><span class="tx"><b>催し・イベントの日</b></span></label>
+              <label class="ch"><input type="radio" name="deadline_why" value="flyer_day"><span class="mk">✓</span><span class="tx"><b>チラシを配る・置く日</b></span></label>
+              <label class="ch dontknow"><input type="radio" name="deadline_why" value="none"><span class="mk">✓</span><span class="tx"><b>特にない</b></span></label>
+            </div>
+            <div class="field" style="margin-top:10px"><label class="fl" for="deadline_date">その日（分かれば）</label><input class="inp" id="deadline_date" name="deadline_date" placeholder="例：12月1日" maxlength="30"></div>
+          </fieldset>
+        </div>
+      </div>
+    </fieldset>
+  </section>
+
+  <section class="step" data-step="work" data-sec="ご依頼" data-title="お仕事・活動">
+    <p class="eyebrow">ご依頼の内容</p>
+    <h2 class="title" tabindex="-1">お仕事・活動のことを教えてください</h2>
+    <p class="lead">業種によっては、広告の決まりがあるため、確かめることが増えます。</p>
+    <fieldset class="q" data-req="industry" data-short="お仕事・活動">
+      <legend>どんなお仕事・活動ですか？</legend>
+      <div class="choices two">
+        <label class="ch"><input type="radio" name="industry" value="food"><span class="mk">✓</span><span class="tx"><b>お店（食べ物）</b></span></label>
+        <label class="ch"><input type="radio" name="industry" value="retail"><span class="mk">✓</span><span class="tx"><b>お店（物販）</b></span></label>
+        <label class="ch"><input type="radio" name="industry" value="lesson"><span class="mk">✓</span><span class="tx"><b>教室・習いごと</b></span></label>
+        <label class="ch"><input type="radio" name="industry" value="salon"><span class="mk">✓</span><span class="tx"><b>サロン・整体・美容</b></span></label>
+        <label class="ch"><input type="radio" name="industry" value="health_beauty"><span class="mk">✓</span><span class="tx"><b>健康食品・化粧品</b></span></label>
+        <label class="ch"><input type="radio" name="industry" value="office_legal"><span class="mk">✓</span><span class="tx"><b>事務所・士業</b></span></label>
+        <label class="ch"><input type="radio" name="industry" value="medical_care"><span class="mk">✓</span><span class="tx"><b>医療・訪問看護・介護・障がい福祉</b><small>薬局も、ここを選んでください</small></span></label>
+        <label class="ch"><input type="radio" name="industry" value="realestate_finance"><span class="mk">✓</span><span class="tx"><b>不動産・建築・お金・保険</b></span></label>
+        <label class="ch"><input type="radio" name="industry" value="group"><span class="mk">✓</span><span class="tx"><b>団体・サークル・自治会</b></span></label>
+        <label class="ch"><input type="radio" name="industry" value="other"><span class="mk">✓</span><span class="tx"><b>その他</b></span></label>
+      </div>
+      <p class="err" role="alert">どれか1つを選んでください。</p>
+      <div class="cond" data-if="subMed"><div class="sub"><fieldset class="q" data-req="sub_med" data-short="くわしい種類">
+        <legend>当てはまるものを1つ</legend>
+        <p class="hint">業種によって、広告の決まり（法律）が違うためです。</p>
+        <div class="choices two">
+          <label class="ch"><input type="radio" name="sub_med" value="clinic"><span class="mk">✓</span><span class="tx"><b>病院・診療所・歯科</b></span></label>
+          <label class="ch"><input type="radio" name="sub_med" value="homecare_nursing"><span class="mk">✓</span><span class="tx"><b>訪問看護</b></span></label>
+          <label class="ch"><input type="radio" name="sub_med" value="kaigo"><span class="mk">✓</span><span class="tx"><b>介護</b><small>デイサービス・訪問介護・施設・ケアマネジャーなど</small></span></label>
+          <label class="ch"><input type="radio" name="sub_med" value="shogai"><span class="mk">✓</span><span class="tx"><b>障がい福祉</b><small>放課後等デイサービス・就労支援など</small></span></label>
+          <label class="ch"><input type="radio" name="sub_med" value="pharmacy"><span class="mk">✓</span><span class="tx"><b>薬局</b></span></label>
+          <label class="ch dontknow"><input type="radio" name="sub_med" value="other"><span class="mk">✓</span><span class="tx"><b>そのほか・いくつも</b></span></label>
+        </div>
+        <p class="err" role="alert">どれか1つを選んでください。</p>
+      </fieldset></div></div>
+      <div class="cond" data-if="subSalon"><div class="sub"><fieldset class="q" data-req="sub_salon" data-short="くわしい種類">
+        <legend>当てはまるものを1つ</legend>
+        <p class="hint">国家資格のある・なしで、書いてよいことが変わるためです。</p>
+        <div class="choices">
+          <label class="ch"><input type="radio" name="sub_salon" value="beauty"><span class="mk">✓</span><span class="tx"><b>美容室・エステ・ネイル</b></span></label>
+          <label class="ch"><input type="radio" name="sub_salon" value="seitai"><span class="mk">✓</span><span class="tx"><b>整体・リラクゼーション</b><small>国家資格のいらない施術</small></span></label>
+          <label class="ch"><input type="radio" name="sub_salon" value="license"><span class="mk">✓</span><span class="tx"><b>鍼灸・あん摩マッサージ・接骨（整骨）</b><small>国家資格のある施術</small></span></label>
+        </div>
+        <p class="err" role="alert">どれか1つを選んでください。</p>
+      </fieldset></div></div>
+      <div class="cond" data-if="subHb"><div class="sub"><fieldset class="q" data-req="sub_hb" data-short="くわしい種類">
+        <legend>当てはまるものを1つ</legend>
+        <div class="choices">
+          <label class="ch"><input type="radio" name="sub_hb" value="cosme"><span class="mk">✓</span><span class="tx"><b>化粧品</b></span></label>
+          <label class="ch"><input type="radio" name="sub_hb" value="food"><span class="mk">✓</span><span class="tx"><b>健康食品・サプリメント</b></span></label>
+          <label class="ch"><input type="radio" name="sub_hb" value="both"><span class="mk">✓</span><span class="tx"><b>両方</b></span></label>
+        </div>
+        <p class="err" role="alert">どれか1つを選んでください。</p>
+      </fieldset></div></div>
+      <div class="cond" data-if="subRe"><div class="sub"><fieldset class="q" data-req="sub_re" data-short="くわしい種類">
+        <legend>当てはまるものを1つ</legend>
+        <div class="choices">
+          <label class="ch"><input type="radio" name="sub_re" value="realestate"><span class="mk">✓</span><span class="tx"><b>不動産（売買・賃貸の仲介など）</b></span></label>
+          <label class="ch"><input type="radio" name="sub_re" value="build"><span class="mk">✓</span><span class="tx"><b>建築・リフォーム・工務店</b></span></label>
+          <label class="ch"><input type="radio" name="sub_re" value="finance"><span class="mk">✓</span><span class="tx"><b>お金・保険</b><small>保険の代理店・お金の相談など</small></span></label>
+        </div>
+        <p class="err" role="alert">どれか1つを選んでください。</p>
+      </fieldset></div></div>
+      <div class="cond" data-if="needIndText">
+        <div class="sub">
+          <div class="field" data-req="industry_text"><label class="fl" for="industry_text">どんなお仕事・活動か、ひとことで</label><input class="inp must" id="industry_text" name="industry_text" placeholder="例：定員10名のデイサービス／自転車の修理店" maxlength="60"><p class="hint" style="margin:6px 0 0">お店のお客様・利用者さんのお名前は書かないでください。</p><p class="err" role="alert">ひとことで教えてください。</p></div>
+        </div>
+      </div>
+      <div class="cond" data-if="regulated" aria-live="polite">
+        <div class="note info"><span class="ic" aria-hidden="true">i</span><div>
+          <h3>広告にルールがある業種です</h3>
+          <p>安心して載せられるよう、制作の前に一緒に確かめます。そのため、ご依頼の前に<b>オンラインでの打ち合わせ（1回・無料）</b>と、<b>広告の決まりについての同意書</b>をお願いしています。</p>
+          <p>当店も気になる言い回しはお知らせしますが、表示が法令に合っているかの最終の判断は、お客様または専門家にお願いしています。</p>
+          <span class="go-on">このまま次の質問へ進めます</span>
+        </div></div>
+      </div>
+    </fieldset>
+    <div class="q field" data-req="area" data-short="主に活動している地域">
+      <label class="qlabel" for="area">主に活動している地域</label>
+      <p class="hint">市区町村まで。お店や事務所がない場合は、活動する地域を。検索の対策や、チラシを配る範囲を考えるのに使います。</p>
+      <input class="inp must" id="area" name="area" placeholder="例：〇〇県〇〇市" maxlength="60">
+      <p class="err" role="alert">市区町村まで教えてください（例：〇〇県〇〇市）。</p>
+    </div>
+    <fieldset class="q" data-req="purpose" data-short="ご依頼の目的">
+      <legend>このご依頼は、お仕事・活動のためですか？</legend>
+      <p class="hint">当てはまる決まりを確かめるための質問です。料金は変わりません。</p>
+      <div class="choices">
+        <label class="ch"><input type="radio" name="purpose" value="business"><span class="mk">✓</span><span class="tx"><b>お仕事（事業）のため</b></span></label>
+        <label class="ch"><input type="radio" name="purpose" value="group"><span class="mk">✓</span><span class="tx"><b>団体の活動のため</b></span></label>
+        <label class="ch"><input type="radio" name="purpose" value="personal"><span class="mk">✓</span><span class="tx"><b>個人の趣味・個人用</b></span></label>
+      </div>
+      <p class="err" role="alert">どれか1つを選んでください。</p>
+    </fieldset>
+  </section>
+
+  <!-- ========== ホームページ ========== -->
+  <section class="step" data-step="hp1" data-sec="ホームページ" data-title="いまの状態" data-when="hp">
+    <p class="eyebrow">ホームページ</p>
+    <h2 class="title" tabindex="-1">いまのホームページのこと</h2>
+    <fieldset class="q" data-req="hp_existing" data-short="いまのホームページ">
+      <legend>いま、ホームページはありますか？</legend>
+      <div class="choices">
+        <label class="ch"><input type="radio" name="hp_existing" value="none"><span class="mk">✓</span><span class="tx"><b>ない</b><small>新しく作ります</small></span></label>
+        <label class="ch"><input type="radio" name="hp_existing" value="rebuild"><span class="mk">✓</span><span class="tx"><b>ある（作り直したい）</b></span></label>
+        <label class="ch"><input type="radio" name="hp_existing" value="keep_and_new"><span class="mk">✓</span><span class="tx"><b>ある（そのまま残して、別に作りたい）</b></span></label>
+      </div>
+      <p class="err" role="alert">どれか1つを選んでください。</p>
+      <div class="cond" data-if="hpHas">
+        <div class="sub">
+          <span class="sub-tag"><svg viewBox="0 0 14 14"><path d="M3 1v6.5a2.5 2.5 0 0 0 2.5 2.5H12M9 7l3 3-3 3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>「ある」を選んだので</span>
+          <div class="field"><label class="fl" for="hp_url">いまのサイトのアドレス</label><input class="inp" id="hp_url" name="hp_url" inputmode="url" placeholder="例：https://〇〇〇.jp" maxlength="200"><p class="hint" style="margin-top:6px">わからなければ、お店の名前と町の名前を書いてください（例：〇〇町の△△食堂）。</p></div>
+          <div class="cond" data-if="hpRebuild">
+            <fieldset class="q" data-req="hp_migrate" data-short="文章・写真の移し替え">
+              <legend>いまのサイトの文章や写真を、新しいサイトに移しますか？</legend>
+              <div class="choices">
+                <label class="ch"><input type="radio" name="hp_migrate" value="yes"><span class="mk">✓</span><span class="tx"><b>移したい</b><small>古いアドレスからの転送も行います。今のサイトがとても大きいときは、見積書でご相談します</small><span class="yen">＋29,800円</span></span></label>
+                <label class="ch"><input type="radio" name="hp_migrate" value="no"><span class="mk">✓</span><span class="tx"><b>一から作り直す</b></span></label>
+                <label class="ch dontknow"><input type="radio" name="hp_migrate" value="unknown"><span class="mk">✓</span><span class="tx"><b>わからない</b></span></label>
+              </div>
+              <p class="err" role="alert">どれか1つを選んでください。</p>
+            </fieldset>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+    <fieldset class="q" data-req="hp_domain" data-short="ドメイン">
+      <legend>ドメインはお持ちですか？</legend>
+      <p class="hint">ドメインは「〇〇.jp」「〇〇.com」のような、サイトの住所のことです。</p>
+      <div class="choices">
+        <label class="ch"><input type="radio" name="hp_domain" value="have"><span class="mk">✓</span><span class="tx"><b>持っている</b></span></label>
+        <label class="ch"><input type="radio" name="hp_domain" value="none"><span class="mk">✓</span><span class="tx"><b>持っていない</b><small>お客様の名義で取っていただきます。利用料は、多くの場合 年に数千円ほどで、当店の料金とは別にその会社へお支払いします</small></span></label>
+        <label class="ch dontknow"><input type="radio" name="hp_domain" value="unknown"><span class="mk">✓</span><span class="tx"><b>わからない</b></span></label>
+      </div>
+      <p class="err" role="alert">どれか1つを選んでください。</p>
+    </fieldset>
+  </section>
+
+  <section class="step" data-step="hp2" data-sec="ホームページ" data-title="ページと機能" data-when="hp">
+    <p class="eyebrow">ホームページ</p>
+    <h2 class="title" tabindex="-1">ページの数と、欲しい機能</h2>
+    <fieldset class="q" data-req="hp_pages" data-short="載せたいページ">
+      <legend>載せたいページに ✓ を付けてください</legend>
+      <p class="hint">いくつでも選べます。1つが1ページ（メニューを押して開く1つの画面）の目安です。迷ったら近いものを選べば大丈夫です。あとで相談して変えられます。<br><span class="yen">3ページまでは基本の料金。4ページ目から 1ページ＋9,800円</span><br>小さなお店なら「アクセス・地図」「お問い合わせ」はトップの中にまとめられることが多く、その分安くなります。</p>
+      <div class="choices two">
+        <label class="ch"><input type="checkbox" name="pg" value="top"><span class="mk box">✓</span><span class="tx"><b>トップ</b></span></label>
+        <label class="ch"><input type="checkbox" name="pg" value="about"><span class="mk box">✓</span><span class="tx"><b>お店・活動の紹介</b></span></label>
+        <label class="ch"><input type="checkbox" name="pg" value="menu"><span class="mk box">✓</span><span class="tx"><b>メニュー・料金</b></span></label>
+        <label class="ch"><input type="checkbox" name="pg" value="items"><span class="mk box">✓</span><span class="tx"><b>商品・作品の一覧</b></span></label>
+        <label class="ch"><input type="checkbox" name="pg" value="staff"><span class="mk box">✓</span><span class="tx"><b>スタッフ・講師の紹介</b></span></label>
+        <label class="ch"><input type="checkbox" name="pg" value="news"><span class="mk box">✓</span><span class="tx"><b>お知らせ・ブログ</b></span></label>
+        <label class="ch"><input type="checkbox" name="pg" value="faq"><span class="mk box">✓</span><span class="tx"><b>よくある質問</b></span></label>
+        <label class="ch"><input type="checkbox" name="pg" value="access"><span class="mk box">✓</span><span class="tx"><b>アクセス・地図</b></span></label>
+        <label class="ch"><input type="checkbox" name="pg" value="contact"><span class="mk box">✓</span><span class="tx"><b>お問い合わせ</b></span></label>
+        <label class="ch"><input type="checkbox" name="pg" value="recruit"><span class="mk box">✓</span><span class="tx"><b>採用</b></span></label>
+        <label class="ch"><input type="checkbox" name="pg_other" value="1"><span class="mk box">✓</span><span class="tx"><b>その他</b></span></label>
+      </div>
+      <div class="cond" data-if="pgOther">
+        <div class="sub">
+          <div class="field"><label class="fl" for="pg_other_text">ほかに載せたいページ</label><input class="inp" id="pg_other_text" name="pg_other_text" placeholder="例：イベントの記録、地域の情報" maxlength="100"></div>
+          <div class="field"><span class="fl" style="display:block;font-weight:700;font-size:16px;margin-bottom:6px">そのページの数</span>
+            <div class="num"><button type="button" data-step-btn="pg_other_n" data-d="-1" aria-label="1つ減らす">−</button><input class="inp" id="pg_other_n" name="pg_other_n" inputmode="numeric" value="1" aria-label="その他のページの数"><button type="button" data-step-btn="pg_other_n" data-d="1" aria-label="1つ増やす">＋</button><span class="unit">ページ</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="count-pill" aria-live="polite">いま <b id="pageCount">0</b> ページ</div>
+      <p class="err" role="alert">1つ以上 ✓ を付けてください。</p>
+    </fieldset>
+    <fieldset class="q" data-req="hp_form" data-short="申し込みの入力欄">
+      <legend>申し込みや問い合わせを、ホームページの中の入力欄で受けたいですか？</legend>
+      <p class="hint">いま答えている、この画面のような入力欄のことです。</p>
+      <div class="choices">
+        <label class="ch"><input type="radio" name="hp_form" value="yes"><span class="mk">✓</span><span class="tx"><b>受けたい</b><span class="yen">＋19,800円</span></span></label>
+        <label class="ch"><input type="radio" name="hp_form" value="no"><span class="mk">✓</span><span class="tx"><b>メールや電話のリンクでよい</b></span></label>
+        <label class="ch dontknow"><input type="radio" name="hp_form" value="unknown"><span class="mk">✓</span><span class="tx"><b>わからない</b></span></label>
+      </div>
+      <p class="err" role="alert">どれか1つを選んでください。</p>
+    </fieldset>
+    <fieldset class="q" data-req="hp_sheet" data-short="表計算から自動で表示">
+      <legend>表に書き込むだけで、ホームページにも自動で出るようにしたいですか？</legend>
+      <p class="hint">例：教室の空き状況の表（表計算ソフト）を書き換えると、ホームページの空き状況も変わる。お知らせの一覧も同じようにできます。</p>
+      <div class="choices">
+        <label class="ch"><input type="radio" name="hp_sheet" value="yes"><span class="mk">✓</span><span class="tx"><b>したい</b><small>お知らせを自分で新しくしたいときも、これを選びます</small><span class="yen">＋39,800円</span></span></label>
+        <label class="ch"><input type="radio" name="hp_sheet" value="no"><span class="mk">✓</span><span class="tx"><b>いらない</b></span></label>
+        <label class="ch dontknow"><input type="radio" name="hp_sheet" value="unknown"><span class="mk">✓</span><span class="tx"><b>わからない</b></span></label>
+      </div>
+      <p class="err" role="alert">どれか1つを選んでください。</p>
+    </fieldset>
+    <fieldset class="q" data-req="hp_shop" data-short="ネットでの支払い・会員ログイン">
+      <legend>ネットでの支払い・会員ログインは必要ですか？</legend>
+      <div class="choices two">
+        <label class="ch"><input type="radio" name="hp_shop" value="need"><span class="mk">✓</span><span class="tx"><b>必要</b></span></label>
+        <label class="ch"><input type="radio" name="hp_shop" value="no"><span class="mk">✓</span><span class="tx"><b>いらない</b></span></label>
+      </div>
+      <p class="err" role="alert">どちらかを選んでください。</p>
+      <div class="cond" data-if="shopNeed" aria-live="polite">
+        <div class="note stop"><span class="ic" aria-hidden="true">—</span><div>
+          <h3>この部分はお受けしていません</h3>
+          <p>ネットでの支払い（ネットショップ）と会員ログインは、当店ではお作りしていません。それ以外の部分の目安を出します。</p>
+          <span class="go-on">このまま次の質問へ進めます</span>
+        </div></div>
+      </div>
+    </fieldset>
+  </section>
+
+  <section class="step" data-step="hp3" data-sec="ホームページ" data-title="見た目と参考のサイト" data-when="hp">
+    <p class="eyebrow">ホームページ</p>
+    <h2 class="title" tabindex="-1">見た目の好みを教えてください</h2>
+    <fieldset class="q" data-req="hp_design" data-short="デザインの作り方">
+      <legend>デザインの作り方</legend>
+      <div class="choices">
+        <label class="ch"><input type="radio" name="hp_design" value="template"><span class="mk">✓</span><span class="tx"><b>当店の型から選んで、早く・お手ごろに</b><small>色・写真・文章はお客様用に整えます</small><span class="yen">基本の料金のまま</span></span></label>
+        <label class="ch"><input type="radio" name="hp_design" value="custom"><span class="mk">✓</span><span class="tx"><b>自分のお店らしく、一から</b><small>型を使わずに組み立てます</small><span class="yen">＋29,800円</span></span></label>
+        <label class="ch"><input type="radio" name="hp_design" value="premium"><span class="mk">✓</span><span class="tx"><b>オリジナルの絵も入れて、本格的に</b><small>一から組み、絵は3点から</small><span class="yen">＋29,800円＋絵 1点5,000円（3点から）</span></span></label>
+        <label class="ch dontknow"><input type="radio" name="hp_design" value="unknown"><span class="mk">✓</span><span class="tx"><b>わからない（おすすめを聞きたい）</b></span></label>
+      </div>
+      <p class="err" role="alert">どれか1つを選んでください。</p>
+    </fieldset>
+    <fieldset class="q" data-req="mood" data-short="雰囲気">
+      <legend>雰囲気に近い言葉を1つ</legend>
+      <div class="choices two">
+        <label class="ch"><input type="radio" name="mood" value="soft"><span class="mk">✓</span><span class="tx"><b>やわらかい・あたたかい</b></span></label>
+        <label class="ch"><input type="radio" name="mood" value="trust"><span class="mk">✓</span><span class="tx"><b>きっちり・信頼</b></span></label>
+        <label class="ch"><input type="radio" name="mood" value="lively"><span class="mk">✓</span><span class="tx"><b>元気・にぎやか</b></span></label>
+        <label class="ch"><input type="radio" name="mood" value="calm"><span class="mk">✓</span><span class="tx"><b>しっとり・高級</b></span></label>
+        <label class="ch dontknow"><input type="radio" name="mood" value="unknown"><span class="mk">✓</span><span class="tx"><b>わからない</b></span></label>
+      </div>
+      <p class="err" role="alert">どれか1つを選んでください。</p>
+    </fieldset>
+    <fieldset class="q" data-req="color" data-short="使いたい色">
+      <legend>使いたい色はありますか？</legend>
+      <div class="choices">
+        <label class="ch"><input type="radio" name="color" value="logo"><span class="mk">✓</span><span class="tx"><b>ロゴの色に合わせる</b></span></label>
+        <label class="ch"><input type="radio" name="color" value="set"><span class="mk">✓</span><span class="tx"><b>決まっている色がある</b></span></label>
+        <label class="ch dontknow"><input type="radio" name="color" value="auto"><span class="mk">✓</span><span class="tx"><b>おまかせ</b></span></label>
+      </div>
+      <div class="cond" data-if="colorSet"><div class="sub"><div class="field"><label class="fl" for="color_text">どんな色ですか</label><input class="inp" id="color_text" name="color_text" placeholder="例：深い緑と、白" maxlength="60"><p class="hint" style="margin:6px 0 0">お店の看板や車など、色の分かる写真があれば、見積もりの後にお送りください。</p></div></div></div>
+      <p class="err" role="alert">どれか1つを選んでください。</p>
+    </fieldset>
+    <fieldset class="q" data-req="ref_mode" data-short="参考にしたいサイト">
+      <legend>参考にしたい、好きなサイトはありますか？</legend>
+      <p class="hint">業種が違うサイトでも大丈夫です。「どこが好きか」が分かると、仕上がりのズレが減ります。</p>
+      <div class="choices">
+        <label class="ch"><input type="radio" name="ref_mode" value="have"><span class="mk">✓</span><span class="tx"><b>ある</b><small>アドレスか、サイト（お店）の名前を書きます</small></span></label>
+        <label class="ch dontknow"><input type="radio" name="ref_mode" value="none"><span class="mk">✓</span><span class="tx"><b>思いつかない</b><small>当店から見本を3つお送りして、近い物を選んでいただきます</small></span></label>
+      </div>
+      <p class="err" role="alert">どちらかを選んでください。</p>
+      <div class="cond" data-if="refHave"><div class="sub">
+        <div class="field" data-req="ref1"><label class="fl" for="ref1">アドレス、またはサイトの名前</label><input class="inp must" id="ref1" name="ref1" inputmode="url" placeholder="例：〇〇町の△△パン（アドレスが分からなければ、名前と町の名前）" maxlength="200"><p class="err" role="alert">アドレスか、サイトの名前を入れてください。</p></div>
+        <div class="field"><label class="fl" for="ref1why">どこが好きですか（なくても大丈夫）</label><input class="inp" id="ref1why" name="ref1why" placeholder="例：写真が大きい、文字が読みやすい" maxlength="80"></div>
+        <div class="field"><label class="fl" for="ref2">もう1つあれば（なくても大丈夫）</label><input class="inp" id="ref2" name="ref2" inputmode="url" maxlength="200"></div>
+      </div></div>
+    </fieldset>
+  </section>
+
+  <section class="step" data-step="hp4" data-sec="ホームページ" data-title="文章・写真・絵" data-when="hp">
+    <p class="eyebrow">ホームページ</p>
+    <h2 class="title" tabindex="-1">文章・写真・絵の用意</h2>
+    <fieldset class="q" data-req="hp_text" data-short="載せる文章">
+      <legend>載せる文章はありますか？</legend>
+      <div class="choices">
+        <label class="ch"><input type="radio" name="hp_text" value="ready"><span class="mk">✓</span><span class="tx"><b>ほぼある</b><small>そのまま載せられる文章がある</small></span></label>
+        <label class="ch"><input type="radio" name="hp_text" value="memo"><span class="mk">✓</span><span class="tx"><b>箇条書きのメモがある</b><small>メモを文章に整えてほしい（基本の料金に入っています）</small></span></label>
+        <label class="ch"><input type="radio" name="hp_text" value="none"><span class="mk">✓</span><span class="tx"><b>ない</b><small>当店から文字で質問をお送りし、そのお返事から一から書きます</small><span class="yen">1ページ＋5,000円</span></span></label>
+      </div>
+      <p class="hint" style="margin-top:8px">どれを選んでも、お店のよいところ・よく聞かれることなどは「2回目の質問票」でお聞きします。</p>
+      <p class="err" role="alert">どれか1つを選んでください。</p>
+    </fieldset>
+    <fieldset class="q" data-req="hp_photo" data-short="写真">
+      <legend>写真はありますか？</legend>
+      <div class="choices">
+        <label class="ch"><input type="radio" name="hp_photo" value="own"><span class="mk">✓</span><span class="tx"><b>自分で撮った写真がある</b></span></label>
+        <label class="ch"><input type="radio" name="hp_photo" value="some"><span class="mk">✓</span><span class="tx"><b>少しある</b></span></label>
+        <label class="ch"><input type="radio" name="hp_photo" value="none"><span class="mk">✓</span><span class="tx"><b>ない（AIで作ってほしい）</b></span></label>
+      </div>
+      <p class="err" role="alert">どれか1つを選んでください。</p>
+      <div class="cond" data-if="photoNone"><div class="note soft"><span class="ic" aria-hidden="true">i</span><div><p>お店や商品そのものの写真は、AI では作れません（実物と違ってしまうため）。雰囲気の写真を AI で作ります。</p></div></div></div>
+      <div class="note soft"><span class="ic" aria-hidden="true">!</span><div><p>写真の中にお客様（お店の利用者など）の顔や名前が写っている場合は、ご本人の許可があるものだけにしてください。病気・障がい・カルテなど、<b>利用者さんのお体や暮らしのことが分かる物は写さないでください</b>。写真は見積もりの後にお送りいただきます（この画面では送りません）。</p></div></div>
+    </fieldset>
+    <fieldset class="q" data-req="hp_art_choice" data-short="絵（イラスト）">
+      <legend>絵（イラスト）を入れたいですか？</legend>
+      <div class="choices">
+        <label class="ch"><input type="radio" name="hp_art_choice" value="yes"><span class="mk">✓</span><span class="tx"><b>入れたい</b><span class="yen">1点＋5,000円</span></span></label>
+        <label class="ch"><input type="radio" name="hp_art_choice" value="no"><span class="mk">✓</span><span class="tx"><b>いらない</b></span></label>
+        <label class="ch dontknow"><input type="radio" name="hp_art_choice" value="unknown"><span class="mk">✓</span><span class="tx"><b>わからない</b></span></label>
+      </div>
+      <div class="cond" data-if="artYes"><div class="sub">
+        <span class="sub-tag"><svg viewBox="0 0 14 14"><path d="M3 1v6.5a2.5 2.5 0 0 0 2.5 2.5H12M9 7l3 3-3 3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>「入れたい」を選んだので</span>
+        <div class="field" data-req="hp_art_n"><span class="fl" style="display:block;font-weight:700;font-size:16px;margin-bottom:6px">何点くらい？（だいたいで大丈夫です）</span>
+          <div class="num"><button type="button" data-step-btn="hp_art_n" data-d="-1" aria-label="1点減らす">−</button><input class="inp" id="hp_art_n" name="hp_art_n" inputmode="numeric" value="1" aria-label="絵の点数"><button type="button" data-step-btn="hp_art_n" data-d="1" aria-label="1点増やす">＋</button><span class="unit">点</span></div>
+          <p class="err" role="alert">1〜50 の数を入れてください。</p></div>
+      </div></div>
+      <p class="err" role="alert">どれか1つを選んでください。</p>
+    </fieldset>
+    <fieldset class="q" data-req="logo" data-short="ロゴ">
+      <legend>ロゴはありますか？</legend>
+      <div class="choices two">
+        <label class="ch"><input type="radio" name="logo" value="yes"><span class="mk">✓</span><span class="tx"><b>ある</b></span></label>
+        <label class="ch"><input type="radio" name="logo" value="no"><span class="mk">✓</span><span class="tx"><b>ない</b></span></label>
+      </div>
+      <p class="err" role="alert">どちらかを選んでください。</p>
+    </fieldset>
+  </section>
+
+  <section class="step" data-step="hp5" data-sec="ホームページ" data-title="公開の後の更新" data-when="hp">
+    <p class="eyebrow">ホームページ</p>
+    <h2 class="title" tabindex="-1">公開の後のことを教えてください</h2>
+    <fieldset class="q" data-req="care" data-short="公開後の更新">
+      <legend>公開の後の更新（文言の差し替え・お知らせなど）を頼みたいですか？</legend>
+      <p class="hint">月ごとのプランは、制作の料金とは別です。目安の画面で、合いそうなプランをお知らせします。<br>当店が作るサイトは、<b>お客様がご自分で文字を書き換える作りではありません</b>。変えたいときは、月ごとのプランで当店が直すか、「表に書き込むと自動で出る」仕組み（前の画面）を使います。</p>
+      <div class="choices">
+        <label class="ch"><input type="radio" name="care" value="monthly_once"><span class="mk">✓</span><span class="tx"><b>頼みたい（月1回くらい）</b><span class="yen">月3,980円〜</span></span></label>
+        <label class="ch"><input type="radio" name="care" value="monthly_few"><span class="mk">✓</span><span class="tx"><b>頼みたい（月数回）</b><small>お知らせの更新も頼めます</small></span></label>
+        <label class="ch"><input type="radio" name="care" value="heavy"><span class="mk">✓</span><span class="tx"><b>たくさん・急ぎも頼みたい</b></span></label>
+        <label class="ch"><input type="radio" name="care" value="self"><span class="mk">✓</span><span class="tx"><b>頼まない</b><small>公開の後は、ほとんど変えない</small></span></label>
+        <label class="ch dontknow"><input type="radio" name="care" value="unknown"><span class="mk">✓</span><span class="tx"><b>わからない</b></span></label>
+      </div>
+      <p class="err" role="alert">どれか1つを選んでください。</p>
+      <div class="cond" data-if="newsNoUpdate" aria-live="polite">
+        <div class="note info"><span class="ic" aria-hidden="true">i</span><div>
+          <h3>お知らせのページを新しくする手段がありません</h3>
+          <p>「お知らせ・ブログ」のページを選んでいますが、このままでは公開の後にお知らせを書き足せません。お知らせを新しくしたいときは、ここで「頼みたい（月数回）」か「たくさん・急ぎも」を選ぶか、前の画面の「表に書き込むだけで…」で「したい」（＋39,800円）を選んでください。</p>
+          <p>このままでもかまいません。見積書でご相談します。</p>
+          <span class="go-on">このまま次の質問へ進めます</span>
+        </div></div>
+      </div>
+    </fieldset>
+  </section>
+
+  <!-- ========== チラシ ========== -->
+  <section class="step" data-step="fl1" data-sec="チラシ" data-title="形と目的" data-when="flyer">
+    <p class="eyebrow">チラシ</p>
+    <h2 class="title" tabindex="-1">チラシの形と目的</h2>
+    <fieldset class="q" data-req="flyer_size" data-short="大きさ・形">
+      <legend>大きさ・形</legend>
+      <div class="choices two">
+        <label class="ch"><input type="radio" name="flyer_size" value="a4_single"><span class="mk">✓</span><span class="tx"><b>A4 片面</b></span></label>
+        <label class="ch"><input type="radio" name="flyer_size" value="a4_double"><span class="mk">✓</span><span class="tx"><b>A4 両面</b><span class="yen">＋10,000円</span></span></label>
+        <label class="ch"><input type="radio" name="flyer_size" value="tri_fold"><span class="mk">✓</span><span class="tx"><b>三つ折り</b><span class="yen">＋20,000円</span></span></label>
+        <label class="ch"><input type="radio" name="flyer_size" value="b4_plus"><span class="mk">✓</span><span class="tx"><b>B4 以上</b><span class="yen">＋20,000円</span></span></label>
+        <label class="ch dontknow"><input type="radio" name="flyer_size" value="unknown"><span class="mk">✓</span><span class="tx"><b>わからない（おすすめを聞きたい）</b></span></label>
+      </div>
+      <p class="err" role="alert">どれか1つを選んでください。</p>
+    </fieldset>
+    <fieldset class="q" data-req="f_purpose" data-short="チラシの目的">
+      <legend>何のためのチラシですか？</legend>
+      <div class="choices">
+        <label class="ch"><input type="radio" name="f_purpose" value="intro"><span class="mk">✓</span><span class="tx"><b>お店・教室・事業所の紹介</b></span></label>
+        <label class="ch"><input type="radio" name="f_purpose" value="members"><span class="mk">✓</span><span class="tx"><b>お客様・利用者・会員・生徒の募集</b><small>「利用者さんを増やしたい」「見学に来てほしい」など</small></span></label>
+        <label class="ch"><input type="radio" name="f_purpose" value="recruit"><span class="mk">✓</span><span class="tx"><b>スタッフ（働く人）の募集</b></span></label>
+        <label class="ch"><input type="radio" name="f_purpose" value="event"><span class="mk">✓</span><span class="tx"><b>催し・イベントの案内</b></span></label>
+        <label class="ch"><input type="radio" name="f_purpose" value="other"><span class="mk">✓</span><span class="tx"><b>その他</b></span></label>
+      </div>
+      <div class="cond" data-if="fPurposeOther"><div class="sub"><div class="field"><label class="fl" for="f_purpose_text">どんな目的ですか</label><input class="inp" id="f_purpose_text" name="f_purpose_text" maxlength="60"></div></div></div>
+      <p class="err" role="alert">どれか1つを選んでください。</p>
+    </fieldset>
+    <fieldset class="q" data-req="f_target" data-short="読んでほしい人">
+      <legend>だれに一番読んでほしいですか？</legend>
+      <div class="choices two">
+        <label class="ch"><input type="radio" name="f_target" value="near"><span class="mk">✓</span><span class="tx"><b>近所の人</b></span></label>
+        <label class="ch"><input type="radio" name="f_target" value="parents"><span class="mk">✓</span><span class="tx"><b>子育て中の人</b></span></label>
+        <label class="ch"><input type="radio" name="f_target" value="seniors"><span class="mk">✓</span><span class="tx"><b>お年寄り</b></span></label>
+        <label class="ch"><input type="radio" name="f_target" value="customers"><span class="mk">✓</span><span class="tx"><b>お店に来たお客様</b></span></label>
+        <label class="ch"><input type="radio" name="f_target" value="other"><span class="mk">✓</span><span class="tx"><b>その他</b></span></label>
+      </div>
+      <div class="cond" data-if="fTargetOther"><div class="sub"><div class="field"><label class="fl" for="f_target_text">どんな人ですか</label><input class="inp" id="f_target_text" name="f_target_text" maxlength="60"></div></div></div>
+      <p class="err" role="alert">どれか1つを選んでください。</p>
+    </fieldset>
+  </section>
+
+  <section class="step" data-step="fl2" data-sec="チラシ" data-title="中身" data-when="flyer">
+    <p class="eyebrow">チラシ</p>
+    <h2 class="title" tabindex="-1">チラシの中身</h2>
+    <fieldset class="q" data-req="f_action" data-short="読んだ人にしてほしいこと">
+      <legend>読んだ人に、まず何をしてほしいですか？（1つ）</legend>
+      <div class="choices two">
+        <label class="ch"><input type="radio" name="f_action" value="call"><span class="mk">✓</span><span class="tx"><b>電話する</b></span></label>
+        <label class="ch"><input type="radio" name="f_action" value="web"><span class="mk">✓</span><span class="tx"><b>ホームページを見る</b></span></label>
+        <label class="ch"><input type="radio" name="f_action" value="visit"><span class="mk">✓</span><span class="tx"><b>来店する</b></span></label>
+        <label class="ch"><input type="radio" name="f_action" value="apply"><span class="mk">✓</span><span class="tx"><b>申し込む</b></span></label>
+        <label class="ch"><input type="radio" name="f_action" value="other"><span class="mk">✓</span><span class="tx"><b>その他</b></span></label>
+      </div>
+      <p class="err" role="alert">どれか1つを選んでください。</p>
+    </fieldset>
+    <div class="q" data-short="必ず入れる文字">
+      <span class="qno opt">あとで送っても大丈夫</span>
+      <label class="qlabel" for="f_must">必ず入れる文字</label>
+      <p class="hint">日時・場所・料金・連絡先・営業日・電話の受付時間・目印や駐車場など。1行に1つずつ書いてください。<br>お店のお客様・利用者さんのお名前や、病気・障がいのことは書かないでください。</p>
+      <textarea class="inp" id="f_must" name="f_must" placeholder="例：&#10;・11月3日（日）10時〜15時&#10;・〇〇公民館&#10;・参加費 500円" maxlength="1000"></textarea>
+    </div>
+    <fieldset class="q" data-req="f_img" data-short="写真・絵">
+      <legend>写真・絵はどうしますか？</legend>
+      <div class="choices">
+        <label class="ch"><input type="radio" name="f_img" value="own"><span class="mk">✓</span><span class="tx"><b>自分の写真がある</b></span></label>
+        <label class="ch"><input type="radio" name="f_img" value="ai"><span class="mk">✓</span><span class="tx"><b>AIで作ってほしい</b></span></label>
+        <label class="ch"><input type="radio" name="f_img" value="both"><span class="mk">✓</span><span class="tx"><b>両方</b><small>自分の写真と、AIで作る絵を合わせる</small></span></label>
+      </div>
+      <div class="cond" data-if="fAi"><div class="sub">
+        <span class="sub-tag"><svg viewBox="0 0 14 14"><path d="M3 1v6.5a2.5 2.5 0 0 0 2.5 2.5H12M9 7l3 3-3 3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>AIで作る点数</span>
+        <div class="field" data-req="f_img_n"><span class="fl" style="display:block;font-weight:700;font-size:16px;margin-bottom:6px">何点くらい？</span>
+          <p class="hint">A4 片面は2点まで、A4 両面は4点まで、三つ折り・B4 以上は6点まで、基本の料金に入っています。<span class="yen">超える分は 1点＋2,000円</span></p>
+          <div class="num"><button type="button" data-step-btn="f_img_n" data-d="-1" aria-label="1点減らす">−</button><input class="inp" id="f_img_n" name="f_img_n" inputmode="numeric" value="2" aria-label="AIで作る点数"><button type="button" data-step-btn="f_img_n" data-d="1" aria-label="1点増やす">＋</button><span class="unit">点</span></div>
+          <p class="err" role="alert">1〜50 の数を入れてください。</p></div>
+      </div></div>
+      <p class="err" role="alert">どれか1つを選んでください。</p>
+    </fieldset>
+  </section>
+
+  <section class="step" data-step="fl3" data-sec="チラシ" data-title="仕上げ" data-when="flyer">
+    <p class="eyebrow">チラシ</p>
+    <h2 class="title" tabindex="-1">チラシの仕上げ</h2>
+    <fieldset class="q" data-req="flyer_web" data-short="スマホで見るウェブ版">
+      <legend>スマホで見るチラシ（画面が切り替わるウェブ版）も欲しいですか？</legend>
+      <div class="choices two">
+        <label class="ch"><input type="radio" name="flyer_web" value="yes"><span class="mk">✓</span><span class="tx"><b>欲しい</b><span class="yen">＋9,800円</span></span></label>
+        <label class="ch"><input type="radio" name="flyer_web" value="no"><span class="mk">✓</span><span class="tx"><b>いらない</b></span></label>
+      </div>
+      <p class="err" role="alert">どちらかを選んでください。</p>
+    </fieldset>
+    <div class="q" data-short="参考にしたいチラシ・サイト">
+      <span class="qno opt">なくても大丈夫</span>
+      <p class="qlabel">参考にしたいチラシ・サイト</p>
+      <p class="hint">アドレスか、「どこが好きか」を1行で。</p>
+      <div class="field"><label class="sr" for="f_ref1">参考 1</label><input class="inp" id="f_ref1" name="f_ref1" placeholder="例：手書き風の見出しが好き" maxlength="200"></div>
+      <div class="field"><label class="sr" for="f_ref2">参考 2</label><input class="inp" id="f_ref2" name="f_ref2" maxlength="200"></div>
+      <div class="field"><label class="sr" for="f_ref3">参考 3</label><input class="inp" id="f_ref3" name="f_ref3" maxlength="200"></div>
+    </div>
+  </section>
+
+  <!-- ========== ご連絡先 ========== -->
+  <section class="step" data-step="contact" data-sec="ご連絡先" data-title="ご連絡先">
+    <p class="eyebrow">ご連絡先</p>
+    <h2 class="title" tabindex="-1">見積書のお送り先</h2>
+    <p class="lead">お聞きするのは、お名前とメールアドレスだけです（お電話番号・ご住所はお聞きしません）。</p>
+    <div class="q field" data-req="name" data-short="お名前">
+      <label class="qlabel" for="name">お名前</label>
+      <p class="hint">屋号・団体名でも大丈夫です。</p>
+      <input class="inp must" id="name" name="name" autocomplete="off" placeholder="例：〇〇教室" maxlength="60">
+      <p class="err" role="alert">お名前（屋号・団体名でも可）を入れてください。</p>
+    </div>
+    <div class="q field" data-req="email" data-short="メールアドレス">
+      <label class="qlabel" for="email">メールアドレス</label>
+      <input class="inp must" id="email" name="email" type="email" inputmode="email" autocomplete="off" placeholder="例：info@〇〇〇.jp" maxlength="120">
+      <p class="err" role="alert">メールアドレスの形を確かめてください（@ が入っているか など）。</p>
+      <div class="note soft" id="carrierNote"><span class="ic" aria-hidden="true">!</span><div>
+        <h3>携帯電話の会社のメールは、届かないことがあります</h3>
+        <p>「@docomo.ne.jp」「@ezweb.ne.jp」「@au.com」「@softbank.ne.jp」「@i.softbank.jp」などは、パソコンから送るメールを受け取らない設定になっていることが多いです。<b>Gmail などのアドレスがおすすめ</b>です。</p>
+        <p>携帯電話の会社のメールを使うときは、当店のアドレス <span class="mail-addr">hinagado.official@gmail.com</span> を受け取れるように設定してください。2営業日たっても見積書が届かないときは、迷惑メールのフォルダをご覧のうえ、同じアドレスへご連絡ください。</p>
+      </div></div>
+    </div>
+    <div class="q field" data-req="email2" data-short="メールアドレス（確認）">
+      <label class="qlabel" for="email2">もう一度、同じメールアドレス</label>
+      <p class="hint">打ち間違いを防ぐためです。</p>
+      <input class="inp must" id="email2" name="email2" type="email" inputmode="email" autocomplete="off" maxlength="120">
+      <p class="err" role="alert">上のメールアドレスと同じになっていません。</p>
+    </div>
+    <div class="q field" data-short="伝えておきたいこと">
+      <span class="qno opt">なくても大丈夫</span>
+      <label class="qlabel" for="memo">ほかに伝えておきたいこと・心配なこと</label>
+      <p class="hint">お店のお客様・利用者さんのお名前や、病気・障がいのことは書かないでください。</p>
+      <textarea class="inp" id="memo" name="memo" placeholder="例：パソコンが苦手なので、ゆっくり進めたい" maxlength="600"></textarea>
+    </div>
+    <div class="hp-trap" aria-hidden="true"><label>この欄は空のままにしてください<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+  </section>
+
+  <!-- ========== まとめ ========== -->
+  <section class="step" data-step="review" data-sec="確かめる" data-title="答えのまとめ">
+    <p class="eyebrow">確かめる</p>
+    <h2 class="title" tabindex="-1">この理解で合っていますか？</h2>
+    <p class="lead">当店が、いただいた答えを短くまとめました。違う所は「直す」から直せます。</p>
+    <div id="reviewBox"></div>
+  </section>
+
+  <section class="step" data-step="quote" data-sec="確かめる" data-title="目安と送信">
+    <p class="eyebrow">確かめる</p>
+    <h2 class="title" tabindex="-1">料金と日数の目安</h2>
+    <div id="quoteBox"></div>
+    <div class="sendinfo" id="sendInfo"><b>「見積もりを依頼する」を押すと</b>当店に届き、画面に受付番号が出ます（受け付けのメールはお送りしません）。<b style="display:inline">2営業日以内</b>に、<span class="mail-addr">hinagado.official@gmail.com</span> から見積書と、確かめたいことの質問を文字でお送りします。まだ契約ではありません。</div>
+    <div class="purpose" id="purposeBox">
+      <h3>いただいた情報の使い道</h3>
+      <p>いただいた答えと、お名前・メールアドレスは、次のことだけに使います。</p>
+      <ol>
+        <li>見積書と、確かめたいことの質問をお送りする</li>
+        <li>ご依頼いただいた場合に、制作・納品・ご連絡をする</li>
+        <li>ご契約・お支払いの確認と、法律で決まったお知らせを送る</li>
+      </ol>
+      <p>制作の下書きと、メールのお返事の下書きのために、<b>答えの中身とお名前・メールアドレス</b>を AI のサービスで読み込みます。<b>お返事は代表が確かめてから送り、AI が自動で送ることはありません。</b>入れた内容を AI の学習に使わない設定のサービスだけを使います。メールや AI などには、<b>アメリカ合衆国の会社のサービス</b>（Anthropic 社の Claude、Google 社の Gmail・Google ドライブ・Google Apps Script）を使い、いただいた情報をそこに預けます。</p>
+      <p>ご依頼にならなかった場合は、見積書をお送りしてから6か月で消します。くわしくは<a class="linkish" href="../privacy.html" target="_blank" rel="noopener">プライバシーポリシー</a>をご覧ください。</p>
+    </div>
+    <div class="q" data-req="agree" data-short="同意">
+      <label class="agree"><input type="checkbox" name="agree1" value="1"><span class="mk"><svg viewBox="0 0 16 16"><path d="M3 8.5l3.2 3L13 4.5" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span><a class="linkish" href="../terms.html" target="_blank" rel="noopener">規約</a>と<a class="linkish" href="../privacy.html" target="_blank" rel="noopener">プライバシーポリシー</a>を読み、上の「使い道」と、アメリカ合衆国の会社のサービスに情報を預けることに同意します</span></label>
+      <label class="agree"><input type="checkbox" name="agree2" value="1"><span class="mk"><svg viewBox="0 0 16 16"><path d="M3 8.5l3.2 3L13 4.5" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>これは<b>見積もりのご依頼</b>で、まだ契約ではないことを分かりました</span></label>
+      <p class="small" id="docNote" hidden>（見本のため、規約とプライバシーポリシーのページはまだつながっていません）</p>
+      <p class="err" role="alert">2つとも ✓ を付けてください。</p>
+    </div>
+    <div class="note stop send-err" id="sendErr" role="alert" hidden><span class="ic" aria-hidden="true">!</span><div>
+      <h3>送れませんでした</h3>
+      <p id="sendErrText">お手数ですが <span class="mail-addr">hinagado.official@gmail.com</span> へメールでご連絡ください。</p>
+      <p class="small">ご入力の内容は消えていません。少し待ってから、もう一度「見積もりを依頼する」を押すこともできます。</p>
+    </div></div>
+  </section>
+
+  <section class="step" data-step="done" data-title="送信">
+    <div class="done-mark" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M3 8.5l3.2 3L13 4.5" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    <h2 class="title" tabindex="-1" id="doneTitle">受け付けました</h2>
+    <div id="doneLive">
+      <div class="receipt"><p class="k">受付番号</p><p class="no" id="receiptNo"></p></div>
+      <p class="lead"><b>2営業日以内に、<span class="mail-addr">hinagado.official@gmail.com</span> から見積書をお送りします。</b></p>
+      <p>受け付けのメールはお送りしていません。受付番号は、この画面で控えてください（お問い合わせのときにお伝えください）。見積書が届かないときは、<b>迷惑メールのフォルダ</b>もご覧ください。</p>
+    </div>
+    <div id="doneSample" hidden>
+      <p class="lead"><b>（見本のため、送られません）</b></p>
+      <p>本番では、ここで当店に届き、画面に受付番号が出ます。そのあと、hinagado.official@gmail.com から見積書をお送りします。</p>
+    </div>
+    <div class="promise"><h3>このあとの流れ</h3><ul>
+      <li>見積書が届かないときは、迷惑メールのフォルダもご覧ください。2営業日たっても届かないときは、受付番号を書いて hinagado.official@gmail.com へご連絡ください。</li>
+      <li>「わからない」を選んだ所は、当店から文字で1問ずつお聞きします。</li>
+      <li>見積書と一緒に「2回目の質問票」をお送りします（お店のよいところ・写真の有無など、作るための中身をお聞きします）。</li>
+      <li>見積書を承諾いただいてから、契約になります。</li>
+    </ul></div>
+  </section>
+
+  <div class="nav" id="nav">
+    <button type="button" class="btn btn-back" id="back" hidden><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4.5L7 10l5.5 5.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>戻る</button>
+    <button type="button" class="btn btn-rev" id="toReview" hidden>まとめに戻る</button>
+    <button type="button" class="btn btn-go" id="next"><span id="nextLabel">はじめる</span><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4.5L13 10l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  </div>
+  </form>
+  </main>
+</div>
+<footer class="foot" id="foot">
+  <ul class="foot-links" aria-label="当店の決まり">
+    <li><a href="../tokushoho.html">特定商取引法に基づく表示</a></li>
+    <li><a href="../terms.html">ご利用規約</a></li>
+    <li><a href="../privacy.html">プライバシーポリシー</a></li>
+  </ul>
+  <p class="foot-note" id="footNote" hidden>（見本のため、この3つのページはまだつながっていません）</p>
+  <p class="foot-note">ひなが堂 制作室｜このフォームは見積もりのご依頼です。契約は見積書の承諾で成り立ちます。</p>
+</footer>
+
+<script id="engine">
+/* ===== 見積もりの目安（quote_rules.json の規則どおり） ===== */
+var HQ_RULES = {
+  prices: {
+    hp: { base: { name: "基本（型・3ページまで）", price: 29800, included_pages: 3 }, extra_page_each: 9800, custom_design: 29800, original_art_each: 5000, form: 19800, sheet_link: 39800, migrate: 29800, text_writing_per_page: 5000, premium_default_art: 3 },
+    flyer: {
+      base: { name: "A4 片面", price: 14800, ai_images: 2 },
+      size_addon: {
+        a4_single: { name: "A4 片面", add: 0, ai_images_plus: 0, days: 5 },
+        a4_double: { name: "A4 両面", add: 10000, ai_images_plus: 2, days: 7 },
+        large: { name: "三つ折り・B4 以上", add: 20000, ai_images_plus: 4, days: 10 }
+      },
+      ai_image_each: 2000, web_version: 9800, with_hp_discount_rate: 0.2
+    },
+    rush_rate: 0.3, rush_max_days: 20,
+    care: { light: { name: "ライト", monthly: 3980 }, standard: { name: "スタンダード", monthly: 9800 }, safe: { name: "しっかり", monthly: 19800 } }
+  },
+  regulated_industries: ["medical_care", "office_legal", "health_beauty", "salon", "realestate_finance"],
+  flyer_size_map: { a4_single: "a4_single", a4_double: "a4_double", tri_fold: "large", b4_plus: "large", unknown: "a4_single" },
+  care_suggest: { monthly_once: "light", monthly_few: "standard", heavy: "safe", self: null, unknown: "light" },
+  messages: {
+    declined_shop: "ネットでの支払い・会員ログインはお受けしていません（それ以外の部分の目安を出しています）",
+    regulated: "確認が要る業種です。ご依頼の前に、オンラインでの打ち合わせ（1回・無料）と、広告の決まりについての同意書をお願いしています。当店も気になる言い回しはお知らせしますが、表示が法令に合っているかの最終の判断は、お客様または専門家にお願いしています",
+    referral_partner: "（店側だけに出す）紹介でつながりのある事業者です。通常の値段・書面の契約。公開していない特別な値引き・無料の作業・おまけはしない（公開の同時割引は誰にでも同じに掛ける）",
+    ask_more: "いくつか『わからない』があります。目安は幅で出しています（安い方＝わからない所を足さない場合、高い方＝全部足した場合）。見積書の前に当店から文字で1問ずつお聞きします",
+    art_default: "『オリジナルの絵も入れて本格的に』は、絵3点からで計算しています。点数は見積書の前にお聞きします",
+    photo_ai: "写真は AI で作ります。お店や商品そのものの写真は AI では作れません（実物と違ってしまうため）",
+    rush_check: "お急ぎの場合は空きを確かめてからお返事します",
+    rush_declined: "日数の目安が20営業日を超えるため、お急ぎ（特急）はお受けしていません。納期は見積書でご相談します",
+    domain_guide: "ドメインはお客様の名義で取っていただきます。取り方は文字でご案内します（利用料は別）",
+    news_no_update: "『お知らせ・ブログ』のページを選んでいますが、公開の後にお知らせを新しくする手段（月数回以上の更新のプラン、または表との連携）がありません。当店のサイトは、お客様がご自分で文字を書き換える作りではありません。見積書でご相談します"
+  },
+  shop_only_flags: ["referral_partner"]
+};
+function hqInt(v, dflt) {
+  if (v === null || v === undefined || v === "") return dflt;
+  var n = Number(v);
+  if (!isFinite(n)) return dflt;
+  return Math.trunc(n);
+}
+function hinagaQuote(inp) {
+  var R = HQ_RULES, P = R.prices;
+  var kind = inp.kind;
+  var hasHp = kind === "hp" || kind === "both";
+  var hasFl = kind === "flyer" || kind === "both";
+  var lines = [], hpSub = 0, flSub = 0, days = 0, hpDays = 0, flDays = 0;
+  var art = 0, rawArt = 0, pages = 0;
+  if (hasHp) {
+    var H = P.hp;
+    pages = Math.max(1, hqInt(inp.hp_pages, 1));
+    var custom = inp.hp_design === "custom" || inp.hp_design === "premium";
+    rawArt = Math.max(0, hqInt(inp.hp_art, 0));
+    art = rawArt;
+    if (inp.hp_design === "premium") art = Math.max(art, H.premium_default_art);
+    var add = function (label, amount, note) { lines.push({ group: "hp", label: label, amount: amount, note: note || "" }); hpSub += amount; };
+    add(H.base.name, H.base.price);
+    var extra = Math.max(0, pages - H.base.included_pages);
+    if (extra > 0) add("ページの追加（4ページ目から）", H.extra_page_each * extra, H.extra_page_each.toLocaleString("ja-JP") + "円 × " + extra + "ページ");
+    if (custom) add("デザインを一から組む", H.custom_design);
+    if (art > 0) add("オリジナルの絵", H.original_art_each * art, H.original_art_each.toLocaleString("ja-JP") + "円 × " + art + "点");
+    if (inp.hp_form === "yes") add("お問い合わせフォーム", H.form);
+    if (inp.hp_sheet === "yes") add("表計算との連携", H.sheet_link);
+    if (inp.hp_migrate === "yes") add("旧サイトからの移行", H.migrate);
+    if (inp.hp_text === "none") add("文章の書き起こし", H.text_writing_per_page * pages, H.text_writing_per_page.toLocaleString("ja-JP") + "円 × " + pages + "ページ");
+    hpDays = (custom ? 15 : 10) + 2 * Math.max(0, pages - 5) + (inp.hp_sheet === "yes" ? 5 : 0) + (inp.hp_migrate === "yes" ? 5 : 0) + Math.ceil(art / 2);
+  }
+  if (hasFl) {
+    var F = P.flyer;
+    var sizeKey = R.flyer_size_map[inp.flyer_size] || "a4_single";
+    var S = F.size_addon[sizeKey];
+    var imgs = Math.max(0, hqInt(inp.flyer_images, 0));
+    var incl = F.base.ai_images + S.ai_images_plus;
+    var addF = function (label, amount, note) { lines.push({ group: "flyer", label: label, amount: amount, note: note || "" }); flSub += amount; };
+    addF("チラシ　" + F.base.name + "（基本）", F.base.price, "AI で作る絵・写真 " + F.base.ai_images + "点まで");
+    if (S.add > 0) addF(S.name + "にする", S.add, "AI で作る絵・写真は " + incl + "点まで");
+    var overImg = Math.max(0, imgs - incl);
+    if (overImg > 0) addF("AI で作る絵・写真の追加", F.ai_image_each * overImg, F.ai_image_each.toLocaleString("ja-JP") + "円 × " + overImg + "点");
+    if (inp.flyer_web === "yes") addF("スマホで見るウェブ版", F.web_version);
+    if (kind === "both") {
+      var disc = Math.floor(flSub * F.with_hp_discount_rate);
+      addF("ホームページとのセットの値段（チラシの分）", -disc);
+    }
+    flDays = S.days;
+  }
+  days = hpDays + flDays;
+  var rush = 0;
+  var rushable = inp.deadline === "rush" && days <= P.rush_max_days;
+  if (rushable) {
+    rush = Math.floor((hpSub + flSub) * P.rush_rate);
+    lines.push({ group: "rush", label: "特急（制作費の30％）", amount: rush, note: "空きがあるときだけ" });
+  }
+  var total = hpSub + flSub + rush;
+  /* しるし（規則の順） */
+  var flags = [];
+  var reg = R.regulated_industries.indexOf(inp.industry) >= 0;
+  if (kind !== "flyer" && inp.hp_shop === "need") flags.push("declined_shop");
+  if (reg) flags.push("regulated");
+  if (inp.referral_partner === "yes") flags.push("referral_partner");
+  if ((kind !== "flyer" && (inp.hp_form === "unknown" || inp.hp_sheet === "unknown" || inp.hp_migrate === "unknown" || inp.hp_design === "unknown")) || (kind !== "hp" && inp.flyer_size === "unknown")) flags.push("ask_more");
+  if (kind !== "flyer" && inp.hp_design === "premium" && rawArt < P.hp.premium_default_art) flags.push("art_default");
+  if (kind !== "flyer" && inp.hp_photo === "none") flags.push("photo_ai");
+  if (inp.deadline === "rush" && days <= P.rush_max_days) flags.push("rush_check");
+  if (inp.deadline === "rush" && days > P.rush_max_days) flags.push("rush_declined");
+  if (kind !== "flyer" && inp.hp_domain !== "have") flags.push("domain_guide");
+  if (kind !== "flyer" && inp.hp_news === "yes" && inp.hp_sheet !== "yes" && inp.care !== "monthly_few" && inp.care !== "heavy") flags.push("news_no_update");
+  /* 「わからない」があるときは幅で出す（上は、わからない所を全部『あり』にして計算） */
+  var totalMax = total, daysMax = days, unk = false;
+  if (kind !== "flyer" && (inp.hp_form === "unknown" || inp.hp_sheet === "unknown" || inp.hp_migrate === "unknown" || inp.hp_design === "unknown")) unk = true;
+  if (kind !== "hp" && inp.flyer_size === "unknown") unk = true;
+  if (unk && !inp._upper) {
+    var hi = {};
+    Object.keys(inp).forEach(function (k) { hi[k] = inp[k]; });
+    hi._upper = true;
+    if (kind !== "flyer") {
+      if (hi.hp_form === "unknown") hi.hp_form = "yes";
+      if (hi.hp_sheet === "unknown") hi.hp_sheet = "yes";
+      if (hi.hp_migrate === "unknown") hi.hp_migrate = "yes";
+      if (hi.hp_design === "unknown") hi.hp_design = "custom";
+    }
+    if (kind !== "hp" && hi.flyer_size === "unknown") hi.flyer_size = "b4_plus";
+    var hq = hinagaQuote(hi);
+    totalMax = Math.max(total, hq.total); daysMax = Math.max(days, hq.days);
+  }
+  var care = null;
+  if (hasHp && inp.care !== undefined && inp.care !== null && Object.prototype.hasOwnProperty.call(R.care_suggest, inp.care)) care = R.care_suggest[inp.care];
+  return {
+    total: total, totalMax: totalMax, days: days, daysMax: daysMax, hpSub: hpSub, flSub: flSub, rush: rush, lines: lines, flags: flags,
+    messages: flags.map(function (f) { return { flag: f, text: R.messages[f], shopOnly: R.shop_only_flags.indexOf(f) >= 0 }; }),
+    care: care, carePlan: care ? P.care[care] : null
+  };
+}
+if (typeof module !== "undefined" && module.exports) { module.exports = { hinagaQuote: hinagaQuote, HQ_RULES: HQ_RULES }; }
+</script>
+
+<script id="app">
+(function () {
+  "use strict";
+  var form = document.getElementById("f");
+  var steps = Array.prototype.slice.call(document.querySelectorAll(".step"));
+  var cur = "intro";
+  var returnToReview = false;
+  var dirty = false;
+  var REG = HQ_RULES.regulated_industries;
+
+  function val(name) {
+    var els = form.elements[name];
+    if (!els) return "";
+    if (els.length !== undefined && els.tagName === undefined) {
+      for (var i = 0; i < els.length; i++) if (els[i].checked) return els[i].value;
+      return "";
+    }
+    if (els.type === "checkbox" || els.type === "radio") return els.checked ? els.value : "";
+    return (els.value || "").trim();
+  }
+  function checkedAll(name) {
+    return Array.prototype.slice.call(form.querySelectorAll('input[name="' + name + '"]:checked'));
+  }
+  function intIn(name) { var n = parseInt(String(val(name)).replace(/[^\d]/g, ""), 10); return isNaN(n) ? 0 : n; }
+  function kind() { return val("kind") || "hp"; }
+
+  var conds = {
+    indOther: function () { return val("industry") === "other"; },
+    needIndText: function () { var v = val("industry"); return v === "other" || REG.indexOf(v) >= 0; },
+    subMed: function () { return val("industry") === "medical_care"; },
+    subSalon: function () { return val("industry") === "salon"; },
+    subHb: function () { return val("industry") === "health_beauty"; },
+    subRe: function () { return val("industry") === "realestate_finance"; },
+    hasDeadline: function () { var v = val("deadline"); return v === "rush" || v === "1month" || v === "2_3months"; },
+    refHave: function () { return val("ref_mode") === "have"; },
+    newsNoUpdate: function () { var c = val("care"); return checkedAll("pg").some(function (x) { return x.value === "news"; }) && val("hp_sheet") !== "yes" && (c === "self" || c === "monthly_once" || c === "unknown"); },
+    regulated: function () { return REG.indexOf(val("industry")) >= 0; },
+    hpHas: function () { var v = val("hp_existing"); return v === "rebuild" || v === "keep_and_new"; },
+    hpRebuild: function () { return val("hp_existing") === "rebuild"; },
+    shopNeed: function () { return val("hp_shop") === "need"; },
+    photoNone: function () { return val("hp_photo") === "none"; },
+    artYes: function () { return val("hp_art_choice") === "yes"; },
+    colorSet: function () { return val("color") === "set"; },
+    pgOther: function () { return val("pg_other") === "1"; },
+    fPurposeOther: function () { return val("f_purpose") === "other"; },
+    fTargetOther: function () { return val("f_target") === "other"; },
+    fAi: function () { var v = val("f_img"); return v === "ai" || v === "both"; }
+  };
+  function stepActive(s) {
+    var w = s.getAttribute("data-when");
+    if (!w) return true;
+    var k = kind();
+    if (w === "hp") return k === "hp" || k === "both";
+    if (w === "flyer") return k === "flyer" || k === "both";
+    return true;
+  }
+  function activeSteps() { return steps.filter(stepActive).map(function (s) { return s.getAttribute("data-step"); }); }
+  function stepEl(id) { return form.querySelector('.step[data-step="' + id + '"]'); }
+  function pageCount() {
+    var n = checkedAll("pg").length;
+    if (val("pg_other") === "1") n += Math.max(0, intIn("pg_other_n"));
+    return n;
+  }
+  function refresh() {
+    Array.prototype.forEach.call(form.querySelectorAll(".cond"), function (c) {
+      var on = conds[c.getAttribute("data-if")]();
+      if (on !== c.classList.contains("show")) c.classList.toggle("show", on);
+    });
+    document.getElementById("pageCount").textContent = pageCount();
+  }
+
+  /* ---- 進み具合 ---- */
+  function renderProgress() {
+    var list = activeSteps().filter(function (id) { return id !== "intro" && id !== "done"; });
+    var top = document.getElementById("top");
+    top.classList.toggle("is-intro", cur === "intro" || cur === "done");
+    document.body.classList.toggle("is-step", !(cur === "intro" || cur === "done"));
+    var idx = list.indexOf(cur);
+    var el = stepEl(cur);
+    var bar = document.getElementById("bar");
+    bar.innerHTML = "";
+    list.forEach(function (id, i) { var b = document.createElement("i"); if (i < idx) b.className = "done"; else if (i === idx) b.className = "now"; bar.appendChild(b); });
+    if (idx >= 0) {
+      var sec = el.getAttribute("data-sec"), inSec = list.filter(function (id) { return stepEl(id).getAttribute("data-sec") === sec; });
+      document.getElementById("progWhere").innerHTML = '<span class="sec">' + esc(sec) + (inSec.length > 1 ? " " + (inSec.indexOf(cur) + 1) + "/" + inSec.length : "") + '</span>　' + esc(el.getAttribute("data-title"));
+      var left = list.length - idx - 1;
+      document.getElementById("progCount").innerHTML = left > 0 ? 'のこり <b>' + left + '</b> 画面' : '<b>最後の画面</b>';
+    }
+    var rail = document.getElementById("railList");
+    rail.innerHTML = "";
+    var lastSec = "";
+    var all = activeSteps();
+    all.forEach(function (id) {
+      var s = stepEl(id);
+      if (id === "done") return;
+      var sec = s.getAttribute("data-sec") || "";
+      if (sec && sec !== lastSec) { var h = document.createElement("li"); h.className = "sec-head"; h.textContent = sec; rail.appendChild(h); lastSec = sec; }
+      var li = document.createElement("li");
+      li.textContent = s.getAttribute("data-title");
+      var ai = all.indexOf(id), ci = all.indexOf(cur);
+      if (ai < ci) li.className = "done"; else if (ai === ci) { li.className = "now"; li.setAttribute("aria-current", "step"); }
+      rail.appendChild(li);
+    });
+  }
+  function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
+
+  function show(id, opts) {
+    cur = id;
+    steps.forEach(function (s) { s.classList.toggle("on", s.getAttribute("data-step") === id); });
+    if (id === "review") renderReview();
+    if (id === "quote") renderQuote();
+    var back = document.getElementById("back");
+    back.hidden = (id === "intro" || id === "done");
+    var nextL = document.getElementById("nextLabel");
+    var nb = document.getElementById("next");
+    nb.hidden = false;
+    nextL.textContent = id === "intro" ? "はじめる" : id === "review" ? "目安の料金を見る" : id === "quote" ? "見積もりを依頼する" : id === "done" ? "最初の画面に戻る" : "次へ";
+    document.getElementById("toReview").hidden = !(returnToReview && id !== "review" && id !== "quote" && id !== "done" && id !== "intro");
+    if (id === "done") back.hidden = true;
+    renderProgress();
+    window.scrollTo(0, 0);
+    if (!(opts && opts.noFocus)) { var h = stepEl(id).querySelector(".title"); if (h) h.focus({ preventScroll: true }); }
+  }
+
+  /* ---- 入れ忘れの確かめ ---- */
+  function visible(el) { return !el.closest(".cond:not(.show)"); }
+  function validateStep(id) {
+    var s = stepEl(id), firstBad = null;
+    Array.prototype.forEach.call(s.querySelectorAll(".need"), function (e) { e.classList.remove("need"); });
+    Array.prototype.forEach.call(s.querySelectorAll("[data-req]"), function (box) {
+      if (!visible(box)) return;
+      var r = box.getAttribute("data-req"), ok = true;
+      if (r === "hp_pages") ok = pageCount() >= 1;
+      else if (r === "ref1") ok = val("ref1") !== "";
+      else if (r === "industry_text") ok = val("industry_text") !== "";
+      else if (r === "hp_art_n") { var a = intIn("hp_art_n"); ok = a >= 1 && a <= 50; }
+      else if (r === "f_img_n") { var b = intIn("f_img_n"); ok = b >= 1 && b <= 50; }
+      else if (r === "name") ok = val("name") !== "";
+      else if (r === "email") ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val("email"));
+      else if (r === "email2") ok = val("email2") !== "" && val("email2") === val("email");
+      else if (r === "agree") ok = val("agree1") === "1" && val("agree2") === "1";
+      else ok = val(r) !== "";
+      if (!ok) {
+        /* 入れ子の中の質問が悪いときは、外側に印を付けない */
+        box.classList.add("need");
+        if (!firstBad) firstBad = box;
+      }
+    });
+    Array.prototype.forEach.call(s.querySelectorAll(".need .need"), function (inner) { var outer = inner.parentElement.closest(".need"); if (outer && val(outer.getAttribute("data-req")) !== "") outer.classList.remove("need"); });
+    if (firstBad) {
+      var target = s.querySelector(".need") || firstBad;
+      var y = target.getBoundingClientRect().top + window.pageYOffset - 150;
+      window.scrollTo(0, Math.max(0, y));
+      var f = target.querySelector("input:not([type=hidden]),textarea");
+      if (f) f.focus({ preventScroll: true });
+      return false;
+    }
+    return true;
+  }
+
+  function go(delta) {
+    if (sending) return;
+    var list = activeSteps();
+    var i = list.indexOf(cur);
+    if (delta > 0) {
+      if (cur === "done") { form.reset(); returnToReview = false; dirty = false; document.getElementById("receiptNo").textContent = ""; refresh(); show("intro"); return; }
+      if (!validateStep(cur)) return;
+      if (cur === "quote") { submit(); return; }
+      if (returnToReview && cur !== "review") {
+        var pending = list.slice(0, list.indexOf("review")).filter(function (id) { return id !== "intro" && !silentOk(id); });
+        show(pending.length ? pending[0] : "review"); return;
+      }
+      show(list[i + 1]);
+    } else {
+      if (i > 0) show(list[i - 1]);
+    }
+  }
+  function silentOk(id) {
+    var s = stepEl(id), ok = true;
+    Array.prototype.forEach.call(s.querySelectorAll("[data-req]"), function (box) {
+      if (!ok || !visible(box)) return;
+      var r = box.getAttribute("data-req");
+      if (r === "hp_pages") ok = pageCount() >= 1;
+      else if (r === "hp_art_n" || r === "f_img_n") { var a = intIn(r); ok = a >= 1 && a <= 50; }
+      else if (r === "email") ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val("email"));
+      else if (r === "email2") ok = val("email2") !== "" && val("email2") === val("email");
+      else if (r === "agree") ok = true;
+      else ok = val(r) !== "";
+    });
+    return ok;
+  }
+
+  /* ---- 答えを集める ---- */
+  function answers() {
+    var k = kind(), a = { kind: k, industry: val("industry"), deadline: val("deadline"), purpose: val("purpose") };
+    if (k !== "flyer") {
+      a.hp_existing = val("hp_existing");
+      a.hp_migrate = a.hp_existing === "rebuild" ? val("hp_migrate") : "no";
+      a.hp_domain = val("hp_domain");
+      a.hp_pages = pageCount();
+      a.hp_form = val("hp_form"); a.hp_sheet = val("hp_sheet"); a.hp_shop = val("hp_shop");
+      a.hp_design = val("hp_design"); a.hp_text = val("hp_text"); a.hp_photo = val("hp_photo");
+      a.hp_art = val("hp_art_choice") === "yes" ? intIn("hp_art_n") : 0;
+      a.care = val("care");
+      a.hp_news = checkedAll("pg").some(function (x) { return x.value === "news"; }) ? "yes" : "no";
+    }
+    var sub = { medical_care: "sub_med", salon: "sub_salon", health_beauty: "sub_hb", realestate_finance: "sub_re" }[a.industry];
+    if (sub) a.industry_sub = val(sub);
+    if (k !== "hp") {
+      a.flyer_size = val("flyer_size");
+      var fi = val("f_img");
+      a.flyer_images = (fi === "ai" || fi === "both") ? intIn("f_img_n") : 0;
+      a.flyer_web = val("flyer_web");
+    }
+    return a;
+  }
+  function labelOf(name) {
+    var c = form.querySelector('input[name="' + name + '"]:checked');
+    if (!c) return "";
+    var b = c.closest("label").querySelector(".tx b");
+    return b ? b.textContent : "";
+  }
+  function yen(n) { return (n < 0 ? "−" : "") + Math.abs(n).toLocaleString("ja-JP") + "円"; }
+
+  function gist() {
+    var k = kind(), parts = [];
+    if (k !== "flyer") {
+      var d = val("hp_design"), dl = d === "template" ? "当店の型から" : d === "custom" ? "一から" : d === "premium" ? "絵も入れて本格的に" : "作り方はご相談";
+      var ex = val("hp_existing") === "rebuild" ? "作り直し" : val("hp_existing") === "keep_and_new" ? "別にもう1つ" : "新しく";
+      parts.push("ホームページを" + ex + "（" + pageCount() + "ページ・" + dl + "）");
+    }
+    if (k !== "hp") parts.push("チラシ（" + (labelOf("flyer_size") || "大きさはご相談").replace("（おすすめを聞きたい）", "") + (val("flyer_web") === "yes" ? "・ウェブ版つき" : "") + "）");
+    var dd = { rush: "急ぎ（2週間以内）で", "1month": "1か月くらいで", "2_3months": "2〜3か月で", none: "時期は決めずに" }[val("deadline")] || "";
+    return parts.join("と、") + "を、" + dd + "。";
+  }
+
+  /* まとめの中身（画面のまとめと、送る中身の両方に使う） */
+  function reviewData() {
+    var data = { gist: gist(), unknown: [], sections: [] };
+    var list = activeSteps().filter(function (id) { return ["intro", "review", "quote", "done"].indexOf(id) < 0; });
+    var unk = data.unknown;
+    list.forEach(function (id) { Array.prototype.forEach.call(stepEl(id).querySelectorAll("fieldset[data-short]"), function (q) { if (!visible(q)) return; var c = q.querySelector("input:checked"); if (c && c.value === "unknown" && c.name === q.getAttribute("data-req")) unk.push(q.getAttribute("data-short")); }); });
+    list.forEach(function (id) {
+      var s = stepEl(id);
+      var sd = { id: id, sec: s.getAttribute("data-sec"), title: s.getAttribute("data-title"), items: [] };
+      data.sections.push(sd);
+      Array.prototype.forEach.call(s.querySelectorAll("[data-short]"), function (q) {
+        if (!visible(q)) return;
+        var short = q.getAttribute("data-short"), v = "";
+        var r = q.getAttribute("data-req");
+        if (r === "hp_pages") {
+          var names = checkedAll("pg").map(function (c) { return c.closest("label").querySelector("b").textContent; });
+          if (val("pg_other") === "1") names.push("その他" + (val("pg_other_text") ? "（" + val("pg_other_text") + "）" : "") + " " + intIn("pg_other_n") + "ページ");
+          v = pageCount() + "ページ：" + names.join("、");
+        } else if (r === "ref_mode") {
+          v = val("ref_mode") === "have" ? [val("ref1") ? val("ref1") + (val("ref1why") ? "（" + val("ref1why") + "）" : "") : "", val("ref2")].filter(Boolean).join("\n") : labelOf("ref_mode");
+        } else if (short === "その時期の理由") {
+          v = labelOf("deadline_why") + (val("deadline_date") ? (labelOf("deadline_why") ? "（" : "") + val("deadline_date") + (labelOf("deadline_why") ? "）" : "") : "");
+        } else if (short === "伝えておきたいこと") { v = val("memo"); }
+        else if (short === "必ず入れる文字") { v = val("f_must"); }
+        else if (short === "参考にしたいチラシ・サイト") { v = [val("f_ref1"), val("f_ref2"), val("f_ref3")].filter(Boolean).join("\n"); }
+        else if (r === "industry") { v = labelOf("industry") + (conds.needIndText() && val("industry_text") ? "（" + val("industry_text") + "）" : ""); }
+        else if (r === "color") { v = labelOf("color") + (val("color") === "set" && val("color_text") ? "（" + val("color_text") + "）" : ""); }
+        else if (r === "hp_art_choice") { v = labelOf("hp_art_choice") + (val("hp_art_choice") === "yes" ? "（" + intIn("hp_art_n") + "点くらい）" : ""); }
+        else if (r === "f_img") { v = labelOf("f_img") + ((val("f_img") === "ai" || val("f_img") === "both") ? "（AI で " + intIn("f_img_n") + "点）" : ""); }
+        else if (r === "f_purpose") { v = labelOf("f_purpose") + (val("f_purpose") === "other" && val("f_purpose_text") ? "（" + val("f_purpose_text") + "）" : ""); }
+        else if (r === "f_target") { v = labelOf("f_target") + (val("f_target") === "other" && val("f_target_text") ? "（" + val("f_target_text") + "）" : ""); }
+        else if (r === "hp_existing") { v = labelOf("hp_existing") + (val("hp_url") && conds.hpHas() ? "\n" + val("hp_url") : ""); }
+        else if (r === "name" || r === "email" || r === "area") { v = val(r); }
+        else if (r === "email2") { return; }
+        else if (r) { v = labelOf(r); }
+        sd.items.push([short, v]);
+      });
+    });
+    return data;
+  }
+  function renderReview() {
+    var box = document.getElementById("reviewBox");
+    var d = reviewData();
+    var html = '<div class="gist"><p class="k">ひとことで言うと</p><p>' + esc(d.gist) + '</p></div>';
+    if (d.unknown.length) html += '<div class="ask"><b>「わからない」の所は、当店から文字で1問ずつお聞きします</b><ul>' + d.unknown.map(function (u) { return "<li>" + esc(u) + "</li>"; }).join("") + '</ul></div>';
+    d.sections.forEach(function (sd) {
+      html += '<div class="sum"><div class="sum-h"><h3>' + (sd.sec === sd.title ? "" : '<small>' + esc(sd.sec) + '</small>') + esc(sd.title) + '</h3><button type="button" class="edit" data-edit="' + sd.id + '">直す</button></div><dl>';
+      sd.items.forEach(function (it) {
+        html += '<dt>' + esc(it[0]) + '</dt><dd' + (it[1] ? "" : ' class="none"') + '>' + (it[1] ? esc(it[1]).replace(/\n/g, "<br>") : "（なし）") + '</dd>';
+      });
+      html += '</dl></div>';
+    });
+    box.innerHTML = html;
+  }
+
+  function renderQuote() {
+    var a = answers();
+    var q = hinagaQuote(a);
+    var k = kind();
+    var P = HQ_RULES.prices;
+    var range = q.totalMax > q.total;
+    var html = '<div class="est"><div class="est-top">';
+    html += '<div class="est-label"><span class="tag">目安</span>制作の料金の目安（当店へのお支払い）</div>';
+    if (!range) html += '<div class="est-total" id="estTotal" data-min="' + q.total + '" data-max="' + q.totalMax + '"><span class="ya">約</span>' + q.total.toLocaleString("ja-JP") + '<small>円</small></div>';
+    else html += '<div class="est-range" id="estTotal" data-min="' + q.total + '" data-max="' + q.totalMax + '"><span class="part"><span class="ya">約</span>' + q.total.toLocaleString("ja-JP") + '<small>円</small><span class="to">〜</span></span><span class="part"><span class="ya">約</span>' + q.totalMax.toLocaleString("ja-JP") + '<small>円</small></span></div>';
+    html += '<div class="est-days">制作の日数の目安　<b id="estDays" data-min="' + q.days + '" data-max="' + q.daysMax + '">' + (q.daysMax > q.days ? q.days + "〜" + q.daysMax : q.days) + '営業日</b>　<span class="small" style="display:block">文章・写真などの内容がそろってから数えます</span></div>';
+    html += '<p class="est-fix">目安です。見積書で確定します。<span style="display:block;font-weight:400;font-size:14px;color:var(--ink-2)">' + (range ? "「わからない」の所があるので、幅で出しています。" : "") + '文章・写真の量によって変わることがあります。</span></p></div><p class="lines-h">内訳' + (range ? "（安い方）" : "") + '</p><ul class="lines" aria-label="内訳">';
+    var lastG = "";
+    var gname = { hp: "ホームページ", flyer: "チラシ", rush: "お急ぎ" };
+    q.lines.forEach(function (l) {
+      if (k === "both" && l.group !== lastG && l.group !== "rush") html += '<li class="grp">' + gname[l.group] + '</li>';
+      lastG = l.group;
+      html += '<li class="' + (l.amount < 0 ? "minus" : "") + '"><span class="nm">' + esc(l.label) + (l.note ? '<small>' + esc(l.note) + '</small>' : '') + '</span><span class="am">' + (l.amount > 0 && l.label.indexOf("基本") < 0 ? "＋" : "") + yen(l.amount) + '</span></li>';
+    });
+    html += '</ul>';
+    if (range) {
+      var up = [];
+      if (k !== "flyer") {
+        if (a.hp_design === "unknown") up.push("デザインを一から組む（＋" + yen(P.hp.custom_design) + "）");
+        if (a.hp_form === "unknown") up.push("お問い合わせフォーム（＋" + yen(P.hp.form) + "）");
+        if (a.hp_sheet === "unknown") up.push("表計算との連携（＋" + yen(P.hp.sheet_link) + "）");
+        if (a.hp_migrate === "unknown") up.push("旧サイトからの移行（＋" + yen(P.hp.migrate) + "）");
+      }
+      if (k !== "hp" && a.flyer_size === "unknown") up.push("チラシを三つ折り・B4 以上に（＋" + yen(P.flyer.size_addon.large.add) + "）");
+      html += '<p class="small" id="upperNote" style="margin:0;padding:0 20px 16px">高い方は、「わからない」の所を全部足した場合です：' + esc(up.join("、")) + (k === "both" || a.deadline === "rush" ? "（割引・特急も同じ決まりで計算）" : "") + '。</p>';
+    }
+    html += '</div>';
+    var ex = [];
+    if (k !== "flyer") ex.push("ドメイン・公開先の利用料（多くの場合 年に数千円ほど。お客様の名義で、その会社へ直接お支払い）");
+    if (k !== "hp") ex.push("チラシの印刷代（印刷会社やご自宅のプリンターで。当店の料金には入っていません）");
+    ex.push("お振込みの手数料");
+    if (k !== "flyer") ex.push("公開の後の月々の更新のプラン（頼む場合だけ。月 " + P.care.light.monthly.toLocaleString("ja-JP") + "円から）");
+    html += '<div class="extra" id="extraCosts"><h3>当店の料金とは別にかかる物</h3><ul>' + ex.map(function (x) { return "<li>" + esc(x) + "</li>"; }).join("") + '</ul></div>';
+    if (q.carePlan) {
+      html += '<div class="care-box"><div class="t">公開の後の更新は、<b>' + esc(q.carePlan.name) + 'プラン　月 ' + q.carePlan.monthly.toLocaleString("ja-JP") + '円</b>がおすすめです（制作の料金とは別）。</div></div>';
+    }
+    var notes = q.messages.filter(function (m) { return !m.shopOnly; });
+    var order = { declined_shop: 0, rush_declined: 1, regulated: 2, news_no_update: 3 };
+    notes.sort(function (x, y) { return (order[x.flag] !== undefined ? order[x.flag] : 9) - (order[y.flag] !== undefined ? order[y.flag] : 9); });
+    notes.forEach(function (m) {
+      var cls = (m.flag === "declined_shop" || m.flag === "rush_declined") ? "stop" : (m.flag === "regulated" || m.flag === "news_no_update") ? "info" : "soft";
+      var ic = cls === "stop" ? "—" : "i";
+      var title = { declined_shop: "お受けできない内容があります", rush_declined: "お急ぎ（特急）はお受けできません", regulated: "広告にルールがある業種です", news_no_update: "お知らせを新しくする手段がありません" }[m.flag];
+      var text = m.text;
+      if (m.flag === "regulated") text = "安心して載せられるよう、制作の前に一緒に確かめます。ご依頼の前に、オンラインでの打ち合わせ（1回・無料）と、広告の決まりについての同意書をお願いしています。表示が法令に合っているかの最終の判断は、お客様または専門家にお願いしています。";
+      html += '<div class="note ' + cls + '" data-flag="' + m.flag + '"><span class="ic" aria-hidden="true">' + ic + '</span><div>' + (title ? '<h3>' + title + '</h3>' : '') + '<p>' + esc(text) + '</p></div></div>';
+    });
+    html += '<p class="small" style="margin:14px 0 22px">当店は「適格請求書（インボイス）」の登録をしていません。表示の金額に、消費税を別に足すことはありません。お仕事でのご依頼の場合は、経理のご担当の方にご確認ください。</p>';
+    document.getElementById("quoteBox").innerHTML = html;
+  }
+
+
+  /* ---- 送る（送り先が空なら見本のまま送らない） ---- */
+  var ENDPOINT = (function () { var m = document.querySelector('meta[name="hq-endpoint"]'); var u = m ? m.getAttribute("content") || "" : ""; return /^https:\/\/script\.google\.com\/macros\/s\/[A-Za-z0-9_-]+\/exec$/.test(u) ? u : ""; })();
+  var sending = false;
+  function payload() {
+    var d = reviewData(), a = answers(), q = hinagaQuote(a);
+    return {
+      v: 1,
+      website: val("website"),
+      name: val("name").trim(),
+      email: val("email").trim(),
+      agree: checkedAll("agree1").length > 0 && checkedAll("agree2").length > 0,
+      kind: kind(),
+      gist: d.gist,
+      unknown: d.unknown,
+      sections: d.sections.map(function (s) { return { title: (s.sec && s.sec !== s.title ? s.sec + "／" : "") + s.title, items: s.items }; }),
+      quote: {
+        total: q.total, totalMax: q.totalMax, days: q.days, daysMax: q.daysMax,
+        lines: q.lines.map(function (l) { return { label: l.label, amount: l.amount, note: l.note || "" }; }),
+        notes: q.messages.map(function (m) { return m.text; }),
+        carePlan: q.carePlan ? q.carePlan.name + "プラン 月" + q.carePlan.monthly.toLocaleString("ja-JP") + "円" : ""
+      }
+    };
+  }
+  function sendFailed(msg) {
+    var box = document.getElementById("sendErr");
+    document.getElementById("sendErrText").textContent = msg || "お手数ですが hinagado.official@gmail.com へメールでご連絡ください。";
+    box.hidden = false;
+    box.scrollIntoView({ block: "center" });
+  }
+  function setSending(on) {
+    sending = on;
+    var nb = document.getElementById("next");
+    nb.disabled = on;
+    nb.setAttribute("aria-busy", on ? "true" : "false");
+    document.getElementById("back").disabled = on;
+    document.getElementById("nextLabel").textContent = on ? "送っています…" : "見積もりを依頼する";
+  }
+  function submit() {
+    if (sending) return;
+    document.getElementById("sendErr").hidden = true;
+    if (!ENDPOINT) { dirty = false; show("done"); return; }
+    var body;
+    try { body = JSON.stringify(payload()); } catch (err) { sendFailed(); return; }
+    setSending(true);
+    var ctl = typeof AbortController === "function" ? new AbortController() : null;
+    var timer = setTimeout(function () { if (ctl) ctl.abort(); }, 30000);
+    fetch(ENDPOINT, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: body, redirect: "follow", credentials: "omit", cache: "no-store", signal: ctl ? ctl.signal : undefined })
+      .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
+      .then(function (res) {
+        clearTimeout(timer);
+        setSending(false);
+        if (res && res.ok === true && typeof res.receipt === "string" && /^[0-9A-Z-]{4,20}$/.test(res.receipt)) {
+          document.getElementById("receiptNo").textContent = res.receipt;
+          dirty = false;
+          show("done");
+        } else {
+          sendFailed(res && res.code === "busy" ? "混み合っています。お手数ですが hinagado.official@gmail.com へメールで直接ご連絡ください。" : res && res.code === "email" ? "メールアドレスの形を確かめてください。直しても送れないときは、hinagado.official@gmail.com へメールでご連絡ください。" : "");
+        }
+      })
+      .catch(function () { clearTimeout(timer); setSending(false); sendFailed(); });
+  }
+  if (!ENDPOINT) {
+    document.getElementById("sampleBand").hidden = false;
+    document.getElementById("doneLive").hidden = true;
+    document.getElementById("doneSample").hidden = false;
+    document.getElementById("doneTitle").textContent = "送信の準備ができました";
+  }
+
+  /* ---- 操作 ---- */
+  form.addEventListener("change", function (e) { dirty = true; refresh(); var b = e.target.closest(".need"); if (b) b.classList.remove("need"); });
+  form.addEventListener("input", function (e) { dirty = true; if (e.target.closest(".num") || e.target.name === "pg_other_n") refresh(); var b = e.target.closest(".need"); if (b && e.target.value) b.classList.remove("need"); });
+  form.addEventListener("submit", function (e) { e.preventDefault(); });
+  form.addEventListener("keydown", function (e) { if (e.key === "Enter" && e.target.tagName === "INPUT" && e.target.type !== "checkbox" && e.target.type !== "radio") e.preventDefault(); });
+  form.addEventListener("click", function (e) {
+    var sb = e.target.closest("[data-step-btn]");
+    if (sb) {
+      var inp = document.getElementById(sb.getAttribute("data-step-btn"));
+      var n = parseInt(inp.value, 10); if (isNaN(n)) n = 0;
+      n = Math.min(50, Math.max(1, n + parseInt(sb.getAttribute("data-d"), 10)));
+      inp.value = n; dirty = true; refresh();
+      var nb = sb.closest(".need"); if (nb) nb.classList.remove("need");
+      return;
+    }
+    var ed = e.target.closest("[data-edit]");
+    if (ed) { returnToReview = true; show(ed.getAttribute("data-edit")); return; }
+  });
+  document.addEventListener("click", function (e) {
+    var doc = e.target.closest("[data-doc]");
+    if (!doc) return;
+    e.preventDefault();
+    var n1 = document.getElementById("docNote"), n2 = document.getElementById("footNote");
+    if (doc.closest("#foot")) n2.hidden = false; else n1.hidden = false;
+  });
+  document.getElementById("next").addEventListener("click", function () { go(1); });
+  document.getElementById("back").addEventListener("click", function () { go(-1); });
+  document.getElementById("toReview").addEventListener("click", function () {
+    if (!validateStep(cur)) return;
+    var list = activeSteps();
+    var pending = list.slice(0, list.indexOf("review")).filter(function (id) { return id !== "intro" && !silentOk(id); });
+    if (pending.length) { show(pending[0]); validateStep(pending[0]); return; }
+    show("review");
+  });
+  window.addEventListener("beforeunload", function (e) { if (dirty) { e.preventDefault(); e.returnValue = ""; } });
+  window.__hq = { show: show, answers: answers, hinagaQuote: hinagaQuote, payload: payload, get endpoint() { return ENDPOINT; }, get cur() { return cur; } };
+  refresh();
+  show("intro", { noFocus: true });
+})();
+</script>
+<!-- hinagado-count --><script>(function(){try{var n=navigator;if(location.hostname!=='hinagado.github.io'||n.webdriver||n.doNotTrack==='1'||n.globalPrivacyControl)return;var r='';try{if(document.referrer){var h=new URL(document.referrer).hostname;if(h!==location.hostname)r=h;}}catch(e){}fetch('https://script.google.com/macros/s/AKfycbwpjqQ1_9-8B6BsPATjMock46vFV-kEBeAFLwIxgC08nu0j3bL2VAwZVcjbeewVziDgoA/exec',{method:'POST',mode:'no-cors',credentials:'omit',keepalive:true,cache:'no-store',referrerPolicy:'no-referrer',headers:{'Content-Type':'text/plain'},body:JSON.stringify({p:"/studio/apply/form.html",r:r})}).catch(function(){});}catch(e){}})();</script>
+</body>
+</html>

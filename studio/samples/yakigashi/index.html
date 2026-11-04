@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' file: data:; style-src 'unsafe-inline'; font-src 'self' file:; script-src 'unsafe-inline'; connect-src https://script.google.com https://script.googleusercontent.com">
+<title>焼き菓子店 まるまる｜〇〇市の小さな焼き菓子店（見本）</title>
+<meta name="description" content="〇〇駅から歩いて3分。国産の小麦とバターで、毎朝その日のぶんだけ焼く小さな焼き菓子店です。">
+<style>
+@font-face { font-family: "ZenMaru"; src: url("fonts/ZenMaruGothic-Black.ttf"); font-weight: 900; font-display: swap; }
+:root {
+  --cream: #f8f1e6;
+  --cream2: #fcf7ef;
+  --butter: #efdfc2;
+  --kraft: #e3cfa9;
+  --brown: #4a3324;
+  --brown2: #75573f;
+  --text: #45352a;
+  --terra: #b5593a;
+  --terra-d: #964529;
+  --line: #dccbae;
+  --max: 1120px;
+  --r-photo: 4px;    /* 写真の角：ほぼ直角 */
+  --r-box: 10px;     /* 情報の枠 */
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic Medium", "Yu Gothic", YuGothic, Meiryo, sans-serif;
+  color: var(--text); line-height: 1.9; font-size: 16px; letter-spacing: .03em;
+  font-feature-settings: "palt"; -webkit-text-size-adjust: 100%;
+  /* 紙のざらつき（ごく薄く） */
+  background: var(--cream) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .3 0 0 0 0 .2 0 0 0 0 .1 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; }
+.wrap { width: min(100% - 48px, var(--max)); margin-inline: auto; }
+.num { font-family: ZenMaru, sans-serif; font-weight: 900; font-variant-numeric: tabular-nums; letter-spacing: 0; }
+.keep { word-break: keep-all; overflow-wrap: anywhere; }
+.lbl { display: inline-block; font-size: 13px; font-weight: 700; letter-spacing: .14em; color: var(--terra); }
+h2 { font-family: ZenMaru, sans-serif; font-weight: 900; color: var(--brown); font-size: clamp(26px, 3.2vw, 34px); line-height: 1.42; letter-spacing: .03em; margin-top: 8px; }
+
+/* ボタン */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 54px; padding: 0 28px; border-radius: 999px;
+  font-weight: 700; font-size: 16px; text-decoration: none; letter-spacing: .06em; transition: background .15s, color .15s; }
+.btn svg { width: 20px; height: 20px; flex: none; }
+.btn-main { background: var(--terra); color: #fff; }
+.btn-main:hover { background: var(--terra-d); }
+.btn-text { color: var(--brown); padding: 0 6px; min-height: 44px; border-bottom: 1.5px solid var(--brown); border-radius: 0; }
+.btn-line { color: var(--cream); border: 1.5px solid var(--cream); }
+.btn-line:hover { background: var(--cream); color: var(--brown); }
+
+/* 見出しの帯 */
+header.site { position: absolute; top: 0; left: 0; right: 0; z-index: 10; }
+header.site .wrap { display: flex; align-items: center; justify-content: space-between; height: 84px; }
+.logo { text-decoration: none; line-height: 1.2; }
+.logo small { display: block; font-size: 12px; letter-spacing: .2em; color: var(--brown2); }
+.logo b { font-family: ZenMaru, sans-serif; font-size: 22px; color: var(--brown); letter-spacing: .04em; }
+nav.gnav { display: flex; gap: 28px; font-size: 15px; font-weight: 700; letter-spacing: .08em; }
+nav.gnav a { text-decoration: none; color: var(--brown); padding: 11px 0; border-bottom: 1.5px solid transparent; }
+nav.gnav a:hover { border-color: var(--terra); }
+
+/* ファーストビュー */
+.hero { padding: 112px 0 56px; }
+.hero .wrap { display: grid; grid-template-columns: 0.92fr 1.08fr; gap: 56px; align-items: center; }
+.hero h1 { font-family: ZenMaru, sans-serif; font-weight: 900; color: var(--brown); font-size: clamp(34px, 4.4vw, 52px); line-height: 1.32; letter-spacing: .02em; margin: 16px 0 22px; }
+.hero h1 span { display: inline-block; }
+.hero .lead { max-width: 25em; }
+.hero .cta { display: flex; flex-wrap: wrap; align-items: center; gap: 22px; margin-top: 32px; }
+.hero .photo { position: relative; }
+.hero .photo img { width: 100%; aspect-ratio: 5 / 4.4; object-fit: cover; border-radius: var(--r-photo); }
+.hero .photo::before { content: ""; position: absolute; inset: 14px -14px -14px 14px; border: 1px solid var(--brown2); opacity: .4; z-index: -1; border-radius: var(--r-photo); }
+.ktag { position: absolute; display: inline-flex; align-items: center; gap: 8px; background: var(--kraft); color: var(--brown); font-weight: 700; font-size: 14px; letter-spacing: .06em;
+  padding: 8px 16px 8px 22px; clip-path: polygon(10px 0, 100% 0, 100% 100%, 10px 100%, 0 50%); box-shadow: 0 3px 8px rgba(60,35,15,.25); }
+.ktag::before { content: ""; position: absolute; left: 9px; top: 50%; width: 6px; height: 6px; border-radius: 50%; background: var(--cream); transform: translateY(-50%); }
+.hero .ktag { left: -18px; bottom: 28px; transform: rotate(-3deg); }
+.hero .open-note { display: none; }
+
+.today { border-top: 1px solid var(--brown); border-bottom: 1px solid var(--brown); position: relative; }
+.today::after { content: ""; position: absolute; left: 0; right: 0; bottom: 3px; border-bottom: 1px solid var(--brown); opacity: .35; }
+.today ul { list-style: none; display: flex; justify-content: space-between; gap: 16px; padding: 16px 0 18px; }
+.today li { display: flex; align-items: baseline; gap: 12px; font-size: 15px; color: var(--brown); }
+.today li span { font-size: 13px; color: var(--brown2); letter-spacing: .12em; }
+.today li b { font-size: 18px; }
+
+section.block { padding: 104px 0; }
+
+/* まるまるの朝（工程） */
+.morning .head { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: end; margin-bottom: 56px; }
+.morning .head p { max-width: 26em; }
+.steps { position: relative; display: grid; gap: 72px; }
+.steps::before { content: ""; position: absolute; left: 50%; top: 10px; bottom: 10px; border-left: 1.5px dotted var(--brown2); opacity: .55; }
+.step { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; position: relative; }
+.step::after { content: ""; position: absolute; left: calc(50% - 6px); top: calc(50% - 6px); width: 12px; height: 12px; border-radius: 50%; background: var(--cream); border: 2px solid var(--terra); }
+.step img { width: 100%; object-fit: cover; border-radius: var(--r-photo); }
+.step .t { font-size: 46px; color: var(--terra); line-height: 1; }
+.step .t small { position: relative; display: inline-block; vertical-align: middle; margin-left: 12px; font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif; font-weight: 700; font-size: 13px; letter-spacing: .1em; color: var(--brown); background: var(--kraft); padding: 4px 12px 4px 18px; clip-path: polygon(8px 0, 100% 0, 100% 100%, 8px 100%, 0 50%); transform: translateY(-6px) rotate(-2deg); }
+.step .t small::before { content: ""; position: absolute; left: 7px; top: 50%; width: 5px; height: 5px; border-radius: 50%; background: var(--cream); transform: translateY(-50%); }
+.step h3 { font-size: 22px; color: var(--brown); letter-spacing: .05em; margin: 12px 0 10px; line-height: 1.5; }
+.step p { max-width: 24em; }
+.step.s1 img { aspect-ratio: 4 / 3; }
+.step.s2 .ph { order: 2; padding: 0 12% 0 0; } .step.s2 img { aspect-ratio: 1 / 1; }
+.step.s3 img { aspect-ratio: 16 / 10; }
+.step.s4 .ph { order: 2; padding: 0 0 0 10%; } .step.s4 img { aspect-ratio: 4 / 3; }
+
+/* メニュー */
+.menu { background: var(--cream2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.menu .wrap { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 80px; align-items: start; }
+.menu .side { position: sticky; top: 40px; }
+.menu .side img { border-radius: var(--r-photo); aspect-ratio: 4 / 4.6; object-fit: cover; width: 100%; margin-top: 28px; }
+.menu .cap { font-size: 13px; color: var(--brown2); margin-top: 8px; }
+.cat { margin-bottom: 48px; }
+.cat h3 { font-size: 19px; color: var(--brown); letter-spacing: .14em; padding-bottom: 10px; border-bottom: 2px solid var(--brown); }
+.cat ul { list-style: none; }
+.cat li { padding: 16px 0 14px; border-bottom: 1px solid var(--line); }
+.cat .row { display: flex; align-items: baseline; gap: 10px; }
+.cat .n { font-weight: 700; color: var(--brown); font-size: 17px; }
+.cat .dots { flex: 1; border-bottom: 2px dotted #c4ae8c; transform: translateY(-5px); min-width: 24px; }
+.cat .p { font-size: 21px; color: var(--terra); min-width: 4.2em; text-align: right; white-space: nowrap; }
+.cat .p small { font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif; font-size: 13px; font-weight: 700; margin-left: 2px; color: var(--brown2); }
+.cat .d { font-size: 14.5px; color: var(--brown2); line-height: 1.7; margin-top: 2px; }
+.menu .note { font-size: 14px; color: var(--brown2); }
+
+/* ごあいさつ */
+.greet .wrap { display: grid; grid-template-columns: auto 1fr; gap: 36px; align-items: start; max-width: 860px; }
+.greet h2 { writing-mode: vertical-rl; margin: 0; font-size: 32px; letter-spacing: .14em; line-height: 1.5; border-right: 2px solid var(--terra); padding-right: 14px; }
+.greet .txt p + p { margin-top: 20px; }
+.greet .txt p:first-child { font-size: 19px; color: var(--brown); line-height: 1.9; font-weight: 700; }
+.greet .sign { margin-top: 28px; display: flex; align-items: baseline; gap: 14px; font-size: 14px; color: var(--brown2); }
+.greet .sign b { font-family: ZenMaru, sans-serif; font-size: 20px; color: var(--brown); letter-spacing: .15em; }
+
+/* 営業日・アクセス */
+.access { background: var(--butter); }
+.access .grid { display: grid; grid-template-columns: 1fr 1fr; margin-top: 40px; border-top: 2px solid var(--brown); }
+.access .col { padding: 32px 48px 8px 0; }
+.access .col + .col { padding: 32px 0 8px 48px; border-left: 1px solid rgba(74,51,36,.3); }
+.access h3 { font-size: 15px; letter-spacing: .2em; color: var(--terra-d); margin-bottom: 16px; }
+.hours { display: grid; grid-template-columns: 6em 1fr; row-gap: 14px; }
+.hours dt { color: var(--brown2); font-size: 14px; padding-top: 4px; }
+.hours dd { color: var(--brown); font-weight: 700; }
+.hours dd .big { font-size: 28px; display: block; line-height: 1.2; }
+.hours dd small { font-weight: 500; font-size: 14px; color: var(--brown2); }
+.addr { font-size: 18px; color: var(--brown); font-weight: 700; }
+.addr small { display: block; font-size: 14px; font-weight: 500; color: var(--brown2); margin-top: 2px; }
+.route { list-style: none; counter-reset: s; margin-top: 20px; }
+.route li { counter-increment: s; position: relative; padding: 0 0 16px 44px; }
+.route li::before { content: counter(s); position: absolute; left: 0; top: 0; width: 28px; height: 28px; border-radius: 50%; background: var(--brown); color: var(--cream); font-family: ZenMaru, sans-serif; font-size: 14px; display: grid; place-content: center; }
+.route li:not(:last-child)::after { content: ""; position: absolute; left: 13.5px; top: 32px; bottom: 4px; border-left: 1.5px dotted var(--brown2); }
+.route li b { color: var(--brown); }
+.park { font-size: 14px; color: var(--brown2); border-top: 1px solid rgba(74,51,36,.25); padding-top: 12px; }
+
+/* 問い合わせ */
+.contact { background: var(--brown); color: var(--cream); padding: 88px 0; }
+.contact .wrap { display: grid; grid-template-columns: 1.2fr 1fr; gap: 56px; align-items: end; }
+.contact h2 { color: var(--cream); }
+.contact .lbl { color: #e9b48f; }
+.contact p { margin-top: 14px; color: #eadfcf; }
+.contact .tel-num { font-size: clamp(32px, 4vw, 44px); color: #fff; line-height: 1.2; }
+.contact .tel-num small { display: block; font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif; font-weight: 500; font-size: 14px; color: #d8c7b1; margin-top: 6px; letter-spacing: .06em; }
+.contact .btns { display: grid; gap: 12px; margin-top: 24px; }
+.contact .memo { font-size: 13px; color: #cdb9a0; }
+
+footer { background: #3d2a1d; color: #d3c2ac; font-size: 13px; padding: 26px 0 30px; }
+footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+
+.sp-bar { display: none; }
+.pc-fab { position: fixed; right: 28px; bottom: 28px; z-index: 20; box-shadow: 0 10px 24px -8px rgba(74,51,36,.5); opacity: 0; transform: translateY(12px); pointer-events: none; transition: opacity .3s, transform .3s; }
+.pc-fab.show { opacity: 1; transform: none; pointer-events: auto; }
+.spnav { display: none; }
+
+/* ふわっと表示 */
+.fade { opacity: 0; transform: translateY(16px); transition: opacity .8s ease, transform .8s ease; }
+.fade.on { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .fade { opacity: 1; transform: none; transition: none; } html { scroll-behavior: auto; } }
+
+/* タブレット・スマホ */
+@media (max-width: 900px) {
+  nav.gnav, .pc-fab { display: none; }
+  header.site .wrap { height: 68px; }
+  .spnav { display: block; position: relative; }
+  .spnav summary { list-style: none; width: 48px; height: 48px; border-radius: 50%; border: 1.5px solid var(--brown); display: grid; place-content: center; cursor: pointer; color: var(--brown); font-size: 10px; font-weight: 700; line-height: 1; }
+  .spnav summary::-webkit-details-marker { display: none; }
+  .spnav summary i { display: block; width: 18px; height: 2px; background: currentColor; margin: 6px auto 8px; box-shadow: 0 -5px 0 currentColor, 0 5px 0 currentColor; }
+  .spnav nav { position: absolute; right: 0; top: 56px; background: var(--cream2); border-radius: var(--r-box); box-shadow: 0 16px 32px -12px rgba(74,51,36,.35); padding: 8px; min-width: 210px; display: grid; }
+  .spnav nav a { text-decoration: none; color: var(--brown); font-weight: 700; padding: 13px 14px; font-size: 15px; }
+  .spnav nav a + a { border-top: 1px dashed var(--line); }
+
+  .hero { padding: 76px 0 40px; }
+  .hero .wrap { grid-template-columns: 1fr; gap: 28px; }
+  .hero .photo { order: -1; margin: 0 -24px; }
+  .hero .photo img { aspect-ratio: 4 / 3.1; border-radius: 0; }
+  .hero .photo::before { display: none; }
+  .hero .ktag { left: 12px; bottom: -14px; font-size: 13px; }
+  .hero .open-note { padding: 0 24px; }
+  .hero h1 { margin: 10px 0 16px; }
+  .hero .cta { gap: 16px; margin-top: 24px; }
+  .hero .cta .btn-main { flex: 1 1 100%; }
+  .today ul { flex-direction: column; gap: 6px; padding: 14px 0; }
+  section.block { padding: 72px 0; }
+  .morning .head { grid-template-columns: 1fr; gap: 14px; margin-bottom: 36px; }
+  .steps { gap: 44px; }
+  .steps::before, .step::after { display: none; }
+  .step { grid-template-columns: 1fr; gap: 18px; }
+  .step .ph, .step.s2 .ph, .step.s4 .ph { order: 0; margin: 0 -24px; padding: 0; }
+  .step.s2 .ph { margin: 0 18% 0 -24px; } .step.s4 .ph { margin: 0 -24px 0 18%; }
+  .step img { border-radius: 0; }
+  .step.s2 img, .step.s4 img { border-radius: var(--r-photo); }
+  .step.s2 .ph img { border-radius: 0 var(--r-photo) var(--r-photo) 0; }
+  .step.s4 .ph img { border-radius: var(--r-photo) 0 0 var(--r-photo); }
+  .step .t { font-size: 38px; }
+  .step h3 { font-size: 20px; margin: 8px 0 6px; }
+  .menu .wrap, .access .grid, .contact .wrap { grid-template-columns: 1fr; gap: 32px; }
+  .menu .side { position: static; }
+  .menu .side img { aspect-ratio: 16 / 10; margin-top: 20px; }
+  .greet .wrap { grid-template-columns: 1fr; gap: 20px; }
+  .greet h2 { writing-mode: horizontal-tb; border-right: 0; padding: 0 0 0 14px; border-left: 3px solid var(--terra); font-size: 26px; letter-spacing: .06em; }
+  .greet .txt p:first-child { font-size: 17px; }
+  .access .col, .access .col + .col { padding: 24px 0 8px; border-left: 0; }
+  .access .col + .col { border-top: 1px solid rgba(74,51,36,.3); }
+  .contact { padding: 64px 0 100px; }
+  footer { padding-bottom: 100px; }
+  .sp-bar { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; position: fixed; left: 0; right: 0; bottom: 0; z-index: 20;
+    padding: 10px 12px calc(10px + env(safe-area-inset-bottom)); background: rgba(248,241,230,.95); backdrop-filter: blur(8px); border-top: 1px solid var(--line); }
+  .sp-bar .btn { min-height: 52px; padding: 0 10px; font-size: 15px; }
+  .sp-bar .btn-tel { border: 1.5px solid var(--brown); color: var(--brown); }
+}
+@media (max-width: 380px) {
+  body { font-size: 15px; }
+  .wrap { width: calc(100% - 36px); }
+  .hero .photo, .step .ph { margin-left: -18px; margin-right: -18px; }
+  .step.s2 .ph { margin: 0 18% 0 -18px; } .step.s4 .ph { margin: 0 -18px 0 18%; }
+  .hero .open-note { padding: 0 18px; }
+}
+</style>
+</head>
+<body>
+<div class="hs-sample-band" style="position:relative;z-index:9999;background:#15283C;color:#F6EFE2;font:500 13px/1.6 'BIZ UDPGothic','Hiragino Sans','Yu Gothic UI','Meiryo',sans-serif;padding:7px 16px;text-align:center;letter-spacing:.02em">ひなが堂 制作室の<b>見本</b>です（架空のお店・名前や住所は実在しません。写真は見本用に AI で作った物です）　<a href="../../works.html#hp" style="color:#F6EFE2;font-weight:700;text-decoration:underline;white-space:nowrap">← 見本の一覧へ戻る</a></div>
+
+<header class="site">
+  <div class="wrap">
+    <a class="logo" href="#top"><small>焼き菓子と、ちいさな喫茶</small><b>焼き菓子店 まるまる</b></a>
+    <nav class="gnav" aria-label="ページ内の案内">
+      <a href="#morning">まるまるの朝</a><a href="#menu">メニュー</a><a href="#greeting">ごあいさつ</a><a href="#access">営業日・アクセス</a><a href="#contact">ご予約</a>
+    </nav>
+    <details class="spnav"><summary aria-label="ページ内メニュー"><i></i>MENU</summary>
+      <nav aria-label="ページ内の案内（スマホ）"><a href="#morning">まるまるの朝</a><a href="#menu">メニューと料金</a><a href="#greeting">ごあいさつ</a><a href="#access">営業日・アクセス</a><a href="#contact">お取りおき・ご予約</a></nav>
+    </details>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <div class="txt fade">
+        <span class="lbl">〇〇駅から歩いて3分の焼き菓子店</span>
+        <h1><span>毎日たべたい、</span><br><span>ふつうのおやつ。</span></h1>
+        <p class="lead keep">国産の小麦と<wbr>バターを使って、<wbr>毎朝その日のぶんだけ<wbr>焼いています。<wbr>おうちのおやつにも、<wbr>ちょっとした<wbr>手みやげにも。</p>
+        <div class="cta">
+          <a class="btn btn-main" href="#contact">お取りおき・ご予約</a>
+          <a class="btn btn-text" href="#menu">メニューと料金を見る</a>
+        </div>
+      </div>
+      <div class="photo fade">
+        <img src="img/web/shop.jpg" alt="木のカウンターに焼き菓子が並ぶ店内" width="1600" height="900">
+        <span class="ktag">朝10時、焼きたてから並びます</span>
+        <p class="open-note"><span>朝10時、焼きたてから並びます</span><span>店内 4席</span></p>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap today fade">
+    <ul>
+      <li><span>営業</span><b class="num">10:00–17:00</b></li>
+      <li><span>定休日</span><b>月曜・火曜</b></li>
+      <li><span>場所</span><b>〇〇駅 東口から3分</b></li>
+    </ul>
+  </div>
+
+  <section class="block morning" id="morning">
+    <div class="wrap">
+      <div class="head fade">
+        <div><span class="lbl">まるまるの朝</span><h2>開店までの3時間半、<br>こうして焼いています。</h2></div>
+        <p class="keep">特別な日のごちそうではなく、<wbr>なんでもない日に<wbr>手がのびるおやつを。<wbr>そのために毎朝<wbr>くり返していることです。</p>
+      </div>
+      <div class="steps">
+        <div class="step s1 fade">
+          <div class="ph"><img src="img/web/ingredients.jpg" alt="小麦粉とバターと卵" loading="lazy" width="1448" height="1086"></div>
+          <div><div class="t num">6:30<small>はかる</small></div><h3>国産の小麦と、発酵バター</h3><p class="keep">材料はできるだけ<wbr>シンプルに。<wbr>その日の気温を見て、<wbr>バターのやわらかさを<wbr>整えるところから<wbr>始めます。</p></div>
+        </div>
+        <div class="step s2 fade">
+          <div class="ph"><img src="img/web/hands.jpg" alt="型でクッキー生地を抜いている手元" loading="lazy" width="1536" height="1024" style="object-position:35% 50%"></div>
+          <div><div class="t num">7:15<small>かたどる</small></div><h3>ひとつずつ、手で</h3><p class="keep">クッキーは<wbr>型で抜き、<wbr>フィナンシェは<wbr>型に流して。<wbr>形が少しずつ違うのも、<wbr>手づくりのしるしです。</p></div>
+        </div>
+        <div class="step s3 fade">
+          <div class="ph"><img src="img/web/scone.jpg" alt="焼きたてのスコーンとジャム" loading="lazy" width="1254" height="1254" style="object-position:50% 60%"></div>
+          <div><div class="t num">8:30<small>焼き上がり</small></div><h3>作りおきは、しません</h3><p class="keep">焼きたての<wbr>香ばしさを<wbr>味わってほしいから、<wbr>その日のぶんだけ。<wbr>売り切れの日は<wbr>ごめんなさい。</p></div>
+        </div>
+        <div class="step s4 fade">
+          <div class="ph"><img src="img/web/gift.jpg" alt="リボンをかけた箱と個包装のクッキー" loading="lazy" width="1448" height="1086"></div>
+          <div><div class="t num">10:00<small>開店</small></div><h3>手みやげの包装も</h3><p class="keep">ちょっとしたお礼や<wbr>ご挨拶に。<wbr>ご予算と個数を<wbr>お伝えいただければ、<wbr>詰め合わせを<wbr>ご用意します。</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block menu" id="menu">
+    <div class="wrap">
+      <div class="side fade">
+        <span class="lbl">いつもの焼き菓子</span><h2>メニューと料金</h2>
+        <img src="img/web/yakigashi.jpg" alt="焼き菓子の盛り合わせ" loading="lazy" width="1280" height="1600">
+        <p class="cap keep">写真はフィナンシェ・<wbr>マドレーヌ・クッキーの<wbr>盛り合わせの一例です</p>
+      </div>
+      <div class="fade">
+        <div class="cat">
+          <h3>焼き菓子</h3>
+          <ul>
+            <li><div class="row"><span class="n">フィナンシェ</span><span class="dots"></span><span class="p num">220<small>円</small></span></div><p class="d keep">焦がしバターの香り。<wbr>外はさっくり、<wbr>中はしっとり。</p></li>
+            <li><div class="row"><span class="n">マドレーヌ</span><span class="dots"></span><span class="p num">200<small>円</small></span></div><p class="d keep">はちみつ入りで、<wbr>ふんわりやさしい<wbr>口あたり。</p></li>
+            <li><div class="row"><span class="n">スコーン</span><span class="dots"></span><span class="p num">280<small>円</small></span></div><p class="d keep">ざっくり割って、<wbr>ジャムを添えて<wbr>どうぞ。</p></li>
+            <li><div class="row"><span class="n">バタークッキー 5枚</span><span class="dots"></span><span class="p num">450<small>円</small></span></div><p class="d keep">ほろっとくずれる、<wbr>いちばん人気の<wbr>定番です。</p></li>
+            <li><div class="row"><span class="n">詰め合わせ</span><span class="dots"></span><span class="p num">1,500<small>円〜</small></span></div><p class="d keep">箱とリボンで包みます。<wbr>前日までの<wbr>ご予約がおすすめです。</p></li>
+          </ul>
+        </div>
+        <div class="cat">
+          <h3>喫茶（店内 4席）</h3>
+          <ul>
+            <li><div class="row"><span class="n">ドリップコーヒー</span><span class="dots"></span><span class="p num">450<small>円</small></span></div></li>
+            <li><div class="row"><span class="n">紅茶（ポットで）</span><span class="dots"></span><span class="p num">500<small>円</small></span></div></li>
+            <li><div class="row"><span class="n">焼き菓子セット</span><span class="dots"></span><span class="p num">650<small>円</small></span></div><p class="d keep">お好きな焼き菓子1つと<wbr>お飲みもの。</p></li>
+          </ul>
+        </div>
+        <p class="note keep">価格はすべて税込です。<wbr>季節によって<wbr>内容が変わることがあります。<br>※この見本の写真は、見本用に AI で作った物です。<wbr>実際のご依頼では、<wbr>商品の写真は<wbr>お客様が撮った物を<wbr>使います。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block greet" id="greeting">
+    <div class="wrap fade">
+      <h2>店主より</h2>
+      <div class="txt">
+        <p class="keep">子どものころ、<wbr>家で母と焼いた<wbr>クッキーのにおいが<wbr>大好きでした。</p>
+        <p class="keep">あのころのような、<wbr>気どらないおやつを<wbr>この町で焼けたらと思い、<wbr>小さなお店をはじめました。<wbr>お散歩のついでに、<wbr>どうぞ気軽に<wbr>のぞいてみてください。<wbr>焼き上がりの時間には、<wbr>お店の前まで<wbr>いい香りがしています。</p>
+        <div class="sign">店主<b>〇〇 〇〇</b></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block access" id="access">
+    <div class="wrap">
+      <div class="fade"><span class="lbl">お店のこと</span><h2>営業日・アクセス</h2></div>
+      <div class="grid fade">
+        <div class="col">
+          <h3>営業日</h3>
+          <dl class="hours">
+            <dt>営業時間</dt><dd><span class="big num">10:00–17:00</span><small>売り切れしだい終了します</small></dd>
+            <dt>定休日</dt><dd>月曜日・火曜日<br><small class="keep">祝日は営業し、<wbr>翌日に<wbr>お休みをいただきます</small></dd>
+            <dt>お席</dt><dd>店内 4席<br><small>お持ち帰りだけでもどうぞ</small></dd>
+          </dl>
+        </div>
+        <div class="col">
+          <h3>アクセス</h3>
+          <p class="addr">〒000-0000　〇〇市〇〇町5-6-7<small>〇〇駅 東口から歩いて3分</small></p>
+          <ol class="route">
+            <li class="keep">〇〇駅の<b>東口</b>を出て、<wbr>大通りを<wbr>まっすぐ北へ。</li>
+            <li class="keep">ひとつめの信号、<wbr><b>郵便局の角</b>を<wbr>右へ曲がります。</li>
+            <li class="keep">右手の2軒目、<wbr><b>緑の扉の白い建物</b>が<wbr>当店です。</li>
+          </ol>
+          <p class="park keep">駐車場はありません。<wbr>近くのコインパーキングを<wbr>ご利用ください。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <div class="wrap">
+      <div class="fade">
+        <span class="lbl">お取りおき・ご予約</span>
+        <h2>前日までのご連絡で、<br>確実にご用意します。</h2>
+        <p class="keep">詰め合わせや<wbr>まとまった数のご注文は、<wbr>お電話か<wbr>予約ページからどうぞ。</p>
+      </div>
+      <div class="fade">
+        <div class="tel-num num">000-0000-0000<small>受付 10:00–17:00（月・火をのぞく）</small></div>
+        <div class="btns">
+          <a class="btn btn-main" href="tel:00000000000">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3.5h3.5l1.8 4.6-2.3 1.4a11 11 0 0 0 6.5 6.5l1.4-2.3 4.6 1.8V19a1.5 1.5 0 0 1-1.6 1.5C10.6 20 4 13.4 3.5 5.1A1.5 1.5 0 0 1 5 3.5z"/></svg>
+            電話をかける</a>
+          <a class="btn btn-line" href="#contact">予約ページへ</a>
+          <p class="memo keep">予約ページは、<wbr>お使いの予約サービスに<wbr>おつなぎします</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap"><span>焼き菓子店 まるまる　〇〇市〇〇町5-6-7</span><span>※このページは見本用の架空のお店です。写真は見本用に AI で作った物です（実際のご依頼では、商品の写真はお客様が撮った物を使います）</span></div>
+</footer>
+
+<a class="btn btn-main pc-fab" href="#contact">ご予約・お取りおき</a>
+
+<div class="sp-bar">
+  <a class="btn btn-tel" href="tel:00000000000">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3.5h3.5l1.8 4.6-2.3 1.4a11 11 0 0 0 6.5 6.5l1.4-2.3 4.6 1.8V19a1.5 1.5 0 0 1-1.6 1.5C10.6 20 4 13.4 3.5 5.1A1.5 1.5 0 0 1 5 3.5z"/></svg>電話する</a>
+  <a class="btn btn-main" href="#contact">ご予約</a>
+</div>
+
+<script>
+(function () {
+  var els = document.querySelectorAll('.fade');
+  if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('on'); }); return; }
+  var io = new IntersectionObserver(function (ents) {
+    ents.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('on'); io.unobserve(en.target); } });
+  }, { rootMargin: '0px 0px -8% 0px' });
+  els.forEach(function (e) { io.observe(e); });
+})();
+(function () {
+  var fab = document.querySelector('.pc-fab'), contact = document.getElementById('contact');
+  function upd() { var y = window.scrollY, c = contact.getBoundingClientRect().top; fab.classList.toggle('show', y > 600 && c > window.innerHeight * 0.6); }
+  window.addEventListener('scroll', upd, { passive: true }); upd();
+  var d = document.querySelector('.spnav');
+  d.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', function () { d.removeAttribute('open'); }); });
+})();
+</script>
+<!-- hinagado-count --><script>(function(){try{var n=navigator;if(location.hostname!=='hinagado.github.io'||n.webdriver||n.doNotTrack==='1'||n.globalPrivacyControl)return;var r='';try{if(document.referrer){var h=new URL(document.referrer).hostname;if(h!==location.hostname)r=h;}}catch(e){}fetch('https://script.google.com/macros/s/AKfycbwpjqQ1_9-8B6BsPATjMock46vFV-kEBeAFLwIxgC08nu0j3bL2VAwZVcjbeewVziDgoA/exec',{method:'POST',mode:'no-cors',credentials:'omit',keepalive:true,cache:'no-store',referrerPolicy:'no-referrer',headers:{'Content-Type':'text/plain'},body:JSON.stringify({p:"/studio/samples/yakigashi/index.html",r:r})}).catch(function(){});}catch(e){}})();</script>
+</body>
+</html>
