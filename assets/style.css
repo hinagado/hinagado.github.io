@@ -300,3 +300,6 @@ h1,h2,h3{font-family:var(--round);font-weight:700;letter-spacing:.06em;line-heig
 .vnote{font-size:14px;color:var(--ai)}
 .vcard:hover .vthumb{transform:translateY(-2px)}
 @media (max-width:520px){.vcard{width:calc(50% - 12px)}}
+
+/* 無料ゲーム（play/index.html）の下の説明 2026-11-04 */
+.play-note{margin-top:32px}
