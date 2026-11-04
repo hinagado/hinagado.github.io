@@ -1,0 +1,33 @@
+{
+  "name": "ポイント・クーポンの期限メモ（ひなが堂）",
+  "short_name": "ポイント期限",
+  "description": "お店のポイント・ギフト券・クーポンの期限を入れると、期限が近い順に並ぶメモ。7日以内と期限切れは色でわかります。登録なしで、スマホですぐ使えます。",
+  "lang": "ja",
+  "dir": "ltr",
+  "id": "./kigen.html",
+  "start_url": "./kigen.html",
+  "scope": "./kigen.html",
+  "display": "standalone",
+  "theme_color": "#24466b",
+  "background_color": "#f6efe2",
+  "icons": [
+    {
+      "src": "icons/kigen-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/kigen-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/kigen-m512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

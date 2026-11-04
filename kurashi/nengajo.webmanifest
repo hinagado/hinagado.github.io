@@ -1,0 +1,33 @@
+{
+  "name": "年賀状のやりとり（ひなが堂）",
+  "short_name": "年賀状",
+  "description": "年賀状を出した・来た・喪中を、相手ごと・年ごとに記録。今年出す相手と、来たのにまだ出していない人がすぐわかります。住所は入れません。登録なしで使えます。",
+  "lang": "ja",
+  "dir": "ltr",
+  "id": "./nengajo.html",
+  "start_url": "./nengajo.html",
+  "scope": "./nengajo.html",
+  "display": "standalone",
+  "theme_color": "#24466b",
+  "background_color": "#f6efe2",
+  "icons": [
+    {
+      "src": "icons/nengajo-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/nengajo-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/nengajo-m512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

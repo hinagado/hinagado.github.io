@@ -275,6 +275,57 @@ details.grp summary{cursor:pointer;min-height:48px;display:flex;flex-wrap:wrap;a
 .kn-days b{font-size:30px;color:var(--shu)}
 .item.kn-now{border-color:var(--shu);background:#fff4ef}
 #home{scroll-margin-top:86px}
+/* 一覧の小見出し（2026-11-04 夜。年末年始の4本をまとめる） */
+.kgroup{font-size:23px;margin:30px 0 14px;padding-left:12px;border-left:5px solid var(--shu)}
+.kgroup:first-of-type{margin-top:6px}
+.kgroup-lead{margin:-6px 0 14px;color:var(--muted);font-size:15.5px}
+.card h3{margin:0;font-size:21px}
+.card h3 a{text-decoration:none;color:inherit}
+.card h3 a:hover{text-decoration:underline}
+.cards.season .card{border:2px solid var(--shu);background:#fff7f1}
+/* 進み具合の棒（大掃除・年末年始） */
+.bar{height:14px;background:#ece5d8;border-radius:999px;overflow:hidden;margin:6px 0 0}
+.bar i{display:block;height:100%;background:var(--ok);border-radius:999px}
+.prog{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:10px}
+.prog li{min-width:0}
+.prog .lbl{display:flex;justify-content:space-between;gap:8px;font-size:16px;font-weight:700;color:var(--ai-deep)}
+.prog .lbl span{overflow-wrap:anywhere;min-width:0}
+.prog .lbl b{white-space:nowrap}
+/* 小さな操作（消すなど）を右に */
+.ck-row{display:flex;align-items:flex-start;gap:8px;border-top:1px dashed var(--line)}
+.ck-row .chk{flex:1;margin:0;padding:10px 2px;min-height:48px;min-width:0}
+.ck-row .chk span{overflow-wrap:anywhere;min-width:0}
+.ck-row .chk.on span{color:#7d776c;text-decoration:line-through}
+.ck-row .btn{margin:6px 0}
+.add-line{display:flex;gap:8px;margin:8px 0 10px;flex-wrap:wrap}
+.add-line input.t{flex:1 1 180px;font-size:17px;min-height:48px;padding:8px 10px}
+.add-line .btn{flex:none;min-height:48px}
+/* 出した・来た・喪中などの切りかえボタン */
+.tog{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 0}
+.tog button{appearance:none;font:inherit;font-weight:700;font-size:15.5px;min-height:46px;min-width:64px;padding:4px 12px;border-radius:12px;border:2px solid var(--ai);background:#fff;color:var(--ai);cursor:pointer}
+.tog button[aria-pressed="true"]{background:var(--ai);color:#fff}
+.tog button.m[aria-pressed="true"]{background:#5b4a8b;border-color:#5b4a8b}
+.tog button.r[aria-pressed="true"]{background:var(--ok);border-color:var(--ok)}
+.tog button:focus-visible{outline:3px solid #9cc0e6}
+.names{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 0;padding:0;list-style:none}
+.names li{background:#fff;border:2px solid var(--line);border-radius:999px;padding:2px 12px;font-size:16px;overflow-wrap:anywhere;max-width:100%}
+.names li.done{text-decoration:line-through;color:#8d877c}
+/* ○△× */
+.tri{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin:6px 0 0}
+.tri button{appearance:none;font:inherit;font-weight:700;font-size:22px;min-height:52px;border-radius:12px;border:2px solid var(--ai);background:#fff;color:var(--ai);cursor:pointer;padding:0 2px}
+.tri button small{font-size:13px}
+.tri button[aria-pressed="true"]{background:var(--ai);color:#fff}
+.goal-box{background:#fff;border:2px solid var(--line);border-radius:16px;padding:10px 12px;margin:10px 0 0;min-width:0}
+.goal-box .txt{font-size:17px;font-weight:700;margin:0;overflow-wrap:anywhere}
+textarea.t{width:100%;font:inherit;font-size:18px;padding:10px 12px;border:2px solid #c9bda6;border-radius:12px;background:var(--pale);color:var(--ink);min-height:90px;resize:vertical}
+textarea.t:focus{outline:3px solid #9cc0e6;border-color:var(--ai)}
+.hy td.mk{text-align:center;font-size:19px;font-weight:700}
+.hy td.note-cell{min-width:9em;font-size:14.5px}
+.item.past{background:#f3f1ec;border-color:#e7e2d8}
+.item.past .txt{color:#8d877c}
+.tool h2.h2b{margin-top:22px}
+.facts li b.bad{color:var(--warn)}
+.item .meta b{color:var(--ai-deep);font-size:16px}
 </style>
 </head>
 <body>
@@ -393,6 +444,14 @@ details.grp summary{cursor:pointer;min-height:48px;display:flex;flex-wrap:wrap;a
         <li><a href="subsc.html">サブスク合計（月と年の合計・次の更新日） →</a></li>
         <li><a href="bousai.html">防災の持ち出しチェック（家族に合わせて） →</a></li>
         <li><a href="kinenbi.html">記念日・誕生日まで何日 →</a></li>
+        <li><a href="osouji.html">大掃除チェック（場所ごとの進み具合） →</a></li>
+        <li><a href="otoshidama.html">お年玉の管理（あげる・もらった） →</a></li>
+        <li><a href="nengajo.html">年賀状のやりとり（出した・来た・喪中） →</a></li>
+        <li><a href="shogatsu.html">年末年始の段取り（12月中ごろ〜三が日） →</a></li>
+        <li><a href="kigen.html">ポイント・クーポンの期限メモ →</a></li>
+        <li><a href="mokuhyo.html">1年の目標と月のふりかえり →</a></li>
+        <li><a href="goshugi.html">ご祝儀・香典の記録（お返しの管理） →</a></li>
+        <li><a href="tokubetsu.html">特別費の予算（毎月いくら取り分けるか） →</a></li>
         <li><a href="index.html">くらしのアプリの一覧へ →</a></li>
         <li><a href="../keisan/index.html">計算の道具（和暦・日数・消費税など）→</a></li>
       </ul>

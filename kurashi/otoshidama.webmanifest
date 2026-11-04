@@ -1,0 +1,33 @@
+{
+  "name": "お年玉の管理（ひなが堂）",
+  "short_name": "お年玉",
+  "description": "お年玉をあげる相手と金額、渡したかどうか、合計を年ごとに管理。去年の相手と金額を写せます。子どもがもらった分の記録も別に見られます。登録なしで使えます。",
+  "lang": "ja",
+  "dir": "ltr",
+  "id": "./otoshidama.html",
+  "start_url": "./otoshidama.html",
+  "scope": "./otoshidama.html",
+  "display": "standalone",
+  "theme_color": "#24466b",
+  "background_color": "#f6efe2",
+  "icons": [
+    {
+      "src": "icons/otoshidama-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/otoshidama-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/otoshidama-m512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "name": "年末年始の段取り（ひなが堂）",
+  "short_name": "年末年始",
+  "description": "12月の中ごろから三が日までのやることの例を、その年の曜日に合わせた日付の順に並べました。済んだら✓、足す・消すも自由。登録なしで使えます。",
+  "lang": "ja",
+  "dir": "ltr",
+  "id": "./shogatsu.html",
+  "start_url": "./shogatsu.html",
+  "scope": "./shogatsu.html",
+  "display": "standalone",
+  "theme_color": "#24466b",
+  "background_color": "#f6efe2",
+  "icons": [
+    {
+      "src": "icons/shogatsu-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/shogatsu-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/shogatsu-m512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

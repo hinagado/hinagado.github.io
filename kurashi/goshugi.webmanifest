@@ -1,0 +1,33 @@
+{
+  "name": "ご祝儀・香典の記録（ひなが堂）",
+  "short_name": "ご祝儀記録",
+  "description": "いただいた・お渡ししたご祝儀や香典、お見舞いを、相手・行事・金額・日付で記録。合計と、お返しがまだの一覧がわかります。金額の相場は出しません。",
+  "lang": "ja",
+  "dir": "ltr",
+  "id": "./goshugi.html",
+  "start_url": "./goshugi.html",
+  "scope": "./goshugi.html",
+  "display": "standalone",
+  "theme_color": "#24466b",
+  "background_color": "#f6efe2",
+  "icons": [
+    {
+      "src": "icons/goshugi-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/goshugi-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/goshugi-m512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

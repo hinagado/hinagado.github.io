@@ -1,0 +1,33 @@
+{
+  "name": "特別費の予算（ひなが堂）",
+  "short_name": "特別費",
+  "description": "車検・税金・旅行・帰省など年に何回かの出費を入れると、1年の合計と、今月から毎月いくら積み立てれば足りるかがわかります。式もページにあります。",
+  "lang": "ja",
+  "dir": "ltr",
+  "id": "./tokubetsu.html",
+  "start_url": "./tokubetsu.html",
+  "scope": "./tokubetsu.html",
+  "display": "standalone",
+  "theme_color": "#24466b",
+  "background_color": "#f6efe2",
+  "icons": [
+    {
+      "src": "icons/tokubetsu-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/tokubetsu-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/tokubetsu-m512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
