@@ -11,7 +11,7 @@ header b{font-size:20px;color:var(--red)}
 header a{color:var(--red-d);font-size:15px}
 main,.login{max-width:640px;margin:auto;padding:14px 16px 40px}
 .login h1{font-size:22px;margin:20px 0 12px}
-.quota{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 2px;background:var(--warm);border-radius:12px;padding:10px 14px;margin-bottom:12px}
+.quota{background:var(--warm);border-radius:12px;padding:10px 14px;margin-bottom:12px}
 .quota b{font-size:26px;color:var(--red)}
 .tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:16px}
 .tabs button{font:inherit;font-weight:700;min-height:52px;background:#fff;border:2px solid var(--line);border-radius:12px;color:var(--ink);cursor:pointer}
