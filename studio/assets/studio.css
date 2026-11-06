@@ -149,6 +149,8 @@ strong{font-weight:700}
 @media (min-width:900px){.work-hp{grid-template-columns:1.3fr 1fr;gap:44px}}
 .work-fls{display:grid;grid-template-columns:repeat(2,1fr);gap:26px 16px}
 @media (min-width:900px){.work-fls{grid-template-columns:repeat(4,1fr)}}
+.work-mcs{display:grid;gap:26px}
+@media (min-width:900px){.work-mcs{grid-template-columns:repeat(2,1fr);align-items:start}}
 .fl-img{display:block;border:1px solid var(--line2);background:var(--paper);box-shadow:0 14px 30px -18px rgba(21,40,60,.4);margin-bottom:12px;transition:transform .2s}
 .fl-img:hover{transform:translateY(-3px)}
 .top-fls .work-fl h3{font-size:14.5px;font-family:var(--sans)}

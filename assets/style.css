@@ -338,3 +338,44 @@ h1,h2,h3{font-family:var(--round);font-weight:700;letter-spacing:.06em;line-heig
 .book-card .book-cover img{aspect-ratio:auto;width:auto;max-width:100%;height:280px;object-fit:contain;display:inline-block;box-shadow:0 4px 14px rgba(60,50,30,.18)}
 .book-sub{font-size:14px;color:var(--ai-deep);font-weight:700;margin-bottom:6px}
 .books-more{margin-top:24px;text-align:center}
+
+/* 2026-11-06 第三者の点検を受けて: 日本語の改行と、素人っぽく見える割れを全体で防ぐ */
+/* 文節で折る（対応ブラウザ）。見出しは行の長さをそろえ、本文は最後の行に1文字だけ残さない */
+html{word-break:auto-phrase;overflow-wrap:break-word}
+body{text-wrap:pretty}
+h1,h2,h3,.sec-title,.card-title,.game-catch,.book-sub{text-wrap:balance}
+@media (max-width:600px){
+  body{letter-spacing:.01em}
+  h1,h2,h3{letter-spacing:.03em}
+}
+/* ボタン・札は1行で。矢印だけ次の行に落とさない */
+.btn,.badge,.game-btn{white-space:nowrap}
+.badge{display:inline-block}
+.card-foot{flex-wrap:wrap;gap:8px 12px}
+.card-foot>span{white-space:nowrap}
+@media (max-width:760px){
+  .badge.play{padding:9px 16px;line-height:1.5}
+}
+@media (max-width:400px){
+  .btn{padding:13px 20px;font-size:15px;letter-spacing:0}
+  .badge{letter-spacing:0}
+  .card-body,.item-card .card-body{padding-left:18px;padding-right:18px}
+}
+/* 上のメニュー: 1列に入らない幅ではボタンにまとめる（横向きのスマホで項目が割れるのを防ぐ） */
+.gnav a,.logo small,.logo b{white-space:nowrap}
+@media (max-width:1040px){
+  .menu-btn{display:block}
+  .gnav{position:absolute;top:72px;left:0;right:0;flex-direction:column;background:var(--paper);border-bottom:1px solid var(--line);padding:10px 16px 18px;display:none;max-height:calc(100vh - 72px);overflow-y:auto}
+  .gnav.open{display:flex}
+  .gnav a{padding:14px 16px;font-size:17px}
+}
+/* 足もと: 狭い時は1列に */
+@media (max-width:480px){.fnav{grid-template-columns:1fr}}
+/* 飾りの英字: 和文に偽の斜体をかけない・背景との差を上げる */
+.eyebrow,.card-en{font-synthesis:none;color:#b9452c}
+/* 関連カード: 1行固定の札で幅390pxの画面から2pxはみ出すのを防ぐ（2026-11-06） */
+.rel-cards{grid-template-columns:minmax(0,1fr)}
+.rel-card{min-width:0}
+@media (max-width:400px){
+  .rel-card .card-foot>span,.rel-card .btn,.rel-card .badge{white-space:normal}
+}
