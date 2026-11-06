@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">
+<title>投稿の箱｜五島シティモール様</title>
+<link rel="stylesheet" href="post.css"></head><body>
+<div class="demo" id="demoBand" hidden>見本です。入力した内容や写真は、どこにも送られません。</div>
+<header><div class="in"><b>投稿の箱</b><a href="index.html">説明を見る</a></div></header>
+
+<section class="login" id="login" hidden><h1>あいことばを入れてください</h1>
+  <form id="loginForm"><label for="pass">あいことば</label><input id="pass" type="password" autocomplete="current-password" required><button class="btn">開く</button></form>
+  <p class="err" id="loginErr" role="alert" hidden></p></section>
+
+<main id="app" hidden>
+  <div class="quota" id="quota" aria-live="polite"></div>
+  <nav class="tabs" role="tablist"><button id="tBox" role="tab" aria-selected="true" aria-controls="box">① 箱に入れる</button><button id="tCheck" role="tab" aria-selected="false" aria-controls="check">② 確認して✓<span class="badge" id="badge" hidden></span></button></nav>
+
+  <section id="box" role="tabpanel"><form id="form" novalidate>
+    <div class="f"><label for="photos">写真 <em>必須</em></label><p class="h">4枚まで。スマホのアルバムから選べます。</p>
+      <input class="vh" id="photos" type="file" accept="image/*" multiple><label class="btn line pick" for="photos">写真を選ぶ</label><div class="thumbs" id="thumbs"></div></div>
+    <div class="f"><label for="kind">投稿の種類 <em>必須</em></label><select id="kind"><option value="">選んでください</option></select></div>
+    <div class="f"><label for="shop">お店の名前</label><input id="shop" maxlength="100" placeholder="例：BLOSSOM" autocomplete="off"></div>
+    <div class="f"><label for="message">伝えたいこと <em>必須</em></label><p class="h">箇条書きやメモのままで大丈夫です。文章はこちらで整えます。</p>
+      <textarea id="message" rows="5" maxlength="1000" placeholder="例：秋の新メニュー。栗のケーキ。11月末まで。"></textarea></div>
+    <div class="f"><label for="when">公開を希望する日 <em>必須</em></label><p class="h" id="whenHelp"></p><input id="when" type="date"></div>
+    <label class="check"><input id="consent" type="checkbox"><span>写真に写っているお店や人に、掲載の了承を取りました。</span></label>
+    <p class="err" id="formErr" role="alert" hidden></p>
+    <p class="h" id="after"></p><button class="btn wide" id="send">箱に入れる</button>
+  </form><div class="done" id="done" role="status" hidden></div></section>
+
+  <section id="check" role="tabpanel" hidden><p class="h">下書きを見て、よければ✓を押してください。✓がない投稿は公開しません。「#」の付いた言葉は、Instagram で探してもらいやすくするための印です。</p><div id="list"></div></section>
+</main>
+<script src="logic.js"></script><script src="post.js"></script></body></html>
