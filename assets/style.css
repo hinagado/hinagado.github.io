@@ -332,3 +332,9 @@ h1,h2,h3{font-family:var(--round);font-weight:700;letter-spacing:.06em;line-heig
 .game-btn{margin-top:12px;display:flex;justify-content:center;align-items:center;gap:8px;background:var(--ai);color:var(--kinari);font-weight:700;font-size:17px;border-radius:14px;padding:15px 18px;min-height:52px}
 .game-btn span{font-size:22px;line-height:1}
 .game-card:hover .game-btn{background:var(--ai-deep)}
+
+/* 2026-11-06 本のページ（表紙はたて長のまま見せる）。データは tools/books_data.py */
+.book-card .book-cover{background:#f6f1e7;padding:20px 20px 0;text-align:center}
+.book-card .book-cover img{aspect-ratio:auto;width:auto;max-width:100%;height:280px;object-fit:contain;display:inline-block;box-shadow:0 4px 14px rgba(60,50,30,.18)}
+.book-sub{font-size:14px;color:var(--ai-deep);font-weight:700;margin-bottom:6px}
+.books-more{margin-top:24px;text-align:center}
