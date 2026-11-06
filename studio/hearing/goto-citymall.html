@@ -1,0 +1,533 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'unsafe-inline'; img-src 'self' data:; base-uri 'none'; form-action 'none'; connect-src https://script.google.com https://script.googleusercontent.com">
+<title>ヒアリングシート｜五島シティモール様</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@600;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1d3557;--navy-2:#24426b;--ink:#1f2a37;--sub:#5b6675;--line:#dfe5ee;--line-2:#c9d3e1;
+  --gold:#b8860b;--gold-2:#d9b45a;--cream:#faf7f0;--card:#ffffff;--wash:#eef3f9;--ok:#2f7d5b;--err:#b3261e;
+  --r:16px;--shadow:0 1px 2px rgba(20,35,60,.06),0 8px 24px rgba(20,35,60,.07);
+  --min:"Shippori Mincho B1","Yu Mincho",serif;--got:"Zen Kaku Gothic New","BIZ UDPGothic","Yu Gothic",sans-serif;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:var(--got);font-size:17px;line-height:1.75;letter-spacing:.02em}
+button,input,textarea{font:inherit;color:inherit}
+a{color:var(--navy)}
+
+/* 表紙の帯 */
+.hero{position:relative;min-height:300px;display:flex;align-items:flex-end;color:#fff;overflow:hidden;background:#0f2743}
+.hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:60% 50%;transform:scale(1.04);animation:drift 18s ease-out forwards}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,31,56,.15) 0%,rgba(13,31,56,.35) 45%,rgba(13,31,56,.86) 100%)}
+.hero .in{position:relative;z-index:1;width:100%;max-width:760px;margin:0 auto;padding:28px 20px 26px}
+.hero .kicker{display:inline-flex;align-items:center;gap:10px;font-size:13px;letter-spacing:.18em;opacity:.95}
+.hero .kicker::before{content:"";width:28px;height:1.5px;background:var(--gold-2)}
+.hero h1{font-family:var(--min);font-weight:800;font-size:clamp(30px,8vw,44px);line-height:1.25;margin:8px 0 6px;letter-spacing:.06em}
+.hero p{margin:0;font-size:15px;opacity:.92}
+@keyframes drift{to{transform:scale(1)}}
+
+/* 進み具合 */
+.bar{position:sticky;top:0;z-index:5;background:rgba(250,247,240,.92);backdrop-filter:saturate(1.4) blur(8px);-webkit-backdrop-filter:saturate(1.4) blur(8px);border-bottom:1px solid var(--line)}
+.bar .in{max-width:760px;margin:0 auto;padding:10px 20px 9px}
+.bar .row{display:flex;justify-content:space-between;align-items:baseline;font-size:13px;color:var(--sub)}
+.bar .row b{color:var(--navy);font-size:14px}
+.track{height:4px;background:var(--line);border-radius:4px;margin-top:6px;overflow:hidden}
+.track i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--gold-2));border-radius:4px;transition:width .5s cubic-bezier(.2,.8,.2,1)}
+.dots{display:flex;gap:6px;margin-top:8px;overflow-x:auto;scrollbar-width:none}
+.dots::-webkit-scrollbar{display:none}
+.dots button{flex:none;border:1px solid var(--line-2);background:#fff;border-radius:999px;padding:2px 11px;font-size:12.5px;color:var(--sub);cursor:pointer;white-space:nowrap}
+.dots button[aria-current="step"]{background:var(--navy);border-color:var(--navy);color:#fff}
+.dots button.done{border-color:var(--gold);color:#7a5a00}
+.dots button:disabled{opacity:.45;cursor:default}
+
+main{max-width:760px;margin:0 auto;padding:22px 20px 140px}
+.step{display:none}
+.step.on{display:block;animation:rise .45s cubic-bezier(.2,.8,.2,1)}
+@keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.step h2{font-family:var(--min);font-weight:800;color:var(--navy);font-size:clamp(23px,6vw,29px);line-height:1.4;margin:6px 0 4px;letter-spacing:.05em}
+.step .num{font-family:var(--min);color:var(--gold);font-size:14px;letter-spacing:.2em}
+.step .lead{color:var(--sub);margin:0 0 18px;font-size:15.5px}
+
+.q{background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:18px 18px 16px;margin:0 0 14px}
+.q > .t{display:block;font-weight:700;color:var(--navy);font-size:17.5px;line-height:1.55;margin:0 0 4px}
+.q > .h{display:block;color:var(--sub);font-size:14px;margin:0 0 10px;line-height:1.6}
+.req{display:inline-block;font-size:11.5px;font-weight:700;color:#fff;background:var(--gold);border-radius:5px;padding:0 6px;margin-left:6px;vertical-align:2px;letter-spacing:.05em}
+
+/* 選ぶ札 */
+.chips{display:flex;flex-wrap:wrap;gap:9px;margin:4px 0 2px}
+.chip{position:relative}
+.chip input{position:absolute;opacity:0;width:1px;height:1px}
+.chip span{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:9px 15px 9px 12px;border:1.5px solid var(--line-2);border-radius:999px;background:#fff;cursor:pointer;font-size:15.5px;line-height:1.4;letter-spacing:0;transition:background .18s,border-color .18s,color .18s,transform .12s}
+.chip span::before{content:"";flex:none;width:18px;height:18px;border-radius:50%;border:1.5px solid var(--line-2);background:#fff;transition:all .18s}
+.chip.multi span::before{border-radius:5px}
+.chip input:checked + span{background:var(--navy);border-color:var(--navy);color:#fff}
+.chip input:checked + span::before{border-color:#fff;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3.5 8.4l3 2.9L12.6 5' fill='none' stroke='%231d3557' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/13px no-repeat}
+.chip input:focus-visible + span{outline:3px solid var(--gold-2);outline-offset:2px}
+.chip span:active{transform:scale(.97)}
+.other{margin-top:10px}
+
+input[type=text],input[type=email],textarea{width:100%;border:1.5px solid var(--line-2);border-radius:12px;background:#fff;padding:12px 14px;font-size:16px;line-height:1.6;transition:border-color .18s,box-shadow .18s}
+textarea{min-height:96px;resize:vertical}
+input:focus,textarea:focus{outline:none;border-color:var(--navy);box-shadow:0 0 0 4px rgba(29,53,87,.12)}
+.q.bad{border-color:var(--err)}
+.q .msg{display:none;color:var(--err);font-size:14px;margin-top:8px;font-weight:700}
+.q.bad .msg{display:block}
+
+/* 大事な順 */
+.rank{display:grid;gap:8px;margin-top:4px}
+.rank label{display:grid;grid-template-columns:34px 1fr;align-items:center;gap:10px}
+.rank .no{width:34px;height:34px;border-radius:50%;background:var(--wash);color:var(--navy);font-family:var(--min);font-weight:800;display:grid;place-items:center}
+.rank select{width:100%;min-height:46px;border:1.5px solid var(--line-2);border-radius:12px;background:#fff;padding:8px 12px;font:inherit;font-size:15.5px;color:var(--ink)}
+.rank select:disabled{background:#f4f6f9;color:#9aa5b4}
+
+/* はじめの画面 */
+.intro .card{background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);padding:22px 20px;margin:0 0 14px}
+.intro h2{margin-top:0}
+.points{list-style:none;padding:0;margin:14px 0 0;display:grid;gap:12px}
+.points li{display:grid;grid-template-columns:40px 1fr;gap:12px;align-items:start}
+.points .ic{width:40px;height:40px;border-radius:12px;background:var(--wash);display:grid;place-items:center}
+.points .ic svg{width:22px;height:22px;stroke:var(--navy);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.points b{display:block;color:var(--navy)}
+.points span{font-size:14.5px;color:var(--sub)}
+.resume{display:none;border:1.5px dashed var(--gold);background:#fffaf0;border-radius:14px;padding:12px 14px;font-size:14.5px;margin:0 0 14px}
+.resume.on{display:block}
+
+/* 下の操作 */
+.nav{position:fixed;left:0;right:0;bottom:0;z-index:6;background:linear-gradient(180deg,rgba(250,247,240,0),rgba(250,247,240,.96) 26%);padding:22px 0 calc(14px + env(safe-area-inset-bottom))}
+.nav .in{max-width:760px;margin:0 auto;padding:0 20px;display:flex;gap:10px}
+.btn{appearance:none;border:0;border-radius:14px;min-height:54px;padding:0 20px;font-weight:700;font-size:16.5px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:transform .12s,background .18s,box-shadow .18s}
+.btn:active{transform:scale(.98)}
+.btn.main{flex:1;background:var(--navy);color:#fff;box-shadow:0 6px 18px rgba(29,53,87,.28)}
+.btn.main:hover{background:var(--navy-2)}
+.btn.sub{background:#fff;color:var(--navy);border:1.5px solid var(--line-2)}
+.btn.gold{background:linear-gradient(135deg,#c99a2e,var(--gold));color:#fff;box-shadow:0 6px 18px rgba(184,134,11,.3)}
+.btn[disabled]{opacity:.55;cursor:progress}
+.btn svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.saved{font-size:12.5px;color:var(--sub);text-align:center;margin-top:6px;min-height:1.2em}
+
+/* 見直し */
+.rv{background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);margin:0 0 14px;overflow:hidden}
+.rv header{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:var(--wash)}
+.rv header b{font-family:var(--min);color:var(--navy);font-size:17px}
+.rv header button{border:0;background:none;color:var(--navy);text-decoration:underline;font-weight:700;cursor:pointer;font-size:14.5px;padding:6px}
+.rv dl{margin:0;padding:6px 16px 12px}
+.rv dt{font-size:13.5px;color:var(--sub);margin-top:9px}
+.rv dd{margin:1px 0 0;white-space:pre-wrap;word-break:break-word}
+.rv dd.none{color:#9aa5b4}
+.agree{display:flex;gap:12px;align-items:flex-start;background:#fff;border:1.5px solid var(--line-2);border-radius:14px;padding:14px;cursor:pointer;font-size:15px;line-height:1.65}
+.agree input{width:24px;height:24px;flex:none;margin:1px 0 0;accent-color:var(--navy)}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+
+/* 送ったあと */
+.done{text-align:center;padding-top:10px}
+.done .seal{width:86px;height:86px;margin:6px auto 10px;border-radius:50%;background:var(--navy);display:grid;place-items:center;box-shadow:0 10px 30px rgba(29,53,87,.3);animation:pop .6s cubic-bezier(.2,1.4,.4,1)}
+.done .seal svg{width:44px;height:44px;stroke:#fff;fill:none;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:40;stroke-dashoffset:40;animation:draw .7s .25s ease-out forwards}
+@keyframes pop{from{transform:scale(.5);opacity:0}to{transform:none;opacity:1}}
+@keyframes draw{to{stroke-dashoffset:0}}
+.receipt{display:inline-block;border:1.5px solid var(--gold);border-radius:14px;background:#fff;padding:10px 22px;margin:8px 0 16px}
+.receipt small{display:block;color:#7a5a00;font-size:12.5px;letter-spacing:.15em}
+.receipt b{font-size:28px;letter-spacing:.1em;color:var(--navy);font-variant-numeric:tabular-nums}
+.fail{display:none;text-align:left;background:#fff5f4;border:1.5px solid #f0c4c0;border-radius:14px;padding:14px 16px;margin:14px 0}
+.fail.on{display:block}
+.foot{max-width:760px;margin:0 auto;padding:0 20px 130px;color:var(--sub);font-size:13px;text-align:center}
+.foot .mark{font-family:var(--min);color:var(--navy);font-weight:700;letter-spacing:.2em;font-size:15px}
+
+@media (min-width:720px){
+  .hero{min-height:360px}
+  .q{padding:22px 24px 20px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .done .seal svg{stroke-dashoffset:0}
+}
+@media print{
+  .bar,.nav,.hero,.btn,.fail,.saved,.intro,.agree{display:none!important}
+  body{background:#fff;font-size:12pt}
+  main{padding:0}
+  .step{display:none!important}
+  .step.print{display:block!important}
+  .rv{box-shadow:none;break-inside:avoid}
+  .rv header button,#review .lead,#review .num{display:none!important}
+  #review h2::after{content:"（五島シティモール様 ヒアリングシート）";font-size:12pt}
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <img src="hero.webp" alt="" width="1600" height="687">
+  <div class="in">
+    <span class="kicker">HEARING SHEET</span>
+    <h1>ヒアリングシート</h1>
+    <p>五島シティモール様<br>ホームページ・Instagram について</p>
+  </div>
+</div>
+
+<div class="bar" id="bar" hidden>
+  <div class="in">
+    <div class="row"><b id="barTitle"></b><span id="barCount"></span></div>
+    <div class="track"><i id="barFill"></i></div>
+    <div class="dots" id="dots"></div>
+  </div>
+</div>
+
+<main id="main">
+  <section class="step intro on" data-step="intro">
+    <div class="resume" id="resume">前回の入力の続きが残っています。そのまま続けられます。<br><button type="button" class="btn sub" id="clearDraft" style="min-height:40px;margin-top:8px;font-size:14px">最初から入力し直す</button></div>
+    <div class="card">
+      <span class="num">はじめに</span>
+      <h2>ご希望をお聞かせください</h2>
+      <p style="margin:0">株式会社プレッジ 吉田様<br>ホームページと Instagram で実現したいことを伺うためのシートです。お打ち合わせの前に、分かる所だけご記入ください。</p>
+      <ul class="points">
+        <li><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><div><b>約5〜10分</b><span>6つの項目に分かれています。選ぶだけの質問がほとんどです。</span></div></li>
+        <li><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 12l4 4L19 6"/></svg></span><div><b>分かる所だけで十分です</b><span>空欄のままでも先へ進めます。お打ち合わせで一緒に決めていきます。</span></div></li>
+        <li><span class="ic"><svg viewBox="0 0 24 24"><path d="M6 4h9l3 3v13H6z"/><path d="M9 12h6M9 16h6"/></svg></span><div><b>途中で閉じても大丈夫です</b><span>入力した内容は、この端末のブラウザに自動で残ります。</span></div></li>
+      </ul>
+    </div>
+  </section>
+  <div id="steps"></div>
+  <section class="step" data-step="review" id="review">
+    <span class="num">さいごに</span>
+    <h2>内容のご確認</h2>
+    <p class="lead">この内容で、ひなが堂にお送りします。直したい所は「直す」から戻れます。</p>
+    <div id="rvList"></div>
+    <label class="agree"><input type="checkbox" id="agree"><span>ご記入の内容を、このご依頼の準備のために使うことに同意します。送った内容は、アメリカ合衆国の会社（Google）のメールのサービスを通じて、ひなが堂だけに届きます（<a href="../privacy.html" target="_blank" rel="noopener">プライバシーポリシー</a>）。</span></label>
+    <div class="hp" aria-hidden="true"><label>この欄は空のままにしてください<input type="text" id="website" tabindex="-1" autocomplete="off"></label></div>
+    <p class="q-msg" id="agreeMsg" style="display:none;color:var(--err);font-weight:700;font-size:14px;margin:8px 0 0">同意の ✓ を付けてください。</p>
+    <div class="fail" id="fail"><b style="color:var(--err)">うまく送れませんでした。</b><br>お手数ですが、下のボタンで内容をコピーして、LINE に貼り付けてお送りください。<br><button type="button" class="btn sub" id="copyBtn" style="margin-top:10px;min-height:44px">内容をコピーする</button> <span id="copied" style="font-size:14px;color:var(--ok)"></span></div>
+  </section>
+  <section class="step done" data-step="done" id="done">
+    <div class="seal"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.2 4L19 7"/></svg></div>
+    <h2>お送りいただき、<br>ありがとうございました</h2>
+    <p>内容はひなが堂に届きました。お打ち合わせで、いただいた内容をもとにご提案します。</p>
+    <div class="receipt"><small>受付番号</small><b id="receiptNo"></b></div>
+    <p style="font-size:14.5px;color:var(--sub);margin:0 0 14px">送った内容は、下のボタンから印刷・PDF で保存できます。</p>
+    <button type="button" class="btn sub" id="printBtn"><svg viewBox="0 0 24 24"><path d="M7 9V4h10v5M7 17H5a1 1 0 0 1-1-1v-5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v5a1 1 0 0 1-1 1h-2"/><path d="M7 14h10v6H7z"/></svg>送った内容を保存する</button>
+  </section>
+</main>
+
+<div class="foot"><div class="mark">ひなが堂</div>hinagado.official@gmail.com</div>
+
+<div class="nav" id="nav">
+  <div class="in">
+    <button type="button" class="btn sub" id="backBtn" hidden><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg>戻る</button>
+    <button type="button" class="btn main" id="nextBtn">はじめる<svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button>
+  </div>
+  <div class="saved" id="saved"></div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  // 送り先: ひなが堂 制作室の受付（Apps Script）。申し込みフォームと同じ窓口。中身は hinagado.official@gmail.com にメール1通で届き、保存はしない。
+  var ENDPOINT = "https://script.google.com/macros/s/AKfycbyJ1lamVfvlBC97_G04_5WeUxZh8nU57NaOYWyXxNz5H0Ych5pSsCIVGPI2Bi43lU7S/exec";
+  var KEY = "hinagado-hearing-goto-v1";
+
+  // 質問（id・型・見出し・補足・選択肢）。見出しは受付の決まりで40字まで。
+  var STEPS = [
+    { id: "goal", title: "ホームページの目的", lead: "ホームページで、まず実現したいことを教えてください。", qs: [
+      { id: "goal", type: "multi", t: "ホームページで良くしたいこと", h: "いくつ選んでも構いません。", o: ["営業時間・お店の情報を正しく伝えたい", "来館する人を増やしたい", "イベント・セールを知らせたい", "空き区画のテナントを募集したい", "観光客・帰省客に知ってほしい", "求人に使いたい", "雨の日・子ども連れでも過ごせると伝えたい", "モールの信頼感・印象を上げたい"], other: true },
+      { id: "rank", type: "rank", t: "とくに大事な順に、3つまで", h: "上で選んだものの中から選べます。", from: "goal" },
+      { id: "who", type: "multi", t: "いちばん見てほしい方", o: ["島内の家族連れ", "島内の若い世代", "島内の年配の方", "観光客", "帰省客", "移住された方", "仕事で島に滞在する方", "海外からのお客さま", "出店を考えている事業者"], other: true }
+    ]},
+    { id: "content", title: "載せる情報と見た目", lead: "ホームページに載せる内容と、雰囲気のご希望です。", qs: [
+      { id: "info", type: "multi", t: "必ず載せたい情報", o: ["テナントの一覧・各店の階", "営業時間・休館日", "駐車場", "館内の地図", "授乳室・休憩所などの設備", "イベント・お知らせ", "セール・チラシ", "テナント募集", "求人", "アクセス（バス・港・空港から）", "外国語のご案内", "会社の情報"], other: true },
+      { id: "ng", type: "textarea", t: "載せたくないもの・気をつけたいこと", h: "例：特定のお店だけを目立たせない、など" },
+      { id: "mood", type: "multi", t: "見た目・雰囲気のご希望", o: ["明るく親しみやすい", "落ち着いた上品な感じ", "にぎやか・楽しい", "シンプル・すっきり", "島らしさ・五島らしさ", "おまかせ"] },
+      { id: "color", type: "text", t: "使いたい色・使いたくない色", h: "例：ロゴの青を使いたい、赤は避けたい" },
+      { id: "logo", type: "single", t: "モールのロゴ", o: ["ある（データもある）", "ある（データは無い・分からない）", "無い", "分からない"] },
+      { id: "ref", type: "textarea", t: "参考にしたいホームページ", h: "ほかのモール・お店など。URL や名前で構いません。" }
+    ]},
+    { id: "update", title: "公開したあとの更新", lead: "お知らせや店舗情報を、どのように届けていただけそうかを伺います。", qs: [
+      { id: "upWho", type: "single", t: "更新の情報を届けてくださる方", o: ["担当の方が決まっている", "これから決める", "テナントから直接", "相談したい"] },
+      { id: "upHow", type: "multi", t: "届けやすい方法", o: ["LINE", "メール", "写真や資料をまとめて", "相談したい"] },
+      { id: "upFreq", type: "single", t: "届けやすい頻度", o: ["週に1回くらい", "月に2〜3回", "月に1回くらい", "行事のときだけ", "分からない"] },
+      { id: "when", type: "multi", t: "ホームページを間に合わせたい時期", o: ["年末年始・初売り", "春の観光の時期", "周年・記念日", "とくに無い"], other: true }
+    ]},
+    { id: "insta", title: "Instagram", lead: "Instagram で伝えたいことと、写真・返事の決まりです。", qs: [
+      { id: "acc", type: "multi", t: "今お持ちのアカウント", o: ["Instagram", "Facebook ページ", "Googleマップの店舗情報", "どれも無い", "分からない"] },
+      { id: "accWho", type: "text", t: "管理されている方（分かれば）", h: "例：総務の〇〇さん、前の担当者 など" },
+      { id: "igWhat", type: "multi", t: "Instagram で伝えたいこと", o: ["イベント・セールのお知らせ", "テナント・新しいお店の紹介", "季節の商品・おすすめ", "館内の過ごし方（雨の日・子ども連れ）", "働く人の紹介", "求人", "観光客向けのおみやげ", "五島の暮らし・地域の話題"], other: true },
+      { id: "photo", type: "single", t: "投稿の写真を撮る方", h: "写真は御社でスマホで撮っていただき、当方で見せ方を整えます。撮り方の手引きもお渡しします。", o: ["撮る方がいる", "これから決める", "相談したい"] },
+      { id: "face", type: "multi", t: "写真の決まり", o: ["スタッフの顔を出してよい", "スタッフの顔は出さない", "お客さまが写る写真は使わない", "テナントの確認を取ってから載せる"] },
+      { id: "dm", type: "single", t: "コメント・メッセージへの返事", h: "お客さまとの大切なやりとりなので、返事は御社にお願いしています。", o: ["返事をする方が決まっている", "これから決める", "コメントは受け付けない設定にしたい", "相談したい"] },
+      { id: "igRef", type: "textarea", t: "参考にしたい・気になるアカウント", h: "モール・お店・自治体など。名前で構いません。" }
+    ]},
+    { id: "etc", title: "そのほか", lead: "最後に、これまでのことや気になることを教えてください。", qs: [
+      { id: "worry", type: "textarea", t: "これまで困ったこと・心配なこと", h: "ホームページ・SNS について、どんなことでも。" },
+      { id: "busy", type: "textarea", t: "来館の多い曜日・時間帯", h: "分かる範囲で構いません。" },
+      { id: "events", type: "textarea", t: "これまでのイベント・毎年の行事" }
+    ]},
+    { id: "contact", title: "ご連絡先", lead: "いただいた内容について、こちらからご連絡するときの宛先です。", qs: [
+      { id: "name", type: "text", t: "お名前", req: true, ac: "name", def: "吉田 信弥" },
+      { id: "role", type: "text", t: "部署・役職", def: "課長" },
+      { id: "email", type: "email", t: "メールアドレス", req: true, ac: "email", h: "受付の決まりで、メールアドレスが必要です。" },
+      { id: "time", type: "text", t: "連絡のつきやすい曜日・時間", h: "例：平日の午後" }
+    ]}
+  ];
+
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var esc = function (s) { return String(s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); };
+  var state = {}, cur = -1, had = false;
+
+  function load() { try { var s = JSON.parse(localStorage.getItem(KEY) || "{}"); return s && typeof s === "object" ? s : {}; } catch (e) { return {}; } }
+  var savedTimer;
+  function save() {
+    try { localStorage.setItem(KEY, JSON.stringify(state)); $("#saved").textContent = "入力は自動で保存されています"; clearTimeout(savedTimer); savedTimer = setTimeout(function () { $("#saved").textContent = ""; }, 1800); } catch (e) {}
+  }
+
+  // 画面を組み立てる
+  var html = "";
+  STEPS.forEach(function (st, si) {
+    html += '<section class="step" data-step="' + si + '"><span class="num">' + (si + 1) + " / " + STEPS.length + "</span><h2>" + esc(st.title) + '</h2><p class="lead">' + esc(st.lead) + "</p>";
+    st.qs.forEach(function (q) {
+      var name = "q_" + q.id;
+      html += '<div class="q" data-q="' + q.id + '"><span class="t" id="t_' + q.id + '">' + esc(q.t) + (q.req ? '<span class="req">必須</span>' : "") + "</span>" + (q.h ? '<span class="h">' + esc(q.h) + "</span>" : "");
+      if (q.type === "multi" || q.type === "single") {
+        html += '<div class="chips" role="group" aria-labelledby="t_' + q.id + '">';
+        q.o.forEach(function (o, oi) {
+          html += '<label class="chip' + (q.type === "multi" ? " multi" : "") + '"><input type="' + (q.type === "multi" ? "checkbox" : "radio") + '" name="' + name + '" value="' + esc(o) + '"><span>' + esc(o) + "</span></label>";
+        });
+        if (q.other) html += '<label class="chip multi"><input type="checkbox" name="' + name + '" value="__other"><span>そのほか</span></label>';
+        html += "</div>";
+        if (q.other) html += '<div class="other" hidden><input type="text" name="' + name + '_other" placeholder="そのほかの内容" aria-label="' + esc(q.t) + '（そのほか）"></div>';
+      } else if (q.type === "rank") {
+        html += '<div class="rank">';
+        for (var i = 1; i <= 3; i++) html += '<label><span class="no">' + i + '</span><select name="rank' + i + '" aria-label="大事な順 ' + i + '"></select></label>';
+        html += "</div>";
+      } else if (q.type === "textarea") {
+        html += '<textarea name="' + name + '" aria-labelledby="t_' + q.id + '"></textarea>';
+      } else {
+        html += '<input type="' + (q.type === "email" ? "email" : "text") + '" name="' + name + '" aria-labelledby="t_' + q.id + '"' + (q.ac ? ' autocomplete="' + q.ac + '"' : "") + (q.type === "email" ? ' inputmode="email"' : "") + ">";
+      }
+      html += '<div class="msg">' + (q.type === "email" ? "メールアドレスの形を確かめてください。" : "ご記入ください。") + "</div></div>";
+    });
+    html += "</section>";
+  });
+  $("#steps").innerHTML = html;
+
+  // 進み具合の札
+  var dots = "";
+  STEPS.forEach(function (st, si) { dots += '<button type="button" data-go="' + si + '">' + (si + 1) + ". " + esc(st.title) + "</button>"; });
+  dots += '<button type="button" data-go="review">確認</button>';
+  $("#dots").innerHTML = dots;
+
+  // 入力 → state
+  function readAll() {
+    STEPS.forEach(function (st) {
+      st.qs.forEach(function (q) {
+        var name = "q_" + q.id;
+        if (q.type === "multi" || q.type === "single") {
+          state[q.id] = Array.prototype.map.call(document.querySelectorAll('input[name="' + name + '"]:checked'), function (x) { return x.value; });
+          if (q.other) { var ot = $('input[name="' + name + '_other"]'); state[q.id + "_other"] = ot.value; ot.parentNode.hidden = state[q.id].indexOf("__other") < 0; }
+        } else if (q.type === "rank") {
+          state.rank = [1, 2, 3].map(function (i) { return $('select[name="rank' + i + '"]').value; });
+        } else {
+          state[q.id] = $('[name="' + name + '"]').value;
+        }
+      });
+    });
+  }
+  // state → 入力
+  function writeAll() {
+    STEPS.forEach(function (st) {
+      st.qs.forEach(function (q) {
+        var name = "q_" + q.id, v = state[q.id];
+        if (q.type === "multi" || q.type === "single") {
+          var arr = Array.isArray(v) ? v : [];
+          Array.prototype.forEach.call(document.querySelectorAll('input[name="' + name + '"]'), function (x) { x.checked = arr.indexOf(x.value) >= 0; });
+          if (q.other) { var ot = $('input[name="' + name + '_other"]'); ot.value = state[q.id + "_other"] || ""; ot.parentNode.hidden = arr.indexOf("__other") < 0; }
+        } else if (q.type === "rank") {
+        } else {
+          $('[name="' + name + '"]').value = typeof v === "string" ? v : (q.def || "");
+        }
+      });
+    });
+    fillRank();
+  }
+  // 大事な順の選択肢は、目的で選んだものから
+  function goalChoices() {
+    var g = (state.goal || []).filter(function (x) { return x !== "__other"; });
+    if ((state.goal || []).indexOf("__other") >= 0 && state.goal_other) g.push(state.goal_other);
+    return g;
+  }
+  function fillRank() {
+    var ch = goalChoices(), prev = Array.isArray(state.rank) ? state.rank : ["", "", ""];
+    [1, 2, 3].forEach(function (i) {
+      var sel = $('select[name="rank' + i + '"]'), v = prev[i - 1] || "";
+      var opts = '<option value="">' + (ch.length ? "選んでください" : "先に上で選んでください") + "</option>";
+      ch.forEach(function (c) { opts += '<option' + (c === v ? " selected" : "") + ">" + esc(c) + "</option>"; });
+      sel.innerHTML = opts; sel.disabled = !ch.length;
+      if (ch.indexOf(v) < 0) sel.value = "";
+    });
+  }
+
+  document.addEventListener("input", function (e) {
+    if (!e.target.closest || !e.target.closest("#steps")) return;
+    readAll();
+    if (e.target.name === "q_goal" || e.target.name === "q_goal_other") { fillRank(); readAll(); }
+    var qq = e.target.closest(".q"); if (qq) qq.classList.remove("bad");
+    save();
+  });
+  document.addEventListener("change", function (e) { if (e.target.tagName === "SELECT") { readAll(); save(); } });
+
+  // 画面の切り替え
+  var order = ["intro"].concat(STEPS.map(function (s, i) { return String(i); })).concat(["review", "done"]);
+  function show(key) {
+    Array.prototype.forEach.call(document.querySelectorAll(".step"), function (s) { s.classList.toggle("on", s.getAttribute("data-step") === key); });
+    cur = order.indexOf(key);
+    if (/^\d+$/.test(key)) { try { localStorage.setItem(KEY + "-step", key); } catch (e) {} }
+    var isStep = /^\d+$/.test(key);
+    $("#bar").hidden = !(isStep || key === "review");
+    $("#nav").hidden = key === "done";
+    $("#backBtn").hidden = key === "intro";
+    var nb = $("#nextBtn");
+    nb.className = "btn main";
+    if (key === "intro") nb.innerHTML = (had ? "続きから入力する" : "はじめる") + arrow;
+    else if (key === "review") { nb.innerHTML = "この内容で送る" + arrow; nb.className = "btn gold"; }
+    else if (key === String(STEPS.length - 1)) nb.innerHTML = "確認へ進む" + arrow;
+    else nb.innerHTML = "次へ" + arrow;
+    if (isStep || key === "review") {
+      var n = isStep ? +key + 1 : STEPS.length + 1;
+      $("#barTitle").textContent = isStep ? STEPS[+key].title : "内容のご確認";
+      $("#barCount").textContent = isStep ? n + " / " + STEPS.length : "さいごに";
+      $("#barFill").style.width = Math.round((n - 1) / STEPS.length * 100) + "%";
+      Array.prototype.forEach.call(document.querySelectorAll("#dots button"), function (b) {
+        var g = b.getAttribute("data-go");
+        b.toggleAttribute("aria-current", g === key); if (g === key) b.setAttribute("aria-current", "step");
+        b.classList.toggle("done", g !== "review" && +g < (isStep ? +key : STEPS.length));
+        var cb = b; if (g === key) setTimeout(function () { try { cb.scrollIntoView({ inline: "center", block: "nearest" }); } catch (e) {} }, 0);
+      });
+    }
+    if (key === "review") buildReview();
+    window.scrollTo(0, key === "intro" ? 0 : (document.querySelector(".hero").offsetHeight));
+    var h = document.querySelector('.step.on h2'); if (h && key !== "intro") { h.setAttribute("tabindex", "-1"); try { h.focus({ preventScroll: true }); } catch (e) {} }
+  }
+  var arrow = '<svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>';
+
+  function lastStep() { try { var s = localStorage.getItem(KEY + "-step") || ""; return order.indexOf(s) > 0 ? s : ""; } catch (e) { return ""; } }
+  function validStep(si) {
+    var ok = true;
+    STEPS[si].qs.forEach(function (q) {
+      var box = $('.q[data-q="' + q.id + '"]'), v = state[q.id];
+      var bad = false;
+      if (q.req && !(typeof v === "string" && v.trim())) bad = true;
+      if (q.type === "email" && typeof v === "string" && v.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim())) bad = true;
+      box.classList.toggle("bad", bad);
+      if (bad && ok) { ok = false; var f = box.querySelector("input,textarea"); if (f) try { f.focus(); } catch (e) {} }
+    });
+    return ok;
+  }
+
+  $("#nextBtn").addEventListener("click", function () {
+    var key = order[cur];
+    if (/^\d+$/.test(key)) { readAll(); if (!validStep(+key)) return; }
+    if (key === "review") return send();
+    if (key === "intro" && had && /^\d+$/.test(lastStep())) return show(lastStep());
+    show(order[cur + 1]);
+  });
+  $("#backBtn").addEventListener("click", function () { if (cur > 0) show(order[cur - 1]); });
+  $("#dots").addEventListener("click", function (e) {
+    var b = e.target.closest("button"); if (!b) return;
+    var g = b.getAttribute("data-go"), key = order[cur];
+    if (g === "review") { readAll(); for (var i = 0; i < STEPS.length; i++) if (!validStepSilent(i)) { show(String(i)); validStep(i); return; } }
+    show(g);
+  });
+  function validStepSilent(si) {
+    return STEPS[si].qs.every(function (q) {
+      var v = state[q.id];
+      if (q.req && !(typeof v === "string" && v.trim())) return false;
+      if (q.type === "email" && typeof v === "string" && v.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim())) return false;
+      return true;
+    });
+  }
+
+  // 見直し・送る中身
+  function answerText(q) {
+    var v = state[q.id];
+    if (q.type === "multi" || q.type === "single") {
+      var arr = (Array.isArray(v) ? v : []).map(function (x) { return x === "__other" ? "そのほか：" + (state[q.id + "_other"] || "（未記入）") : x; });
+      return arr.join("、");
+    }
+    if (q.type === "rank") return (state.rank || []).map(function (x, i) { return x ? (i + 1) + ". " + x : ""; }).filter(Boolean).join("\n");
+    return typeof v === "string" ? v.trim() : "";
+  }
+  function buildReview() {
+    var h = "";
+    STEPS.forEach(function (st, si) {
+      h += '<div class="rv"><header><b>' + (si + 1) + ". " + esc(st.title) + '</b><button type="button" data-edit="' + si + '">直す</button></header><dl>';
+      st.qs.forEach(function (q) { var a = answerText(q); h += "<dt>" + esc(q.t) + "</dt><dd" + (a ? "" : ' class="none"') + ">" + (a ? esc(a) : "（未記入）") + "</dd>"; });
+      h += "</dl></div>";
+    });
+    $("#rvList").innerHTML = h;
+  }
+  $("#rvList").addEventListener("click", function (e) { var b = e.target.closest("[data-edit]"); if (b) show(b.getAttribute("data-edit")); });
+
+  function plainText() {
+    var L = ["【ヒアリングシート】五島シティモール様（株式会社プレッジ）", ""];
+    STEPS.forEach(function (st, si) { L.push("■ " + (si + 1) + ". " + st.title); st.qs.forEach(function (q) { L.push("・" + q.t + "：" + (answerText(q) || "（未記入）")); }); L.push(""); });
+    return L.join("\n");
+  }
+
+  var sending = false;
+  function send() {
+    if (sending) return;
+    if (!$("#agree").checked) { $("#agreeMsg").style.display = "block"; $("#agree").focus(); return; }
+    $("#agreeMsg").style.display = "none";
+    for (var i = 0; i < STEPS.length; i++) if (!validStepSilent(i)) { show(String(i)); validStep(i); return; }
+    var payload = {
+      website: $("#website").value,
+      name: (state.name || "").trim(),
+      email: (state.email || "").trim(),
+      agree: true,
+      kind: "hp",
+      gist: "【ヒアリングシートの回答】五島シティモール様（株式会社プレッジ）" + (state.role ? "　" + state.role.trim() : "") + "。見積もりの依頼ではありません。",
+      unknown: [],
+      sections: STEPS.map(function (st, si) { return { title: (si + 1) + ". " + st.title, items: st.qs.map(function (q) { return [q.t, answerText(q).slice(0, 990)]; }) }; }),
+      quote: { lines: [], notes: [] }
+    };
+    sending = true;
+    var nb = $("#nextBtn"); nb.disabled = true; nb.textContent = "送っています…";
+    var ctl = window.AbortController ? new AbortController() : null, timer = setTimeout(function () { if (ctl) ctl.abort(); }, 25000);
+    fetch(ENDPOINT, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(payload), redirect: "follow", credentials: "omit", cache: "no-store", signal: ctl ? ctl.signal : undefined })
+      .then(function (r) { return r.json(); })
+      .then(function (res) {
+        if (res && res.ok === true && typeof res.receipt === "string" && /^[0-9A-Z-]{4,20}$/.test(res.receipt)) {
+          $("#receiptNo").textContent = res.receipt;
+          try { localStorage.removeItem(KEY); localStorage.removeItem(KEY + "-step"); } catch (e) {}
+          var rv = $("#review"); rv.classList.add("print");
+          show("done");
+        } else throw new Error((res && res.code) || "ng");
+      })
+      .catch(function () { $("#fail").classList.add("on"); try { $("#fail").scrollIntoView({ behavior: "smooth", block: "center" }); } catch (e) {} })
+      .then(function () { clearTimeout(timer); sending = false; nb.disabled = false; nb.innerHTML = "この内容で送る" + arrow; });
+  }
+  $("#copyBtn").addEventListener("click", function () {
+    var t = plainText();
+    var done = function () { $("#copied").textContent = "コピーしました。LINE に貼り付けてください。"; };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(done, fallback); else fallback();
+    function fallback() { var ta = document.createElement("textarea"); ta.value = t; document.body.appendChild(ta); ta.select(); try { document.execCommand("copy"); done(); } catch (e) {} document.body.removeChild(ta); }
+  });
+  $("#printBtn").addEventListener("click", function () { window.print(); });
+  $("#clearDraft").addEventListener("click", function () { if (!confirm("入力した内容を消して、最初からにしますか。")) return; state = {}; had = false; try { localStorage.removeItem(KEY); localStorage.removeItem(KEY + "-step"); } catch (e) {} writeAll(); readAll(); $("#resume").classList.remove("on"); show("intro"); });
+
+  // はじめ
+  state = load();
+  had = Object.keys(state).length > 0;
+  writeAll(); readAll();
+  if (had) $("#resume").classList.add("on");
+  show("intro");
+  window.__hearing = { STEPS: STEPS, state: function () { return state; }, show: show, plainText: plainText };
+})();
+</script>
+</body>
+</html>
