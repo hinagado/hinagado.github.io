@@ -1,31 +1,43 @@
 <!doctype html>
-<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><meta name="theme-color" content="#96161c">
 <title>投稿の箱｜五島シティモール様</title>
-<link rel="stylesheet" href="post.css"></head><body>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@700;900&family=Zen+Kaku+Gothic+New:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="post.css"><link rel="stylesheet" href="tool.css"></head><body class="tool">
 <div class="demo" id="demoBand" hidden>見本です。入力した内容や写真は、どこにも送られません。</div>
-<header><div class="in"><b>投稿の箱</b><a href="index.html">説明を見る</a></div></header>
 
-<section class="login" id="login" hidden><h1>あいことばを入れてください</h1>
-  <form id="loginForm"><label for="pass">あいことば</label><input id="pass" type="password" autocomplete="current-password" required><button class="btn">開く</button></form>
-  <p class="err" id="loginErr" role="alert" hidden></p></section>
+<section class="login" id="login" hidden><div class="login-card"><p class="eyebrow">五島シティモール様</p><h1>投稿の箱</h1>
+  <form id="loginForm"><label for="pass">あいことば</label><input id="pass" type="password" autocomplete="current-password" required><button class="btn wide">開く</button></form>
+  <p class="err" id="loginErr" role="alert" hidden></p></div></section>
 
-<main id="app" hidden>
-  <div class="quota" id="quota" aria-live="polite"></div>
-  <nav class="tabs" role="tablist"><button id="tBox" role="tab" aria-selected="true" aria-controls="box">① 箱に入れる</button><button id="tCheck" role="tab" aria-selected="false" aria-controls="check">② 確認して✓<span class="badge" id="badge" hidden></span></button></nav>
+<div id="app" hidden>
+  <header class="top"><div class="top-in"><div class="top-row"><div><p class="eyebrow">五島シティモール様</p><h1>投稿の箱</h1></div><a href="index.html">使い方</a></div>
+    <div class="meter"><svg viewBox="0 0 44 44" aria-hidden="true"><circle class="m-bg" cx="22" cy="22" r="18"/><circle class="m-on" id="ring" cx="22" cy="22" r="18" pathLength="100" stroke-dasharray="0 100" transform="rotate(-90 22 22)"/></svg><div class="quota" id="quota" aria-live="polite"></div></div>
+    <nav class="tabs" role="tablist"><button id="tBox" role="tab" aria-selected="true" aria-controls="box">箱に入れる</button><button id="tCheck" role="tab" aria-selected="false" aria-controls="check">確認して✓<span class="badge" id="badge" hidden></span></button></nav>
+  </div></header>
 
+  <main>
   <section id="box" role="tabpanel"><form id="form" novalidate>
-    <div class="f"><label for="photos">写真 <em>必須</em></label><p class="h">4枚まで。スマホのアルバムから選べます。</p>
-      <input class="vh" id="photos" type="file" accept="image/*" multiple><label class="btn line pick" for="photos">写真を選ぶ</label><div class="thumbs" id="thumbs"></div></div>
-    <div class="f"><label for="kind">投稿の種類 <em>必須</em></label><select id="kind"><option value="">選んでください</option></select></div>
-    <div class="f"><label for="shop">お店の名前</label><input id="shop" maxlength="100" placeholder="例：BLOSSOM" autocomplete="off"></div>
-    <div class="f"><label for="message">伝えたいこと <em>必須</em></label><p class="h">箇条書きやメモのままで大丈夫です。文章はこちらで整えます。</p>
-      <textarea id="message" rows="5" maxlength="1000" placeholder="例：秋の新メニュー。栗のケーキ。11月末まで。"></textarea></div>
-    <div class="f"><label for="when">公開を希望する日 <em>必須</em></label><p class="h" id="whenHelp"></p><input id="when" type="date"></div>
-    <label class="check"><input id="consent" type="checkbox"><span>写真に写っているお店や人に、掲載の了承を取りました。</span></label>
+    <fieldset class="step"><legend><b>1</b>写真を選ぶ</legend>
+      <input class="vh" id="photos" type="file" accept="image/*" multiple>
+      <label class="drop" for="photos"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3a1 1 0 011 1v10a1 1 0 01-1 1H4a1 1 0 01-1-1V9a1 1 0 011-1z"/><circle cx="12" cy="13.5" r="3.5"/></svg><strong>写真を選ぶ</strong><span>4枚まで。スマホのアルバムから選べます</span></label>
+      <div class="thumbs" id="thumbs"></div></fieldset>
+
+    <fieldset class="step"><legend><b>2</b>何の投稿ですか</legend><div class="kinds" id="kinds"></div></fieldset>
+
+    <fieldset class="step"><legend><b>3</b>伝えたいこと</legend>
+      <label for="shop">お店の名前 <small>あれば</small></label><input id="shop" maxlength="100" placeholder="例：BLOSSOM" autocomplete="off">
+      <label for="message">メモ</label><textarea id="message" rows="5" maxlength="1000" placeholder="例：秋の新メニュー。栗のケーキ。11月末まで。"></textarea>
+      <p class="hint"><span>箇条書きのままで大丈夫です。文章はこちらで整えます。</span><span id="count">0 / 1000</span></p></fieldset>
+
+    <fieldset class="step"><legend><b>4</b>いつ出しますか</legend><label for="when">公開を希望する日</label><input id="when" type="date"><p class="hint" id="whenHelp"></p></fieldset>
+
+    <label class="agree"><input id="consent" type="checkbox"><span>写真に写っているお店や人に、掲載の了承を取りました。</span></label>
     <p class="err" id="formErr" role="alert" hidden></p>
-    <p class="h" id="after"></p><button class="btn wide" id="send">箱に入れる</button>
+    <p class="hint center" id="after"></p>
+    <button class="btn wide big" id="send">この内容で下書きを頼む</button>
   </form><div class="done" id="done" role="status" hidden></div></section>
 
-  <section id="check" role="tabpanel" hidden><p class="h">下書きを見て、よければ✓を押してください。✓がない投稿は公開しません。「#」の付いた言葉は、Instagram で探してもらいやすくするための印です。</p><div id="list"></div></section>
-</main>
+  <section id="check" role="tabpanel" hidden><p class="lead">実際の投稿に近い形で確かめられます。よければ✓を押してください。✓がない投稿は公開しません。</p><div id="list"></div></section>
+  </main>
+</div>
 <script src="logic.js"></script><script src="post.js"></script></body></html>

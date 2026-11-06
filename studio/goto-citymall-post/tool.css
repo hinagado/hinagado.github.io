@@ -1,0 +1,101 @@
+/* ===== 箱と確認の画面 ===== */
+.tool{--round:"Zen Maru Gothic","BIZ UDPGothic",sans-serif;font-family:"Zen Kaku Gothic New","BIZ UDPGothic","Hiragino Sans","Meiryo",sans-serif;background:#f6f1ec}
+.tool h1,.tool h2,.tool legend{font-family:var(--round)}
+.tool .demo{background:#241f1d}
+.top{background:linear-gradient(150deg,#c92a2f 0%,#96161c 100%);color:#fff;padding:14px 16px 16px;border-radius:0 0 22px 22px;box-shadow:0 8px 22px rgba(110,20,20,.25)}
+.top-in{max-width:600px;margin:auto}
+.top-row{display:flex;justify-content:space-between;align-items:flex-start}
+.eyebrow{font-size:13px;font-weight:700;opacity:.9;letter-spacing:.04em}
+.top h1{font-size:26px;line-height:1.3;font-weight:900}
+.top a{color:#fff;font-size:14.5px;margin-top:4px}
+.meter{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.13);border-radius:14px;padding:9px 12px;margin:12px 0}
+.meter svg{width:48px;height:48px;flex:none}
+.m-bg,.m-on{fill:none;stroke-width:6}
+.m-bg{stroke:rgba(255,255,255,.28)}
+.m-on{stroke:#fff;stroke-linecap:round;transition:stroke-dasharray .3s}
+.tool .quota{background:none;padding:0;margin:0;font-weight:700;line-height:1.35}
+.tool .quota b{font-family:var(--round);font-size:27px;color:#fff;font-weight:900}
+.tool .quota small{display:block;font-size:12.5px;font-weight:500;opacity:.88}
+.tool .tabs{background:rgba(0,0,0,.2);border-radius:14px;padding:4px;gap:4px;margin:0}
+.tool .tabs button{min-height:46px;border:0;background:transparent;color:#fff;border-radius:11px}
+.tool .tabs button[aria-selected=true]{background:#fff;color:#96161c;box-shadow:0 2px 6px rgba(0,0,0,.18)}
+.tool .badge{background:#ffd166;color:#2a2523;font-weight:700}
+.tool main{max-width:600px;margin:auto;padding:16px 14px 34px}
+fieldset.step{border:0;background:#fff;border-radius:18px;padding:16px;margin:0 0 12px;box-shadow:0 2px 10px rgba(70,45,35,.07);min-width:0}
+legend{float:left;width:100%;display:flex;align-items:center;gap:9px;font-size:18px;font-weight:900;padding:0;margin-bottom:12px}
+legend+*{clear:both}
+legend b{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:#bf1d24;color:#fff;font-size:16px}
+.tool label{font-size:15px}
+.tool label small{font-weight:500;color:var(--muted)}
+.tool input:not([type=checkbox]):not([type=radio]),.tool textarea{border:2px solid #e3dad3;background:#fcfaf8;border-radius:12px;margin-bottom:10px}
+.tool input:not([type=checkbox]):not([type=radio]):focus,.tool textarea:focus{border-color:#bf1d24;background:#fff}
+.tool input.vh:not([type=checkbox]):not([type=radio]){position:absolute;width:1px;height:1px;min-height:0;padding:0;margin:0;border:0;clip:rect(0 0 0 0)}
+.drop{display:flex;flex-direction:column;align-items:center;gap:2px;margin:0;padding:20px 12px;border:2px dashed #d9a7a2;border-radius:14px;background:#fff7f6;color:#96161c;text-align:center;cursor:pointer;transition:background .15s}
+.drop:hover{background:#fdecea}
+.drop svg{width:38px;height:38px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linejoin:round}
+.drop strong{font-size:17px}
+.drop span{font-size:13.5px;font-weight:500;color:var(--muted)}
+.vh:focus-visible+.drop{outline:3px solid #1a5fb4;outline-offset:2px}
+.tool .thumbs{grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}
+.thumb{position:relative}
+.thumb img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:10px;display:block}
+.thumb:first-child::after{content:"メイン";position:absolute;left:4px;bottom:4px;background:rgba(30,20,18,.76);color:#fff;font-size:11px;font-weight:700;border-radius:5px;padding:0 5px}
+.thumb button{position:absolute;right:-5px;top:-5px;width:32px;height:32px;margin:0;padding:0;border:2px solid #fff;border-radius:50%;background:#2a2523;color:#fff;font-size:17px;line-height:1;cursor:pointer}
+.kinds{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.kind{margin:0;cursor:pointer;position:relative}
+.kind input{position:absolute;opacity:0;inset:0;width:100%;height:100%;margin:0;cursor:pointer}
+.kind span{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:84px;padding:8px 2px;border:2px solid #e3dad3;border-radius:14px;background:#fcfaf8;text-align:center;transition:.12s}
+.kind svg{width:27px;height:27px;fill:none;stroke:#655d59;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.kind b{font-size:13.5px;line-height:1.3}
+.kind input:checked+span{background:#bf1d24;border-color:#bf1d24;color:#fff}
+.kind input:checked+span svg{stroke:#fff}
+.kind input:focus-visible+span{outline:3px solid #1a5fb4;outline-offset:2px}
+.hint{display:flex;justify-content:space-between;gap:10px;font-size:13.5px;color:var(--muted);line-height:1.5}
+#count{flex:none;white-space:nowrap}
+.hint.center{display:block;text-align:center;margin:10px 0}
+.agree{display:flex;gap:11px;align-items:flex-start;font-weight:500;background:#fff;border-radius:16px;padding:14px;margin:0 0 6px;box-shadow:0 2px 10px rgba(70,45,35,.07);cursor:pointer}
+.agree input{width:26px;height:26px;flex:none;accent-color:#bf1d24}
+.btn.big{min-height:60px;font-size:18px;border-radius:15px;box-shadow:0 7px 16px rgba(160,30,30,.28)}
+.tool .btn{font-family:var(--round)}
+.tool .done{background:#fff;border-radius:18px;padding:26px 18px;text-align:center;box-shadow:0 2px 10px rgba(70,45,35,.07)}
+.tick{display:grid;place-items:center;width:66px;height:66px;margin:0 auto 8px;border-radius:50%;background:#2d6a4f;color:#fff;font-size:34px;font-weight:700;animation:pop .3s ease-out}
+@keyframes pop{from{transform:scale(.5);opacity:0}to{transform:none;opacity:1}}
+.tool .lead{font-size:14.5px;color:var(--muted);margin:0 2px 12px}
+.tool .card{background:#fff;border:0;border-radius:18px;padding:12px;box-shadow:0 2px 10px rgba(70,45,35,.07)}
+.card-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:4px 8px;margin-bottom:8px}
+.card-top .st{margin:0}
+.memo{white-space:pre-wrap;background:var(--warm);border-radius:10px;padding:10px 12px}
+.vers{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:6px;margin-bottom:8px}
+.vbtn{font:inherit;font-size:14px;font-weight:700;min-height:44px;padding:2px 8px;border:2px solid #cfc6bf;border-radius:11px;background:#fff;color:var(--ink);cursor:pointer}
+.vbtn:not(:disabled):first-child{border-color:#bf1d24;color:#96161c}
+.vbtn:disabled{opacity:.4;cursor:default}
+.vnow{font-size:13.5px;white-space:nowrap}
+.was{font-size:13.5px;background:#fff8e1;border-radius:9px;padding:6px 10px;margin-bottom:7px;overflow-wrap:anywhere}
+.revise{margin-top:10px}
+/* 投稿の見え方（ロゴは使わない） */
+.ig{--ig:#262626;background:#fff;border:1px solid #dbdbdb;border-radius:16px;overflow:hidden;margin-bottom:6px;color:var(--ig);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Hiragino Sans","Meiryo",sans-serif;font-size:14px;line-height:1.4}
+.ig-bar{display:flex;align-items:center;gap:6px;padding:9px 12px;border-bottom:1px solid #efefef;font-size:16px}
+.ig-bar b{flex:none}
+.ig-back{font-size:26px;line-height:.8;width:18px}
+.ig-sp{flex:1}
+.ig-hd{display:flex;align-items:center;gap:9px;padding:9px 12px}
+.ig-hd>b{font-size:14px;font-weight:600}
+.ig-dots{margin-left:auto;letter-spacing:1px;font-size:11px}
+.ig-av{flex:none;display:grid;place-items:center;width:34px;height:34px;border-radius:50%;padding:2px;background:conic-gradient(#f9ce34,#ee2a7b,#6228d7,#f9ce34)}
+.ig-av i{display:grid;place-items:center;width:100%;height:100%;border-radius:50%;border:2px solid #fff;background:#bf1d24;color:#fff;font-style:normal;font-size:12px;font-weight:700}
+.ig-av.sm{width:26px;height:26px;background:#262626;padding:1px}
+.ig-av.sm i{font-size:9px;border-width:1px}
+.ig-img{display:block;width:100%;aspect-ratio:1/1;object-fit:cover;background:#efefef}
+.ig-acts{display:flex;align-items:center;gap:13px;padding:9px 12px 5px}
+.ig-i{display:inline-flex}
+.ig-i svg{width:25px;height:25px;fill:none;stroke:#262626;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.ig-cap{padding:2px 12px 0;white-space:pre-wrap;overflow-wrap:anywhere}
+.ig-cap>b{font-weight:600}
+.ig-cap .tag{color:#00376b}
+.ig-date{padding:5px 12px 10px;font-size:11.5px;color:#8e8e8e}
+.ig-nav{display:flex;justify-content:space-between;align-items:center;padding:9px 18px;border-top:1px solid #efefef}
+.login{min-height:100vh;display:grid;place-items:center;padding:16px;max-width:none;background:linear-gradient(150deg,#c92a2f,#96161c)}
+.login-card{width:100%;max-width:400px;background:#fff;border-radius:22px;padding:24px}
+.login-card .eyebrow{color:#96161c}
+.login-card h1{font-size:28px;margin:0 0 12px;color:var(--ink)}
+.login-card input{margin-bottom:0}

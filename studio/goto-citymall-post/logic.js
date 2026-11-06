@@ -2,7 +2,7 @@
 var PostRules = (function () {
   var LIMIT = 4;        // 月の投稿枠（案）
   var LEAD_DAYS = 5;    // 公開希望日は、今日から何営業日あとから選べるか（案。土日のみ除く・祝日は見ない）
-  var MAX_REVISIONS = 1; // 無料の作り直しの回数（案）
+  var MAX_REVISIONS = 3; // 作り直しの回数（案）。前の案へ戻るのは数えない
   var MAX_PHOTOS = 4;
   var DRAFT_DAYS = 3;   // 受付から下書きまでの営業日（案）
   var KINDS = ["お店の紹介", "セール・催し", "新しい商品", "お知らせ", "そのほか"];
@@ -43,9 +43,11 @@ var PostRules = (function () {
     if (used(rows, monthKey(p.when)) >= LIMIT) return monthKey(p.when).replace("-", "年") + "月の枠（" + LIMIT + "本）は埋まっています。別の月を選ぶか、ご相談ください。";
     return null;
   }
-  function checkApprove(row) {
+  function checkApprove(row, version) {
     if (!row) return "投稿が見つかりません。";
     if (row.state !== "下書きあり") return "この投稿は、今は確認できる状態ではありません。";
+    var n = (row.versions || []).length;
+    if (typeof version !== "number" || version % 1 !== 0 || version < 0 || version >= n) return "どの案かを読み取れませんでした。画面を開き直してください。";
     return null;
   }
   function checkRevise(row, note) {
