@@ -268,6 +268,14 @@ h1,h2,h3{font-family:var(--round);font-weight:700;letter-spacing:.06em;line-heig
 .item-demo h2{font-size:1.25rem;margin:0 0 12px}
 .demo-video{display:block;width:100%;height:auto;aspect-ratio:1/1;border-radius:var(--radius);box-shadow:var(--shadow);background:var(--paper)}
 
+/* 商品ページの「中身の見本」（2026-11-06。画面の画像2枚。パソコンは横に2枚、スマホは縦に1枚ずつ） */
+.item-mihon{max-width:1000px;margin:0 auto 40px;text-align:center}
+.item-mihon h2{font-size:1.25rem;margin:0 0 12px}
+.mihon-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin:0;padding:0;list-style:none}
+.mihon-list a{display:block;border-radius:var(--radius)}
+.mihon-list img{display:block;width:100%;height:auto;aspect-ratio:1/1;border-radius:var(--radius);box-shadow:var(--shadow);background:var(--paper)}
+@media (max-width:640px){.mihon-list{grid-template-columns:1fr;gap:16px}}
+
 /* 特定商取引法に基づく表記（tokushoho.html）。項目名と中身の2列、スマホでは縦に積む */
 .law-list{margin:20px 0 8px;border-top:1px solid var(--line)}
 .law-list>div{display:grid;grid-template-columns:13em 1fr;gap:6px 24px;padding:16px 4px;border-bottom:1px solid var(--line)}
