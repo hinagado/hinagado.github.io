@@ -1,6 +1,6 @@
 // 投稿の箱の画面。本番は Apps Script、見本（?demo=1 か送信先が未設定）は画面の中だけで動く
 (function () {
-  var ENDPOINT = "";
+  var ENDPOINT = "https://script.google.com/macros/s/AKfycbxToqVQEdKxT9cMdM1YpEziujtM99mTaIusrJLzWvEOi34N57LHu60N2g2U90DQnzWJ/exec";
   var HANDLE = "goto.citymall";
   var $ = function (id) { return document.getElementById(id); };
   var demo = !ENDPOINT || new URLSearchParams(location.search).get("demo") === "1";
