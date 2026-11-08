@@ -349,3 +349,109 @@ footer nav{display:grid;grid-template-columns:repeat(2,auto);gap:4px 26px;align-
   .mapbox,.map{min-height:280px}
   footer nav{grid-template-columns:1fr 1fr}
 }
+/* お店の「くわしく見る」 */
+.sd{margin-top:8px;font-size:14px}
+.sd summary{display:inline-flex;align-items:center;min-height:40px;cursor:pointer;font-weight:700;color:var(--red-dark);list-style:none}
+.sd summary::-webkit-details-marker{display:none}
+.sd summary::before{content:"＋";margin-right:4px}
+.sd[open] summary::before{content:"－"}
+.sd-in{display:flex;gap:12px;align-items:flex-start;background:var(--cream);border-radius:10px;padding:10px 12px;margin-top:4px}
+.sd-logo{flex:none;width:58px;height:58px;border-radius:10px;border:1.5px dashed #cfb9a3;display:grid;place-items:center;font-size:12px;color:var(--muted);background:#fff}
+.sd dl{display:grid;grid-template-columns:4.5em 1fr;gap:2px 8px;font-size:13.5px}
+.sd dt{color:var(--muted)}
+.sd-note{font-size:12.5px;color:var(--muted);margin-top:6px;line-height:1.6}
+.tofm{margin:-6px 0 10px;font-size:14.5px;font-weight:700}
+.fml,.fml:visited{color:var(--red-dark);font-size:13.5px;font-weight:700}
+/* 館内図 */
+.fm-tools{margin-bottom:12px}
+.fm-tools button{min-height:44px;font-family:var(--round);font-weight:900;font-size:16px;padding:3px 26px}
+html:not(.js-fm) .fm-tools{display:none}
+.fm-wrap{display:grid;grid-template-columns:1fr 280px;gap:16px;align-items:start}
+.fm-floor+.fm-floor{margin-top:16px}
+.fm-name{font-family:var(--round);font-weight:900;font-size:19px;margin-bottom:6px}
+.js-fm .fm-name{display:none}
+.fm-grid{display:grid;grid-template-columns:repeat(6,1fr);grid-template-rows:auto 46px auto;gap:6px;background:#fff;border:2px solid var(--line);border-radius:18px;padding:10px}
+.fm-grid>*{grid-area:var(--r)/var(--c)/span var(--rs)/span var(--cs)}
+.fm-b,.fm-b:visited{display:grid;place-items:center;text-align:center;min-height:72px;padding:6px 4px;border-radius:10px;background:var(--warm);border:2px solid var(--line);border-top:5px solid var(--k);color:var(--ink);text-decoration:none;font-size:13.5px;font-weight:700;line-height:1.35;word-break:auto-phrase;transition:background .15s}
+.fm-b:hover{border-color:var(--sun)}
+.fm-b.on{background:var(--sun);border-color:var(--sun);color:#fff}
+.fm-b.k0{--k:#c2521b}.fm-b.k1{--k:#b5651d}.fm-b.k2{--k:#3f6f5e}.fm-b.k3{--k:#3a5a86}.fm-b.k4{--k:#a2486f}.fm-b.k5{--k:#5c534e}
+.fm-path{display:grid;place-items:center;color:#9a7f69;font-size:13px;letter-spacing:.3em;background:repeating-linear-gradient(90deg,transparent 0 14px,#f6e6d4 14px 18px)}
+.fm-f{display:grid;place-items:center;text-align:center;border-radius:10px;border:1.5px dashed #d8c3ad;color:var(--muted);font-size:12.5px;padding:4px}
+.fm-info{position:sticky;top:90px;background:#fff;border:2px solid var(--sun);border-radius:18px;padding:16px 18px;min-height:150px;display:flex;flex-direction:column;gap:4px}
+.fm-hint{color:var(--muted);font-size:14px}
+.fm-nm{font-family:var(--round);font-weight:900;font-size:20px;line-height:1.4}
+.fm-info p{font-size:14px;color:var(--muted)}
+.fm-meta{display:flex;gap:4px 10px;flex-wrap:wrap;align-items:center}
+.fm-go{font-weight:700;font-size:14.5px;margin-top:6px}
+.fm-rest{margin-top:14px;font-size:13.5px;color:var(--muted);background:var(--warm);border-radius:10px;padding:10px 14px}
+.fm-rest b{display:block;color:var(--ink)}
+/* LINE */
+.lineband{display:grid;grid-template-columns:1.4fr 1fr;gap:24px;align-items:center;background:#fff;border:2px solid var(--line);border-radius:24px;padding:28px 32px}
+.lineband h2{margin:2px 0 8px}
+.lineband p{color:var(--muted)}
+.btn.off{background:#e9dccf;border-color:#e9dccf;color:#5c4636;margin-top:14px;cursor:default}
+.coupon{border:2px dashed var(--sun);border-radius:18px;padding:18px 20px;background:var(--cream);display:flex;flex-direction:column;gap:2px}
+.coupon .tag{align-self:flex-start}
+.coupon b{font-family:var(--round);font-size:17px;margin-top:4px}
+.coupon strong{font-family:var(--round);font-size:22px;color:var(--red)}
+.coupon small{font-size:12.5px;color:var(--muted)}
+/* 催事のようす */
+.report{display:grid;grid-template-columns:1.3fr 1fr;gap:20px;align-items:center;background:#fff;border-radius:20px;padding:16px;border:1px solid var(--line)}
+.rp-ph{display:grid;grid-template-columns:2fr 1fr;grid-template-rows:1fr 1fr;gap:6px}
+.rp-ph img{width:100%;height:100%;object-fit:cover;border-radius:12px;aspect-ratio:1}
+.rp-ph img:first-child{grid-row:1/3;aspect-ratio:auto}
+.rp-tx h3{font-family:var(--round);font-size:20px;margin:6px 0}
+.rp-tx p{font-size:14.5px;color:var(--muted)}
+/* 島の外から */
+.routes{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.route{background:#fff;border:2px solid var(--line);border-top:6px solid var(--sun);border-radius:18px;padding:16px 18px}
+.rt-from{font-family:var(--round);font-weight:900;font-size:18px}
+.route ul{list-style:none;margin:6px 0}
+.route li{display:flex;justify-content:space-between;gap:8px;border-bottom:1px dashed var(--line);padding:4px 0;font-size:15.5px}
+.route li b{font-weight:500;color:var(--muted)}
+.rt-line{font-size:13.5px;color:var(--muted)}
+#island .prov{margin-top:14px}
+.wait{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;background:var(--warm);border-radius:16px;padding:16px 20px}
+.wait p{font-size:14.5px;color:var(--muted)}
+/* 館内の設備 */
+.facs{list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.facs li{background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:12px 14px;display:flex;flex-direction:column}
+.facs b{font-family:var(--round);font-size:16.5px}
+.facs span{font-size:13.5px;color:var(--muted)}
+.facs li.q{border-style:dashed;background:transparent}
+/* 表の体験 */
+.sheetdemo{display:grid;grid-template-columns:1.5fr 1fr;gap:18px;align-items:start}
+.sheet{border-collapse:collapse;width:100%;background:#fff;font-size:14px}
+.sheet th{background:#e7f1e5;color:#2d4a2a;font-weight:700;text-align:left;padding:6px 8px;border:1px solid #c9d8c6}
+.sheet td{border:1px solid #d9e2d6;padding:0}
+.sheet input{width:100%;min-width:7.5em;min-height:44px;border:0;font:inherit;padding:6px 8px;background:transparent;color:var(--ink)}
+.sheet input:focus{outline:3px solid #1a5fb4;outline-offset:-3px;background:#f3f8ff}
+.evs.one{grid-template-columns:1fr}
+.empty-ev{color:var(--muted);border-style:dashed}
+/* Google マップの店舗情報（イメージ） */
+.gbp{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
+.gcard{background:#fff;border-radius:16px;box-shadow:0 4px 16px rgba(60,40,20,.14);padding:16px 18px}
+.gcard>b{display:block;font-size:20px}
+.gk{font-size:13.5px;color:var(--muted)}
+.gcard dl{display:grid;grid-template-columns:5em 1fr;gap:2px 8px;font-size:14px;margin:8px 0}
+.gcard dt{color:var(--muted)}
+.gph{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}
+.gph img{aspect-ratio:1;object-fit:cover;border-radius:8px;width:100%;height:auto}
+.gpost{font-size:14px;margin-top:8px;background:var(--cream);border-radius:8px;padding:6px 10px}
+.gpost .tag{margin-right:6px}
+@media (max-width:900px){.fm-wrap{grid-template-columns:1fr}.fm-info{position:static;min-height:0}.facs{grid-template-columns:1fr 1fr}.routes{grid-template-columns:1fr}}
+@media (max-width:720px){
+  .fm-grid{grid-template-columns:1fr 38px 1fr;grid-template-rows:none;padding:8px;gap:5px}
+  .fm-grid>*{grid-area:var(--c)/var(--r)/span var(--cs)/span var(--rs)}
+  .fm-b,.fm-b:visited{min-height:52px;font-size:13px;border-top-width:2px;border-left:5px solid var(--k)}
+  .fm-path{writing-mode:vertical-rl;background:repeating-linear-gradient(180deg,transparent 0 14px,#f6e6d4 14px 18px)}
+  .fm-f{writing-mode:vertical-rl;font-size:12px;padding:6px 2px}
+  .fm-tools button{flex:1}
+  .lineband{grid-template-columns:1fr;padding:20px;gap:16px}
+  .report{grid-template-columns:1fr;padding:12px}
+  .facs{gap:8px}
+  .sheetdemo,.gbp{grid-template-columns:1fr}
+  .sd-in{flex-direction:column}
+}
+.gbp .checks{grid-template-columns:1fr}
