@@ -140,3 +140,17 @@
   load(); refresh();
   show(location.hash.slice(1) || "p1", false);
 })();
+
+// ---- 更新の数え方のタブ
+(function () {
+  var tabs = [].slice.call(document.querySelectorAll(".uc-tabs button"));
+  tabs.forEach(function (b) {
+    b.addEventListener("click", function () {
+      tabs.forEach(function (x) {
+        var on = x === b;
+        x.setAttribute("aria-selected", on ? "true" : "false");
+        document.getElementById(x.getAttribute("aria-controls")).hidden = !on;
+      });
+    });
+  });
+})();
