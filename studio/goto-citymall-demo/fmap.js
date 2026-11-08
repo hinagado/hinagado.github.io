@@ -1,9 +1,11 @@
 // 館内図。階の切り替えと、押したお店の案内。JavaScript がなくても両方の階の図と、お店へのリンクは使える
 (function () {
-  const map = document.getElementById("fm");
-  if (!map) return;
+  const map = document.getElementById("fm"), info = document.getElementById("fm-info");
+  if (!map || !info) return;
   document.documentElement.classList.add("js-fm");
-  const btns = [...map.querySelectorAll("[data-fl]")], floors = [...map.querySelectorAll(".fm-floor")], info = document.getElementById("fm-info");
+  const btns = [...map.querySelectorAll("[data-fl]")], floors = [...map.querySelectorAll(".fm-floor")];
+  // 押したお店をアドレスに残す（file:// などで使えないときは黙って飛ばす）
+  const remember = sid => { try { history.replaceState(null, "", location.pathname + location.search + "#fm-" + sid); } catch (e) { /* 何もしない */ } };
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const setFloor = f => {
     btns.forEach(b => b.setAttribute("aria-pressed", b.dataset.fl === f));
@@ -35,7 +37,7 @@
   }
   map.addEventListener("click", e => {
     const a = e.target.closest(".fm-b"); if (!a) return;
-    e.preventDefault(); show(a.dataset.shop, false);
+    e.preventDefault(); show(a.dataset.shop, false); remember(a.dataset.shop);
     // スマホでは案内が図の下に出るので、画面の外なら見える所まで動かす
     const r = info.getBoundingClientRect();
     if (r.top > innerHeight - 80 || r.bottom < 0) info.scrollIntoView({block: "nearest", behavior: reduce ? "auto" : "smooth"});
@@ -43,7 +45,9 @@
   btns.forEach(b => b.addEventListener("click", () => setFloor(b.dataset.fl)));
   document.addEventListener("click", e => {
     const a = e.target.closest(".fml"); if (!a) return;
-    e.preventDefault(); show(a.dataset.shop, true);
+    e.preventDefault(); show(a.dataset.shop, true); remember(a.dataset.shop);
+    // キーボードで押した人の操作位置も、館内図のそのお店へ移す
+    const box = document.getElementById("fm-" + a.dataset.shop); if (box) box.focus({preventScroll: true});
   });
   setFloor("1F");
   const fromHash = () => { const m = location.hash.match(/^#fm-(s\d+)$/); if (m) show(m[1], true); };
