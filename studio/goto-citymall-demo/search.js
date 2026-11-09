@@ -7,7 +7,7 @@
   const kindBtns = [...document.querySelectorAll("#kinds button")], floorBtns = [...document.querySelectorAll("#floors button")];
   const toHira = s => s.replace(/[ァ-ヶ]/g, c => String.fromCharCode(c.charCodeAt(0) - 0x60));
   const norm = s => toHira(s.normalize("NFKC").toLowerCase()).replace(/[-‐ー]/g, "");
-  const floorWord = t => t.replace(/([12])\s*階/g, "$1F").replace(/([12])\s*かい/g, "$1F");
+  const floorWord = t => t.replace(/([123])\s*階/g, "$1F").replace(/([123])\s*かい/g, "$1F");
   const index = cards.map(c => norm(c.dataset.s));
   const u = new URLSearchParams(location.search);
   const state = {
