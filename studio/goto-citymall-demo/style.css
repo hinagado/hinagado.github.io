@@ -456,3 +456,4 @@ html:not(.js-fm) .fm-tools{display:none}
 }
 .gbp .checks{grid-template-columns:1fr}
 .today-prov{margin:12px 0 0}
+.tabs{margin:14px 0 6px}.tabs button{font-weight:700;min-height:46px;padding:0 18px}.tabs button[aria-pressed=true]{background:var(--red);border-color:var(--red);color:#fff}.tabnote{margin:0 0 12px}
