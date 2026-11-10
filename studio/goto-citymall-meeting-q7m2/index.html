@@ -47,6 +47,14 @@
     <div><b>次へ進む</b><p>決まった内容を契約書に入れて、お送りします</p></div>
   </div>
 
+  <h3>これまでに決まったこと</h3>
+  <ul class="plain">
+    <li>お店は33店です。いただいたフロアマップをもとに、お店の分け方（株式会社プレッジ・1階・2階・3階）と館内図を作りました。</li>
+    <li>ホームページに、五島シティモールのロゴを入れました。</li>
+    <li>11月21日（土）に、ご担当者様と館内の写真を撮影しました。撮れなかったお店は、あとからお送りいただきます。</li>
+    <li>事前の確認フォームのご回答を、見本に反映しています。お答えのなかった所は、本日伺います。</li>
+  </ul>
+
   <h3>ご契約から公開までの流れ</h3>
   <ol class="steps">
     <li class="now"><i>1</i><div><b>お打ち合わせ</b><span class="when">本日</span><p>条件と進め方をご相談します。</p></div></li>
@@ -102,6 +110,7 @@
     <div class="tile"><p class="tag">3</p><h3 class="flat">Instagramの整備</h3><p>今お使いのアカウントのプロフィールを整え、はじめの9投稿を作ります。</p>
       <div class="ig-row"><img src="assets/ig1.jpg" alt="投稿の見本1" width="500" height="500" loading="lazy"><img src="assets/ig2.jpg" alt="投稿の見本2" width="500" height="500" loading="lazy"><img src="assets/ig3.jpg" alt="投稿の見本3" width="500" height="500" loading="lazy"><img src="assets/ig4.jpg" alt="投稿の見本4" width="500" height="500" loading="lazy"></div></div>
   </div>
+  <p class="also">見本には、館内図の「現在地」のQRコード（案内板に貼ったQRコードを読み取ると、いまいる場所が館内図に出る仕組み）と、お店ごとの Instagram・LINE・求人の欄も入れています。<a href="https://hinagado.github.io/studio/goto-citymall-demo/demo.html#here" target="_blank" rel="noopener">現在地の見本を開く ↗</a></p>
   <p class="also">そのほか、投稿のひな形、テナント向けの手引き、ホームページの更新の手順書、テナントから情報を受け付ける入力フォーム、催事の予定を御社で直せる表も作ります。</p>
 
   <h3>含まないもの</h3>
@@ -295,6 +304,16 @@
   <fieldset class="q" data-title="アドレスと公開先"><legend><i>12</i>ホームページのアドレスと公開先</legend>
     <p class="why">契約書では、どちらも御社の名義です。希望のアドレスと、公開先（ホームページを置く場所）のご希望を伺います。公開先の利用料は、毎月の運用の間は月額に含みます。</p>
     <div class="row2"><div><label class="memo" for="domain">希望のアドレス</label><input id="domain" name="domain" maxlength="100" placeholder="例：goto-citymall.jp"></div><div><label class="memo" for="hosting">公開先のご希望</label><input id="hosting" name="hosting" maxlength="100"></div></div>
+  </fieldset>
+  <fieldset class="q" data-title="求人の載せ方"><legend><i>13</i>テナント様の求人の載せ方</legend>
+    <p class="why">求人だけのページを新しく作る場合や、求人の入れ替えが多い場合は、更新の回数や追加ページの扱いをあわせてご相談します。</p>
+    <div class="opts"><label><input type="radio" name="jobs" value="お店ごとのページに載せる"><span>お店ごとのページに載せる</span></label><label><input type="radio" name="jobs" value="求人のページにまとめる"><span>求人のページにまとめる</span></label><label><input type="radio" name="jobs" value="両方に載せる"><span>両方に載せる</span></label></div>
+    <label class="memo" for="jobsMemo">補足（入れ替えの多さなど）</label><input id="jobsMemo" name="jobsMemo" maxlength="200">
+  </fieldset>
+  <fieldset class="q" data-title="現在地のQRコード"><legend><i>14</i>館内図の「現在地」のQRコード</legend>
+    <p class="why">案内板などに貼るQRコードです。貼る場所と数を決めます。</p>
+    <div class="opts"><label><input type="radio" name="qr" value="作る"><span>作る</span></label><label><input type="radio" name="qr" value="今回は作らない"><span>今回は作らない</span></label><label><input type="radio" name="qr" value="あとで決める"><span>あとで決める</span></label></div>
+    <div class="row2"><div><label class="memo" for="qrWhere">貼る場所</label><input id="qrWhere" name="qrWhere" maxlength="200" placeholder="例：各入口、エスカレーター前"></div><div><label class="memo" for="qrNum">数</label><input id="qrNum" name="qrNum" maxlength="40" placeholder="例：5か所"></div></div>
   </fieldset>
   </form>
   <button class="next" data-go="p8">次へ　まとめと次の流れ →</button>
