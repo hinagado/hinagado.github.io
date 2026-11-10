@@ -570,3 +570,23 @@ html:not(.js-fm) .fm-tools{display:none}
 .qrs img{width:100%;max-width:180px;height:auto;margin:0 auto 6px}
 .qrs figcaption b{display:block}.qrs figcaption a{font-size:14px}
 @media (max-width:640px){.qrs{grid-template-columns:1fr}}
+
+/* 2026-11-10 全ページの統一（ロゴの赤の線・明るい見出し・業種の色） */
+header{border-bottom-color:#e60012}
+.page-hd.v2{position:relative;overflow:hidden;background:#fff3ea;border-bottom:0;padding:40px 0 52px}
+.page-hd.v2::after{content:"";position:absolute;left:0;right:0;bottom:0;height:12px;background:repeating-linear-gradient(90deg,#ffd23f 0 40px,#fff 40px 80px,#2f6cc2 80px 120px,#23936a 120px 160px,#d43f7e 160px 200px,#e4870f 200px 240px)}
+.page-hd.v2 .in{position:relative}
+.page-hd.v2 .deco i{position:absolute;left:var(--x);top:var(--y);width:var(--s);height:var(--s);transform:translate(-50%,-50%) rotate(var(--r));opacity:.45}
+.page-hd.v2 .deco svg{width:100%;height:100%}
+.page-hd.v2 .deco i.k0{color:#e2452b}.page-hd.v2 .deco i.k1{color:#e4870f}.page-hd.v2 .deco i.k2{color:#23936a}.page-hd.v2 .deco i.k3{color:#2f6cc2}.page-hd.v2 .deco i.k4{color:#d43f7e}.page-hd.v2 .deco i.k5{color:#6c5bb8}
+@media (max-width:640px){.page-hd.v2{padding:26px 0 38px}.page-hd.v2 .deco i{opacity:.22}}
+.cat.k0{--k:#e2452b}.cat.k1{--k:#e4870f}.cat.k2{--k:#23936a}.cat.k3{--k:#2f6cc2}.cat.k4{--k:#d43f7e}.cat.k5{--k:#6c5bb8}
+.cat .ci{display:grid;place-items:center;width:100%;aspect-ratio:1;border-radius:50%;background:color-mix(in srgb,var(--k) 12%,#fff);border:6px solid var(--k);color:var(--k);box-shadow:0 4px 12px rgba(150,90,40,.15);transition:transform .3s}
+.cat .ci svg{width:44%;height:44%}
+.cat:hover .ci{transform:translateY(-4px)}
+.cat .cl{display:inline-block;margin-top:9px;background:var(--k);color:#fff;font-weight:700;border-radius:20px;padding:4px 14px;font-size:14.5px;line-height:1.4}
+@media (max-width:640px){.cat .ci{border-width:4px}.cat .cl{font-size:12.5px;padding:3px 9px}}
+@media (prefers-reduced-motion:reduce){.cat .ci{transition:none}}
+.jobs .job{position:relative;background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:18px;box-shadow:0 2px 0 #f0e2d4}
+.jobs .job .tag{position:absolute;top:12px;right:12px}
+.jobs .job h3{font-size:16px;padding-right:36px}
