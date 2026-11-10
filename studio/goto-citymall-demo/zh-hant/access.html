@@ -7,17 +7,18 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700;900&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../style.css"></head><body class="page-access intl">
 <a class="skip" href="#main">跳至主要內容</a>
-<div class="demo-band">此為提案用的樣本網站。照片僅供參考。</div>
+<div class="demo-band">此為提案用的樣本網站。照片僅供參考。<button type="button" class="pubview" aria-pressed="false">以正式版顯示</button></div>
 <nav class="langbar" aria-label="語言"><a href="../access.html" hreflang="ja" lang="ja">日本語</a><a href="../en/access.html" hreflang="en" lang="en">English</a><a href="access.html" hreflang="zh-Hant" lang="zh-Hant" aria-current="true">繁體中文</a><a href="../ko/access.html" hreflang="ko" lang="ko">한국어</a></nav>
 <header><div class="hd"><a class="logo" href="index.html"><img src="../img/logo.png" alt="" width="40" height="40">五島City Mall</a>
 <button class="menu-btn" type="button" aria-label="開啟選單" data-open="開啟選單" data-close="關閉選單" aria-controls="gnav" aria-expanded="false"><i></i><i></i><i></i></button>
 <nav id="gnav" aria-label="Menu"><a href="index.html">初次來訪</a><a href="shops.html">店鋪與樓層圖</a><a href="access.html" aria-current="page">交通方式</a></nav></div></header>
 <main id="main">
 <div class="page-hd v2"><div class="in"><h1>交通方式</h1><p>從福江港開車約10分鐘，從五島椿機場約15分鐘。免費停車場450個車位。</p></div></div>
-<section class="first">
+<p class="jump"><a href="#route">前往購物中心 ↓</a><a href="#back">返回港口 ↓</a><a href="#addr">計程車用地址 ↓</a></p>
+<section class="first" id="addr">
   <div class="two">
     <div class="info"><dl>
-      <dt>地址</dt><dd><span lang="ja" class="addr-ja">〒853-0031<br>長崎県五島市吉久木町731<br>五島シティモール</span><small>搭計程車時，請將此地址給司機看。</small></dd>
+      <dt>地址</dt><dd>日本長崎縣五島市吉久木町731（〒853-0031）<div class="addr-box"><small>日文地址（搭計程車用）：</small><span lang="ja" class="addr-ja">〒853-0031<br>長崎県五島市吉久木町731<br>五島シティモール</span><small>搭計程車時，請將此地址給司機看。</small><button type="button" class="showja" data-ja="五島シティモール&#10;長崎県五島市吉久木町731" data-sub="ここまでお願いします。">給司機看</button></div></dd>
       <dt>電話</dt><dd><a href="tel:+81959750003">+81-959-75-0003</a></dd>
       <dt>營業時間</dt><dd>10:00～20:00<br><small>つばき屋（超市）與DAISO 9:00開門。各店營業時間不同。</small></dd>
       <dt>停車場</dt><dd>免費，450個車位</dd>
@@ -25,12 +26,13 @@
     <div class="mapbox"><p class="map-wait">地圖載入中。若無法顯示，請按按鈕開啟Google地圖。</p><iframe class="map" title="五島City Mall的地圖" loading="lazy" src="https://maps.google.com/maps?q=%E4%BA%94%E5%B3%B6%E3%82%B7%E3%83%86%E3%82%A3%E3%83%A2%E3%83%BC%E3%83%AB%20%E9%95%B7%E5%B4%8E%E7%9C%8C%E4%BA%94%E5%B3%B6%E5%B8%82%E5%90%89%E4%B9%85%E6%9C%A8%E7%94%BA731&amp;hl=zh-TW&amp;z=15&amp;output=embed"></iframe></div>
   </div>
 </section>
-<section>
+<section id="route">
   <h2>前往方式</h2>
   <ol class="steps">
     <li><h3>從福江港</h3><p>開車或搭計程車約10分鐘。</p><a class="go" href="https://www.google.com/maps/dir/?api=1&amp;origin=%E7%A6%8F%E6%B1%9F%E6%B8%AF%E3%82%BF%E3%83%BC%E3%83%9F%E3%83%8A%E3%83%AB&amp;destination=%E4%BA%94%E5%B3%B6%E3%82%B7%E3%83%86%E3%82%A3%E3%83%A2%E3%83%BC%E3%83%AB%20%E9%95%B7%E5%B4%8E%E7%9C%8C%E4%BA%94%E5%B3%B6%E5%B8%82%E5%90%89%E4%B9%85%E6%9C%A8%E7%94%BA731&amp;travelmode=driving" target="_blank" rel="noopener">查看路線（新分頁）</a></li>
+    <li id="back"><h3>返回福江港</h3><p>開車或搭計程車約10分鐘。請預留充足時間搭船。</p><a class="go" href="https://www.google.com/maps/dir/?api=1&amp;origin=%E4%BA%94%E5%B3%B6%E3%82%B7%E3%83%86%E3%82%A3%E3%83%A2%E3%83%BC%E3%83%AB%20%E9%95%B7%E5%B4%8E%E7%9C%8C%E4%BA%94%E5%B3%B6%E5%B8%82%E5%90%89%E4%B9%85%E6%9C%A8%E7%94%BA731&amp;destination=%E7%A6%8F%E6%B1%9F%E6%B8%AF%E3%82%BF%E3%83%BC%E3%83%9F%E3%83%8A%E3%83%AB&amp;travelmode=driving" target="_blank" rel="noopener">前往港口的路線（新分頁）</a></li>
     <li><h3>從五島椿機場</h3><p>開車或搭計程車約15分鐘。</p><a class="go" href="https://www.google.com/maps/dir/?api=1&amp;origin=%E4%BA%94%E5%B3%B6%E3%81%A4%E3%81%B0%E3%81%8D%E7%A9%BA%E6%B8%AF&amp;destination=%E4%BA%94%E5%B3%B6%E3%82%B7%E3%83%86%E3%82%A3%E3%83%A2%E3%83%BC%E3%83%AB%20%E9%95%B7%E5%B4%8E%E7%9C%8C%E4%BA%94%E5%B3%B6%E5%B8%82%E5%90%89%E4%B9%85%E6%9C%A8%E7%94%BA731&amp;travelmode=driving" target="_blank" rel="noopener">查看路線（新分頁）</a></li>
-    <li><h3>搭乘路線巴士</h3><p>在「シティーモール前」站下車。</p><a class="go" href="https://mb.jorudan.co.jp/os/bus/4207/" target="_blank" rel="noopener">巴士時刻表（外部網站，日文）</a></li>
+    <li><h3>搭乘路線巴士</h3><p>在「シティーモール前」站下車。</p><a class="go" href="https://www.google.com/maps/dir/?api=1&amp;origin=%E7%A6%8F%E6%B1%9F%E6%B8%AF%E3%82%BF%E3%83%BC%E3%83%9F%E3%83%8A%E3%83%AB&amp;destination=%E4%BA%94%E5%B3%B6%E3%82%B7%E3%83%86%E3%82%A3%E3%83%A2%E3%83%BC%E3%83%AB%20%E9%95%B7%E5%B4%8E%E7%9C%8C%E4%BA%94%E5%B3%B6%E5%B8%82%E5%90%89%E4%B9%85%E6%9C%A8%E7%94%BA731&amp;travelmode=transit" target="_blank" rel="noopener">在Google地圖查看巴士路線（新分頁）</a><br><a class="go" href="https://mb.jorudan.co.jp/os/bus/4207/" target="_blank" rel="noopener">巴士時刻表（外部網站，日文）</a></li>
   </ol>
 </section>
 <section id="island">
@@ -40,6 +42,8 @@
 </section>
 <p class="jp-only">最新消息、活動與徵才資訊僅提供日文版，請使用瀏覽器的翻譯功能。</p>
 </main>
-<footer><div class="ft"><div><b>五島City Mall</b><p lang="ja">〒853-0031 長崎県五島市吉久木町731</p><p>☎ <a href="tel:+81959750003">+81-959-75-0003</a>　一般 10:00～20:00（部分店鋪9:00開始）<br>營運：株式會社Pledge</p></div>
+<nav class="tabbar" aria-label="Menu"><a href="shops.html">店鋪</a><a href="shops.html#fm">樓層圖</a><a href="index.html">指南</a><a href="access.html">交通</a></nav>
+<dialog class="showbox" id="showbox"><p class="sb-ja" lang="ja"></p><p class="sb-sub" lang="ja"></p><p class="sb-acts"><a class="btn line" id="showmap" href="#fm" hidden>樓層圖</a><button type="button" class="btn" id="showclose">關閉</button></p></dialog>
+<footer><div class="ft"><div><b>五島City Mall</b><p>日本長崎縣五島市吉久木町731（〒853-0031）</p><p>☎ <a href="tel:+81959750003">+81-959-75-0003</a>　一般 10:00～20:00（部分店鋪9:00開始）<br>營運：株式會社Pledge</p></div>
 <nav aria-label="Footer"><a href="index.html">初次來訪</a><a href="shops.html">店鋪與樓層圖</a><a href="access.html" aria-current="page">交通方式</a><a href="https://www.instagram.com/goto.citymall/" target="_blank" rel="noopener">Instagram（新分頁）</a></nav></div></footer>
-<script src="../site.js"></script></body></html>
+<script src="../site.js"></script><script src="../intl.js"></script></body></html>

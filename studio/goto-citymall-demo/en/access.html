@@ -7,17 +7,18 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700;900&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../style.css"></head><body class="page-access intl">
 <a class="skip" href="#main">Skip to content</a>
-<div class="demo-band">This is a sample site for our proposal. Photos are for illustration only.</div>
+<div class="demo-band">This is a sample site for our proposal. Photos are for illustration only.<button type="button" class="pubview" aria-pressed="false">View as published</button></div>
 <nav class="langbar" aria-label="Language"><a href="../access.html" hreflang="ja" lang="ja">日本語</a><a href="access.html" hreflang="en" lang="en" aria-current="true">English</a><a href="../zh-hant/access.html" hreflang="zh-Hant" lang="zh-Hant">繁體中文</a><a href="../ko/access.html" hreflang="ko" lang="ko">한국어</a></nav>
 <header><div class="hd"><a class="logo" href="index.html"><img src="../img/logo.png" alt="" width="40" height="40">Goto City Mall</a>
 <button class="menu-btn" type="button" aria-label="Open menu" data-open="Open menu" data-close="Close menu" aria-controls="gnav" aria-expanded="false"><i></i><i></i><i></i></button>
 <nav id="gnav" aria-label="Menu"><a href="index.html">Visitor guide</a><a href="shops.html">Shops &amp; floor map</a><a href="access.html" aria-current="page">Access</a></nav></div></header>
 <main id="main">
 <div class="page-hd v2"><div class="in"><h1>Access</h1><p>About 10 min by car from Fukue Port and about 15 min from Goto-Tsubaki Airport. Free parking for 450 cars.</p></div></div>
-<section class="first">
+<p class="jump"><a href="#route">Route to the mall ↓</a><a href="#back">Back to the port ↓</a><a href="#addr">Address for taxis ↓</a></p>
+<section class="first" id="addr">
   <div class="two">
     <div class="info"><dl>
-      <dt>Address</dt><dd><span lang="ja" class="addr-ja">〒853-0031<br>長崎県五島市吉久木町731<br>五島シティモール</span><small>Show this address to a taxi driver.</small></dd>
+      <dt>Address</dt><dd>731 Yoshikugi-cho, Goto City, Nagasaki 853-0031, Japan<div class="addr-box"><small>In Japanese (for taxis):</small><span lang="ja" class="addr-ja">〒853-0031<br>長崎県五島市吉久木町731<br>五島シティモール</span><small>Show this address to a taxi driver.</small><button type="button" class="showja" data-ja="五島シティモール&#10;長崎県五島市吉久木町731" data-sub="ここまでお願いします。">Show to the driver</button></div></dd>
       <dt>Phone</dt><dd><a href="tel:+81959750003">+81-959-75-0003</a></dd>
       <dt>Opening hours</dt><dd>10:00–20:00<br><small>Tsubakiya and DAISO open at 9:00. Hours vary by shop.</small></dd>
       <dt>Parking</dt><dd>Free, 450 cars</dd>
@@ -25,12 +26,13 @@
     <div class="mapbox"><p class="map-wait">Loading the map. If it does not appear, use the button to open Google Maps.</p><iframe class="map" title="Map of Goto City Mall" loading="lazy" src="https://maps.google.com/maps?q=%E4%BA%94%E5%B3%B6%E3%82%B7%E3%83%86%E3%82%A3%E3%83%A2%E3%83%BC%E3%83%AB%20%E9%95%B7%E5%B4%8E%E7%9C%8C%E4%BA%94%E5%B3%B6%E5%B8%82%E5%90%89%E4%B9%85%E6%9C%A8%E7%94%BA731&amp;hl=en&amp;z=15&amp;output=embed"></iframe></div>
   </div>
 </section>
-<section>
+<section id="route">
   <h2>Getting here</h2>
   <ol class="steps">
     <li><h3>From Fukue Port</h3><p>About 10 minutes by car or taxi.</p><a class="go" href="https://www.google.com/maps/dir/?api=1&amp;origin=%E7%A6%8F%E6%B1%9F%E6%B8%AF%E3%82%BF%E3%83%BC%E3%83%9F%E3%83%8A%E3%83%AB&amp;destination=%E4%BA%94%E5%B3%B6%E3%82%B7%E3%83%86%E3%82%A3%E3%83%A2%E3%83%BC%E3%83%AB%20%E9%95%B7%E5%B4%8E%E7%9C%8C%E4%BA%94%E5%B3%B6%E5%B8%82%E5%90%89%E4%B9%85%E6%9C%A8%E7%94%BA731&amp;travelmode=driving" target="_blank" rel="noopener">Directions (new tab)</a></li>
+    <li id="back"><h3>Going back to Fukue Port</h3><p>About 10 minutes by car or taxi. Leave plenty of time before your ferry.</p><a class="go" href="https://www.google.com/maps/dir/?api=1&amp;origin=%E4%BA%94%E5%B3%B6%E3%82%B7%E3%83%86%E3%82%A3%E3%83%A2%E3%83%BC%E3%83%AB%20%E9%95%B7%E5%B4%8E%E7%9C%8C%E4%BA%94%E5%B3%B6%E5%B8%82%E5%90%89%E4%B9%85%E6%9C%A8%E7%94%BA731&amp;destination=%E7%A6%8F%E6%B1%9F%E6%B8%AF%E3%82%BF%E3%83%BC%E3%83%9F%E3%83%8A%E3%83%AB&amp;travelmode=driving" target="_blank" rel="noopener">Directions to the port (new tab)</a></li>
     <li><h3>From Goto-Tsubaki Airport</h3><p>About 15 minutes by car or taxi.</p><a class="go" href="https://www.google.com/maps/dir/?api=1&amp;origin=%E4%BA%94%E5%B3%B6%E3%81%A4%E3%81%B0%E3%81%8D%E7%A9%BA%E6%B8%AF&amp;destination=%E4%BA%94%E5%B3%B6%E3%82%B7%E3%83%86%E3%82%A3%E3%83%A2%E3%83%BC%E3%83%AB%20%E9%95%B7%E5%B4%8E%E7%9C%8C%E4%BA%94%E5%B3%B6%E5%B8%82%E5%90%89%E4%B9%85%E6%9C%A8%E7%94%BA731&amp;travelmode=driving" target="_blank" rel="noopener">Directions (new tab)</a></li>
-    <li><h3>By local bus</h3><p>Get off at the “City Mall-mae” (シティーモール前) stop.</p><a class="go" href="https://mb.jorudan.co.jp/os/bus/4207/" target="_blank" rel="noopener">Bus timetable (external site, Japanese)</a></li>
+    <li><h3>By local bus</h3><p>Get off at the “City Mall-mae” (シティーモール前) stop.</p><a class="go" href="https://www.google.com/maps/dir/?api=1&amp;origin=%E7%A6%8F%E6%B1%9F%E6%B8%AF%E3%82%BF%E3%83%BC%E3%83%9F%E3%83%8A%E3%83%AB&amp;destination=%E4%BA%94%E5%B3%B6%E3%82%B7%E3%83%86%E3%82%A3%E3%83%A2%E3%83%BC%E3%83%AB%20%E9%95%B7%E5%B4%8E%E7%9C%8C%E4%BA%94%E5%B3%B6%E5%B8%82%E5%90%89%E4%B9%85%E6%9C%A8%E7%94%BA731&amp;travelmode=transit" target="_blank" rel="noopener">Bus route in Google Maps (new tab)</a><br><a class="go" href="https://mb.jorudan.co.jp/os/bus/4207/" target="_blank" rel="noopener">Bus timetable (external site, Japanese)</a></li>
   </ol>
 </section>
 <section id="island">
@@ -40,6 +42,8 @@
 </section>
 <p class="jp-only">News, events and job listings are in Japanese only. Please use your browser&#x27;s translation feature.</p>
 </main>
-<footer><div class="ft"><div><b>Goto City Mall</b><p lang="ja">〒853-0031 長崎県五島市吉久木町731</p><p>☎ <a href="tel:+81959750003">+81-959-75-0003</a>　Regular hours: 10:00–20:00 (some shops open at 9:00)<br>Operated by Pledge Co., Ltd.</p></div>
+<nav class="tabbar" aria-label="Menu"><a href="shops.html">Shops</a><a href="shops.html#fm">Map</a><a href="index.html">Guide</a><a href="access.html">Access</a></nav>
+<dialog class="showbox" id="showbox"><p class="sb-ja" lang="ja"></p><p class="sb-sub" lang="ja"></p><p class="sb-acts"><a class="btn line" id="showmap" href="#fm" hidden>Floor map</a><button type="button" class="btn" id="showclose">Close</button></p></dialog>
+<footer><div class="ft"><div><b>Goto City Mall</b><p>731 Yoshikugi-cho, Goto City, Nagasaki 853-0031, Japan</p><p>☎ <a href="tel:+81959750003">+81-959-75-0003</a>　Regular hours: 10:00–20:00 (some shops open at 9:00)<br>Operated by Pledge Co., Ltd.</p></div>
 <nav aria-label="Footer"><a href="index.html">Visitor guide</a><a href="shops.html">Shops &amp; floor map</a><a href="access.html" aria-current="page">Access</a><a href="https://www.instagram.com/goto.citymall/" target="_blank" rel="noopener">Instagram (new tab)</a></nav></div></footer>
-<script src="../site.js"></script></body></html>
+<script src="../site.js"></script><script src="../intl.js"></script></body></html>

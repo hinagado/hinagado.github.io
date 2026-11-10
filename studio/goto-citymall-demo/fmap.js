@@ -20,9 +20,10 @@
     setFloor(box.closest(".fm-floor").dataset.floor);
     map.querySelectorAll(".fm-b.on").forEach(x => { x.classList.remove("on"); x.removeAttribute("aria-current"); });
     box.classList.add("on"); box.setAttribute("aria-current", "true");
-    const name = card.querySelector("h3").textContent;
+    const name = card.querySelector("h3").childNodes[0].textContent;
     info.replaceChildren();
     info.append(el("b", "fm-nm", name), el("p", "", card.querySelector(".sb > p:not(.roma)").textContent));
+    const ro = card.querySelector(".sb > p.roma"); if (ro) info.append(el("p", "fm-ro", ro.textContent));
     const dl = el("p", "fm-meta");
     dl.append(el("span", "floor f" + card.dataset.f[0], L.fl(card.dataset.f)));
     const h = card.querySelector(".hrs"); if (h) dl.append(el("span", "hrs", h.textContent));
@@ -35,6 +36,7 @@
       const d = card.querySelector("details"); if (d) d.open = true;
     });
     info.append(go);
+    const sj = card.querySelector(".showja"); if (sj) { const c2 = sj.cloneNode(true); c2.removeAttribute("data-map"); info.append(c2); }
     if (scroll) map.scrollIntoView({block: "start", behavior: reduce ? "auto" : "smooth"});
   }
   map.addEventListener("click", e => {

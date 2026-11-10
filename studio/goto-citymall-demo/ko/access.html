@@ -7,17 +7,18 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700;900&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../style.css"></head><body class="page-access intl">
 <a class="skip" href="#main">본문으로 이동</a>
-<div class="demo-band">제안용 샘플 사이트입니다. 사진은 참고용 이미지입니다.</div>
+<div class="demo-band">제안용 샘플 사이트입니다. 사진은 참고용 이미지입니다.<button type="button" class="pubview" aria-pressed="false">공개 화면으로 보기</button></div>
 <nav class="langbar" aria-label="언어"><a href="../access.html" hreflang="ja" lang="ja">日本語</a><a href="../en/access.html" hreflang="en" lang="en">English</a><a href="../zh-hant/access.html" hreflang="zh-Hant" lang="zh-Hant">繁體中文</a><a href="access.html" hreflang="ko" lang="ko" aria-current="true">한국어</a></nav>
 <header><div class="hd"><a class="logo" href="index.html"><img src="../img/logo.png" alt="" width="40" height="40">고토 시티몰</a>
 <button class="menu-btn" type="button" aria-label="메뉴 열기" data-open="메뉴 열기" data-close="메뉴 닫기" aria-controls="gnav" aria-expanded="false"><i></i><i></i><i></i></button>
 <nav id="gnav" aria-label="Menu"><a href="index.html">처음 오신 분께</a><a href="shops.html">매장·층별 안내도</a><a href="access.html" aria-current="page">오시는 길</a></nav></div></header>
 <main id="main">
 <div class="page-hd v2"><div class="in"><h1>오시는 길</h1><p>후쿠에항에서 차로 약 10분, 고토 츠바키 공항에서 약 15분. 무료 주차장 450대.</p></div></div>
-<section class="first">
+<p class="jump"><a href="#route">쇼핑몰 가는 길 ↓</a><a href="#back">항구로 돌아가기 ↓</a><a href="#addr">택시용 주소 ↓</a></p>
+<section class="first" id="addr">
   <div class="two">
     <div class="info"><dl>
-      <dt>주소</dt><dd><span lang="ja" class="addr-ja">〒853-0031<br>長崎県五島市吉久木町731<br>五島シティモール</span><small>택시를 타실 때 이 주소를 기사님께 보여 주세요.</small></dd>
+      <dt>주소</dt><dd>일본 나가사키현 고토시 요시쿠기초 731 (〒853-0031)<div class="addr-box"><small>일본어 주소(택시용):</small><span lang="ja" class="addr-ja">〒853-0031<br>長崎県五島市吉久木町731<br>五島シティモール</span><small>택시를 타실 때 이 주소를 기사님께 보여 주세요.</small><button type="button" class="showja" data-ja="五島シティモール&#10;長崎県五島市吉久木町731" data-sub="ここまでお願いします。">기사님께 보여주기</button></div></dd>
       <dt>전화</dt><dd><a href="tel:+81959750003">+81-959-75-0003</a></dd>
       <dt>영업시간</dt><dd>10:00~20:00<br><small>츠바키야(슈퍼마켓)와 DAISO는 9:00부터. 매장마다 다릅니다.</small></dd>
       <dt>주차장</dt><dd>무료 450대</dd>
@@ -25,12 +26,13 @@
     <div class="mapbox"><p class="map-wait">지도를 불러오는 중입니다. 나오지 않으면 버튼을 눌러 Google 지도를 여세요.</p><iframe class="map" title="고토 시티몰 지도" loading="lazy" src="https://maps.google.com/maps?q=%E4%BA%94%E5%B3%B6%E3%82%B7%E3%83%86%E3%82%A3%E3%83%A2%E3%83%BC%E3%83%AB%20%E9%95%B7%E5%B4%8E%E7%9C%8C%E4%BA%94%E5%B3%B6%E5%B8%82%E5%90%89%E4%B9%85%E6%9C%A8%E7%94%BA731&amp;hl=ko&amp;z=15&amp;output=embed"></iframe></div>
   </div>
 </section>
-<section>
+<section id="route">
   <h2>가는 방법</h2>
   <ol class="steps">
     <li><h3>후쿠에항에서</h3><p>차 또는 택시로 약 10분.</p><a class="go" href="https://www.google.com/maps/dir/?api=1&amp;origin=%E7%A6%8F%E6%B1%9F%E6%B8%AF%E3%82%BF%E3%83%BC%E3%83%9F%E3%83%8A%E3%83%AB&amp;destination=%E4%BA%94%E5%B3%B6%E3%82%B7%E3%83%86%E3%82%A3%E3%83%A2%E3%83%BC%E3%83%AB%20%E9%95%B7%E5%B4%8E%E7%9C%8C%E4%BA%94%E5%B3%B6%E5%B8%82%E5%90%89%E4%B9%85%E6%9C%A8%E7%94%BA731&amp;travelmode=driving" target="_blank" rel="noopener">길찾기(새 탭)</a></li>
+    <li id="back"><h3>후쿠에항으로 돌아갈 때</h3><p>차 또는 택시로 약 10분. 배 시간에 여유를 두고 출발하세요.</p><a class="go" href="https://www.google.com/maps/dir/?api=1&amp;origin=%E4%BA%94%E5%B3%B6%E3%82%B7%E3%83%86%E3%82%A3%E3%83%A2%E3%83%BC%E3%83%AB%20%E9%95%B7%E5%B4%8E%E7%9C%8C%E4%BA%94%E5%B3%B6%E5%B8%82%E5%90%89%E4%B9%85%E6%9C%A8%E7%94%BA731&amp;destination=%E7%A6%8F%E6%B1%9F%E6%B8%AF%E3%82%BF%E3%83%BC%E3%83%9F%E3%83%8A%E3%83%AB&amp;travelmode=driving" target="_blank" rel="noopener">항구까지 길찾기(새 탭)</a></li>
     <li><h3>고토 츠바키 공항에서</h3><p>차 또는 택시로 약 15분.</p><a class="go" href="https://www.google.com/maps/dir/?api=1&amp;origin=%E4%BA%94%E5%B3%B6%E3%81%A4%E3%81%B0%E3%81%8D%E7%A9%BA%E6%B8%AF&amp;destination=%E4%BA%94%E5%B3%B6%E3%82%B7%E3%83%86%E3%82%A3%E3%83%A2%E3%83%BC%E3%83%AB%20%E9%95%B7%E5%B4%8E%E7%9C%8C%E4%BA%94%E5%B3%B6%E5%B8%82%E5%90%89%E4%B9%85%E6%9C%A8%E7%94%BA731&amp;travelmode=driving" target="_blank" rel="noopener">길찾기(새 탭)</a></li>
-    <li><h3>노선버스로</h3><p>「シティーモール前(시티몰 앞)」 정류장에서 내립니다.</p><a class="go" href="https://mb.jorudan.co.jp/os/bus/4207/" target="_blank" rel="noopener">버스 시간표(외부 사이트, 일본어)</a></li>
+    <li><h3>노선버스로</h3><p>「シティーモール前(시티몰 앞)」 정류장에서 내립니다.</p><a class="go" href="https://www.google.com/maps/dir/?api=1&amp;origin=%E7%A6%8F%E6%B1%9F%E6%B8%AF%E3%82%BF%E3%83%BC%E3%83%9F%E3%83%8A%E3%83%AB&amp;destination=%E4%BA%94%E5%B3%B6%E3%82%B7%E3%83%86%E3%82%A3%E3%83%A2%E3%83%BC%E3%83%AB%20%E9%95%B7%E5%B4%8E%E7%9C%8C%E4%BA%94%E5%B3%B6%E5%B8%82%E5%90%89%E4%B9%85%E6%9C%A8%E7%94%BA731&amp;travelmode=transit" target="_blank" rel="noopener">Google 지도에서 버스 경로 보기(새 탭)</a><br><a class="go" href="https://mb.jorudan.co.jp/os/bus/4207/" target="_blank" rel="noopener">버스 시간표(외부 사이트, 일본어)</a></li>
   </ol>
 </section>
 <section id="island">
@@ -40,6 +42,8 @@
 </section>
 <p class="jp-only">새 소식, 이벤트, 구인 정보는 일본어로만 제공됩니다. 브라우저의 번역 기능을 이용해 주세요.</p>
 </main>
-<footer><div class="ft"><div><b>고토 시티몰</b><p lang="ja">〒853-0031 長崎県五島市吉久木町731</p><p>☎ <a href="tel:+81959750003">+81-959-75-0003</a>　보통 10:00~20:00(일부 매장은 9:00부터)<br>운영: 주식회사 플레지</p></div>
+<nav class="tabbar" aria-label="Menu"><a href="shops.html">매장</a><a href="shops.html#fm">안내도</a><a href="index.html">안내</a><a href="access.html">교통</a></nav>
+<dialog class="showbox" id="showbox"><p class="sb-ja" lang="ja"></p><p class="sb-sub" lang="ja"></p><p class="sb-acts"><a class="btn line" id="showmap" href="#fm" hidden>층별 안내도</a><button type="button" class="btn" id="showclose">닫기</button></p></dialog>
+<footer><div class="ft"><div><b>고토 시티몰</b><p>일본 나가사키현 고토시 요시쿠기초 731 (〒853-0031)</p><p>☎ <a href="tel:+81959750003">+81-959-75-0003</a>　보통 10:00~20:00(일부 매장은 9:00부터)<br>운영: 주식회사 플레지</p></div>
 <nav aria-label="Footer"><a href="index.html">처음 오신 분께</a><a href="shops.html">매장·층별 안내도</a><a href="access.html" aria-current="page">오시는 길</a><a href="https://www.instagram.com/goto.citymall/" target="_blank" rel="noopener">Instagram(새 탭)</a></nav></div></footer>
-<script src="../site.js"></script></body></html>
+<script src="../site.js"></script><script src="../intl.js"></script></body></html>
