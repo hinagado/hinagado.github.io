@@ -704,3 +704,4 @@ html.public .prov,html.public .tag.ex,html.public li:has(> .tag.ex),html.public 
 .pubview{padding:2px 14px;margin:4px 0 4px 10px}
 .fm-info .showja{margin-top:8px}
 .picks .go{display:inline-block;margin-top:6px}
+@media (max-width:760px){html{scroll-padding-bottom:84px;scroll-padding-top:70px}}
