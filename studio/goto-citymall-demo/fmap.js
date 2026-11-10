@@ -50,6 +50,21 @@
     const box = document.getElementById("fm-" + a.dataset.shop); if (box) box.focus({preventScroll: true});
   });
   setFloor("1F");
+  // 現在地（QRコードから ?here=キー で開いたとき）
+  let here = null;
+  try { here = new URLSearchParams(location.search).get("here"); } catch (e) { /* 何もしない */ }
+  const pin = here && [...map.querySelectorAll(".here-pin")].find(x => x.dataset.here === here);
+  if (pin) {
+    pin.hidden = false;
+    setFloor(pin.closest(".fm-floor").dataset.floor);
+    const bar = document.getElementById("fm-herebar");
+    if (bar) { bar.textContent = "現在地：" + pin.dataset.hereText + "。図の赤い印が、いまいる場所です。"; bar.hidden = false; }
+    // 印のある場所が、画面の真ん中に来るように動かす（スマホでは図も横に動く）
+    const toPin = () => pin.parentElement.scrollIntoView({block: "center", inline: "center", behavior: "instant"});
+    toPin();
+    // アドレスの「#fm」でブラウザが後から動かすので、読み込みのあとにもう一度合わせる
+    if (document.readyState === "complete") requestAnimationFrame(toPin); else addEventListener("load", () => requestAnimationFrame(toPin), {once: true});
+  }
   const fromHash = () => { const m = location.hash.match(/^#fm-(s\d+)$/); if (m) show(m[1], true); };
   addEventListener("hashchange", fromHash);
   fromHash();

@@ -557,3 +557,16 @@ html:not(.js-fm) .fm-tools{display:none}
 .fm-info .fm-nm{font-size:22px}
 @media (max-width:640px){.fm-b,.fm-b:visited{border-left-width:2px;border-top-width:2px}}
 @media (prefers-reduced-motion:reduce){.fm-b{transition:none}}
+
+/* 現在地（QRコード） */
+.fm-b,.fm-f{position:relative}
+.here-pin{position:absolute;top:-11px;left:50%;transform:translateX(-50%);z-index:3;background:#e60012;color:#fff;font-style:normal;font-size:11.5px;font-weight:900;line-height:1;border-radius:99px;padding:5px 10px;white-space:nowrap;box-shadow:0 0 0 3px #fff,0 4px 10px rgba(0,0,0,.2);animation:herepulse 1.6s ease-in-out infinite}
+.here-pin::after{content:"";position:absolute;left:50%;bottom:-5px;margin-left:-5px;border:5px solid transparent;border-bottom:0;border-top-color:#e60012}
+@keyframes herepulse{50%{box-shadow:0 0 0 3px #fff,0 0 0 10px rgba(230,0,18,.18)}}
+@media (prefers-reduced-motion:reduce){.here-pin{animation:none}}
+.fm-herebar{background:#e60012;color:#fff;font-weight:700;border-radius:12px;padding:10px 16px;margin:0 0 12px}
+.qrs{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:12px 0}
+.qrs figure{margin:0;background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:12px;text-align:center}
+.qrs img{width:100%;max-width:180px;height:auto;margin:0 auto 6px}
+.qrs figcaption b{display:block}.qrs figcaption a{font-size:14px}
+@media (max-width:640px){.qrs{grid-template-columns:1fr}}
