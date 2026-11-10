@@ -609,3 +609,10 @@ header{border-bottom-color:#e60012}
 .sp-info dl{display:grid;grid-template-columns:6em 1fr;gap:6px 10px;font-size:14.5px;background:#fffaf4;border-radius:12px;padding:12px 14px}.sp-info dt{color:var(--muted);font-weight:700}
 .sp-acts{display:flex;flex-direction:column;gap:10px}.sp-acts .btn{text-align:center}
 @media (max-width:640px){.sp-body{padding:14px}.sp-hd h3{font-size:23px}.sp-info{grid-template-columns:1fr}.sp-phs{gap:6px}}
+
+/* お店から届いた求人・お知らせ */
+.jobs .post{background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:18px;box-shadow:0 2px 0 #f0e2d4}
+.jobs .post h3{font-size:16px;margin:2px 0 6px}
+.post-shop{font-size:12.5px;font-weight:700;color:#c2410c}
+.post-body{font-size:14px;white-space:pre-line;overflow-wrap:anywhere}
+.post-meta{font-size:12px;color:var(--muted);margin-top:8px}
