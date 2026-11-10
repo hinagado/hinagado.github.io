@@ -2,7 +2,7 @@
 (function () {
   const b = document.querySelector(".menu-btn"), n = document.getElementById("gnav");
   if (b && n) {
-    const set = o => { n.classList.toggle("open", o); b.setAttribute("aria-expanded", o); b.setAttribute("aria-label", o ? "メニューを閉じる" : "メニューを開く"); };
+    const set = o => { n.classList.toggle("open", o); b.setAttribute("aria-expanded", o); b.setAttribute("aria-label", o ? (b.dataset.close || "メニューを閉じる") : (b.dataset.open || "メニューを開く")); };
     b.addEventListener("click", () => { const o = !n.classList.contains("open"); set(o); if (o) { const a = n.querySelector("a"); if (a) a.focus(); } });
     document.addEventListener("keydown", e => { if (e.key === "Escape" && n.classList.contains("open")) { set(false); b.focus(); } });
     document.addEventListener("click", e => { if (n.classList.contains("open") && !n.contains(e.target) && !b.contains(e.target)) set(false); });

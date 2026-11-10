@@ -11,6 +11,8 @@
     btns.forEach(b => b.setAttribute("aria-pressed", b.dataset.fl === f));
     floors.forEach(x => { x.hidden = x.dataset.floor !== f; });
   };
+  // 海外の方向けのページ（<html lang>）の言葉
+  const L = {en: {go: "Shop details ↑", fl: f => f}, "zh-Hant": {go: "查看店鋪資訊 ↑", fl: f => f}, ko: {go: "매장 정보 보기 ↑", fl: f => f}}[document.documentElement.lang] || {go: "お店の情報を見る ↑", fl: f => f.replace("F", "階")};
   const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text) e.textContent = text; return e; };
   function show(sid, scroll) {
     const box = document.getElementById("fm-" + sid), card = document.getElementById("shop-" + sid);
@@ -20,14 +22,14 @@
     box.classList.add("on"); box.setAttribute("aria-current", "true");
     const name = card.querySelector("h3").textContent;
     info.replaceChildren();
-    info.append(el("b", "fm-nm", name), el("p", "", card.querySelector(".sb > p").textContent));
+    info.append(el("b", "fm-nm", name), el("p", "", card.querySelector(".sb > p:not(.roma)").textContent));
     const dl = el("p", "fm-meta");
-    dl.append(el("span", "floor f" + card.dataset.f[0], card.dataset.f.replace("F", "階")));
+    dl.append(el("span", "floor f" + card.dataset.f[0], L.fl(card.dataset.f)));
     const h = card.querySelector(".hrs"); if (h) dl.append(el("span", "hrs", h.textContent));
     info.append(dl);
     const t = card.querySelector(".tel");
     if (t) { const a = el("a", "tel", t.textContent); a.href = t.getAttribute("href"); info.append(a); }
-    const go = el("a", "fm-go", "お店の情報を見る ↑"); go.href = "#shop-" + sid;
+    const go = el("a", "fm-go", L.go); go.href = "#shop-" + sid;
     go.addEventListener("click", e => {
       if (card.hidden) { e.preventDefault(); location.href = "shops.html?q=" + encodeURIComponent(name) + "#shop-" + sid; return; }
       const d = card.querySelector("details"); if (d) d.open = true;
@@ -58,7 +60,7 @@
     pin.hidden = false;
     setFloor(pin.closest(".fm-floor").dataset.floor);
     const bar = document.getElementById("fm-herebar");
-    if (bar) { bar.textContent = "現在地：" + pin.dataset.hereText + "。図の赤い印が、いまいる場所です。"; bar.hidden = false; }
+    if (bar) { bar.textContent = bar.dataset.tpl ? bar.dataset.tpl.replace("{t}", pin.dataset.hereText) : "現在地：" + pin.dataset.hereText + "。図の赤い印が、いまいる場所です。"; bar.hidden = false; }
     // 印のある場所が、画面の真ん中に来るように動かす（スマホでは図も横に動く）
     const toPin = () => pin.parentElement.scrollIntoView({block: "center", inline: "center", behavior: "instant"});
     toPin();
