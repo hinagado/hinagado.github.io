@@ -716,3 +716,5 @@ html.public .prov,html.public .tag.ex,html.public li:has(> .tag.ex),html.public 
 .jd dl{display:grid;grid-template-columns:6.5em 1fr;gap:4px 8px;font-size:13.5px;margin-top:4px;background:#fffaf4;border-radius:10px;padding:10px}
 .jd dt{color:var(--muted);font-weight:700}
 .sp-info .jd dl{grid-template-columns:4.5em 1fr;gap:2px 6px;font-size:13px;padding:8px;background:#fff}
+.pay{font-size:13px;padding:4px 9px}.pay svg{width:22px;height:22px}
+.jsum b{color:#b8000e}
