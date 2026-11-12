@@ -10,15 +10,18 @@
   // 「くわしく見る」の並び（build.py の JOB_ROWS と同じ）
   const ROWS = [["time", "時間"], ["pay", "基本給"], ["off", "休日"], ["type", "雇用の形"], ["job", "職種"], ["work", "仕事の内容"], ["bonus", "賞与"], ["commute", "通勤費"], ["ins", "社会保険"], ["apply", "応募の方法"]];
   const PAYS = ["cash", "card", "ic", "paypay", "dpay"];
+  const CLOCK = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>';
   const jobOk = x => x && x.job && typeof x.job === "object" && ["type", "job", "pay", "time"].every(k => typeof x.job[k] === "string" && x.job[k]);
   const meta = x => [day(x.date) && `${day(x.date)}に掲載`, day(x.until) && `${day(x.until)}まで`].filter(Boolean).join("・");
   const jobCard = x => {
     const j = x.job, li = el("li", "job post");
-    const sum = el("p", "jsum"); sum.append(el("span", "jtype", String(j.type)), String(j.job) + "・", el("b", "", String(j.pay)), "・" + String(j.time));
+    const role = el("p", "jrole"); role.append(el("span", "jtype t-" + ({"正社員": "full", "パート": "part", "アルバイト": "arb"}[j.type] || "other"), String(j.type)), String(j.job));
+    const time = el("p", "jtime"); time.innerHTML = CLOCK; time.append(String(j.time)); // CLOCK は決まった絵だけ。届いた文字は append で入れる
     const det = el("details", "jd"), dl = el("dl");
-    det.append(el("summary", "", "くわしく見る"), dl);
+    const cl = el("button", "dclose", "閉じる"); cl.type = "button";
+    det.append(el("summary", "", "条件の詳細を見る"), dl, cl);
     ROWS.forEach(([k, lab]) => { if (j[k]) dl.append(el("dt", "", lab), el("dd", "", String(j[k]))); });
-    li.append(el("h3", "", String(x.shop || "")), sum, det);
+    li.append(el("h3", "", String(x.shop || "")), role, el("p", "jpay", String(j.pay)), time, det);
     if (meta(x)) li.append(el("p", "post-meta", meta(x)));
     return li;
   };

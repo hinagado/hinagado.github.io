@@ -718,3 +718,94 @@ html.public .prov,html.public .tag.ex,html.public li:has(> .tag.ex),html.public 
 .sp-info .jd dl{grid-template-columns:4.5em 1fr;gap:2px 6px;font-size:13px;padding:8px;background:#fff}
 .pay{font-size:13px;padding:4px 9px}.pay svg{width:22px;height:22px}
 .jsum b{color:#b8000e}
+
+/* 11/12 求人カードとお支払いのマークの作り直し */
+.jobs .job{display:flex;flex-direction:column;gap:2px;border-top:5px solid #f08a4b}
+.jobs .job h3{font-size:15px;color:var(--muted);margin:0 0 2px}
+.jrole{display:flex;align-items:center;flex-wrap:wrap;gap:8px;font-size:17px;font-weight:800;margin:2px 0 0;color:#2b211c}
+.jtype{display:inline-block;margin:0;border-radius:999px;padding:2px 10px;font-size:12.5px;font-weight:800;color:#fff;background:#8a7b70;letter-spacing:.04em}
+.jtype.t-part{background:#e0782f}.jtype.t-full{background:#2f8a52}.jtype.t-arb{background:#3d7cc9}
+.jpay{font-size:24px;font-weight:900;color:#c2410c;margin:6px 0 0;letter-spacing:.02em;line-height:1.25}
+.jtime{display:flex;align-items:center;gap:6px;font-size:14.5px;color:#4d3f36;margin:2px 0 0}
+.jtime svg{flex:none;color:#e0782f}
+.jd{margin-top:12px}
+.jd summary{list-style:none;justify-content:space-between;border:1.5px solid #f0c9a8;border-radius:12px;padding:8px 14px;background:#fff7ef;color:#b6400b;font-size:14.5px}
+.jd summary::-webkit-details-marker{display:none}
+.jd summary::after{content:"";width:8px;height:8px;border-right:2.5px solid currentColor;border-bottom:2.5px solid currentColor;transform:rotate(45deg) translate(-2px,-2px);transition:transform .2s}
+.jd[open] summary{border-radius:12px 12px 0 0;border-bottom-color:transparent}
+.jd[open] summary::after{transform:rotate(-135deg) translate(-2px,-2px)}
+.jd dl{margin:0;border:1.5px solid #f0c9a8;border-top:0;border-radius:0 0 12px 12px;background:#fffdfa;padding:4px 14px 8px;gap:0;grid-template-columns:6em 1fr}
+.jd dt,.jd dd{padding:8px 0;border-bottom:1px dashed #efdccb;margin:0}
+.jd dt:last-of-type,.jd dd:last-of-type{border-bottom:0}
+.jd dd{color:#2b211c}
+.jd dt:nth-last-of-type(1)+dd,.jd dt:last-of-type{font-weight:800}
+.jd dt:last-of-type+dd{color:#b6400b;font-weight:800}
+/* お支払い：お店の一覧では小さな札を横に並べる */
+.sd .pays{display:flex;flex-wrap:wrap;gap:5px}
+.sd .pay{font-size:12px;padding:2px 7px;border-radius:7px;gap:3px}
+.sd .pay svg{width:15px;height:15px}
+/* お店ページの見本：お支払いはタイル、求人はカード（表の外に、幅いっぱい） */
+.sp-sec{margin-top:16px}
+.sp-sec h4{display:flex;align-items:center;gap:8px;font-size:15px;margin:0 0 8px;color:#2b211c}
+.sp-sec h4::before{content:"";width:4px;height:18px;border-radius:2px;background:#e0782f}
+.paygrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:8px}
+.paygrid .pay{flex-direction:column;justify-content:center;gap:5px;min-height:72px;padding:10px 4px;font-size:12px;text-align:center;line-height:1.3;border-radius:12px;border-width:1.5px}
+.paygrid .pay svg{width:26px;height:26px}
+.jobs.one{grid-template-columns:1fr;padding:0;margin:0}
+.sp-col{min-width:0}
+.sp-acts{position:sticky;top:90px}
+@media (max-width:640px){.sp-acts{position:static}}
+.sp-info .jd dl{grid-template-columns:6.2em 1fr;font-size:13.5px;padding:4px 12px 8px}
+.pay{letter-spacing:0}
+.sd .pay{padding:2px 6px}
+.paygrid{grid-template-columns:repeat(auto-fill,minmax(96px,1fr))}
+.paygrid .pay{font-size:11.5px;padding:10px 2px;word-break:keep-all}
+
+/* 11/12 3人の採点を受けて：押せる形・濃い文字・大きめ */
+.jd summary{background:#e0782f;border-color:#e0782f;color:#fff;font-size:15.5px;padding:10px 16px;min-height:46px;box-shadow:0 2px 0 #b9581c}
+.jd summary:hover{background:#cf6820}
+.jd[open] summary{background:#c85f19;border-color:#c85f19;box-shadow:none}
+.jd dl{border-color:#e0782f;font-size:15px}
+.jd dt{color:#5a463a}
+.jd dd{color:#1f1712}
+.jobs .job h3{color:#4d3f36;font-size:15.5px}
+.jtime{color:#2b211c;font-size:15px}
+.sp-sec h4{font-size:16.5px}
+.sp-sec h4::before{display:none}
+.sp-sec h4 svg{color:#e0782f;flex:none}
+.sp-jobsec{border-top:1.5px dashed #e7d6c6;padding-top:14px;margin-top:20px}
+.paygrid .pay{font-size:12.5px}
+.sp-info dl dt{color:#5a463a}
+.sd dt{color:#5a463a}
+/* 11/12 2回目の採点を受けて：一覧の「詳しく見る」もボタンの形に・お支払いのタイルは横長で詰める */
+.sd summary{display:flex;justify-content:space-between;width:100%;margin-top:8px;padding:8px 14px;min-height:44px;border:2px solid #e0782f;border-radius:12px;background:#fff7ef;color:#b6400b;font-size:15px}
+.sd summary::before{content:none}
+.sd summary::after{content:"";width:8px;height:8px;border-right:2.5px solid currentColor;border-bottom:2.5px solid currentColor;transform:rotate(45deg) translate(-2px,-2px);transition:transform .2s}
+.sd[open] summary::after{transform:rotate(-135deg) translate(-2px,-2px)}
+.paygrid{grid-template-columns:1fr 1fr;gap:6px}
+.paygrid .pay{flex-direction:row;justify-content:flex-start;min-height:48px;padding:6px 10px;gap:8px;text-align:left;font-size:13px}
+.paygrid .pay svg{width:22px;height:22px;flex:none}
+.sd summary::before,.sd[open] summary::before{content:none;display:none}
+
+/* 11/12 3回目の採点を受けて */
+.page-shops .acts{gap:10px 8px;margin-top:10px}
+.sd summary{margin-top:14px}
+.dclose{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;min-height:44px;margin-top:10px;border:1.5px solid #e0782f;border-radius:12px;background:#fff;color:#b6400b;font:inherit;font-weight:700;font-size:15px;cursor:pointer}
+.dclose::after{content:"";width:7px;height:7px;border-right:2.5px solid currentColor;border-bottom:2.5px solid currentColor;transform:rotate(-135deg) translate(-1px,-1px)}
+.jd .dclose{border-radius:0 0 12px 12px;margin-top:0;border-top:1px dashed #efdccb;border-color:#e0782f}
+.jd[open] dl{border-radius:0}
+.sp-acts .btn{min-height:48px;padding-top:10px;padding-bottom:10px}
+
+/* 11/12 4回目の採点を受けて */
+.jd summary::before,.sd summary::before,.sd[open] summary::before{content:"＋";display:inline-grid;place-items:center;flex:none;width:22px;height:22px;border-radius:50%;margin-right:8px;font-weight:900;font-size:15px;line-height:1}
+.jd summary::before{background:#fff;color:#e0782f}
+.sd summary::before,.sd[open] summary::before{background:#e0782f;color:#fff}
+.jd[open] summary::before,.sd[open] summary::before{content:"－"}
+.jd summary,.sd summary{justify-content:flex-start}
+.jd summary::after,.sd summary::after{margin-left:auto}
+.page-shops .acts a{box-shadow:0 2px 0 rgba(43,33,28,.18);min-height:40px}
+.sp-jobsec .jobs .job{border-top-color:#d9cfc6}
+.sp-jobsec .jpay{font-size:21px}
+.page-shops .acts a.fml,.page-shops .acts a.mp{display:inline-flex;align-items:center;gap:5px}
+.page-shops .acts a svg{flex:none}
+.sp-acts .btn{display:flex;align-items:center;justify-content:center;gap:8px}.sp-acts .btn.line{background:#fff7ef;border-width:2.5px}

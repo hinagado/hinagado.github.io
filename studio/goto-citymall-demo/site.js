@@ -30,3 +30,15 @@
   setPub(pub);
   if (pv) pv.addEventListener("click", () => setPub(!document.documentElement.classList.contains("public")));
 })();
+
+// 開いた欄の下の「閉じる」：閉じて、見出しが画面に入るように戻す
+document.addEventListener("click", ev => {
+  const b = ev.target.closest && ev.target.closest(".dclose");
+  if (!b) return;
+  const d = b.closest("details");
+  if (!d) return;
+  d.open = false;
+  const s = d.querySelector("summary");
+  if (s && s.getBoundingClientRect().top < 80) s.scrollIntoView({block: "center"});
+  if (s) s.focus({preventScroll: true});
+});
