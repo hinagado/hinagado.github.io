@@ -11,6 +11,16 @@
   const ROWS = [["time", "時間"], ["pay", "基本給"], ["off", "休日"], ["type", "雇用の形"], ["job", "職種"], ["work", "仕事の内容"], ["bonus", "賞与"], ["commute", "通勤費"], ["ins", "社会保険"], ["apply", "応募の方法"]];
   const PAYS = ["cash", "card", "ic", "paypay", "dpay"];
   const CLOCK = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>';
+  // 就業場所・所在地・連絡先（build.py の job_place と同じ決まり）。recruit.html に埋めた一覧から引く
+  let INFO = {};
+  try { INFO = JSON.parse((document.getElementById("shopinfo") || {}).textContent || "{}"); } catch (e) {}
+  const place = name => {
+    if (!INFO.site) return [];
+    const i = (INFO.shops || {})[name] || {}, fl = String(i.f || "").replace("F", "階");
+    const rows = [["就業場所", INFO.site + (fl ? "　" + fl : "")], ["所在地", String(INFO.addr || "")]];
+    if (i.t) rows.push(["連絡先", name + "　" + i.t]);
+    return rows;
+  };
   const jobOk = x => x && x.job && typeof x.job === "object" && ["type", "job", "pay", "time"].every(k => typeof x.job[k] === "string" && x.job[k]);
   const meta = x => [day(x.date) && `${day(x.date)}に掲載`, day(x.until) && `${day(x.until)}まで`].filter(Boolean).join("・");
   const jobCard = x => {
@@ -21,6 +31,7 @@
     const cl = el("button", "dclose", "閉じる"); cl.type = "button";
     det.append(el("summary", "", "条件の詳細を見る"), dl, cl);
     ROWS.forEach(([k, lab]) => { if (j[k]) dl.append(el("dt", "", lab), el("dd", "", String(j[k]))); });
+    place(String(x.shop || "")).forEach(([lab, v]) => dl.append(el("dt", "", lab), el("dd", "", v)));
     li.append(el("h3", "", String(x.shop || "")), role, el("p", "jpay", String(j.pay)), time, det);
     if (meta(x)) li.append(el("p", "post-meta", meta(x)));
     return li;
