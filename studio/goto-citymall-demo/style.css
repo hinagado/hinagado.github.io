@@ -705,3 +705,14 @@ html.public .prov,html.public .tag.ex,html.public li:has(> .tag.ex),html.public 
 .fm-info .showja{margin-top:8px}
 .picks .go{display:inline-block;margin-top:6px}
 @media (max-width:760px){html{scroll-padding-bottom:84px;scroll-padding-top:70px}}
+
+/* お支払いのマーク・求人の詳しい欄（11/12 吉田様のご提案の見本） */
+.pays{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.pay{display:inline-flex;align-items:center;gap:4px;border:1.5px solid #d9cfc6;border-radius:8px;padding:3px 8px;font-size:12.5px;font-weight:700;background:#fff}
+.pay svg{width:18px;height:18px}
+.pay-cash{color:#2f7a3b}.pay-card{color:#2f6cc2}.pay-ic{color:#6c5bb8}.pay-paypay{color:#d4001e}.pay-dpay{color:#c8102e}
+.jsum{font-size:14px;margin:4px 0 6px}.jtype{display:inline-block;margin-right:6px;background:#2b211c;color:#fff;border-radius:4px;padding:0 6px;font-size:12px;font-weight:700}
+.jd summary{cursor:pointer;font-weight:700;color:#c2410c;min-height:40px;display:flex;align-items:center;gap:6px}
+.jd dl{display:grid;grid-template-columns:6.5em 1fr;gap:4px 8px;font-size:13.5px;margin-top:4px;background:#fffaf4;border-radius:10px;padding:10px}
+.jd dt{color:var(--muted);font-weight:700}
+.sp-info .jd dl{grid-template-columns:4.5em 1fr;gap:2px 6px;font-size:13px;padding:8px;background:#fff}
