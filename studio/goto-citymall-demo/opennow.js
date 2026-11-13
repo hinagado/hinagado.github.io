@@ -13,10 +13,10 @@
   const YEARS = new Set([...HOL].map(k => +k.slice(0, 4)));
   const WD = ['日', '月', '火', '水', '木', '金', '土'];
   const T = {
-    ja: { open: '営業中', openIrr: '営業時間内（休みはお店に確認）', before: '{t}から', after: '本日の営業は終了', closed: '本日は定休日' },
-    en: { open: 'Open now', openIrr: 'Within hours (days off vary; ask the shop)', before: 'Opens at {t}', after: 'Closed for today', closed: 'Closed today' },
-    'zh-Hant': { open: '營業中', openIrr: '營業時間內（公休日不定，請向店家確認）', before: '{t} 開始營業', after: '今日營業已結束', closed: '今日公休' },
-    ko: { open: '영업 중', openIrr: '영업시간 내(휴무일은 매장에 확인)', before: '{t}부터 영업', after: '오늘 영업 종료', closed: '오늘 휴무' }
+    ja: { open: '営業中', openIrr: '営業時間内（休みはお店に確認）', before: '{t}から', after: '本日の営業は終了', closed: '本日は定休日', ask: 'お休みの場合あり（お店に確認）' },
+    en: { open: 'Open now', openIrr: 'Within hours (days off vary; ask the shop)', before: 'Opens at {t}', after: 'Closed for today', closed: 'Closed today', ask: 'May be closed today (ask the shop)' },
+    'zh-Hant': { open: '營業中', openIrr: '營業時間內（公休日不定，請向店家確認）', before: '{t} 開始營業', after: '今日營業已結束', closed: '今日公休', ask: '今日可能公休（請向店家確認）' },
+    ko: { open: '영업 중', openIrr: '영업시간 내(휴무일은 매장에 확인)', before: '{t}부터 영업', after: '오늘 영업 종료', closed: '오늘 휴무', ask: '오늘 휴무일 수 있음(매장에 확인)' }
   };
 
   function jstNow() {
@@ -52,7 +52,8 @@
       if (today.wd === wd && !(nextIfHol && today.hol)) return { k: 'closed' };
       if (nextIfHol) {
         const y = dayInfo(now.y, now.mo, now.d, -1);
-        if (y.wd === wd && y.hol) return { k: 'closed' };
+        // 祝日の翌日が休み。翌日も祝日（連休）のときは開ける場合があるので言い切らない（11/13 吉田様）
+        if (y.wd === wd && y.hol) return { k: today.hol ? 'ask' : 'closed' };
       }
     }
     const weekend = today.wd === 0 || today.wd === 6 || today.hol;
