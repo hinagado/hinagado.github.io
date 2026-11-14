@@ -716,7 +716,7 @@ textarea.inp{min-height:132px;resize:vertical}
     <h2 class="title" tabindex="-1">公開の後のことを教えてください</h2>
     <fieldset class="q" data-req="care" data-short="公開後の更新">
       <legend>公開の後の更新（文言の差し替え・お知らせなど）を頼みたいですか？</legend>
-      <p class="hint">月ごとのプランは、制作の料金とは別です。目安の画面で、合いそうなプランをお知らせします。<br>当店が作るサイトは、<b>お客様がご自分で文字を書き換える作りではありません</b>。変えたいときは、月ごとのプランで当店が直すか、「表に書き込むと自動で出る」仕組み（前の画面）を使います。</p>
+      <p class="hint">月ごとのプランは、制作の料金とは別です。目安の画面で、合いそうなプランをお知らせします。<br>プランを頼むときは「保守とセット」も選べます（ホームページの基本が <b>19,800円 → 9,800円</b>。プランは最低6か月）。<br>当店が作るサイトは、<b>お客様がご自分で文字を書き換える作りではありません</b>。変えたいときは、月ごとのプランで当店が直すか、「表に書き込むと自動で出る」仕組み（前の画面）を使います。</p>
       <div class="choices">
         <label class="ch"><input type="radio" name="care" value="monthly_once"><span class="mk">✓</span><span class="tx"><b>頼みたい（月1回くらい）</b><span class="yen">月3,980円〜</span></span></label>
         <label class="ch"><input type="radio" name="care" value="monthly_few"><span class="mk">✓</span><span class="tx"><b>頼みたい（月数回）</b><small>お知らせの更新も頼めます</small></span></label>
@@ -741,6 +741,17 @@ textarea.inp{min-height:132px;resize:vertical}
         <div class="choices two">
           <label class="ch"><input type="radio" name="sns" value="yes"><span class="mk">✓</span><span class="tx"><b>足す</b><span class="yen" data-sns-price></span></span></label>
           <label class="ch"><input type="radio" name="sns" value="no"><span class="mk">✓</span><span class="tx"><b>足さない</b></span></label>
+        </div>
+        <p class="err" role="alert">どちらかを選んでください。</p>
+      </fieldset>
+    </div>
+    <div class="cond" data-if="careDef">
+      <fieldset class="q" data-req="care_set" data-short="保守とセット">
+        <legend>ホームページの基本と月ごとのプランを「保守とセット」にしますか？</legend>
+        <p class="hint">セットにすると、ホームページの基本（3ページまで）が <b>19,800円 → 9,800円</b>になります。そのかわり、月ごとのプランは<b>公開した月の翌月から6か月目の末日まで</b>が最低の期間です（6か月目より前に終えるときは、残りの月の月額の合計と 10,000円の少ない方をいただきます。ご利用規約の第15条の3）。セットにしないときは、最低の期間はありません。</p>
+        <div class="choices two">
+          <label class="ch"><input type="radio" name="care_set" value="yes"><span class="mk">✓</span><span class="tx"><b>セットにする</b><small>基本 9,800円・プランは最低6か月</small></span></label>
+          <label class="ch"><input type="radio" name="care_set" value="no"><span class="mk">✓</span><span class="tx"><b>セットにしない</b><small>基本 19,800円・最低の期間なし</small></span></label>
         </div>
         <p class="err" role="alert">どちらかを選んでください。</p>
       </fieldset>
@@ -963,7 +974,8 @@ textarea.inp{min-height:132px;resize:vertical}
 /* ===== 見積もりの目安（quote_rules.json の規則どおり） ===== */
 var HQ_RULES = {
   prices: {
-    hp: { base: { name: "基本（型・3ページまで）", price: 29800, included_pages: 3 }, extra_page_each: 9800, custom_design: 29800, original_art_each: 5000, form: 19800, sheet_link: 39800, migrate: 29800, text_writing_per_page: 5000, premium_default_art: 3 },
+    /* 2026-11-14 代表の決定：制作だけの基本 19,800円。保守のプランと一緒なら「保守とセット」で基本 9,800円（保守は最低6か月） */
+    hp: { base: { name: "基本（型・3ページまで）", price: 19800, included_pages: 3 }, set_base: { name: "基本（型・3ページまで。保守とセット）", price: 9800, min_months: 6 }, extra_page_each: 9800, custom_design: 29800, original_art_each: 5000, form: 19800, sheet_link: 39800, migrate: 29800, text_writing_per_page: 5000, premium_default_art: 3 },
     flyer: {
       base: { name: "A4 片面", price: 14800, ai_images: 2 },
       size_addon: {
@@ -992,7 +1004,9 @@ var HQ_RULES = {
     rush_check: "お急ぎの場合は空きを確かめてからお返事します",
     rush_declined: "日数の目安が20営業日を超えるため、お急ぎ（特急）はお受けしていません。納期は見積書でご相談します",
     domain_guide: "ドメインはお客様の名義で取っていただきます。取り方は文字でご案内します（利用料は別）",
-    news_no_update: "『お知らせ・ブログ』のページを選んでいますが、公開の後にお知らせを新しくする手段（月数回以上の更新のプラン、または表との連携）がありません。当店のサイトは、お客様がご自分で文字を書き換える作りではありません。見積書でご相談します"
+    news_no_update: "『お知らせ・ブログ』のページを選んでいますが、公開の後にお知らせを新しくする手段（月数回以上の更新のプラン、または表との連携）がありません。当店のサイトは、お客様がご自分で文字を書き換える作りではありません。見積書でご相談します",
+    care_set: "『保守とセット』を選んだので、セットの値段で計算しています（ホームページの基本が 19,800円 → 9,800円）。月ごとのプランは、公開した月の翌月から6か月目の末日までが最低の期間です。6か月目より前に終えるときは、残りの月の月額の合計と 10,000円の少ない方をいただきます（当店の都合で終えるときなどは、いただきません）",
+    set_hint: "月ごとのプランと『保守とセット』にすると（プランは最低6か月）、ホームページの基本が 19,800円から 9,800円になります。この目安は、セットにしない値段で出しています"
   },
   shop_only_flags: ["referral_partner"]
 };
@@ -1017,7 +1031,10 @@ function hinagaQuote(inp) {
     art = rawArt;
     if (inp.hp_design === "premium") art = Math.max(art, H.premium_default_art);
     var add = function (label, amount, note) { lines.push({ group: "hp", label: label, amount: amount, note: note || "" }); hpSub += amount; };
-    add(H.base.name, H.base.price);
+    /* 保守のプランを頼み（月1回・月数回・たくさん）、「保守とセット」を選んだときだけセットの基本。ほかは制作だけの基本 */
+    var careSet = (inp.care === "monthly_once" || inp.care === "monthly_few" || inp.care === "heavy") && inp.care_set === "yes";
+    if (careSet) add(H.set_base.name, H.set_base.price, "保守は最低" + H.set_base.min_months + "か月");
+    else add(H.base.name, H.base.price);
     var extra = Math.max(0, pages - H.base.included_pages);
     if (extra > 0) add("ページの追加（4ページ目から）", H.extra_page_each * extra, H.extra_page_each.toLocaleString("ja-JP") + "円 × " + extra + "ページ");
     if (custom) add("デザインを一から組む", H.custom_design);
@@ -1075,6 +1092,9 @@ function hinagaQuote(inp) {
   if (inp.deadline === "rush" && prodDays > P.rush_max_days) flags.push("rush_declined");
   if (kind !== "flyer" && inp.hp_domain !== "have") flags.push("domain_guide");
   if (kind !== "flyer" && inp.hp_news === "yes" && inp.hp_sheet !== "yes" && inp.care !== "monthly_few" && inp.care !== "heavy") flags.push("news_no_update");
+  var careDef = inp.care === "monthly_once" || inp.care === "monthly_few" || inp.care === "heavy";
+  if (kind !== "flyer" && careDef && inp.care_set === "yes") flags.push("care_set");
+  if (kind !== "flyer" && (inp.care === "unknown" || (careDef && inp.care_set !== "yes"))) flags.push("set_hint");
   /* 「わからない」があるときは幅で出す（上は、わからない所を全部『あり』にして計算） */
   var totalMax = total, daysMax = days, unk = false;
   if (kind !== "flyer" && (inp.hp_form === "unknown" || inp.hp_sheet === "unknown" || inp.hp_migrate === "unknown" || inp.hp_design === "unknown" || inp.hp_mk === "unknown")) unk = true;
@@ -1156,6 +1176,7 @@ if (typeof module !== "undefined" && module.exports) { module.exports = { hinaga
     fTargetOther: function () { return val("f_target") === "other"; },
     fAi: function () { var v = val("f_img"); return v === "ai" || v === "both"; },
     hpKind: function () { var v = val("kind"); return v === "hp" || v === "both"; },
+    careDef: function () { var c = val("care"); return c === "monthly_once" || c === "monthly_few" || c === "heavy"; },
     careOn: function () { var c = val("care"); return c !== "" && Object.prototype.hasOwnProperty.call(HQ_RULES.care_suggest, c) && HQ_RULES.care_suggest[c] !== null; }
   };
   /* 値段の表示は HQ_RULES から入れる（画面の文字に数字を直書きしない） */
@@ -1326,6 +1347,8 @@ if (typeof module !== "undefined" && module.exports) { module.exports = { hinaga
       a.hp_mk = val("hp_mk");
       /* 保守なし（頼まない）のときは、前に選んだ SNS の答えが残っていても送らない */
       if (conds.careOn()) a.sns = val("sns");
+      /* 保守とセットは、プランを決めて頼むとき（月1回・月数回・たくさん）だけ聞く・送る */
+      if (conds.careDef()) a.care_set = val("care_set");
     }
     var sub = { medical_care: "sub_med", salon: "sub_salon", health_beauty: "sub_hb", realestate_finance: "sub_re" }[a.industry];
     if (sub) a.industry_sub = val(sub);
