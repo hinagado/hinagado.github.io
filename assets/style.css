@@ -379,3 +379,19 @@ h1,h2,h3,.sec-title,.card-title,.game-catch,.book-sub{text-wrap:balance}
 @media (max-width:400px){
   .rel-card .card-foot>span,.rel-card .btn,.rel-card .badge{white-space:normal}
 }
+
+/* 冬・年末年始の特集（tokushu/fuyu.html。2026-11-16）: 組み合わせて使う表の箱と、商品一覧から特集へのボタン */
+.items-tokushu{margin:18px 0 0}
+.kumi-list{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:28px}
+@media (max-width:860px){.kumi-list{grid-template-columns:1fr;gap:20px}}
+.kumi{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:26px 24px}
+.kumi h3{font-size:19px;margin:0 0 8px}
+.kumi>p{margin:0 0 14px;font-size:16px;color:var(--ink);line-height:1.85}
+.kumi-3{grid-template-columns:repeat(3,1fr)}
+@media (max-width:960px){.kumi-3{grid-template-columns:1fr}}
+.tokushu-picks .kumi{border-color:var(--shu)}
+.kumi-items{list-style:none;margin:0;padding:0;border-top:1px dashed var(--line)}
+.kumi-items li{padding:12px 0;border-bottom:1px dashed var(--line);overflow-wrap:anywhere}
+.kumi-name{display:block;font-weight:700;text-decoration:none;line-height:1.6}
+.kumi-name:hover{text-decoration:underline}
+.kumi-foot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;margin-top:6px;font-size:14.5px;font-weight:700}
