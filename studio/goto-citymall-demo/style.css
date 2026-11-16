@@ -821,3 +821,139 @@ html.public .prov,html.public .tag.ex,html.public li:has(> .tag.ex),html.public 
 .slogo{display:block;height:auto;max-height:40px;max-width:170px;width:auto;object-fit:contain;margin:0 0 4px}
 .sd-logo.has{border:1.5px solid #e6ddd3;width:auto;min-width:58px;max-width:140px;padding:6px 8px}
 .sd-logo.has img{display:block;max-width:124px;max-height:46px;width:auto;height:auto;object-fit:contain}
+
+/* ============================================================
+   2026-11-16 デザインとレイアウトの見直し（スマホ幅を中心に）
+   ねらい: ①カードの形をそろえる ②見出しの階層をはっきり ③お店カードを短く
+          ④押せる所は押せる形に・色だけに頼らない ⑤小さい文字を底上げ
+   ここより上の決まりは変えず、この下で上書きしている。
+   ============================================================ */
+:root{--card-line:#ecdccd;--card-sh:0 1px 0 #f3e6d8,0 6px 16px rgba(90,50,20,.07)}
+
+/* --- 共通: 大きな見出しに目印の棒 --- */
+main>section>h2:not(.vh){position:relative;padding-left:17px}
+main>section>h2:not(.vh)::before{content:"";position:absolute;left:0;top:.2em;bottom:.2em;width:7px;border-radius:4px;background:var(--sun)}
+/* 「→」つきのリンクは、指で押しやすい高さに */
+.more{display:inline-flex;align-items:center;min-height:44px;margin-top:6px}
+/* 選んでいるボタンは、色に加えて「✓」でも分かるように */
+.chips button[aria-pressed=true]::before,.stabs button[aria-pressed=true] .tt::before{content:"✓";margin-right:5px;font-weight:900}
+
+/* --- トップ: お店の種類（丸はそのまま、白いカードにのせて高さをそろえる） --- */
+.hello{padding-bottom:0}
+.cats{gap:14px}
+.cat,.cat:visited{display:flex;flex-direction:column;align-items:center;gap:8px;background:#fff;border:1.5px solid var(--card-line);border-radius:18px;padding:16px 8px 12px;box-shadow:var(--card-sh);transition:transform .15s,border-color .15s}
+.cat:hover{border-color:var(--k);transform:translateY(-2px)}
+.cat .ci{width:84px;margin:0;padding:0;border-width:3px;box-shadow:none;flex:none}
+.cat:hover .ci{transform:none}
+.cat .ci svg{width:50%;height:50%}
+.cat .cl{display:block;align-content:center;min-height:2.7em;margin:0;padding:0;background:none;border-radius:0;color:var(--ink);font-size:15.5px;line-height:1.35;text-align:center;word-break:keep-all;overflow-wrap:anywhere}
+.hwords{gap:8px;font-size:14.5px}
+.hwords a,.hwords a:visited{display:inline-flex;align-items:center;min-height:40px;padding:3px 15px}
+/* すぐ使う入口 */
+.quick{gap:10px;margin-top:16px}
+.quick a{border:1.5px solid var(--card-line);border-radius:14px;padding:11px 14px;line-height:1.45;font-size:15.5px;box-shadow:var(--card-sh)}
+.quick a small{font-size:13px;margin-top:2px}
+.intl .quick{margin-bottom:14px}
+
+/* --- トップ: 今日の情報 --- */
+.today .card{border:1.5px solid var(--card-line);border-radius:18px;box-shadow:var(--card-sh)}
+body:not(.intl) .today b{font-size:13.5px;font-weight:700}
+body:not(.intl) .today strong{font-family:var(--round);font-weight:900;font-size:20px}
+body:not(.intl) .today small{font-size:14px;line-height:1.7}
+.today-next{gap:0;margin-top:12px;background:#fff;border:1.5px solid var(--card-line);border-radius:14px;overflow:hidden;box-shadow:var(--card-sh)}
+.today-next a{position:relative;border:0;border-radius:0;padding:11px 36px 11px 14px;font-size:15.5px;line-height:1.5}
+.today-next a+a{border-top:1px solid var(--line)}
+.today-next a::after{content:"";position:absolute;right:15px;top:50%;width:8px;height:8px;border-top:2.5px solid var(--sun);border-right:2.5px solid var(--sun);transform:translateY(-50%) rotate(45deg)}
+.today-next a:focus-visible{outline-offset:-3px}
+.today-next b{display:table;margin:0 0 3px;border-radius:99px;padding:1px 10px;font-size:12.5px;line-height:1.5}
+
+/* --- トップ: 催事（太い橙の枠をやめ、左の帯と白いカードに） --- */
+.ev{border:1.5px solid var(--card-line);border-left:6px solid var(--sun);border-radius:14px;padding:13px 16px;gap:3px;box-shadow:var(--card-sh)}
+.ev time{font-size:15px;color:var(--red-dark)}
+.ev .where{font-size:13px;padding:1px 10px}
+.ev b{font-size:19px;line-height:1.4}
+.ev.car{border-style:dashed;border-color:#cdb49c;border-left-style:solid;background:transparent;box-shadow:none}
+.newslist p{font-size:14.5px}
+.newslist .ext{font-size:13.5px}
+/* 選んだタブと下の白い面をつなげる */
+.newssec .tabs{margin-bottom:0}
+
+/* --- お店をさがす: 一覧にたどり着くまでを短く --- */
+.shopquick{gap:8px;margin:6px 0 0}
+.shopquick a{padding:9px 12px;font-size:15px;box-shadow:none}
+.lead.hrs-note{margin:12px 0 18px;font-size:14px}
+
+/* --- お店をさがす: お店のカード（日本語のページ） --- */
+.page-shops:not(.intl) .shops{gap:12px}
+.page-shops:not(.intl) .shop{display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-areas:"logo logo" "ini name" "ini desc" "row row" "acts acts" "det det";column-gap:12px;row-gap:0;align-items:start;border:1.5px solid var(--card-line);border-radius:16px;padding:14px;box-shadow:var(--card-sh)}
+.page-shops:not(.intl) .shop .sb{display:contents}
+.page-shops:not(.intl) .shop .ini{grid-area:ini;width:48px;height:48px;border-radius:14px}
+.page-shops:not(.intl) .sb>h3{grid-area:name;align-self:end;font-size:17.5px;line-height:1.4}
+.page-shops:not(.intl) .sb>p{grid-area:desc;font-size:14.5px;line-height:1.5}
+/* ロゴは店名の上に大きく（横長は幅160pxまで、正方形に近いものは高さ56pxまで） */
+.page-shops:not(.intl) .sb>.slogo{grid-area:logo;justify-self:start;margin:0 0 10px;max-width:min(160px,100%);max-height:56px}
+.page-shops:not(.intl) .sb>.row{grid-area:row;gap:6px;margin-top:11px}
+.page-shops:not(.intl) .sb>.row>*{font-size:13px;line-height:24px;padding-top:0;padding-bottom:0;border-radius:6px}
+.page-shops:not(.intl) .sb>.row .now{border-radius:99px}
+.page-shops:not(.intl) .hrs{color:var(--ink)}
+.page-shops:not(.intl) .hrs.none{color:var(--muted)}
+.page-shops:not(.intl) .souv{font-size:12.5px;padding:1px 7px}
+/* 3つの行き先を1行に。館内図が主役、電話と地図は白い枠 */
+.page-shops:not(.intl) .sb>.acts{grid-area:acts;display:flex;flex-wrap:wrap;gap:6px;margin-top:11px}
+.page-shops:not(.intl) .acts a,.page-shops:not(.intl) .acts a:visited{flex:1 1 auto;display:inline-flex;align-items:center;justify-content:center;gap:4px;min-height:44px;padding:0 8px;border:2px solid #bfa98f;border-radius:12px;background:#fff;color:var(--ink);font-size:13.5px;font-weight:700;white-space:nowrap;box-shadow:0 2px 0 #e6d8c8;opacity:1}
+.page-shops:not(.intl) .acts a.fml,.page-shops:not(.intl) .acts a.fml:visited{background:#2b211c;border-color:#2b211c;color:#fff;padding:0 10px}
+.page-shops:not(.intl) .acts a.tel{font-variant-numeric:tabular-nums}
+.page-shops:not(.intl) .acts a.tel::before{content:"☎";color:var(--k);margin-right:1px}
+.page-shops:not(.intl) .acts a.mp svg{color:var(--muted)}
+.page-shops:not(.intl) .acts a:hover{border-color:var(--k)}
+.page-shops:not(.intl) .acts a.fml:hover{background:#000;border-color:#000}
+.page-shops:not(.intl) .acts a.tel,.page-shops:not(.intl) .acts a.tel:visited{font-size:14.5px;color:var(--ink);text-decoration:none}
+/* パソコン幅で押せない時だけ、ボタンの形にしない（スマホ幅では必ずボタン） */
+@media (hover:hover) and (pointer:fine) and (min-width:721px){.page-shops:not(.intl) .acts a.tel{flex:0 1 auto;border-color:transparent;background:transparent;box-shadow:none;padding:0 6px}}
+/* 詳細の開閉は、押せる形のまま少し静かに */
+.page-shops:not(.intl) .sb>.sd{grid-area:det;margin-top:8px}
+.page-shops:not(.intl) .sd summary{margin-top:0;min-height:44px;padding:6px 12px;border:1.5px solid #f0c9a8;background:#fff9f2;font-size:14.5px}
+.page-shops:not(.intl) .sd[open] summary{background:#fff1e3;border-color:#e0782f}
+
+@media (min-width:721px){.today-next{grid-template-columns:1fr 1fr}.today-next a+a{border-top:0;border-left:1px solid var(--line)}}
+@media (max-width:720px){
+  .hello{padding:18px 16px 0}
+  .cats{gap:10px}
+  .cat,.cat:visited{padding:12px 4px 9px;gap:6px;border-radius:16px}
+  .cat .ci{width:58px}
+  .cat .cl{font-size:13.5px;padding:0}
+  .quick{grid-template-columns:1fr 1fr}
+  .quick a:last-child:nth-child(odd){grid-column:1/-1}
+  .cap span,.cap a{font-size:14.5px}
+  .today{margin-top:30px}
+  /* 営業時間をいちばん大きく。駐車場と休館日を横に並べ、行き方は下に1行で */
+  body:not(.intl) .today .card{padding:4px 18px;gap:0 16px}
+  body:not(.intl) .today .card>div,body:not(.intl) .today .card>div:first-child{padding:13px 0;border:0;border-top:1px solid var(--line)}
+  body:not(.intl) .today .card>div:nth-child(1){grid-column:1/-1;border-top:0}
+  body:not(.intl) .today .card>div:nth-child(1) strong{font-size:27px;line-height:1.3;letter-spacing:.02em}
+  body:not(.intl) .today .card>div:nth-child(3){order:4;grid-column:1/-1}
+  body:not(.intl) .today .card>div:nth-child(4){order:3}
+  body:not(.intl) .today strong{font-size:19px}
+}
+@media (max-width:640px){
+  .shero .in{padding:22px 16px 38px}
+  .shero h1{font-size:30px;margin:6px 0 4px}
+  .snum{gap:6px;margin-top:12px}
+  .snum li{padding:2px 10px;font-size:13px;border-radius:10px}
+  .snum b{font-size:19px}
+  .shero .tofm,.shero .tofm:visited{margin-top:14px}
+  .stabs{gap:8px;margin:14px 0}
+  .stabs button{flex-direction:row;justify-content:space-between;align-items:center;gap:6px;min-height:50px;padding:4px 12px;border-radius:14px}
+  .stabs button:first-child{justify-content:center;gap:12px}
+  .stabs .tt{font-size:14px;text-align:left;word-break:auto-phrase}
+  .stabs .tc{flex:none}
+  .stabs .tc b{font-size:20px}
+  .page-shops:not(.intl) .shop{padding:13px}
+  .page-shops:not(.intl) .shop .ini{width:46px;height:46px}
+  .page-shops:not(.intl) .acts a.mp svg{display:none}
+}
+@media (max-width:374px){
+  .page-shops:not(.intl) .acts a.fml svg{display:none}
+  .page-shops:not(.intl) .acts a,.page-shops:not(.intl) .acts a:visited{padding:0 6px;font-size:13px}
+}
+@media (prefers-reduced-motion:reduce){.cat{transition:none}}
