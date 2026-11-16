@@ -10,6 +10,7 @@
   const setFloor = f => {
     btns.forEach(b => b.setAttribute("aria-pressed", b.dataset.fl === f));
     floors.forEach(x => { x.hidden = x.dataset.floor !== f; });
+    floors.forEach(x => { const sc = x.querySelector(".fm-scroll"); if (sc && sc.clientWidth) x.classList.toggle("end", sc.scrollLeft + sc.clientWidth >= sc.scrollWidth - 8); });
   };
   // 海外の方向けのページ（<html lang>）の言葉
   const L = {en: {go: "Shop details ↑", fl: f => f}, "zh-Hant": {go: "查看店鋪資訊 ↑", fl: f => f}, ko: {go: "매장 정보 보기 ↑", fl: f => f}}[document.documentElement.lang] || {go: "お店の情報を見る ↑", fl: f => f.replace("F", "階")};
@@ -20,7 +21,7 @@
     setFloor(box.closest(".fm-floor").dataset.floor);
     map.querySelectorAll(".fm-b.on").forEach(x => { x.classList.remove("on"); x.removeAttribute("aria-current"); });
     box.classList.add("on"); box.setAttribute("aria-current", "true");
-    const name = card.querySelector("h3").childNodes[0].textContent;
+    const name = card.querySelector("h3").textContent;
     info.replaceChildren();
     info.append(el("b", "fm-nm", name), el("p", "", card.querySelector(".sb > p:not(.roma)").textContent));
     const ro = card.querySelector(".sb > p.roma"); if (ro) info.append(el("p", "fm-ro", ro.textContent));
@@ -30,7 +31,8 @@
     info.append(dl);
     const t = card.querySelector(".tel");
     if (t) { const a = el("a", "tel", t.textContent); a.href = t.getAttribute("href"); info.append(a); }
-    const go = el("a", "fm-go", L.go); go.href = "#shop-" + sid;
+    const go = el("a", "fm-go", L.go.replace(" ↑", "")); go.href = "#shop-" + sid;
+    const ar = el("span", "ar up"); ar.setAttribute("aria-hidden", "true"); go.append(ar);
     go.addEventListener("click", e => {
       if (card.hidden) { e.preventDefault(); location.href = "shops.html?q=" + encodeURIComponent(name) + "#shop-" + sid; return; }
       const d = card.querySelector("details"); if (d) d.open = true;
@@ -53,7 +55,13 @@
     // キーボードで押した人の操作位置も、館内図のそのお店へ移す
     const box = document.getElementById("fm-" + a.dataset.shop); if (box) box.focus({preventScroll: true});
   });
+  // 図を右の端まで動かしたら、「まだ右に続きます」の印（▶）を消す
+  const atEnd = sc => { if (sc.clientWidth) sc.parentElement.classList.toggle("end", sc.scrollLeft + sc.clientWidth >= sc.scrollWidth - 8); };
+  map.querySelectorAll(".fm-scroll").forEach(sc => { sc.addEventListener("scroll", () => atEnd(sc), {passive: true}); });
+  const markEnds = () => map.querySelectorAll(".fm-scroll").forEach(atEnd);
+  addEventListener("resize", markEnds);
   setFloor("1F");
+  markEnds();
   // 現在地（QRコードから ?here=キー で開いたとき）
   let here = null;
   try { here = new URLSearchParams(location.search).get("here"); } catch (e) { /* 何もしない */ }

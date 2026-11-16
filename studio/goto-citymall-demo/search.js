@@ -4,7 +4,7 @@
   const input = document.getElementById("q"), count = document.getElementById("count"), empty = document.getElementById("empty");
   const bar = document.getElementById("bar"), list = document.getElementById("list"), clear = document.getElementById("clear");
   const tabBtns = [...document.querySelectorAll("#tabs button")];
-  const kindBtns = [...document.querySelectorAll("#kinds button")], floorBtns = [...document.querySelectorAll("#floors button")];
+  const kindBtns = [...document.querySelectorAll("#kinds button")], ownBtn = document.querySelector("#owns button");
   const toHira = s => s.replace(/[ァ-ヶ]/g, c => String.fromCharCode(c.charCodeAt(0) - 0x60));
   const norm = s => toHira(s.normalize("NFKC").toLowerCase()).replace(/[-‐ー]/g, "");
   const floorWord = t => t.replace(/([123])\s*階/g, "$1F").replace(/([123])\s*かい/g, "$1F");
@@ -12,16 +12,17 @@
   const u = new URLSearchParams(location.search);
   const state = {
     q: u.get("q") || "",
-    tab: tabBtns.some(b => b.dataset.tab === u.get("tab")) ? u.get("tab") : "all",
+    // 上のタブは階（その階の全部のお店）。モール直営は「しぼる」の中の選び方（前の形のアドレス ?tab= も読む）
+    floor: tabBtns.some(b => b.dataset.tab === (u.get("floor") || u.get("tab"))) ? (u.get("floor") || u.get("tab")) : "all",
     kind: kindBtns.some(b => b.dataset.kind === u.get("kind")) ? u.get("kind") : "すべて",
-    floor: floorBtns.some(b => b.dataset.floor === u.get("floor")) ? u.get("floor") : "all",
+    own: u.get("own") === "1" || u.get("tab") === "own",
   };
   input.value = state.q;
   function draw(save) {
     const words = norm(floorWord(state.q)).split(/\s+/).filter(Boolean);
     let n = 0;
     cards.forEach((c, i) => {
-      const ok = (state.tab === "all" || c.dataset.tab === state.tab)
+      const ok = (!state.own || c.dataset.tab === "own")
         && (state.kind === "すべて" || c.dataset.k === state.kind)
         && (state.floor === "all" || c.dataset.f === state.floor)
         && words.every(w => index[i].includes(w));
@@ -34,16 +35,17 @@
     });
     count.textContent = n + "店";
     empty.hidden = n > 0;
-    clear.hidden = !state.q && state.kind === "すべて" && state.floor === "all" && state.tab === "all";
-    tabBtns.forEach(b => b.setAttribute("aria-pressed", b.dataset.tab === state.tab));
+    clear.hidden = !state.q && state.kind === "すべて" && state.floor === "all" && !state.own;
+    bar.classList.toggle("filtered", !clear.hidden); // しぼっている間は、貼り付いた検索欄を縮めない（「解除」と選んだ条件を見せる）
+    tabBtns.forEach(b => b.setAttribute("aria-pressed", b.dataset.tab === state.floor));
     kindBtns.forEach(b => b.setAttribute("aria-pressed", b.dataset.kind === state.kind));
-    floorBtns.forEach(b => b.setAttribute("aria-pressed", b.dataset.floor === state.floor));
+    if (ownBtn) ownBtn.setAttribute("aria-pressed", state.own);
     if (save) {
       const p = new URLSearchParams();
       if (state.q) p.set("q", state.q);
-      if (state.tab !== "all") p.set("tab", state.tab);
       if (state.kind !== "すべて") p.set("kind", state.kind);
       if (state.floor !== "all") p.set("floor", state.floor);
+      if (state.own) p.set("own", "1");
       const qs = p.toString();
       try { history.replaceState(null, "", qs ? "?" + qs : location.pathname); } catch (e) { /* file:// では保存しない */ }
     }
@@ -54,11 +56,26 @@
   }
   input.addEventListener("input", () => { state.q = input.value; draw(true); });
   document.getElementById("sform").addEventListener("submit", e => { e.preventDefault(); state.q = input.value; draw(true); input.blur(); toResult(); });
-  tabBtns.forEach(b => b.addEventListener("click", () => { state.tab = b.dataset.tab; state.floor = "all"; draw(true); toResult(); }));
+  tabBtns.forEach(b => b.addEventListener("click", () => { state.floor = b.dataset.tab; draw(true); toResult(); }));
   kindBtns.forEach(b => b.addEventListener("click", () => { state.kind = b.dataset.kind; draw(true); toResult(); }));
-  floorBtns.forEach(b => b.addEventListener("click", () => { state.floor = b.dataset.floor; draw(true); toResult(); }));
-  const resetAll = () => { state.q = ""; state.tab = "all"; state.kind = "すべて"; state.floor = "all"; input.value = ""; draw(true); toResult(); };
+  if (ownBtn) ownBtn.addEventListener("click", () => { state.own = !state.own; draw(true); toResult(); });
+  const resetAll = () => { state.q = ""; state.own = false; state.kind = "すべて"; state.floor = "all"; input.value = ""; draw(true); toResult(); };
   document.getElementById("reset").addEventListener("click", resetAll);
   clear.addEventListener("click", resetAll);
+  // スマホ：下へ動かして検索欄が上に貼り付いたら、1段（検索だけ）に縮める。「しぼる」を押すと階と種類が出る
+  const ft = document.getElementById("ftoggle"), tabs = document.getElementById("tabs"), hd = document.querySelector("header");
+  if (ft && tabs && hd) {
+    const mq = matchMedia("(max-width:720px)");
+    const setOpen = o => { bar.classList.toggle("open", o); ft.setAttribute("aria-expanded", o); };
+    const onScroll = () => {
+      const stuck = mq.matches && tabs.getBoundingClientRect().bottom < hd.getBoundingClientRect().bottom;
+      if (stuck === bar.classList.contains("stuck")) return;
+      bar.classList.toggle("stuck", stuck); ft.hidden = !stuck;
+      if (!stuck) setOpen(false);
+    };
+    ft.addEventListener("click", () => setOpen(!bar.classList.contains("open")));
+    addEventListener("scroll", onScroll, {passive: true}); addEventListener("resize", onScroll);
+    onScroll();
+  }
   draw(false);
 })();

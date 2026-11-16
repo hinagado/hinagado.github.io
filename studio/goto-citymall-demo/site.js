@@ -31,6 +31,21 @@
   if (pv) pv.addEventListener("click", () => setPub(!document.documentElement.classList.contains("public")));
 })();
 
+// 下の固定メニューの「今ここ」：同じページの中の場所（#fm・#ev）を開いているときは、そちらに印を移す
+(function () {
+  const tb = [...document.querySelectorAll(".tabbar a")];
+  if (!tb.length) return;
+  const file = p => p.split("/").pop() || "index.html";
+  const mark = () => {
+    const same = tb.filter(a => file(new URL(a.href, location.href).pathname) === file(location.pathname));
+    const hash = a => new URL(a.href, location.href).hash;
+    const best = same.find(a => hash(a) && location.hash.indexOf(hash(a)) === 0) || same.find(a => !hash(a)) || null;
+    tb.forEach(a => { if (a === best) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current"); });
+  };
+  mark();
+  addEventListener("hashchange", mark);
+})();
+
 // 開いた欄の下の「閉じる」：閉じて、見出しが画面に入るように戻す
 document.addEventListener("click", ev => {
   const b = ev.target.closest && ev.target.closest(".dclose");
