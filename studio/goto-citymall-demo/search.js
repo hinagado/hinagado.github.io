@@ -35,12 +35,16 @@
     });
     count.textContent = n + "店";
     empty.hidden = n > 0;
+    // 見つからない時の案内と「すべてのお店を見る」が、下の固定メニューの裏に隠れないように（出た時に1回だけ、必要な分だけ送る）
+    if (n === 0 && !draw.wasEmpty && save) empty.scrollIntoView({block: "nearest", behavior: "instant"});
+    draw.wasEmpty = n === 0;
     clear.hidden = !state.q && state.kind === "すべて" && state.floor === "all" && !state.own;
     bar.classList.toggle("filtered", !clear.hidden); // しぼっている間は、貼り付いた検索欄を縮めない（「解除」と選んだ条件を見せる）
     tabBtns.forEach(b => b.setAttribute("aria-pressed", b.dataset.tab === state.floor));
     kindBtns.forEach(b => b.setAttribute("aria-pressed", b.dataset.kind === state.kind));
     if (ownBtn) ownBtn.setAttribute("aria-pressed", state.own);
     if (save) {
+      list.classList.add("live"); // しぼった後だけ、出てくるカードを少し動かす（開いた直後は動かさない）
       const p = new URLSearchParams();
       if (state.q) p.set("q", state.q);
       if (state.kind !== "すべて") p.set("kind", state.kind);

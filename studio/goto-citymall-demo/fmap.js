@@ -39,14 +39,17 @@
     });
     info.append(go);
     const sj = card.querySelector(".showja"); if (sj) { const c2 = sj.cloneNode(true); c2.removeAttribute("data-map"); info.append(c2); }
+    info.classList.remove("in"); void info.offsetWidth; info.classList.add("in"); // 案内の箱が少し上がって出る（動きは CSS。reduce の時は動かない）
     if (scroll) map.scrollIntoView({block: "start", behavior: reduce ? "auto" : "smooth"});
   }
   map.addEventListener("click", e => {
     const a = e.target.closest(".fm-b"); if (!a) return;
     e.preventDefault(); show(a.dataset.shop, false); remember(a.dataset.shop);
     // スマホでは案内が図の下に出るので、画面の外なら見える所まで動かす
-    const r = info.getBoundingClientRect();
-    if (r.top > innerHeight - 80 || r.bottom < 0) info.scrollIntoView({block: "nearest", behavior: reduce ? "auto" : "smooth"});
+    const r = info.getBoundingClientRect(), tb = document.querySelector(".tabbar");
+    const low = innerHeight - (tb && getComputedStyle(tb).display !== "none" ? tb.getBoundingClientRect().height : 0) - 16; // 箱の下の端は、下の固定メニューの少し上まで
+    if (r.bottom > low) scrollBy({top: Math.min(r.bottom - low, r.top - 80), behavior: reduce ? "auto" : "smooth"});
+    else if (r.bottom < 0) info.scrollIntoView({block: "nearest", behavior: reduce ? "auto" : "smooth"});
   });
   btns.forEach(b => b.addEventListener("click", () => setFloor(b.dataset.fl)));
   document.addEventListener("click", e => {

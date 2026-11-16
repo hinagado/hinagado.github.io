@@ -28,7 +28,7 @@
     // 自動で切り替える（6秒ごと）。指やマウスを乗せている間・動きを減らす設定のときは止める
     const box = document.querySelector(".slidesec");
     const stop = () => { clearInterval(timer); timer = null; };
-    const start = () => { if (!calm && !timer && !document.hidden) timer = setInterval(() => go(cur + 1), 6000); };
+    const start = () => {}; // 2026-11-16 自動では送らない（自動で動き続けるのは最初の写真だけにした。あちらには止めるボタンがある）
     const restart = () => { stop(); start(); };
     box.addEventListener("mouseenter", stop); box.addEventListener("mouseleave", start);
     box.addEventListener("focusin", stop); box.addEventListener("focusout", start);

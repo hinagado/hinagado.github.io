@@ -1475,3 +1475,161 @@ body:not(.intl) .today small a{display:inline-block;margin-top:8px}
 /* 余白：年表と注記の間16px、写真送りの点から次の見出しまで48px（点のまわりの押せる余白16pxを引く） */
 .hist-note,.lead.hist-note{margin:16px 0 0}
 section.newssec{padding-top:32px}
+
+
+/* ============================================================
+   2026-11-16（7）動き（採点を受けて作り直し）
+   ・<html class="anim"> が付いている時だけ動く（JavaScript が無い時・「視差効果を減らす」の端末では付かない）
+   ・中身は最初から見えている（透明から始めない）。動きは後から足すだけ
+   ・自動で動き続けるのは「最初の写真」だけ（止めるボタンつき。2周で自動で止まる）。ほかは1回きりで短い
+   ============================================================ */
+@keyframes up100{from{transform:translateY(105%)}to{transform:none}}
+@keyframes kb-a{from{transform:scale(1)}to{transform:scale(1.06)}}
+@keyframes kb-b{from{transform:scale(1.06) translateX(-1%)}to{transform:scale(1) translateX(0)}}
+@keyframes wig-roll{0%,100%{transform:none}30%{transform:translateX(-5px) rotate(-8deg)}65%{transform:translateX(5px) rotate(6deg)}}
+@keyframes wig-rot{0%,100%{transform:none}30%{transform:rotate(-16deg)}65%{transform:rotate(12deg)}}
+@keyframes wig-flip{0%,100%{transform:none}40%{transform:scaleX(.75)}70%{transform:scaleX(1.08)}}
+@keyframes wig-snip{0%,100%{transform:none}25%{transform:rotate(-20deg) scale(1.08)}50%{transform:rotate(0)}75%{transform:rotate(-14deg) scale(1.05)}}
+@keyframes wig-beat{0%,100%{transform:none}30%{transform:scale(1.22)}55%{transform:scale(.96)}75%{transform:scale(1.12)}}
+/* 押した時用（名前を変えると、押すたびに最初から動く） */
+@keyframes p-roll{0%,100%{transform:none}30%{transform:translateX(-5px) rotate(-8deg)}65%{transform:translateX(5px) rotate(6deg)}}
+@keyframes p-rot{0%,100%{transform:none}30%{transform:rotate(-16deg)}65%{transform:rotate(12deg)}}
+@keyframes p-flip{0%,100%{transform:none}40%{transform:scaleX(.75)}70%{transform:scaleX(1.08)}}
+@keyframes p-snip{0%,100%{transform:none}25%{transform:rotate(-20deg) scale(1.08)}50%{transform:rotate(0)}75%{transform:rotate(-14deg) scale(1.05)}}
+@keyframes p-beat{0%,100%{transform:none}30%{transform:scale(1.22)}55%{transform:scale(.96)}75%{transform:scale(1.12)}}
+@keyframes beat{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.6);opacity:.6}}
+@keyframes pinhop{0%,100%{transform:translateX(-50%) translateY(0)}40%{transform:translateX(-50%) translateY(-9px)}70%{transform:translateX(-50%) translateY(0)}85%{transform:translateX(-50%) translateY(-3px)}}
+@keyframes pop{0%{transform:none}45%{transform:translateY(-5px) scale(1.15)}100%{transform:none}}
+@keyframes cardin{from{opacity:.4;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes draw{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes fmfade{from{opacity:0}to{opacity:1}}
+@keyframes fmpop{0%,100%{transform:none}50%{transform:scale(1.04)}}
+@keyframes rise12{from{opacity:.35;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+/* --- 1. 最初の写真：ゆっくり寄りながら（1.06倍）、7秒ごとに次の写真へ溶けるように替わる --- */
+.hello-ph>img.kb{opacity:0;transition:opacity 1.2s ease;will-change:opacity,transform}
+.hello-ph>img.kb.on{opacity:1}
+html.anim .hello-ph>img.kb.kbgo{animation:kb-a 8.4s ease-out both}
+html.anim .hello-ph>img.kb.kbgo:nth-of-type(2){animation-name:kb-b}
+.hello-ph.paused>img.kb{animation-play-state:paused!important}
+/* 白い船や明るい床の上でも言葉が読めるように、下60%を濃く */
+.hello-ph::after{background:linear-gradient(180deg,rgba(30,18,10,0) 40%,rgba(30,18,10,.7))}
+/* 止めるボタン：動く時だけ、写真と同時に出す */
+.kbpause{display:none;position:absolute;right:10px;bottom:10px;z-index:3;place-items:center;width:44px;height:44px;padding:0;border:1.5px solid rgba(255,255,255,.85);border-radius:50%;background:rgba(30,18,10,.55);color:#fff;cursor:pointer}
+html.anim .kbpause{display:grid}
+.kbpause:hover{background:rgba(30,18,10,.78)}
+.kbpause .pl,.kbpause[aria-pressed=true] .pa{display:none}
+.kbpause[aria-pressed=true] .pl{display:block}
+.intl .hello-in{padding-right:64px}
+/* 写真の上の言葉：行の高さの箱の中を、下から出る（0秒・0.12秒・0.28秒から、0.45秒） */
+.hello-in p,.hello h1 b,.intl .hello h1{overflow:hidden}
+.hello h1 b{vertical-align:top}
+.hello-in p>span,.hello h1 b>span{display:inline-block}
+.intl .hello h1>span{display:block}
+html.anim .hello-in p>span{animation:up100 .45s cubic-bezier(.2,.8,.2,1) both}
+html.anim .hello h1 b>span{animation:up100 .45s cubic-bezier(.2,.8,.2,1) .12s both}
+html.anim .hello h1 b+b>span{animation-delay:.28s}
+html.anim .intl .hello h1>span{animation:up100 .45s cubic-bezier(.2,.8,.2,1) .12s both}
+
+/* --- 2. 分類の6つの絵：0.8秒から順に1回ずつ小さく動く。押した時にも、その絵が動く（箱は最初から濃いまま） --- */
+html.anim .cat .ci svg{animation:wig-rot .75s ease-in-out both;animation-delay:calc(.8s + var(--n,0)*.11s)}
+.cat:nth-child(2){--n:1}.cat:nth-child(3){--n:2}.cat:nth-child(4){--n:3}.cat:nth-child(5){--n:4}.cat:nth-child(6){--n:5}
+html.anim .cat.k0 .ci svg{animation-name:wig-roll}
+html.anim .cat.k2 .ci svg{animation-name:wig-flip}
+html.anim .cat.k4 .ci svg{animation-name:wig-snip}
+html.anim .cat.k5 .ci svg{animation-name:wig-beat}
+html.anim .cat:active .ci svg{animation:p-rot .6s ease-in-out}
+html.anim .cat.k0:active .ci svg{animation-name:p-roll}
+html.anim .cat.k2:active .ci svg{animation-name:p-flip}
+html.anim .cat.k4:active .ci svg{animation-name:p-snip}
+html.anim .cat.k5:active .ci svg{animation-name:p-beat}
+.cat .ci{transition:transform .14s ease}
+.cat:active .ci{transform:scale(.92)}
+
+/* --- 3. トップだけ：下のほうのカードが、画面に入った時に12px上がる（最初から見えている。0.35秒・ずらしは0.06秒で3つまで） --- */
+.rv{transform:translateY(12px);transition:transform .35s cubic-bezier(.2,.8,.2,1) var(--d,0s)}
+.rv.rv-in{transform:none}
+@media print{.rv{transform:none!important}}
+
+/* --- 4. 決めの動き：題名の帯の下の色のしまを、左から右へ引く（0.6秒） --- */
+.page-hd.v2::after,.shero::after{transform-origin:left center}
+html.anim .page-hd.v2::after,html.anim .shero::after{animation:draw .6s cubic-bezier(.2,.8,.2,1) both}
+
+/* --- 5. お店をさがす：しぼった後、出てくるカードが少し上がって出る。「営業中」の点は最初の3枚だけ2回脈打つ --- */
+html.anim #list.live .shop{animation:cardin .28s ease both}
+html.anim .now.open.beat::before{animation:beat 1.5s ease-in-out 2}
+
+/* --- 6. 押した時に応える動き --- */
+/* 詳細の開閉（高さ0.25秒。対応していないブラウザではすぐ開く） */
+@supports (interpolate-size:allow-keywords){
+  html.anim{interpolate-size:allow-keywords}
+  html.anim .sd::details-content,html.anim .jd::details-content{block-size:0;overflow:clip;transition:block-size .25s ease,content-visibility .25s allow-discrete}
+  html.anim .sd[open]::details-content,html.anim .jd[open]::details-content{block-size:auto}
+}
+/* 三本線メニューの出入り（右から0.25秒） */
+@media (max-width:900px){
+  header{overflow-x:clip}
+  html.anim header nav{transform:translateX(100%);opacity:0;transition:transform .25s cubic-bezier(.2,.8,.2,1),opacity .25s ease,display .25s allow-discrete}
+  html.anim header nav.open{transform:none;opacity:1}
+  @starting-style{html.anim header nav.open{transform:translateX(100%);opacity:0}}
+}
+/* 館内図：階の切り替えは0.2秒で溶ける。お店を押すと区画が1.04倍→戻り、下の案内の箱が12px上がって出る */
+html.anim .fm-floor:not([hidden]){animation:fmfade .2s ease both}
+html.anim .fm-b.on{animation:fmpop .2s ease}
+html.anim .fm-info.in{animation:rise12 .25s cubic-bezier(.2,.8,.2,1) both}
+/* 現在地の印：5回跳ねて止まる。止まったあとも、印の下に薄い影の丸が残る */
+.here-pin{animation:none}
+.here-pin::before{content:"";position:absolute;left:50%;bottom:-15px;width:8px;height:8px;margin-left:-4px;border-radius:50%;background:rgba(30,18,10,.28)}
+html.anim .here-pin{animation:pinhop .9s ease-out 5}
+/* 下のメニュー・ボタン */
+.tabbar a:active{background:var(--tint)}
+.tabbar a svg{transition:transform .16s ease}
+.tabbar a:active svg{transform:translateY(-5px) scale(1.15)}
+html.anim .tabbar a[aria-current] svg{animation:pop .5s .5s both}
+.btn,.page-shops .acts a,.quick a,.stabs button,.chips button{transition:transform .12s ease,background-color .15s ease,border-color .15s ease}
+.btn:active,.page-shops .acts a:active,.quick a:active,.stabs button:active,.chips button:active{transform:scale(.97)}
+
+/* --- 「視差効果を減らす」の端末では、動きを止める（中身は最初から全部見えている） --- */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001s!important;animation-delay:0s!important;animation-iteration-count:1!important;transition-duration:.001s!important;transition-delay:0s!important;scroll-behavior:auto!important}
+  .hello-ph>img.kb{transition:none}
+  .rv{transform:none}
+}
+
+
+/* ============================================================
+   2026-11-16（8）公開前の残りの直し
+   ============================================================ */
+/* 館内図（日本語の名前を出す日本語版・繁体字版）：区画名が1文字だけ次の行に落ちないように、字を少し小さくして、言葉の区切りでだけ折る */
+body:not(.intl) .fm-b,body:not(.intl) .fm-b:visited,:lang(zh-Hant) .fm-b,:lang(zh-Hant) .fm-b:visited{font-size:12px}
+body:not(.intl) .fm-f,:lang(zh-Hant) .fm-f{font-size:11px}
+body:not(.intl) .fm-b .fl,body:not(.intl) .fm-f .fl,:lang(zh-Hant) .fm-b .fl{word-break:keep-all;overflow-wrap:anywhere}
+/* 右端の「続きがある」の合図は細く薄くして、下の区画の字が読めるように（▶ の丸は残す） */
+@media (max-width:1140px){.fm-floor::before{width:16px;background:linear-gradient(90deg,rgba(255,248,236,0),rgba(255,248,236,.6))}}
+
+/* 三本線メニュー：横の移動だけ（半透明にしない）。後ろに暗い幕。閉じるのは0.18秒 */
+@keyframes veil{from{opacity:0}to{opacity:1}}
+@media (max-width:900px){
+  html.anim header nav{opacity:1;transition:transform .18s ease-in,display .18s allow-discrete}
+  html.anim header nav.open{opacity:1;transition:transform .25s cubic-bezier(.2,.8,.2,1),display .25s allow-discrete}
+  @starting-style{html.anim header nav.open{transform:translateX(100%);opacity:1}}
+  /* 幕（押すと閉じる。メニューの外を押すと閉じる仕組みをそのまま使う） */
+  body:has(#gnav.open)::before{content:"";position:fixed;inset:0;z-index:19;background:rgba(30,18,10,.4)}
+  html.anim body:has(#gnav.open)::before{animation:veil .2s ease both}
+}
+
+/* 「見つかりませんでした」の案内は、上の検索欄と下の固定メニューに隠れない所へ */
+#empty{scroll-margin:150px 0 96px}
+
+/* 現在地の印の影：とがった先の真下に、横長の薄い影 */
+.here-pin::before{left:50%;bottom:-11px;width:16px;height:5px;margin-left:-8px;border-radius:50%;background:rgba(0,0,0,.18)}
+
+/* 写真の上の小さい1行：明るい写真の上でも読めるように影を付ける。英語の題名は1語だけ落ちないように */
+.hello .hello-in p{text-shadow:0 1px 6px rgba(0,0,0,.65)}
+.intl .hello h1,.intl .hello h1>span{text-wrap:balance}
+
+/* 分類を押した時の絵は0.3秒。色のしまは、引く時だけ少し太く（6px相当）・0.7秒 */
+html.anim .cat:active .ci svg{animation-duration:.3s}
+@keyframes draw6{from{transform:scaleX(0) scaleY(1.2)}80%{transform:scaleX(1) scaleY(1.2)}to{transform:scaleX(1) scaleY(1)}}
+.page-hd.v2::after,.shero::after{transform-origin:left bottom}
+html.anim .page-hd.v2::after,html.anim .shero::after{animation:draw6 .7s cubic-bezier(.2,.8,.2,1) both}

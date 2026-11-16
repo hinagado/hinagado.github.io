@@ -3,15 +3,12 @@
   const b = document.querySelector(".menu-btn"), n = document.getElementById("gnav");
   if (b && n) {
     const set = o => { n.classList.toggle("open", o); b.setAttribute("aria-expanded", o); b.setAttribute("aria-label", o ? (b.dataset.close || "メニューを閉じる") : (b.dataset.open || "メニューを開く")); };
-    b.addEventListener("click", () => { const o = !n.classList.contains("open"); set(o); if (o) { const a = n.querySelector("a"); if (a) a.focus(); } });
+    b.addEventListener("click", ev => { const o = !n.classList.contains("open"); set(o); if (o && ev.detail === 0) { const a = n.querySelector("a"); if (a) a.focus(); } });
     document.addEventListener("keydown", e => { if (e.key === "Escape" && n.classList.contains("open")) { set(false); b.focus(); } });
     document.addEventListener("click", e => { if (n.classList.contains("open") && !n.contains(e.target) && !b.contains(e.target)) set(false); });
     n.addEventListener("click", e => { if (e.target.tagName === "A") set(false); });
   }
-  if ("IntersectionObserver" in window && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("on"); io.unobserve(e.target); } }), {threshold: .05});
-    document.querySelectorAll("main section").forEach(s => { s.classList.add("fade"); io.observe(s); });
-  }
+  // 2026-11-16 区切りを透明から出す動きはやめた（背の高い区切りが、画面に5%入らず出ないままになっていた）。中身は最初から見せる
   // 催事に「開催中」「まもなく」（7日以内）の印
   const today = new Date(); today.setHours(0, 0, 0, 0);
   document.querySelectorAll("[data-start][data-end]").forEach(li => {
@@ -57,3 +54,66 @@ document.addEventListener("click", ev => {
   if (s && s.getBoundingClientRect().top < 80) s.scrollIntoView({block: "center"});
   if (s) s.focus({preventScroll: true});
 });
+
+// ---- 動き（2026-11-16）。<html class="anim"> が付いている時だけ（「視差効果を減らす」の端末では付かない）。
+// 中身は最初から HTML にあり、最初から見えている。動きは見えている物に後から足すだけ
+(function () {
+  if (!document.documentElement.classList.contains("anim")) return;
+  // 最初の写真：7秒ごとに、ゆっくり寄りながら次の写真へ。3枚を2周したら1枚目で自動で止まる。右下のボタンでも止められる
+  const ph = document.querySelector(".hello-ph[data-slides]"), btn = ph && ph.querySelector(".kbpause");
+  if (ph && btn) {
+    const first = ph.querySelector("img.kb"), all = [first];
+    let cur = 0, timer = null, paused = false, turns = 0;
+    const play = () => { if (!timer) timer = setInterval(go, 7000); };
+    const stop = () => { clearInterval(timer); timer = null; };
+    const set = p => { paused = p; if (!p) turns = 0; ph.classList.toggle("paused", p); btn.setAttribute("aria-pressed", p); btn.setAttribute("aria-label", p ? btn.dataset.play : btn.dataset.pause); if (p) stop(); else play(); };
+    function go() {
+      const imgs = all.filter(Boolean);
+      if (imgs.length < 2) return;
+      const a = imgs[cur % imgs.length], nx = (cur + 1) % imgs.length, b = imgs[nx];
+      b.classList.remove("kbgo"); void b.offsetWidth; b.classList.add("on", "kbgo");
+      a.classList.remove("on");
+      setTimeout(() => { if (!a.classList.contains("on")) a.classList.remove("kbgo"); }, 1400);
+      cur = nx; turns++;
+      if (nx === 0 && turns >= imgs.length * 2) set(true); // 2周したら1枚目で止める
+    }
+    btn.addEventListener("click", () => set(!paused));
+    document.addEventListener("visibilitychange", () => { if (document.hidden) stop(); else if (!paused) play(); });
+    // 2枚目・3枚目は、1枚目が出てから読み込む。読み込みが済んだ写真だけを足す（空の絵は見せない）
+    const more = () => ph.dataset.slides.split(",").forEach((src, n) => {
+      const im = new Image();
+      im.onload = () => { im.alt = ""; im.className = "kb"; im.setAttribute("aria-hidden", "true"); ph.insertBefore(im, btn); all[n + 1] = im; };
+      im.src = src;
+    });
+    if (first.complete && first.naturalWidth) more(); else first.addEventListener("load", more, {once: true});
+    play();
+  }
+  // トップだけ：下のほうのカードが、画面に入った時に12px上がる（最初から見えている。開いた直後の画面に入っている物には使わない）
+  if (document.body.classList.contains("page-index") && "IntersectionObserver" in window) {
+    const items = [];
+    document.querySelectorAll(".forwho,.evs,.facs,.picks,.floors-in").forEach(g => [...g.children].forEach((el, i) => {
+      if (el.getBoundingClientRect().top <= innerHeight) return;
+      el.classList.add("rv"); el.style.setProperty("--d", Math.min(i, 2) * 0.06 + "s"); items.push(el);
+    }));
+    const show = el => el.classList.add("rv-in");
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { show(e.target); io.unobserve(e.target); } }), {rootMargin: "0px 0px -6% 0px"});
+    items.forEach(el => io.observe(el));
+    // 保険：画面に入っているのに1.5秒たっても上がっていない物は、強制的に上げる
+    setInterval(() => items.forEach(el => {
+      if (el.classList.contains("rv-in")) return;
+      const r = el.getBoundingClientRect();
+      if (r.top < innerHeight && r.bottom > 0) { el._seen = el._seen || Date.now(); if (Date.now() - el._seen > 1500) show(el); }
+    }), 500);
+  }
+  // お店：「営業中」の点の脈は、画面に入った最初の3枚だけ（2回で止まる）
+  if ("IntersectionObserver" in window && document.querySelector(".shop .now")) {
+    addEventListener("load", () => setTimeout(() => {
+      let n = 0;
+      const io = new IntersectionObserver(es => es.forEach(e => {
+        if (e.isIntersecting && n < 3) { n++; e.target.classList.add("beat"); io.unobserve(e.target); }
+        if (n >= 3) io.disconnect();
+      }), {threshold: 1});
+      document.querySelectorAll(".shop:not([hidden]) .now.open").forEach(b => io.observe(b));
+    }, 300));
+  }
+})();
