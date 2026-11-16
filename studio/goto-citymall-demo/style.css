@@ -1,4 +1,4 @@
-:root{
+﻿:root{
   --red:#c2521b;--red-dark:#9c3f12;--red-soft:#fdebd6;--warm:#fdf0e0;--char:#5a3a26;--sun:#e0662f;--cream:#fff8ec;
   --ink:#3d2a1e;--muted:#6e5747;--line:#efdcc8;--white:#fff;
   --font:"Zen Kaku Gothic New","BIZ UDPGothic","Meiryo",sans-serif;--round:"Zen Maru Gothic","Zen Kaku Gothic New",sans-serif;
@@ -816,3 +816,8 @@ html.public .prov,html.public .tag.ex,html.public li:has(> .tag.ex),html.public 
 .now.open{background:#e3f5e9;color:#1b6b3a}
 .now.open::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:#2e9e5b;margin-right:5px;vertical-align:1px}
 .now.off{background:#fde8e8;color:#9b1c1c}
+
+/* 2026-11-16 届いたロゴ（試し） */
+.slogo{display:block;height:auto;max-height:40px;max-width:170px;width:auto;object-fit:contain;margin:0 0 4px}
+.sd-logo.has{border:1.5px solid #e6ddd3;width:auto;min-width:58px;max-width:140px;padding:6px 8px}
+.sd-logo.has img{display:block;max-width:124px;max-height:46px;width:auto;height:auto;object-fit:contain}
