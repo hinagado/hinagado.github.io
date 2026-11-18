@@ -2,709 +2,301 @@
 <html lang="ja">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="robots" content="noindex,nofollow">
-<meta name="theme-color" content="#fffaf3">
-<title>23日の打ち合わせ帳</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ひなが堂｜くらしと仕事のひな形屋</title>
+<meta name="description" content="ひなが堂は、くらしと仕事を少しラクにする「ひな形」と、ちょっと楽しいデジタルの小物をつくる小さなお店です。">
+<meta property="og:title" content="ひなが堂｜くらしと仕事のひな形屋">
+<meta property="og:description" content="ひなが堂は、くらしと仕事を少しラクにする「ひな形」と、ちょっと楽しいデジタルの小物をつくる小さなお店です。">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://hinagado.github.io/assets/img/og.jpg">
+<meta property="og:site_name" content="ひなが堂">
+<meta property="og:locale" content="ja_JP">
+<link rel="canonical" href="https://hinagado.github.io/">
+<meta property="og:url" content="https://hinagado.github.io/">
+<meta name="p:domain_verify" content="e013c8c2eae09f62f096adca69c74487">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "@id": "https://hinagado.github.io/#org", "name": "ひなが堂", "alternateName": "HINAGADO", "url": "https://hinagado.github.io/", "logo": "https://hinagado.github.io/assets/img/logo_512.png", "description": "ひなが堂は、くらしと仕事を少しラクにする「ひな形」と、ちょっと楽しいデジタルの小物をつくる小さなお店です。", "email": "hinagado.official@gmail.com"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "ひなが堂", "alternateName": ["HINAGADO", "ひなが堂 くらしと仕事のひな形屋"], "url": "https://hinagado.github.io/", "inLanguage": "ja", "publisher": {"@id": "https://hinagado.github.io/#org"}}</script>
+<meta name="theme-color" content="#24466b">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/img/icon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="manifest" href="assets/site.webmanifest">
+<meta name="apple-mobile-web-app-title" content="ひなが堂">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Zen+Maru+Gothic:wght@700;900&display=swap" rel="stylesheet">
-<style>
-:root{--main:#c2521b;--main-d:#8a3a10;--main-l:#fdebd8;--ink:#33251a;--muted:#6e5747;--paper:#fffaf3;--card:#fff;--line:#eddcc8;--ok:#2e7d55;--ok-l:#e5f3ea;--sun:#f2b441;
---sh:0 1px 2px rgba(80,45,20,.06),0 6px 18px rgba(80,45,20,.07);--r:18px}
-*{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%;scroll-padding-top:150px}
-body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.75 "BIZ UDPGothic",sans-serif;-webkit-font-smoothing:antialiased}
-button{font:inherit;color:inherit}
-.disp{font-family:"Zen Maru Gothic","BIZ UDPGothic",sans-serif;font-weight:900;letter-spacing:.02em}
-
-/* 上の帯 */
-header{position:sticky;top:0;z-index:10;background:rgba(255,250,243,.94);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-.hd{max-width:900px;margin:0 auto;padding:10px 16px 0}
-.row1{display:flex;align-items:center;gap:10px}
-.logo{flex:none;width:38px;height:38px;border-radius:12px;background:var(--main);display:grid;place-items:center;color:#fff}
-.logo svg{width:22px;height:22px}
-.ttl{min-width:0;flex:1}
-.ttl h1{margin:0;font-size:18px;line-height:1.3}
-.ttl p{margin:0;font-size:12.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.sync{flex:none;display:flex;align-items:center;gap:6px;padding:4px 10px;border-radius:99px;background:#fff;border:1px solid var(--line);font-size:12px;color:var(--muted);white-space:nowrap}
-.sync i{width:8px;height:8px;border-radius:50%;background:#bbb}
-.sync.ok i{background:var(--ok)}
-.sync.busy i{background:var(--sun);animation:bl 1s infinite}
-.sync.off i{background:#c0392b}
-@keyframes bl{50%{opacity:.3}}
-.tabs{display:grid;grid-template-columns:repeat(3,1fr);margin-top:8px}
-.tabs button{position:relative;min-height:48px;border:0;background:none;cursor:pointer;font-weight:700;font-size:15px;color:var(--muted);display:flex;align-items:center;justify-content:center;gap:6px}
-.tabs button svg{width:18px;height:18px}
-.tabs button[aria-selected=true]{color:var(--main-d)}
-.tabs button[aria-selected=true]::after{content:"";position:absolute;left:18%;right:18%;bottom:0;height:3px;border-radius:3px 3px 0 0;background:var(--main)}
-.tabs .n{min-width:22px;padding:0 6px;border-radius:99px;background:var(--main-l);font-size:11.5px;line-height:20px;color:var(--main-d)}
-.tabs button[aria-selected=true] .n{background:var(--main);color:#fff}
-
-main{max-width:900px;margin:0 auto;padding:16px 16px 130px}
-.panel[hidden]{display:none}
-
-/* 一番上の案内 */
-.hero{position:relative;overflow:hidden;border-radius:22px;padding:18px 18px 16px;background:linear-gradient(135deg,#fbe3cc 0%,#fdf1e2 55%,#fff7ec 100%);margin-bottom:14px}
-.hero::after{content:"";position:absolute;right:-30px;top:-30px;width:150px;height:150px;border-radius:50%;background:radial-gradient(circle,#f8c79a 0,#f8c79a00 70%)}
-.hero h2{position:relative;z-index:1;margin:0 0 4px;font-size:21px;line-height:1.35}
-.hero p{position:relative;z-index:1;margin:0;font-size:14px;color:#6a4b36}
-.stats{position:relative;z-index:1;display:flex;align-items:center;gap:14px;margin-top:12px}
-.ring{flex:none;width:64px;height:64px}
-.ring circle{fill:none;stroke-width:7}
-.ring .bg{stroke:#f3d6bb}
-.ring .fg{stroke:var(--ok);stroke-linecap:round;transition:stroke-dashoffset .3s}
-.ring text{font:700 15px "BIZ UDPGothic";fill:var(--ink)}
-.legend{display:flex;flex-wrap:wrap;gap:6px}
-
-/* しぼる・目次 */
-.tools{position:sticky;top:var(--hdh,112px);z-index:5;margin:0 -16px 6px;padding:8px 16px;background:linear-gradient(var(--paper) 75%,rgba(255,250,243,0))}
-.chips{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
-.chips::-webkit-scrollbar{display:none}
-.chips button,.chips a{flex:none;min-height:38px;padding:0 14px;border:1px solid var(--line);border-radius:99px;background:#fff;font-size:14px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;color:var(--ink);text-decoration:none;white-space:nowrap}
-.chips button[aria-pressed=true]{background:var(--ink);border-color:var(--ink);color:#fff}
-.chips .dot{width:8px;height:8px;border-radius:50%}
-
-/* 見出し */
-.sec{margin:26px 0 10px;display:flex;align-items:flex-end;gap:10px}
-.sec .no{flex:none;width:34px;height:34px;border-radius:11px;background:var(--main);color:#fff;display:grid;place-items:center;font-size:16px}
-.sec h3{margin:0;font-size:18px;line-height:1.35}
-.sec small{display:block;font-family:"BIZ UDPGothic";font-weight:400;font-size:13px;color:var(--muted);letter-spacing:0}
-.sec .cnt{margin-left:auto;font-size:12.5px;color:var(--muted);white-space:nowrap}
-
-/* 項目 */
-.item{position:relative;background:var(--card);border-radius:var(--r);box-shadow:var(--sh);margin-bottom:10px;border-left:5px solid var(--k,#e0cbb5);transition:background .2s}
-.item[hidden]{display:none}
-.item.done{background:#f6fbf8;border-left-color:var(--ok)}
-.top{display:flex;gap:12px;align-items:flex-start;padding:14px 14px 10px}
-.ck{flex:none;width:32px;height:32px;margin-top:2px;border:2px solid #d3b79c;border-radius:10px;background:#fff;cursor:pointer;display:grid;place-items:center;padding:0;transition:all .15s}
-.ck svg{width:20px;height:20px;opacity:0;transform:scale(.6);transition:all .15s}
-.done .ck{background:var(--ok);border-color:var(--ok)}
-.done .ck svg{opacity:1;transform:none}
-.q{flex:1;min-width:0}
-.q b{display:block;font-size:16.5px;line-height:1.5}
-.done .q b{color:#3f6551}
-.q p{margin:5px 0 0;font-size:14px;color:var(--muted);line-height:1.65}
-.q p strong{color:var(--ink)}
-.tag{display:inline-flex;align-items:center;gap:4px;margin:0 0 4px;padding:0 9px;border-radius:99px;font-size:11.5px;font-weight:700;line-height:22px}
-.k-must{--k:#e0795a}.t-must{background:#fde4dc;color:#a3321b}
-.k-line{--k:#3aa65a}.t-line{background:#e2f5e1;color:#1f7a1f}
-.k-wait{--k:#e1a72e}.t-wait{background:#fff1cf;color:#8a5a00}
-.k-show{--k:#5b84c9}.t-show{background:#e4ecfa;color:#2a4f8f}
-.k-ok{--k:#2e7d55}.t-ok{background:var(--ok-l);color:var(--ok)}
-.memo{display:block;width:calc(100% - 28px);margin:0 14px 14px;min-height:46px;padding:10px 12px;border:1.5px solid var(--line);border-radius:12px;font:inherit;font-size:15.5px;line-height:1.6;background:#fffdf9;resize:none;overflow:hidden;transition:border-color .15s}
-.memo:focus{border-color:var(--main);outline:none;background:#fff}
-.memo:not(:placeholder-shown){background:#fff;border-color:#e4c9ae}
-.ck:focus-visible,button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
-
-/* 撮影 */
-.rule{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
-.box{border-radius:var(--r);padding:14px 16px;font-size:14.5px;line-height:1.7}
-.box h4{margin:0 0 6px;font-size:15.5px;display:flex;align-items:center;gap:6px}
-.box ul{margin:0;padding-left:1.2em}
-.box li{margin:2px 0}
-.no-shot{background:#fdebe6;color:#5c2416}
-.no-shot h4{color:#a3321b}
-.key3{background:#fff;box-shadow:var(--sh)}
-.key3 ol{margin:0;padding-left:1.3em}
-.key3 b{color:var(--main-d)}
-.shot .q b .mk{display:inline-flex;gap:4px;margin-left:6px;vertical-align:2px}
-.mk span{display:inline-block;padding:0 7px;border-radius:6px;font-size:11.5px;font-weight:700;line-height:20px;color:#fff}
-.mk .y{background:#2f7d4a}.mk .t{background:#2f63b5}.mk .z{background:#8a3fa5}.mk .s{background:var(--sun);color:#5a3a00}
-.use{display:inline-block;margin-top:6px;padding:2px 10px;border-radius:8px;background:var(--main-l);font-size:12.5px;color:var(--main-d)}
-.how{margin-top:6px;font-size:13.5px;color:var(--muted)}
-.how::before{content:"撮り方 ";font-weight:700;color:var(--ink)}
-.tbl{width:100%;border-collapse:separate;border-spacing:0;background:#fff;border-radius:var(--r);box-shadow:var(--sh);overflow:hidden;margin-bottom:14px;font-size:14px}
-.tbl th,.tbl td{padding:8px 4px;border-bottom:1px solid #f3e6d8;text-align:center}
-.tbl th:first-child,.tbl td:first-child{text-align:left;padding-left:14px}
-.tbl thead th{background:#fbefe2;font-size:12.5px;position:sticky;top:0}
-.tbl tr:last-child td{border-bottom:0}
-.tbl input{width:28px;height:28px;accent-color:var(--ok);cursor:pointer}
-.tbl tr.all td:first-child{color:var(--ok);font-weight:700}
-.time{background:#fff;border-radius:var(--r);box-shadow:var(--sh);padding:6px 16px;margin-bottom:12px}
-.time div{display:flex;gap:14px;padding:9px 0;border-bottom:1px dashed var(--line);font-size:15px}
-.time div:last-child{border:0}
-.tsteps{display:grid;gap:8px;margin-bottom:10px}
-.tstep{background:#fff;border-radius:var(--r);box-shadow:var(--sh);overflow:hidden}
-.tstep summary{list-style:none;cursor:pointer;display:flex;gap:12px;align-items:center;padding:12px 16px;font-size:15.5px;font-weight:700}
-.tstep summary::-webkit-details-marker{display:none}
-.tstep summary b{flex:none;min-width:56px;padding:2px 0;border-radius:8px;background:var(--main);color:#fff;text-align:center;font-variant-numeric:tabular-nums}
-.tstep summary::after{content:"＋";margin-left:auto;color:var(--muted)}
-.tstep[open] summary::after{content:"－"}
-.tstep ol{margin:0;padding:0 16px 14px 40px;font-size:14.5px;line-height:1.75}
-.tstep li{margin:4px 0}
-.tstep li b{color:var(--main-d)}
-.tstep li.tip{list-style:none;margin-left:-22px;background:#fff8ee;border-radius:10px;padding:6px 10px;color:var(--muted)}
-.tstep li.tip::before{content:"気をつけること　";font-weight:700;color:var(--ink)}
-.time b{flex:none;width:52px;color:var(--main-d);font-variant-numeric:tabular-nums}
-
-/* 聞かれたら */
-.faq{background:#fff;border-radius:var(--r);box-shadow:var(--sh);margin-bottom:10px;overflow:hidden}
-.faq summary{list-style:none;cursor:pointer;display:flex;gap:12px;align-items:flex-start;padding:14px 16px;font-weight:700;font-size:16px;line-height:1.5}
-.faq summary::-webkit-details-marker{display:none}
-.faq summary .qq{flex:none;width:28px;height:28px;border-radius:9px;background:var(--main-l);color:var(--main-d);display:grid;place-items:center;font-size:14px;font-family:"Zen Maru Gothic";font-weight:900}
-.faq summary .ar{flex:none;margin-left:auto;width:22px;height:22px;transition:transform .2s;color:var(--muted)}
-.faq[open] summary .ar{transform:rotate(180deg)}
-.faq .a{padding:0 16px 16px 56px;font-size:15px;line-height:1.8}
-.faq .a p{margin:0 0 6px}
-.faq .say{background:#fff8ee;border-left:4px solid var(--main);border-radius:0 12px 12px 0;padding:10px 12px;margin:6px 0 8px}
-.faq .say::before{content:"こう答える";display:block;font-size:11.5px;font-weight:700;color:var(--main-d);margin-bottom:2px}
-.faq .src{font-size:12.5px;color:var(--muted)}
-.faq .src::before{content:"根拠：";font-weight:700}
-.search{position:relative;margin-bottom:10px}
-.search input{width:100%;min-height:48px;padding:0 14px 0 42px;border:1.5px solid var(--line);border-radius:14px;background:#fff;font:inherit;font-size:16px}
-.search svg{position:absolute;left:14px;top:14px;width:20px;height:20px;color:var(--muted)}
-.note{font-size:13px;color:var(--muted);margin:6px 2px 14px}
-
-/* 社長のお写真・声かけ・QR */
-.card{background:#fff;border-radius:var(--r);box-shadow:var(--sh);padding:16px;margin-bottom:12px;font-size:14.5px;line-height:1.75}
-.card h4{margin:12px 0 4px;font-size:15.5px;color:var(--main-d)}
-.card h4:first-child{margin-top:0}
-.card ul,.card ol{margin:0;padding-left:1.3em}
-.card li{margin:3px 0}
-.boss{display:grid;gap:14px}
-.ideal{margin:0}
-.ideal svg{display:block;width:100%;height:auto;border-radius:12px}
-.ideal figcaption{font-size:12.5px;color:var(--muted);margin-top:4px}
-.ng{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px}
-.ng figure{margin:0;background:#fdebe6;border-radius:12px;padding:8px;font-size:12.5px;color:#5c2416;line-height:1.5}
-.ng svg{display:block;width:100%;height:auto;border-radius:8px;margin-bottom:4px}
-.ng b{color:#a3321b}
-.say2{background:#fff8ee;border-left:4px solid var(--main);border-radius:0 12px 12px 0;padding:10px 12px;margin:6px 0 10px;font-size:15px}
-.qrmap{display:block;margin:0 0 10px}
-.qrmap img{display:block;width:100%;height:auto;border-radius:12px;border:1px solid var(--line)}
-.qrpick{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
-.qrpick button{min-height:48px;border:1.5px solid var(--line);border-radius:12px;background:#fff;font:inherit;font-size:14px;text-align:left;padding:6px 10px;cursor:pointer;display:flex;gap:8px;align-items:center;color:var(--ink)}
-.qrpick button b{flex:none;width:28px;height:28px;border-radius:50%;background:#d1001f;color:#fff;display:grid;place-items:center;font-size:14px}
-.qrpick button[aria-pressed=true]{border-color:var(--ok);background:var(--ok-l);font-weight:700}
-.qrpick button[aria-pressed=true] b{background:var(--ok)}
-.qrsum{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px;font-size:15px}
-.qrsum strong{font-size:18px;color:var(--ok)}
-.qrsum button{min-height:40px;padding:0 14px;border-radius:99px;border:1.5px solid #e6cdb4;background:#fff;color:var(--main-d);font:inherit;font-size:14px;font-weight:700;cursor:pointer}
-@media (min-width:760px){.boss{grid-template-columns:1.1fr 1fr}}
-.mihon{display:block;position:relative;margin:8px 0 4px;max-width:420px}
-.mihon img{display:block;width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:12px;background:#f3e6d8}
-.mihon.tall{max-width:220px}.mihon.tall img{aspect-ratio:2/3}
-.mihon span{position:absolute;left:8px;bottom:8px;background:rgba(51,37,26,.72);color:#fff;font-size:11px;padding:1px 8px;border-radius:99px}
-.ideal img,.ng img{display:block;width:100%;height:auto;border-radius:12px}
-.ng img{border-radius:8px;margin-bottom:4px}
-
-/* 下の帯 */
-.foot{position:fixed;left:0;right:0;bottom:0;z-index:10;background:rgba(255,250,243,.95);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-top:1px solid var(--line);padding:10px 16px calc(10px + env(safe-area-inset-bottom))}
-.foot div{max-width:900px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.foot button,.foot a{min-height:50px;border-radius:14px;border:0;font-weight:700;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none}
-.foot svg{width:20px;height:20px}
-.copy{background:var(--main);color:#fff;box-shadow:0 4px 12px rgba(194,82,27,.3)}
-.site{background:#fff;color:var(--main-d);border:1.5px solid #e6cdb4!important}
-.toast{position:fixed;left:50%;bottom:96px;transform:translate(-50%,8px);background:var(--ink);color:#fff;padding:10px 18px;border-radius:99px;font-size:14px;opacity:0;transition:all .2s;pointer-events:none;z-index:20;white-space:nowrap}
-.toast.on{opacity:1;transform:translate(-50%,0)}
-
-@media (min-width:760px){
-  .hero{padding:24px 26px 20px}
-  .hero h2{font-size:24px}
-  .q b{font-size:17px}
-  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
-  .grid2 .sec{grid-column:1/-1}
-}
-@media (max-width:560px){.rule{grid-template-columns:1fr}.sync span{display:none}.sync{padding:6px}}
-@media (max-width:440px){.tabs button{font-size:14px;gap:4px}.tabs button svg{display:none}.ttl h1{font-size:17px}}
-.sec{scroll-margin-top:calc(var(--hdh,112px) + 60px)}
-.faq summary .ar{display:block;margin-top:3px}
-@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@1,500;1,700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Zen+Maru+Gothic:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-<header id="hd"><div class="hd">
-  <div class="row1">
-    <div class="logo" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2.5"/><path d="M9 3.5V5h6V3.5M9 10.5l1.8 1.8L14.5 8.5M9 16h6"/></svg></div>
-    <div class="ttl"><h1 class="disp">23日の打ち合わせ帳</h1><p>五島シティモール（株式会社プレッジ様）　11月23日</p></div>
-    <div class="sync" id="sync" role="status"><i></i><span id="synct">つなぎ中</span></div>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="index.html"><img src="assets/logo.svg" alt=""><span><b>ひなが堂</b><small>HINAGADO — くらしと仕事のひな形屋</small></span></a>
+    <button class="menu-btn" aria-expanded="false" aria-controls="gnav">メニュー</button>
+    <nav class="gnav" id="gnav">
+      <a href="index.html" aria-current="page">ホーム</a>
+      <a href="items/index.html">商品</a>
+      <a href="books/index.html">本</a>
+      <a href="goods/index.html">グッズ</a>
+      <a href="articles/index.html">読みもの</a>
+      <a href="about.html">このお店</a>
+      <a href="contact.html">お問い合わせ</a>
+    </nav>
   </div>
-  <div class="tabs" role="tablist">
-    <button role="tab" id="tab-m" aria-controls="p-m" aria-selected="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l2.5 2.5L16 9"/><rect x="4" y="4" width="16" height="16" rx="4"/></svg>確かめる<span class="n" id="n-m"></span></button>
-    <button role="tab" id="tab-s" aria-controls="p-s" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8.5A2.5 2.5 0 0 1 6.5 6h1.8l1.4-2h4.6l1.4 2h1.8A2.5 2.5 0 0 1 20 8.5v8a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 4 16.5z"/><circle cx="12" cy="12.5" r="3.5"/></svg>撮影<span class="n" id="n-s"></span></button>
-    <button role="tab" id="tab-f" aria-controls="p-f" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 5h14a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1h-7l-4.5 3.5V16H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"/><path d="M10 9.2a2 2 0 1 1 2.6 1.9c-.4.2-.6.5-.6.9v.3M12 14h.01"/></svg>聞かれたら</button>
-  </div>
-</div></header>
+</header>
 
 <main>
-<!-- 確かめる -->
-<section class="panel" id="p-m" role="tabpanel" aria-labelledby="tab-m">
-  <div class="hero">
-    <h2 class="disp">決まれば、契約書を仕上げて送れます</h2>
-    <p>押すと「済」。下の欄に決まったことを書きます。スマホとパソコンで同じ内容になります。</p>
-    <div class="stats">
-      <svg class="ring" viewBox="0 0 64 64" aria-hidden="true"><circle class="bg" cx="32" cy="32" r="27"/><circle class="fg" id="ring-m" cx="32" cy="32" r="27" stroke-dasharray="169.6" stroke-dashoffset="169.6" transform="rotate(-90 32 32)"/><text id="ringt-m" x="32" y="37" text-anchor="middle">0%</text></svg>
-      <div class="legend"><span class="tag t-must">必ず決める</span><span class="tag t-line">LINEで質問中</span><span class="tag t-wait">先生の回答待ち</span><span class="tag t-show">見せて決める</span></div>
+  <section class="hero">
+    <img class="hero-img" src="assets/img/heroB.webp" alt="" width="1536" height="1024" fetchpriority="high">
+    <div class="wrap">
+      <div class="hero-text">
+        <p class="eyebrow">Hinagado</p>
+        <h1><span class="nowrap">毎日の「めんどう」を、</span><br><span class="nowrap">ひな形でひとつずつ。<span class="dot"></span></span></h1>
+        <p>くらしと仕事を少しラクにする表やひな形と、ちょっと楽しいデジタルの小物をつくる、小さなお店です。</p>
+        <div class="btns">
+          <a class="btn btn-main" href="#items">商品を見る <span class="arrow">→</span></a>
+          <a class="btn btn-sub" href="about.html">このお店について</a>
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="tools"><div class="chips" role="group" aria-label="しぼる">
-    <button type="button" data-f="all" aria-pressed="true">すべて</button>
-    <button type="button" data-f="todo" aria-pressed="false">まだの物</button>
-    <button type="button" data-f="must" aria-pressed="false"><i class="dot" style="background:#e0795a"></i>必ず決める</button>
-    <button type="button" data-f="line" aria-pressed="false"><i class="dot" style="background:#3aa65a"></i>LINEで質問中</button>
-    <button type="button" data-f="show" aria-pressed="false"><i class="dot" style="background:#5b84c9"></i>見せて決める</button>
-  </div></div>
-  <div id="list-m"></div>
-  <div class="sec" id="m-qr"><span class="no disp">QR</span><h3 class="disp">現在地QRを貼る場所<small>吉田様に番号で選んでいただき、押して緑に。スマホとパソコンで同じになります</small></h3></div>
-  <div class="card">
-    <a class="qrmap" href="qr_spots.webp" target="_blank" rel="noopener"><img src="qr_spots.webp" alt="1階から3階の館内図。QRを貼る候補に1から11の番号" loading="lazy" width="2240" height="2884"></a>
-    <div class="qrpick" id="qrpick"></div>
-    <div class="qrsum">選んだ番号：<strong id="qrsel">まだ</strong><button type="button" id="qrcopy">番号だけコピー</button></div>
-    <p class="note">図は押すと大きく開きます。番号のほかに貼りたい場所があれば、上の「館内の現在地QRコード」の欄に書いてください。</p>
-  </div>
-</section>
+  </section>
 
-<!-- 撮影 -->
-<section class="panel" id="p-s" role="tabpanel" aria-labelledby="tab-s" hidden>
-  <div class="hero">
-    <h2 class="disp">11月21日（土）13:30〜　写真の撮影</h2>
-    <p>★から先に。1つのものを横で2枚・縦で1枚。使う場所が分かると、構図に迷いません。</p>
-    <div class="stats">
-      <svg class="ring" viewBox="0 0 64 64" aria-hidden="true"><circle class="bg" cx="32" cy="32" r="27"/><circle class="fg" id="ring-s" cx="32" cy="32" r="27" stroke-dasharray="169.6" stroke-dashoffset="169.6" transform="rotate(-90 32 32)"/><text id="ringt-s" x="32" y="37" text-anchor="middle">0%</text></svg>
-      <div class="legend mk"><span class="y">横</span><span class="t">縦</span><span class="z">寄り</span><span class="s">★ 先に</span></div>
+  <section class="sec feature-sec">
+    <div class="wrap">
+      <div class="feature reveal">
+        <a class="feature-img" href="items/nengajo-2027.html"><img src="assets/img/items/nengajo-2027.webp" alt="" loading="lazy" width="800" height="800"></a>
+        <div class="feature-body">
+          <p class="feature-label">11月のおすすめ</p>
+          <h2><span class="nowrap">年賀状の準備は、</span><span class="nowrap">11月のうちに。</span></h2>
+          <p>ひつじのおもちが届ける、2027年の年賀状ひな形 10種。はがきサイズの PNG と PDF で、家で印刷できます。</p>
+          <p class="feature-price">無料・BOOTH でお配り中</p>
+          <div class="btns">
+            <a class="btn btn-main" href="https://hinagado.booth.pm/items/9079456" rel="noopener" target="_blank">BOOTH で見る <span class="arrow">→</span></a>
+            <a class="btn btn-sub" href="items/nengajo-2027.html">くわしく見る</a>
+          </div>
+          <p class="feature-more"><a href="tokushu/fuyu.html">冬・年末年始の特集：12月から冬のあいだまで、使う時期の順に見る <span class="arrow">→</span></a></p>
+          <p class="feature-more"><a href="tokushu/nenmatsu.html">大掃除・お年玉・2027年の準備も。年末年始に使えるひな形をまとめて見る <span class="arrow">→</span></a></p>
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="tools"><div class="chips">
-    <a href="#s-pre">前の日</a><a href="#s-0">A 外</a><a href="#s-1">B 館内</a><a href="#s-2">C 分類</a><a href="#s-3">D 特集</a><a href="#s-4">E 人・物</a><a href="#s-boss">社長</a><a href="#s-shops">お店ごと・声かけ</a><a href="#s-time">回り方</a><a href="#s-after">撮ったあと</a>
-  </div></div>
-  <div class="rule">
-    <div class="box no-shot"><h4>写さない物</h4><ul><li>お客さんの顔（後ろ姿・遠くで誰か分からないなら可）</li><li>子ども（託児所・ゲームセンターは特に）</li><li>車のナンバー</li><li>ATM・レジの画面、伝票や名前の書いた紙</li><li>キャラクター商品・ほかの会社のポスターだけを大きく</li></ul></div>
-    <div class="box key3"><h4>大事な3つ</h4><ol><li><b>スマホをまっすぐ立てる</b>（見上げない。自分が下がる）</li><li><b>横で2枚・縦で1枚</b>（HPは横、Instagramは縦）</li><li><b>迷ったら撮っておく</b>（載せるかは後で吉田様と決める）</li></ol></div>
-  </div>
-  <div id="list-s"></div>
-  <div class="sec" id="s-boss"><span class="no disp">社</span><h3 class="disp">社長のお写真<small>会社案内のページ用。13:30 のごあいさつの後、最初に撮る</small></h3></div>
-  <div class="card boss">
-    <div>
-      <figure class="ideal"><a href="mihon/boss_ok.webp" target="_blank" rel="noopener"><img src="mihon/boss_ok_s.webp" alt="理想の1枚の見本。明るい入口の近くで、腰から上、少し斜めに立って笑顔の男性。背景のお店はぼけている" width="900" height="600"></a><figcaption>理想の1枚（見本・AIで作った架空の人物）。押すと大きく開きます</figcaption></figure>
-      <div class="ng"><figure><img src="mihon/boss_ng1_s.webp" alt="" loading="lazy"><b>✕ 照明の真下</b><br>目の下に影ができ、疲れた顔に</figure><figure><img src="mihon/boss_ng2_s.webp" alt="" loading="lazy"><b>✕ 下から見上げる</b><br>あごが大きく、天井が写る</figure></div>
-    </div>
-    <div>
-      <h4>見本のポイント</h4>
-      <ol><li><b>顔を明るい方へ</b>：入口や窓の光が顔に当たる向きに立っていただく</li><li><b>目の高さで撮る</b>：スマホを社長の目の高さに。目が上の3等分の線あたりに来るように</li><li><b>腰から上</b>：体は少し斜め、顔はこちら。手は軽く前で組むか、自然に下ろす</li><li><b>背景に看板・お店が少しぼけて入る</b>：「モールの社長」と伝わる</li></ol>
-      <h4>撮り方</h4>
-      <ul><li><b>ポートレートモード</b>で撮る（背景が自然にぼけます）。2mほど離れて、はみ出すなら少し下がる</li><li>場所は入口の中か、館内の明るい通路。人通りが少ない所で</li><li>表情は2種類：口を閉じた笑顔／少し歯が見える笑顔</li><li>横・縦それぞれ10枚ほど続けて撮る（まばたき・固い表情は後で外す）</li><li>ネクタイ・襟・髪の乱れを、撮る前にひとこと確認</li></ul>
-      <h4>声かけ</h4>
-      <div class="say2">「何枚か続けて撮りますね。最初は緊張して当然なので、後ろの写真ほど良くなります」</div>
-    </div>
-  </div>
-  <div class="sec" id="s-shops"><span class="no disp">店</span><h3 class="disp">お店ごと<small>撮影可と言われたお店だけ。店の前（看板）・店の中・商品2〜3つ</small></h3></div>
-  <div class="card">
-    <h4>最初のひとこと</h4>
-    <div class="say2">「こんにちは。モールのホームページを作っております、大久保と申します。今日は吉田さんと一緒に、館内の写真を撮らせていただいています。お店の看板と、店内を少し撮らせていただいてもよろしいでしょうか。お客さまのお顔は写しません。店員さんも、写りたくなければよけて撮りますね」</div>
-    <ul><li>吉田様が隣にいるときは、先に吉田様からひとこと紹介していただくと早い</li><li>断られたら「承知しました、ありがとうございます」で終わり。看板だけ外から撮る</li><li>撮り終えたら「ありがとうございました」</li></ul>
-  </div>
-  <div id="shops"></div>
-  <div class="sec" id="s-time"><span class="no disp">時</span><h3 class="disp">当日の回り方<small>目安2時間半。11月の五島は16時半ごろから暗くなります</small></h3></div>
-  <p class="note">時刻を押すと、その時間にすることが開きます。見本の写真は上の各項目にあります。</p>
-  <div class="tsteps">
-  <details class="tstep"><summary><b>13:30</b><span>吉田様にごあいさつ・確かめる5つ</span></summary><ol>
-    <li><b>撮ってよいお店</b>「今日、中を撮ってよいお店はどこでしょうか」（Leon・VITA は許可済み）。下の「お店ごと」の表の「撮影可」に印</li>
-    <li><b>社長のお写真</b>「最初に撮らせていただけますか」→ 上の「社長のお写真」のとおりに撮る</li>
-    <li><b>写ってよい店員さん</b>「写りたくない方は、よけて撮ります」</li>
-    <li><b>現在地QRの場所</b>「貼るならどの辺りがよいでしょうか」。決めるのは23日。今日は候補①〜⑪の壁を撮るだけ</li>
-    <li><b>写ってしまったお客さん</b>「小さく写った方は、あとで消すか、ぼかします」とひとこと</li></ol></details>
-  <details class="tstep"><summary><b>13:45</b><span>A 建物の外（30分・明るいうちに）</span></summary><ol>
-    <li><b>★ 正面の全体</b>（横2・縦1）道の向こうまで下がる。空を上3分の1。17e は 0.5× が無いので、入りきらなければ横で左端・真ん中・右端の3枚（あとでつなぐ）</li>
-    <li><b>空と建物だけ</b>（横）同じ場所でスマホを少し上へ。建物は画面の下半分</li>
-    <li><b>ななめ45度</b>（横）建物の角を画面の左3分の1の線に</li>
-    <li><b>★ 看板</b>（寄り）真ん前に立ち、文字がまっすぐ読めるように。見上げすぎない</li>
-    <li><b>★ 入口・自動ドア</b>（横・縦）中央玄関（タクシー乗り場の側）を真正面から。人が通らない瞬間に</li>
-    <li><b>バス停・タクシー乗り場</b>（横）中央玄関の右側。バス停の看板の文字が読めるように</li>
-    <li><b>駐車場の広さ</b>（横）屋上か2階の窓から見下ろす。館内で回るときでもよい。ナンバーが読めない距離</li>
-    <li class="tip">太陽を背中に。逆光で暗い面は16:00に撮り直し。グリッドの縦線を柱に合わせる</li></ol></details>
-  <details class="tstep"><summary><b>14:15</b><span>1階の館内（20分）→ 1階のお店（25分）</span></summary><ol>
-    <li><b>★ 1階の通路</b>（横・縦）まん中に立ち奥まで。人がいない瞬間か、後ろ姿だけの瞬間</li>
-    <li><b>ポスター用の通路</b>（縦・場所を変えて10枚ほど）ポスター案2のスマホ画面用。人はお店をのぞく後ろ姿だけ</li>
-    <li><b>案内所</b>（横）上の表示が読めるように</li>
-    <li><b>エスカレーター・エレベーター</b>（横）少し斜めから両方入れる</li>
-    <li><b>休憩所</b>（横）ピーパラダイスの前。まわりのお店も少し入れる</li>
-    <li><b>トイレの入口</b>（横）表示だけ。中は撮らない</li>
-    <li><b>催事場</b>（横・縦）何もない状態で。催し中なら売り場の方にひとこと</li>
-    <li><b>フロア案内板</b>（寄り）正面から、文字が読めるように</li>
-    <li><b>現在地QRの候補①〜⑦</b>（横）先に指で番号を見せた写真を1枚 → 貼る壁を少し引いて（高さが分かるように）</li>
-    <li><b>季節の飾り</b>（寄り）クリスマスの飾りがあれば</li>
-    <li><b>1階のお店</b>（飲食は14時以降が空いている）撮影可のお店だけ。「最初のひとこと」を言ってから、店の前（看板を正面）・店の中（お客さんのいない方向）・商品2〜3個（寄り・少し斜め・画面いっぱい）。麺・たこ焼きは湯気のあるうちに</li>
-    <li class="tip">子どもは写さない（たこ焼き・ゲームの近くは特に）。ATM・レジの画面も。文字を読ませたい物は正面から</li></ol></details>
-  <details class="tstep"><summary><b>15:00</b><span>2階の館内（15分）→ 2階のお店（25分）</span></summary><ol>
-    <li><b>2階の通路</b>（横）まん中に立ち奥まで。エスカレーターの手すりが少し入るとよい</li>
-    <li><b>エスカレーター・エレベーター</b>（横）2階の側から</li>
-    <li><b>休憩所</b>（横）ファンタジーランドとパレットの間。まわりのお店も少し入れる</li>
-    <li><b>授乳室・ベビーカー置き場の入口</b>（横）2階 南側の男子トイレの横。表示だけ。中は撮らない</li>
-    <li><b>現在地QRの候補⑧〜⑩</b>（横）指で番号 → 壁</li>
-    <li><b>駐車場の広さ</b>（横）外で撮れていなければ、2階の窓から</li>
-    <li><b>2階のお店</b> 撮影可のお店だけ。服（パレット・SpRay など）はハンガーの並びを斜めから。めがね（ヨネザワ）は棚を寄りで。おもちゃ（おやこパンダ）・本は棚いっぱいに</li>
-    <li><b>雨の日の特集</b>（横）ゲームセンター（ファンタジーランド）・リトルシアター。子どもがいない時に。いれば機械だけを寄りで</li>
-    <li><b>美容・もみほぐし</b>（横）お客さんがいない時に。椅子や道具だけでも</li>
-    <li><b>託児所（シティハウス）</b>（横）看板と受付だけ。中と子どもは撮らない</li>
-    <li class="tip">2階は子どもが多い所（託児所・ゲーム・おもちゃ）。撮る前に画面の中に子どもがいないか必ず見る</li></ol></details>
-  </div>
-  <div class="time"><div><b>15:40</b><span>3階 → C・D の残り</span></div><div><b>16:00</b><span>★の撮りもれ確認。外がまだ明るければ、外をもう1度</span></div></div>
-  <div id="list-a"></div>
-</section>
+  </section>
 
-<!-- 聞かれたら -->
-<section class="panel" id="p-f" role="tabpanel" aria-labelledby="tab-f" hidden>
-  <div class="hero">
-    <h2 class="disp">聞かれそうなことと、答え方</h2>
-    <p>契約書（第12稿）と、これまでのやりとりから作りました。数字は契約書の文と同じです。迷ったら「確かめて、LINEでお返事します」で大丈夫です。</p>
-  </div>
-  <div class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4 4"/></svg><input type="search" id="fq" placeholder="ことばで探す（例：振込、写真、更新）" aria-label="聞かれたらの中を探す"></div>
-  <div class="tools"><div class="chips" id="fcats"></div></div>
-  <div id="list-f"></div>
-</section>
+  <section class="sec grid-bg">
+    <div class="wrap split">
+      <div class="split-img reveal"><img src="assets/img/shop.webp" alt="木の屋台で店番のおもちがおじぎをしている絵" loading="lazy" width="1536" height="1024"></div>
+      <div class="reveal">
+        <p class="eyebrow">About</p>
+        <h2 class="sec-title">「あったら楽なのに」を、<br>かたちにするお店。</h2>
+        <p class="sec-lead">毎月の家計の整理、家事の分担、小さな事業所の事務。だれかが一度つくった「型」があれば、同じことで困る人の手間はぐっと減ります。ひなが堂は、そんな型をつくって届けます。</p>
+        <ul class="points">
+          <li><span class="num">1</span><div><b>買ってすぐ使える</b><span>説明書つき。むずかしい設定はいりません。</span></div></li>
+          <li><span class="num">2</span><div><b>ひとつずつ、ていねいに</b><span>数は多くても、計算と言葉をひとつずつ確かめて出します。</span></div></li>
+          <li><span class="num">3</span><div><b>ちょっと楽しく</b><span>スタンプやミニゲームで、すき間時間にひと息。</span></div></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec items" id="items">
+    <div class="wrap">
+      <div class="center reveal">
+        <p class="eyebrow">Items</p>
+        <h2 class="sec-title">ひなが堂の商品</h2>
+        <p class="sec-lead">Excel のひな形などを BOOTH で販売しています。準備中の商品も、商品一覧で説明を先にご覧いただけます。</p>
+      </div>
+      <div class="cards">
+      <article class="card reveal">
+        <img src="assets/img/hinagata.webp" alt="" loading="lazy" width="1536" height="1024">
+        <div class="card-body">
+          <span class="card-en">Templates</span>
+          <h3>ひな形</h3>
+          <p>家計・家事・小さな事業所の事務に使える表。買ってすぐ、入力するだけで使えます。</p>
+          <div class="card-foot"><span>売り場：BOOTH</span><a class="badge play" href="https://hinagado.booth.pm/">BOOTH で見る →</a></div>
+        </div>
+      </article>
+      <article class="card reveal">
+        <img src="assets/img/stamp.webp" alt="" loading="lazy" width="1536" height="1024">
+        <div class="card-body">
+          <span class="card-en">Stickers</span>
+          <h3>LINE スタンプ</h3>
+          <p>店番のおもちが、毎日のあいさつやお礼を代わりに伝えます。</p>
+          <div class="card-foot"><span>売り場：LINE STORE</span><a class="badge play" href="https://store.line.me/stickershop/author/6788061/ja">LINE STORE で見る →</a></div>
+        </div>
+      </article>
+      <article class="card reveal">
+        <img src="assets/img/books.webp" alt="" loading="lazy" width="1536" height="1024">
+        <div class="card-body">
+          <span class="card-en">Books</span>
+          <h3>本</h3>
+          <p>迷路やナンバープレースの問題集と、料理・お掃除の本。Amazon で買えます。</p>
+          <div class="card-foot"><span>売り場：Amazon</span><a class="badge play" href="books/index.html">本を見る →</a></div>
+        </div>
+      </article>
+      <article class="card reveal">
+        <img src="assets/img/goods.webp" alt="" loading="lazy" width="1536" height="1024">
+        <div class="card-body">
+          <span class="card-en">Goods</span>
+          <h3>グッズ</h3>
+          <p>おもちと仲間たちの Tシャツ・マグカップ・ステッカーなど。作りとお届けは SUZURI です。</p>
+          <div class="card-foot"><span>売り場：SUZURI</span><a class="badge play" href="goods/index.html">グッズを見る →</a></div>
+        </div>
+      </article>
+      <article class="card reveal">
+        <img src="assets/img/game.webp" alt="" loading="lazy" width="1536" height="1024">
+        <div class="card-body">
+          <span class="card-en">Free Games</span>
+          <h3>無料ゲーム</h3>
+          <p>ブラウザですぐ遊べるゲーム。ミニゲーム・レース・犬と島を育てるゲームの3本。</p>
+          <div class="card-foot"><span>売り場：このサイト（無料）</span><a class="badge play" href="play/">無料ゲームを見る →</a></div>
+        </div>
+      </article>
+      <article class="card reveal">
+        <img src="assets/img/umarebi.webp" alt="" loading="lazy" width="1536" height="1024">
+        <div class="card-body">
+          <span class="card-en">Fortune (for fun)</span>
+          <h3>うまれび診断</h3>
+          <p>生年月日をえらぶだけ。星座と干支から、おもちがやさしいひとことを届けます。娯楽です。</p>
+          <div class="card-foot"><span>売り場：BOOTH</span><a class="badge play" href="shindan/">お試し版で遊ぶ（無料） →</a></div>
+        </div>
+      </article>
+      <article class="card reveal">
+        <img src="assets/img/warikan.webp" alt="" loading="lazy" width="1536" height="1024">
+        <div class="card-body">
+          <span class="card-en">Bill Splitter</span>
+          <h3>割り勘ナビ</h3>
+          <p>合計と人数を入れるだけ。端数の持ち方も選べて、LINE に貼れる文章でコピーできます。</p>
+          <div class="card-foot"><span>売り場：BOOTH</span><a class="badge play" href="warikan/">お試し版を使う（無料） →</a></div>
+        </div>
+      </article>
+      <article class="card reveal">
+        <img src="assets/img/heroA.webp" alt="" loading="lazy" width="1536" height="1024">
+        <div class="card-body">
+          <span class="card-en">Articles</span>
+          <h3>くらしの読みもの</h3>
+          <p>お返しの記録、サブスクの見直し、大掃除の段取り、教育費の見通しなど。毎日の「めんどう」を軽くする考え方をまとめました。</p>
+          <div class="card-foot"><span>売り場：このサイト</span><a class="badge play" href="articles/index.html">記事を読む（無料） →</a></div>
+        </div>
+      </article>
+      <article class="card reveal">
+        <img src="assets/img/kurashi.webp" alt="" loading="lazy" width="1536" height="1024">
+        <div class="card-body">
+          <span class="card-en">Apps</span>
+          <h3>無料のくらしのアプリ</h3>
+          <p>やること表・集中タイマー・ごみ出しの日・今月あといくら・おてつだいポイントなど19本。登録なしで、スマホのホーム画面にも置けます。</p>
+          <div class="card-foot"><span>売り場：このサイト</span><a class="badge play" href="kurashi/index.html">くらしのアプリを使う（無料） →</a></div>
+        </div>
+      </article>
+      <article class="card reveal">
+        <img src="assets/img/keisan.webp" alt="" loading="lazy" width="1536" height="1024">
+        <div class="card-body">
+          <span class="card-en">Calculators</span>
+          <h3>無料の計算道具</h3>
+          <p>日数・日割り・消費税・パーセント・和暦・年齢の早見など。登録なしで、開いてすぐ使えます。</p>
+          <div class="card-foot"><span>売り場：このサイト</span><a class="badge play" href="keisan/index.html">計算の道具を使う（無料） →</a></div>
+        </div>
+      </article>
+      </div>
+      <p class="center items-more reveal"><a class="btn btn-main" href="items/index.html">商品一覧へ <span class="arrow">→</span></a></p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="mascot reveal">
+        <img src="assets/img/mascot.webp" alt="鉛筆を抱えた白いおもちの店番" loading="lazy" width="1254" height="1254">
+        <div>
+          <p class="eyebrow">Our Shopkeeper</p>
+          <h2 class="sec-title">店番の「おもち」です</h2>
+          <p class="sec-lead">ひなが堂の店番。まるくてやわらかく、藍色の前掛けがお気に入り。表のマス目を見ると、ついチェックを入れたくなります。</p>
+          <img class="faces" src="assets/img/mascot_faces.webp" alt="おもちの3つの表情" loading="lazy" width="1200" height="673">
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="sec">
+    <div class="wrap">
+      <div class="center reveal">
+        <p class="eyebrow">Videos</p>
+        <h2 class="sec-title">おもちの動画</h2>
+        <p class="sec-lead">おもちの ある日と、くらしの小さなコツを、短い動画にしています。音が出ます。</p>
+      </div>
+      <div class="vcards">
+        <a class="vcard reveal" href="https://youtube.com/shorts/idiKnCxWzo8" rel="noopener" target="_blank">
+          <span class="vthumb"><img src="assets/img/videos/futon.webp" alt="" loading="lazy" width="540" height="960"><span class="vplay" aria-hidden="true"></span></span>
+          <span class="vtitle">ふとんから、出られない朝</span>
+          <span class="vnote">YouTube で見る →</span>
+        </a>
+        <a class="vcard reveal" href="https://youtube.com/shorts/BPAoOmAk4l4" rel="noopener" target="_blank">
+          <span class="vthumb"><img src="assets/img/videos/kotatsu.webp" alt="" loading="lazy" width="540" height="960"><span class="vplay" aria-hidden="true"></span></span>
+          <span class="vtitle">こたつで、ちょっとだけ</span>
+          <span class="vnote">YouTube で見る →</span>
+        </a>
+        <a class="vcard reveal" href="https://youtube.com/shorts/kExrWTCtEig" rel="noopener" target="_blank">
+          <span class="vthumb"><img src="assets/img/videos/okaeshi.webp" alt="" loading="lazy" width="540" height="960"><span class="vplay" aria-hidden="true"></span></span>
+          <span class="vtitle">お返し、だれにしたっけ？</span>
+          <span class="vnote">YouTube で見る →</span>
+        </a>
+        <a class="vcard reveal" href="https://youtube.com/shorts/Rtl4XfTatDs" rel="noopener" target="_blank">
+          <span class="vthumb"><img src="assets/img/videos/osouji.webp" alt="" loading="lazy" width="540" height="960"><span class="vplay" aria-hidden="true"></span></span>
+          <span class="vtitle">大掃除は11月から「小分け大掃除」</span>
+          <span class="vnote">YouTube で見る →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec grid-bg">
+    <div class="wrap">
+      <div class="center reveal">
+        <p class="eyebrow">How We Make</p>
+        <h2 class="sec-title">つくり方</h2>
+        <p class="sec-lead">ひなが堂の商品は、最後に人の目で確かめてからお届けします。</p>
+      </div>
+      <div class="steps">
+        <div class="step reveal"><h3>困りごとを集める</h3><p>毎日の「めんどう」や「あったら楽」を書き出します。</p></div>
+        <div class="step reveal"><h3>形にする</h3><p>表やゲーム、絵の下書きをつくります。</p></div>
+        <div class="step reveal"><h3>人の目で確かめる</h3><p>計算・動き・言葉づかいを、ひとつずつ確かめます。</p></div>
+        <div class="step reveal"><h3>小さく届ける</h3><p>売り場に並べ、声を聞いて少しずつ直します。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="cta reveal">
+        <div>
+          <h2>BOOTH で販売しています。</h2>
+          <p>無料のお試し版もあります。商品は少しずつ増やしています。</p>
+        </div>
+        <a class="btn btn-main" href="items/index.html">商品一覧へ <span class="arrow">→</span></a>
+      </div>
+    </div>
+  </section>
 </main>
-
-<div class="foot"><div>
-  <button type="button" class="copy" id="copy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2.5"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg>書いた内容をコピー</button>
-  <a class="site" href="https://hinagado.github.io/studio/goto-citymall-demo/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M3 9h18M7 6.5h.01M10 6.5h.01"/></svg>見本のHPを開く</a>
-</div></div>
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
-
-<script>
-// ===== 中身 =====
-// 種類: line=LINEで質問中（11/18 送付。答えが来たら ok にして答えを説明に書く） / must=必ず決める / wait=税理士の先生の回答待ち / show=見本を見せて決める / ok=決定済み
-const M = [
-  ["ご契約の前に決めること", "契約書の空欄。ここが埋まると送れます", [
-    ["ok", "ご契約に同意される方と、そのメールアドレス", "<strong>大久保 嘉之 様／prege@ia9.itkeeper.ne.jp</strong>（11/18 吉田様）"],
-    ["wait", "社長のお名前・肩書（登記のとおり）", "吉田様が登記を確認中（11/18）。契約書の「甲」の欄に書きます"],
-    ["ok", "資本金・従業員の人数", "<strong>資本金300万円・従業員30名</strong>（11/18）。取適法の「委託する側」の大きさに届かないので、取適法には当たらない見込み。フリーランス法は当たる（下の「60日」の項目）"],
-    ["must", "委託料20万円の内訳（デザイン・文章・写真・コーディング等）", "<strong>源泉徴収は20万円全額が対象と決まりました（11/18 税理士の先生）。</strong>内訳は契約書の別紙に書く金額だけ決めます"],
-    ["ok", "公開の目標日", "<strong>2027年1月1日</strong>（初売りに間に合わせたい。11/18 吉田様）"],
-    ["must", "館内の「現在地」QRコードの数と場所", "このページのいちばん下「現在地QRを貼る場所」で、番号を押して選ぶ。今の見本は②総合案内所・⑧2階エスカレーター・⑪3階南玄関。21日に各候補の壁も撮る"],
-    ["must", "ホームページの公開先（Cloudflare Pages・無料・御社の名義）", "アカウントは御社の名義で作ります"],
-    ["must", "独自ドメイン（ホームページの住所）の名前と名義", "御社の名義・御社のお支払い。例：○○.jp（取得 年990円・更新 年3,344円の例）。名前の候補を決める"],
-    ["must", "社長のごあいさつ文をいただく期日", "会社案内のページに載せます"],
-    ["ok", "源泉徴収：20万円全額が対象・10.21%", "着手金・残金とも10万円から10,210円を差し引き、振込は89,790円ずつ（11/18 税理士の先生）"],
-    ["must", "残金の支払期日と「60日」の決まり（フリーランス法）", "契約書は「全部をお見せした月の翌月末日」。月の初めにお見せすると61日になる月がある。60日以内に収まる書き方に直すか、確かめてから契約書を仕上げる"]
-  ]],
-  ["税理士の先生のお返事", "11/18 に吉田様へまとめてお願い済み", [
-    ["wait", "① 月々の保守（月1万円）も源泉徴収の対象か", "対象なら1回1,021円を差し引き、振込は8,979円"],
-    ["wait", "② 支払調書にマイナンバーが必要か。必要ならいつまでに・どう渡すか", "年5万円を超えると、御社が税務署に出す書類に載ります"],
-    ["wait", "③ インボイス登録なし・消費税を分けない総額の請求で問題ないか", ""]
-  ]],
-  ["見本のHPを見せて決めること", "下の「見本のHPを開く」で、その場で見せられます", [
-    ["show", "全体の見た目と、お店・分類の絵", "11/18 に仕上げました。気になる所を聞く"],
-    ["show", "お知らせ・イベントを、トップのもっと上に動かすか", "採点役の提案。今はお店さがしの下"],
-    ["show", "スマホの言葉えらび（日本語／English…）を、三本線のメニューの中に入れるか", ""],
-    ["show", "「準備中」の言い方（今は「開店前・10:00から」）", ""],
-    ["show", "館内図の配置が、実際の館内と合っているか", ""]
-  ]],
-  ["お店・催事・館内のこと", "", [
-    ["ok", "チラシ・セールを載せるお店", "<strong>5店。</strong>リトル・クルサはチラシ。おやこパンダ・ファンタジーランド・ボンパティ・ピーパラダイスは、自作の新商品の告知ポップ（11/18）"],
-    ["ok", "リトル・クルサのチラシをいただく時期", "<strong>配る月の前の月の27日・28日</strong>にチラシが届くので、そのときにデータをいただく（11/18）"],
-    ["ok", "12月7日〜15日の催事「パレット」", "<strong>洋服の販売</strong>。2階のパレットが1階で販売（11/18）。見本に反映済み"],
-    ["ok", "休憩所の「何階のどこ」", "<strong>1階 ピーパラダイス前／ファンタジーランドとパレットの間</strong>（11/18）。見本には「2階 ファンタジーランドとパレットの間」と2か所で書いた。2か所で合っているか、当日ひとこと確かめる"],
-    ["must", "ドコモショップの LINE・Facebook の QR とロゴ", "吉田様から届く予定"],
-    ["must", "まだ素材が届いていないお店", "ロゴ済み17店。残りのお店は、21日に看板を撮って代わりにするか"],
-    ["ok", "五島らしいおみやげ（看板の品）", "<strong>五島うどん（つばき屋で販売）</strong>（11/18）。見本の「おみやげ」につばき屋を足した"],
-    ["must", "使えるお支払い（カード・電子マネー・QR）と免税のお店", "お店ごとに。海外の方向けの印に使います"],
-    ["must", "港・空港まで、船・飛行機に間に合う目安の時間", "アクセスのページに入れます"],
-    ["ok", "営業時間・休館日", "10時〜20時（つばき屋・ダイソーは9時から）、年中無休で合っている（11/18）"],
-    ["ok", "面積", "<strong>約2,500坪</strong>が正しい（11/18）。見本の会社案内を直した"],
-    ["must", "お知らせ・Instagram を毎週何曜日に出すか", ""],
-    ["must", "ポイントカード・スタンプ、宅配で送れるお店、Wi-Fi・ATM・両替", "あれば案内に入れます"],
-    ["ok", "4店の新商品ポップの受け取り方", "<strong>写真で送っていただく</strong>（11/18）。ホームページに載せる依頼があれば、データも送っていただける"]
-  ]],
-  ["館内ポスター・そのほか", "", [
-    ["ok", "館内ポスターの案", "<strong>案2（スマホの画面が主役）に決定</strong>（11/18）。11/21 の写真に差し替え、公開時に本物のQRを入れて読み取りを試してから印刷"],
-    ["must", "ポスターを貼る場所と枚数", "QRとURLは公開のときに入れ、iPhone・Androidで読めるか試してから印刷"],
-    ["must", "公開後に、ひなが堂のHPで「制作の実績」として紹介してよいか", "名前なし・見送りも可。掲載前に確認をもらう"],
-    ["must", "21日に写ってしまった方の扱い", "小さく写った方は加工で消す。難しい場合はぼかすか差し替え"]
-  ]]
-];
-
-// 撮影: [見出し, 説明, [[★?, 名前, 印(y横 t縦 z寄り), 使う場所, 撮り方]]]
-const S = [
-  ["前の日までに", "iPhone の設定と持ち物（10分）", [
-    [0, "設定 → カメラ → グリッド：オン", "", "", "画面の線に柱や床の線を合わせると、まっすぐ撮れます"],
-    [0, "設定 → カメラ → 水平：オン", "", "", "まっすぐになると線が黄色に。黄色の時に押す"],
-    [0, "設定 → カメラ → フォーマット：互換性優先", "", "", "パソコンでそのまま開ける形（JPEG）になります"],
-    [0, "Live Photos をオフ・フラッシュをオフ", "", "", "設定 → カメラ → 設定を保持 → Live Photos をオン。そのうえでカメラ画面の◎を押してオフ"],
-    [0, "iPhone を100%まで充電・モバイルバッテリー", "", "", "撮影は2時間半。画面を明るくするので減りが早い"],
-    [0, "空き容量を20GB以上", "", "", "設定 → 一般 → iPhoneストレージ"],
-    [0, "メガネふきでレンズをふく", "", "", "指のあぶらで写真全体がぼやけます。撮り始める前に1回"]
-  ]],
-  ["A 建物の外", "最初に撮る。光がいいうちに", [
-    [1, "建物の正面の全体", "yt", "トップの一番大きな写真・会社案内", "道の向こうまで下がり、空を画面の上3分の1ほど入れる。iPhone 17e には 0.5× が無いので、1×で下がれるだけ下がる（入りきらなければ横で端から順に数枚）"],
-    [1, "ななめ45度から全体", "y", "アクセスのページ・Googleマップ", "建物の角を画面の3分の1の線に。立体に見えます"],
-    [1, "看板・モールの名前", "z", "トップの小さな写真・Instagram", "正面から。文字がまっすぐ読めるように、看板の真ん前に立つ"],
-    [1, "入口・自動ドア", "yt", "Googleマップの「入口」・アクセス", "人が通らない時に。中央玄関（タクシー乗り場のある側）"],
-    [0, "駐車場の広さ", "y", "アクセスの「駐車場 450台」", "車のナンバーが読めない距離・角度で。高い所（屋上・2階の窓）から撮れると広さが伝わる"],
-    [0, "バス停・タクシー乗り場", "y", "アクセスの「路線バス」「タクシー」の行", "バス停の看板の文字が読めるように。タクシー乗り場は中央玄関の右側"],
-    [0, "空と建物だけの写真", "y", "トップの大きな写真の候補（上に文字を載せる）", "建物を画面の下半分に。上を広く空ける"]
-  ]],
-  ["B 館内の共通の場所", "", [
-    [1, "1階の通路", "yt", "トップの大きな写真・お店をさがすの帯", "通路のまん中に立ち、奥まで見えるように。人がいない瞬間を待つ"],
-    [1, "2階の通路", "y", "お店をさがすの「2階」", ""],
-    [0, "3階・たびのコンパスの前", "y", "お店をさがすの「3階」", ""],
-    [1, "案内所・インフォメーション", "y", "アクセス・館内の設備", "カウンターの上の表示が読めるように"],
-    [0, "エスカレーター・エレベーター", "y", "館内の設備", ""],
-    [0, "ベンチ・休憩できる所", "y", "館内の設備「休憩所」", "場所が分かるよう、まわりの店も少し入れる"],
-    [0, "トイレ・授乳室・ベビーカー置き場の入口", "y", "館内の設備（お子さま連れの方へ）", "入口の表示だけ。中は撮らない"],
-    [1, "催事場", "yt", "お知らせ・イベント", "何もない状態と、催し中の両方あれば。催し中は売り場の人の了解を"],
-    [0, "フロア案内板", "z", "館内図の確認用（載せない）", "正面から、文字が読めるように。館内図を直すのに使います"],
-    [0, "QR を置く予定の場所", "y", "QRの場所決め（23日の確認に使う）", "番号つきの館内図の①〜⑪（あとで番号で選べるよう、撮る前に、指で番号を見せた写真を1枚撮っておく）。貼る壁の高さが分かるように"],
-    [0, "館内のかざり・季節の飾り", "z", "Instagram・お知らせ", "クリスマスの飾りがあれば特に"],
-    [1, "ポスター用：通路を奥まで", "t", "館内ポスター（案2に決定）のスマホ画面の写真", "縦長で、通路を奥まで。人はお店をのぞく後ろ姿だけ。場所を少しずつ変えて10枚ほど"]
-  ]],
-  ["C トップの「分類」の写真", "各1枚・正方形に切ります。今は絵が入っている所", [
-    [0, "食品・お菓子", "z", "トップの「食品・お菓子」", "カステラ・お菓子の棚。商品を画面いっぱいに、少し斜めから"],
-    [0, "お食事・お茶", "z", "トップの「お食事・お茶」", "麺・たこ焼き・パン。湯気が出ていれば最高"],
-    [0, "本・おもちゃ・雑貨", "z", "トップの「本・おもちゃ・雑貨」", ""],
-    [0, "衣料・めがね", "z", "トップの「衣料・めがね」", ""],
-    [0, "美容室・もみほぐし", "y", "トップの「美容室・もみほぐし」", "お客さんが写らない時間に。道具や椅子だけでも"],
-    [0, "携帯・託児・旅行", "y", "トップの「携帯・託児・旅行」", "看板や受付"]
-  ]],
-  ["D 特集の写真", "", [
-    [1, "おみやげ：五島らしいおみやげが並ぶ棚", "yz", "トップの「帰りの船の前に、おみやげを」", "棚全体を横で1枚、目立つ品を寄りで2〜3枚。値札は写ってもよい"],
-    [0, "雨の日でも楽しめる：ゲームセンター・リトルシアター", "y", "トップの「雨の日も、モールで」", "子どもが写らない時間に"],
-    [0, "椿：つばきの商品", "z", "おみやげの特集・Instagram", "つばき屋など"]
-  ]],
-  ["E 人と物の写真", "必ず本人・お店の了解をもらってから", [
-    [1, "社長のお写真", "yt", "会社案内のごあいさつ", "このすぐ下の「社長のお写真」の見本と撮り方のとおりに。腰から上、ポートレートモード、顔を明るい方へ"],
-    [0, "店員さん（写ってよい方だけ）", "y", "お店ごとのページ", "名札が読めない距離で。断られたら写らない角度に"],
-    [0, "メニュー・チラシの現物", "z", "お店ごとのページの確認用", "BLOSSOM・まる福のメニューは届いています。ほかのお店で掲示があれば"]
-  ]]
-];
-const A = [["撮ったあと（その日の夜）", "", [
-  [0, "♡ を付けた写真を中心に、ぶれた写真だけ消す", "", "", "迷う物は消さない"],
-  [0, "Google ドライブのアプリ（ひなが堂のアカウント）に入れる", "", "", "「＋」→「アップロード」→ 写真を選ぶ。元の画質のまま届きます"],
-  [0, "LINE では送らない", "", "", "画質が落ちます"],
-  [0, "Claude に「写真を入れた」と伝える", "", "", "選ぶ・明るさ・切り抜き・サイズはこちらでやります"]
-]]];
-const SHOPS = {"1階": ["つばき屋", "文明堂総本店", "御菓子司はたなか", "ボンパティ", "小麦の奴隷", "和敬庵", "BLOSSOM", "リトル・クルサ", "たこ焼きけんちゃん", "麺屋まる福", "ピーパラダイス", "ダイソー", "釣具店 釣りします", "美髪 Leon", "hair salon VITA", "楽天モバイル", "ドコモショップ", "携帯相談室", "十八親和銀行 ATM", "釣りします 不動産", "コインランドリー"],
-  "2階": ["オックスフォード", "家具プラス ツーピース", "おもちゃ屋おやこパンダ", "パレット", "多津屋・Hanako", "メガネのヨネザワ", "森補正専門店", "もみほぐし隊 恵", "未来ごとう", "託児所 シティハウス", "ファンタジーランド", "SpRay", "リトルシアター", "白寿ヘルストロン", "パレット HOMME"],
-  "3階": ["たびのコンパス"]};
-
-// 聞かれたら: [分類, 質問, こう答える, 補足, 根拠]
-const F = [
-  ["お金", "全部でいくらですか。月々はいくらかかりますか", "作るのは20万円で、これ以上はかかりません。公開した次の月から、更新などで月1万円です。", "どちらも消費税込みの総額です。独自ドメイン（ホームページの住所）の費用だけは、御社から直接お支払いいただきます（例：取得 年990円・更新 年3,344円）。", "契約書（委託料）・別紙"],
-  ["お金", "いつ払えばいいですか", "着手金10万円は、ご契約した月の翌月末日までです。残りの10万円は、ホームページを全部お見せした月の翌月末日です。", "早めにまとめて20万円お支払いいただくこともできます。月々の1万円は、毎月末で締めて翌月末日です。振込手数料は御社のご負担です。", "契約書 第4条"],
-  ["お金", "振込はいくらになりますか（源泉徴収）", "10万円から10,210円を差し引いて、89,790円ずつです。", "税理士の先生のご判断どおり、20万円全額に10.21%をかけています。請求書にも「委託料・源泉徴収税額・差し引いた額」を分けて書きます。月1万円の保守は、先生のお返事を待っています。", "11/18 吉田様（税理士の先生）"],
-  ["お金", "インボイスの番号はありますか", "登録していないので、番号はありません。そのぶん消費税を足さずに、総額でご請求しています。", "御社の消費税の計算では、今は支払った額の7割まで差し引けます（2028年9月まで）。将来登録したときは、相談して決めることにしています。", "契約書（委託料）"],
-  ["お金", "追加でお金がかかることはありますか", "ご契約の範囲を超える作業も、お引き受けするときは追加のお支払いはいただきません。", "その代わり、何をするか・ほかの作業を減らすか延ばすかを、メールで相談して決めます。ドメイン・広告・印刷など、御社が直接払う費用は別です。2回目以降の撮影も別のご相談です。", "契約書 第6条"],
-  ["中身", "20万円で何をしてもらえますか", "公式ホームページ（お店ごとのページと外国語のページを含む）、Googleマップのお店の情報1件、今お使いのInstagramの整え、の3つです。", "お店ごとのページは、一覧表のお店と開店予定のお店まで含めています。外国語は英語・中国語（繁体字）・韓国語です。", "契約書（業務の内容）・別紙"],
-  ["中身", "月1万円で何をしてもらえますか", "公開後のホームページの更新を月4回、Instagramの投稿づくり、見られた数の報告です。", "お店が入力フォームで送って、御社が「載せる」を選ぶだけで載る物（求人・お知らせ・お支払い方法）は、4回に数えません。Instagramの投稿とGoogleマップの営業時間の更新も、回数に数えません。報告は翌月10日までにメールでお送りします。", "契約書 別紙「更新の数え方」"],
-  ["中身", "公開前に何回まで直してもらえますか", "見た目・文章・配置の直しは、全体で2回までです。1回分は、まとめていただいた直しの指示をひとまとめに数えます。", "不具合を直すのは、この回数に含みません。2回を超える場合も、相談して決めます。", "契約書 第6条"],
-  ["中身", "自分たちで更新できますか", "お知らせ・催事は、Googleスプレッドシートに書くと載る仕組みにします。お店からは、フォームで写真とメモを送っていただけます。", "見本のHPの「この見本の説明」に、表を直すと載る体験ができる所があります。", "見本のHP（demo.html）"],
-  ["中身", "いつ公開できますか", "12月中を目標にしています。年末年始・初売りに間に合わせたい日があれば、そこに合わせます。", "素材（ロゴ・社長のごあいさつ文など）が期日までに届くことが前提です。", "契約書 別紙"],
-  ["中身", "公開した後に不具合があったら", "公開から3か月は、無料で直します。フォームや自動で載る仕組みの大きな不具合は6か月です。", "外部のサービス（GoogleやInstagram）の仕様が変わったことによるものは除きます。", "契約書 第6条"],
-  ["中身", "外国語の文章は正しいですか", "英語・中国語・韓国語は、私が作って見直しています。ネイティブの方の確認は含んでいません。", "ネイティブの方の確認をご希望の場合は、別にご相談です。", "契約書 別紙「含まないもの」"],
-  ["中身", "LINE公式アカウントもやってもらえますか", "今のご契約には入っていません。作るかどうか・配信を誰がするかは、別にご相談させてください。", "作る場合は、持ち主は御社のお名前にします。料金は無料（月200通まで）から始められます。", "契約書 別紙「含まないもの」"],
-  ["中身", "Googleマップの口コミに返信してもらえますか", "今のご契約には入っていません。ご希望なら別にご相談です。", "", "11/13 確認一覧"],
-  ["写真", "写真は誰が撮りますか。お金はかかりますか", "21日の撮影は私が伺って撮ります。費用はご契約の中です。", "2回目以降の撮影は、そのつどご相談です。", "契約書 別紙"],
-  ["写真", "撮った写真は何に使いますか", "ホームページと、モールのInstagram・Googleマップに使います。", "ほかの目的には使いません。ひなが堂の制作の実績として紹介するのは、御社のお許しをいただいた場合だけです。", "契約書（写真の承諾）"],
-  ["写真", "お客さんや子どもが写ったら", "顔が分かる方・子どもは写しません。小さく写ってしまった方は、加工で消すか、ぼかすか、別の写真に替えます。", "載せる前に、吉田様に見ていただきます。", "撮影の手引き"],
-  ["写真", "店員さんが写りたくないと言ったら", "その方が写らない角度で撮ります。お店の看板と商品だけでも、十分伝わります。", "", "撮影の手引き"],
-  ["写真", "撮影を断るお店があったら", "そのお店は撮りません。看板の写真か、いただいたロゴで載せます。", "あとから撮りたいとなったら、お店から写真を送っていただく形にできます。", "撮影の手引き"],
-  ["写真", "写真はどこに保存しますか。もらえますか", "ひなが堂のGoogleドライブに保存します。ご希望があれば、選んで整えた写真を御社にもお渡しします。", "", "撮影の手引き"],
-  ["写真", "AIで作った絵や写真は使いますか", "見本では「イメージ」として使っていますが、公開するときは本物の写真に替えます。", "生成AIに、個人の情報・御社の秘密・人の写った写真は入れません。", "契約書 第8条第2項"],
-  ["写真", "季節で写真を変えたい", "月々の更新（月4回）の中で差し替えます。", "", "契約書 別紙"],
-  ["そのほか", "クラウドサインの登録は必要ですか", "御社は登録なしで大丈夫です。届いたメールから、同意のボタンを押すだけです。", "同意される方のメールアドレスだけ教えてください。紙の契約書や印紙はいりません。", "契約書 第17条"],
-  ["そのほか", "途中でやめたくなったら", "契約書の解約の決まりどおりに進めます。その場で決めず、条文を一緒に確かめさせてください。", "", "契約書（解除の条）"],
-  ["そのほか", "ほかのお店（テナント）にも作ってもらえますか", "ひなが堂として、別にご相談を承ります。", "今回のご契約とは別のお話になります。", ""]
-];
-
-// ===== 保存と同期 =====
-// 同期先: fukugyo-app/notes-sync（投稿の箱とは別の Apps Script）。項目×欄ごとに、サーバーの連番で版を持つ。
-// メモが別の端末で先に変わっていたら、サーバーが両方をつないで残す。端末の時計は使わない。
-const API = "https://script.google.com/macros/s/AKfycbysDcwjokwHMvc9O3jTRM9ohvsFUHixCDGbDdafHSkPSTbGFL6npeQ2N32eU0J_B23d/exec";
-const TOKEN = "bgiEdetzl10yamMUA2PTBKnJLvwO63xqVsG8XuoR";
-const KEY = "pledge1123_v3";
-let st = {}, rv = {}, dirty = new Set(), failed = new Set(), lastRev = 0, gen = "", saveOk = true;
-const FK = (k, f) => k + "|" + f;
-try { const o = JSON.parse(localStorage.getItem(KEY) || "null"); if (o) { st = o.st || {}; rv = o.rv || {}; (o.dirty || []).forEach(x => dirty.add(x)); lastRev = o.lastRev || 0; gen = o.gen || ""; (o.failed || []).forEach(x => failed.add(x)); } } catch (e) {}
-// 前の版（v1・v2）で書いた分を引き継ぐ（撮影は並びが変わったので引き継がない）
-try {
-  if (!Object.keys(st).length) for (const name of ["pledge1123_v2", "pledge1123_v1"]) {
-    let old = JSON.parse(localStorage.getItem(name) || "null"); if (!old) continue; if (old.st) old = old.st;
-    for (const [k, v] of Object.entries(old)) { if (!/^(m\d|shop_)/.test(k) || !v) continue; st[k] = {}; for (const f of ["c", "m", "ok", "a", "b"]) if (v[f] !== undefined) { st[k][f] = v[f]; dirty.add(FK(k, f)); } }
-    break;
-  }
-} catch (e) {}
-const keep = () => { try { localStorage.setItem(KEY, JSON.stringify({st, rv, dirty: [...dirty], failed: [...failed], lastRev, gen})); saveOk = true; } catch (e) { saveOk = false; setSync("off", "この端末に保存できません"); } };
-const esc = s => String(s).replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"}[c]));
-const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
-function setSync(cls, txt) { const s = $("#sync"); s.className = "sync " + cls; $("#synct").textContent = txt; s.title = txt; }
-const hm = d => d.getHours() + ":" + String(d.getMinutes()).padStart(2, "0");
-
-let pushT = null, busy = false, again = false;
-function touch(k, patch) {
-  st[k] = Object.assign({}, st[k]);
-  for (const [f, v] of Object.entries(patch)) { st[k][f] = v; dirty.add(FK(k, f)); failed.delete(FK(k, f)); }
-  keep(); clearTimeout(pushT); pushT = setTimeout(sync, 800); if (saveOk) setSync("busy", "保存中");
-}
-async function sync() {
-  if (busy) { again = true; return; }
-  busy = true;
-  const changes = [...dirty].filter(x => !failed.has(x)).map(x => { const i = x.lastIndexOf("|"), k = x.slice(0, i), f = x.slice(i + 1); return {k, f, v: (st[k] || {})[f], base: rv[x] || 0}; }).filter(c => c.v !== undefined);
-  try {
-    const ctl = new AbortController(), to = setTimeout(() => ctl.abort(), 20000);
-    const r = await fetch(API, {method: "POST", headers: {"Content-Type": "text/plain;charset=utf-8"}, body: JSON.stringify({token: TOKEN, gen, since: lastRev, changes}), signal: ctl.signal});
-    clearTimeout(to);
-    const j = await r.json();
-    if (!j.ok) throw new Error(j.error || "ng");
-    if (j.gen !== gen || (j.rev || 0) < lastRev) { gen = j.gen; lastRev = 0; rv = {}; }  // 置き場が作り直された: 版を最初から数え直す
-    let merged = false, bad = 0;
-    (j.results || []).forEach(res => {
-      const x = FK(res.k, res.f), sent = changes.find(c => c.k === res.k && c.f === res.f);
-      if (!res.ok) { bad++; failed.add(x); return; }  // 書いた内容は端末に残し、次に書き直すまで送らない
-      if (res.merged) merged = true;
-      rv[x] = Math.max(rv[x] || 0, res.rev);
-      if (sent && (st[res.k] || {})[res.f] === sent.v) dirty.delete(x);
-    });
-    (j.fields || []).forEach(fd => {
-      const x = FK(fd.k, fd.f);
-      if (dirty.has(x)) return;                       // 送る前の書きかけがある: 次に送るときサーバーが両方を残す
-      if ((rv[x] || 0) > fd.rev && (st[fd.k] || {})[fd.f] !== undefined) return;
-      st[fd.k] = Object.assign({}, st[fd.k], {[fd.f]: fd.v}); rv[x] = fd.rev; apply(fd.k);
-    });
-    lastRev = Math.max(lastRev, j.rev || 0);
-    keep();
-    const wait = [...dirty].filter(x => !failed.has(x)).length;
-    if (saveOk) { if (failed.size) setSync("off", "保存できない欄あり（端末には残っています）"); else setSync(wait ? "busy" : "ok", wait ? "保存中" : "同期 " + hm(new Date())); }
-    if (merged) toast("別の端末で書いた分と、つなげて残しました");
-    if (bad) toast("保存できなかった欄があります。メモを短くしてください");
-    if (wait) again = true;
-  } catch (e) { if (saveOk) setSync("off", navigator.onLine ? "同期できず（端末に保存）" : "オフライン（端末に保存）"); }
-  busy = false; if (again) { again = false; clearTimeout(pushT); pushT = setTimeout(sync, 1500); }
-}
-setInterval(() => { if (document.visibilityState === "visible" && !busy) sync(); }, 15000);
-document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") sync(); });
-addEventListener("online", sync);
-// ===== 画面 =====
-const TAGS = {must: "必ず決める", line: "LINEで質問中", wait: "先生の回答待ち", show: "見せて決める", ok: "決定済み"};
-const CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
-const MK = {y: '<span class="y">横</span>', t: '<span class="t">縦</span>', z: '<span class="z">寄り</span>'};
-function item(k, kind, q, d, memo, extra) {
-  const s = st[k] || {};
-  return `<div class="item${kind ? " k-" + kind : ""}${s.c ? " done" : ""}" data-k="${k}" data-kind="${kind || ""}"><div class="top"><button type="button" class="ck" aria-pressed="${!!s.c}" aria-label="${esc(q)}を済にする">${CHECK}</button><div class="q">${kind ? `<span class="tag t-${kind}">${TAGS[kind]}</span>` : ""}<b>${q}</b>${d ? `<p>${d}</p>` : ""}${extra || ""}</div></div>` +
-    (memo ? `<textarea class="memo" rows="1" maxlength="2000" placeholder="決まったこと・メモ" aria-label="${esc(q.replace(/<[^>]+>/g, ""))}のメモ">${esc(s.m || "")}</textarea>` : "") + `</div>`;
-}
-function renderM() {
-  let h = "", no = 0;
-  M.forEach((g, gi) => {
-    // 決定済み（ok）は出さない。キー m{グループ}_{番号} は M の並びのままなので、ok を消しても他の項目の保存はずれない
-    if (!g[2].some(it => it[0] !== "ok")) return;
-    h += `<div class="sec"><span class="no disp">${++no}</span><h3 class="disp">${esc(g[0])}${g[1] ? `<small>${esc(g[1])}</small>` : ""}</h3><span class="cnt" data-cnt="m${gi}"></span></div><div class="grid2">`;
-    g[2].forEach((it, ii) => { if (it[0] !== "ok") h += item(`m${gi}_${ii}`, it[0], esc(it[1]), it[2], true); });
-    h += `</div>`;
-  });
-  $("#list-m").innerHTML = h;
-}
-function renderS(id, groups, pre, anchor) {
-  let h = "";
-  groups.forEach((g, gi) => {
-    const lab = pre === "s" ? (gi === 0 ? "前" : "ABCDE"[gi - 1]) : "後";
-    h += `<div class="sec" id="${anchor ? (gi === 0 ? "s-pre" : "s-" + (gi - 1)) : "s-after"}"><span class="no disp">${lab}</span><h3 class="disp">${esc(g[0])}${g[1] ? `<small>${esc(g[1])}</small>` : ""}</h3><span class="cnt" data-cnt="${pre}${gi}"></span></div>`;
-    g[2].forEach((it, ii) => {
-      const [star, name, marks, use, how] = it;
-      const title = (star ? "★ " : "") + esc(name) + (marks ? `<span class="mk">${[...marks].map(c => MK[c]).join("")}</span>` : "");
-      const mk = pre === "s" ? (MIHON[`${gi}_${ii}`] || (MIHON_ALL ? `s${gi}_${ii}` : "")) : "";
-      const pic = mk && gi > 0 ? `<a class="mihon${marks === "t" ? " tall" : ""}" href="mihon/${mk}.webp" target="_blank" rel="noopener"><img src="mihon/${mk}_s.webp" alt="${esc(name)}の見本" loading="lazy"><span>見本（AIで作ったイメージ）</span></a>` : "";
-      const extra = pic + (use ? `<span class="use">使う所：${esc(use)}</span>` : "") + (how ? `<div class="how">${esc(how)}</div>` : "");
-      h += `<div class="shot">${item(`${pre}${gi}_${ii}`, "", title, "", pre === "s" && gi > 0, extra)}</div>`;
-    });
-  });
-  $(id).innerHTML = h;
-}
-// 撮影の見本画像（mihon/ に GPT で作った絵）。キーは「グループ_番号」。社長は boss_ok を使う
-const MIHON = {"5_0": "boss_ok"}, MIHON_ALL = true;
-function renderShops() {
-  let h = "";
-  for (const [fl, list] of Object.entries(SHOPS)) {
-    h += `<table class="tbl"><thead><tr><th>${fl}のお店</th><th>撮影可</th><th>店の前</th><th>店の中</th><th>商品</th></tr></thead><tbody>`;
-    list.forEach(n => { const s = st["shop_" + n] || {}; h += `<tr data-shop="${esc(n)}"${s.a && s.b && s.c ? ' class="all"' : ""}><td>${esc(n)}</td>` + ["ok", "a", "b", "c"].map(c => `<td><input type="checkbox" data-c="${c}" aria-label="${esc(n)} ${({ok: "撮影可", a: "店の前", b: "店の中", c: "商品"})[c]}"${s[c] ? " checked" : ""}></td>`).join("") + `</tr>`; });
-    h += `</tbody></table>`;
-  }
-  $("#shops").innerHTML = h;
-}
-let fcat = "すべて";
-function renderF() {
-  const cats = ["すべて", ...new Set(F.map(f => f[0]))];
-  $("#fcats").innerHTML = cats.map(c => `<button type="button" data-fc="${c}" aria-pressed="${c === fcat}">${c}</button>`).join("");
-  const w = ($("#fq").value || "").trim();
-  $("#list-f").innerHTML = F.map((f, i) => [f, i]).filter(([f]) => (fcat === "すべて" || f[0] === fcat) && (!w || f.join(" ").includes(w))).map(([f, i]) =>
-    `<details class="faq"><summary><span class="qq">Q</span><span>${esc(f[1])}</span><svg class="ar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><div class="a"><div class="say">${esc(f[2])}</div>${f[3] ? `<p>${esc(f[3])}</p>` : ""}${f[4] ? `<div class="src">${esc(f[4])}</div>` : ""}</div></details>`).join("") || `<p class="note">見つかりませんでした。</p>`;
-}
-// 現在地QRの候補（館内図 qr_spots.webp の番号）。選んだ番号は qr_1〜qr_11 の c に保存
-const QR = ["1階 入口（ボンパティの左）", "1階 総合案内所", "1階 エスカレーター", "1階 エレベーター", "1階 休憩所", "1階 入口（麺屋まる福の左）", "1階 入口（WCの左）", "2階 エスカレーター", "2階 エレベーター", "2階 階段（ファンタジーランドの上）", "3階 南玄関（たびのコンパス）"];
-const NUM = n => "①②③④⑤⑥⑦⑧⑨⑩⑪"[n - 1];
-const qrSel = () => QR.map((_, i) => i + 1).filter(n => (st["qr_" + n] || {}).c);
-const qrText = () => { const s = qrSel(); return s.length ? "現在地QR：" + s.map(NUM).join("") + "（" + s.map(n => QR[n - 1]).join("／") + "）" : "現在地QR：まだ選んでいない"; };
-function renderQR() {
-  $("#qrpick").innerHTML = QR.map((q, i) => `<button type="button" data-qr="${i + 1}" aria-pressed="${!!(st["qr_" + (i + 1)] || {}).c}"><b>${i + 1}</b><span>${esc(q)}</span></button>`).join("");
-  const s = qrSel(); $("#qrsel").textContent = s.length ? s.map(NUM).join(" ") : "まだ";
-}
-function apply(k) {
-  if (k.startsWith("qr_")) return renderQR();
-  if (k.startsWith("shop_")) { renderShops(); return count(); }
-  const it = document.querySelector(`.item[data-k="${k}"]`); if (!it) return;
-  const s = st[k] || {}; it.classList.toggle("done", !!s.c); it.querySelector(".ck").setAttribute("aria-pressed", !!s.c);
-  const m = it.querySelector(".memo"); if (m && m.value !== (s.m || "") && !dirty.has(FK(k, "m"))) { const foc = document.activeElement === m, pos = m.selectionStart, atEnd = pos === m.value.length; m.value = s.m || ""; grow(m); if (foc) { const q = atEnd ? m.value.length : Math.min(pos, m.value.length); m.setSelectionRange(q, q); } }
-  count(); filter();
-}
-function ring(id, done, all) { const p = all ? done / all : 0; $("#ring-" + id).style.strokeDashoffset = 169.6 * (1 - p); $("#ringt-" + id).textContent = Math.round(p * 100) + "%"; }
-function count() {
-  for (const p of ["m", "s"]) {
-    const all = $$(`#p-${p} .item`), done = all.filter(x => x.classList.contains("done")).length;
-    ring(p, done, all.length); $("#n-" + p).textContent = all.length - done || "済";
-  }
-  $$("[data-cnt]").forEach(c => { const sec = c.closest(".sec"); let n = sec.nextElementSibling, t = 0, d = 0; const its = []; while (n && !n.classList.contains("sec")) { its.push(...(n.classList.contains("item") ? [n] : n.querySelectorAll(".item"))); n = n.nextElementSibling; } its.forEach(x => { t++; if (x.classList.contains("done")) d++; }); c.textContent = `${d}/${t} 済`; });
-}
-let mf = "all";
-function filter() {
-  $$("#p-m .item").forEach(it => { const k = it.dataset.kind, dn = it.classList.contains("done"); it.hidden = (mf === "todo" && dn) || (mf === "must" && !["must", "line"].includes(k)) || (mf === "line" && k !== "line") || (mf === "show" && k !== "show"); });
-  $$("#p-m .sec:not(#m-qr)").forEach(s => { const g = s.nextElementSibling; const vis = [...g.querySelectorAll(".item")].some(i => !i.hidden); s.hidden = !vis; g.hidden = !vis; });
-}
-const grow = t => { t.style.height = "auto"; t.style.height = t.scrollHeight + 3 + "px"; };
-
-renderM(); renderS("#list-s", S, "s", true); renderS("#list-a", A, "a", false); renderShops(); renderQR(); renderF(); count();
-$$(".memo").forEach(grow);
-
-document.addEventListener("click", ev => {
-  const b = ev.target.closest(".ck");
-  if (b) { const k = b.closest(".item").dataset.k; touch(k, {c: !(st[k] || {}).c}); apply(k); return; }
-  const qb = ev.target.closest("[data-qr]");
-  if (qb) { const k = "qr_" + qb.dataset.qr; touch(k, {c: !(st[k] || {}).c}); renderQR(); return; }
-  if (ev.target.closest("#qrcopy")) { copyText(qrText(), "番号をコピーしました。Claude に貼ってください"); return; }
-  const t = ev.target.closest("[role=tab]");
-  if (t) { $$("[role=tab]").forEach(x => x.setAttribute("aria-selected", x === t)); $$(".panel").forEach(p => p.hidden = p.id !== t.getAttribute("aria-controls")); scrollTo(0, 0); $$(".memo").forEach(grow); try { localStorage.setItem(KEY + "_tab", t.id); } catch (e) {} return; }
-  const f = ev.target.closest("[data-f]");
-  if (f) { mf = f.dataset.f; $$("[data-f]").forEach(x => x.setAttribute("aria-pressed", x === f)); filter(); return; }
-  const fc = ev.target.closest("[data-fc]");
-  if (fc) { fcat = fc.dataset.fc; renderF(); }
-});
-document.addEventListener("input", ev => {
-  if (ev.target.classList.contains("memo")) { touch(ev.target.closest(".item").dataset.k, {m: ev.target.value}); grow(ev.target); }
-  if (ev.target.id === "fq") renderF();
-});
-document.addEventListener("change", ev => {
-  const c = ev.target.closest(".tbl input"); if (!c) return;
-  const tr = c.closest("tr"), k = "shop_" + tr.dataset.shop; touch(k, {[c.dataset.c]: c.checked});
-  const s = st[k]; tr.classList.toggle("all", !!(s.a && s.b && s.c));
-});
-const setHd = () => document.documentElement.style.setProperty("--hdh", $("#hd").offsetHeight + "px");
-setHd(); addEventListener("resize", setHd);
-try { const tb = localStorage.getItem(KEY + "_tab"); if (tb && document.getElementById(tb)) document.getElementById(tb).click(); } catch (e) {}
-sync();
-
-$("#copy").addEventListener("click", async () => {
-  const out = ["【23日 打ち合わせ帳のまとめ】"];
-  M.forEach((g, gi) => { if (!g[2].some(it => it[0] !== "ok")) return; out.push("", "■ " + g[0]); g[2].forEach((it, ii) => { if (it[0] === "ok") return; const s = st[`m${gi}_${ii}`] || {}; out.push(`${s.c ? "済" : "未"}　${it[1]}` + (s.m ? `\n　→ ${s.m.replace(/\n/g, "\n　　")}` : "")); }); });
-  out.push("", qrText());
-  out.push("", "【撮影】");
-  S.forEach((g, gi) => { const d = g[2].map((it, ii) => [it, st[`s${gi}_${ii}`] || {}]).filter(([, s]) => s.c || s.m); if (d.length) { out.push("■ " + g[0]); d.forEach(([it, s]) => out.push(`${s.c ? "済" : "未"}　${it[1]}` + (s.m ? `\n　→ ${s.m}` : ""))); } });
-  const sh = Object.values(SHOPS).flat().map(n => { const s = st["shop_" + n] || {}; const p = [s.ok && "撮影可", s.a && "前", s.b && "中", s.c && "商品"].filter(Boolean); return p.length ? `${n}：${p.join("・")}` : null; }).filter(Boolean);
-  if (sh.length) out.push("■ お店ごと", ...sh);
-  copyText(out.join("\n"), "コピーしました。Claude に貼ってください");
-});
-async function copyText(txt, msg) {
-  try { await navigator.clipboard.writeText(txt); toast(msg); }
-  catch (e) { const ta = document.createElement("textarea"); ta.value = txt; document.body.appendChild(ta); ta.select(); try { document.execCommand("copy"); toast(msg); } catch (e2) { toast("コピーできませんでした"); } ta.remove(); }
-}
-function toast(m) { const t = $("#toast"); t.textContent = m; t.classList.add("on"); setTimeout(() => t.classList.remove("on"), 2200); }
-</script>
+<footer class="site-footer">
+  <div class="wrap">
+    <div>
+      <a class="logo" href="index.html"><img src="assets/logo.svg" alt=""><span><b>ひなが堂</b><small>HINAGADO</small></span></a>
+      <p>くらしと仕事を少しラクにする「ひな形」と、<br>ちょっと楽しいデジタルの小物をつくる小さなお店です。</p>
+    </div>
+    <nav class="fnav">
+      <a href="index.html">ホーム</a>
+      <a href="items/index.html">商品</a>
+      <a href="books/index.html">本</a>
+      <a href="goods/index.html">グッズ・LINE スタンプ</a>
+      <a href="articles/index.html">読みもの</a>
+      <a href="keisan/index.html">計算の道具</a>
+      <a href="kurashi/index.html">くらしのアプリ</a>
+      <a href="play/index.html">無料ゲーム</a>
+      <a href="about.html">このお店について</a>
+      <a href="contact.html">お問い合わせ</a>
+      <a href="studio/index.html">ホームページ制作（制作室）</a>
+      <a href="privacy.html">プライバシーポリシー</a>
+      <a href="tokushoho.html">特定商取引法に基づく表記</a>
+    </nav>
+    <div class="copy">© <span data-year>2026</span> HINAGADO</div>
+  </div>
+</footer>
+<script src="assets/site.js"></script>
+<!-- hinagado-count --><script>(function(){try{var n=navigator;if(location.hostname!=='hinagado.github.io'||n.webdriver||n.doNotTrack==='1'||n.globalPrivacyControl)return;var r='';try{if(document.referrer){var h=new URL(document.referrer).hostname;if(h!==location.hostname)r=h;}}catch(e){}fetch('https://script.google.com/macros/s/AKfycbwpjqQ1_9-8B6BsPATjMock46vFV-kEBeAFLwIxgC08nu0j3bL2VAwZVcjbeewVziDgoA/exec',{method:'POST',mode:'no-cors',credentials:'omit',keepalive:true,cache:'no-store',referrerPolicy:'no-referrer',headers:{'Content-Type':'text/plain'},body:JSON.stringify({p:"/",r:r})}).catch(function(){});}catch(e){}})();</script>
 </body>
 </html>
