@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="ja">
 <head>
 <meta charset="utf-8">
@@ -144,6 +144,33 @@ main{max-width:900px;margin:0 auto;padding:16px 16px 130px}
 .search svg{position:absolute;left:14px;top:14px;width:20px;height:20px;color:var(--muted)}
 .note{font-size:13px;color:var(--muted);margin:6px 2px 14px}
 
+/* 社長のお写真・声かけ・QR */
+.card{background:#fff;border-radius:var(--r);box-shadow:var(--sh);padding:16px;margin-bottom:12px;font-size:14.5px;line-height:1.75}
+.card h4{margin:12px 0 4px;font-size:15.5px;color:var(--main-d)}
+.card h4:first-child{margin-top:0}
+.card ul,.card ol{margin:0;padding-left:1.3em}
+.card li{margin:3px 0}
+.boss{display:grid;gap:14px}
+.ideal{margin:0}
+.ideal svg{display:block;width:100%;height:auto;border-radius:12px}
+.ideal figcaption{font-size:12.5px;color:var(--muted);margin-top:4px}
+.ng{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px}
+.ng figure{margin:0;background:#fdebe6;border-radius:12px;padding:8px;font-size:12.5px;color:#5c2416;line-height:1.5}
+.ng svg{display:block;width:100%;height:auto;border-radius:8px;margin-bottom:4px}
+.ng b{color:#a3321b}
+.say2{background:#fff8ee;border-left:4px solid var(--main);border-radius:0 12px 12px 0;padding:10px 12px;margin:6px 0 10px;font-size:15px}
+.qrmap{display:block;margin:0 0 10px}
+.qrmap img{display:block;width:100%;height:auto;border-radius:12px;border:1px solid var(--line)}
+.qrpick{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.qrpick button{min-height:48px;border:1.5px solid var(--line);border-radius:12px;background:#fff;font:inherit;font-size:14px;text-align:left;padding:6px 10px;cursor:pointer;display:flex;gap:8px;align-items:center;color:var(--ink)}
+.qrpick button b{flex:none;width:28px;height:28px;border-radius:50%;background:#d1001f;color:#fff;display:grid;place-items:center;font-size:14px}
+.qrpick button[aria-pressed=true]{border-color:var(--ok);background:var(--ok-l);font-weight:700}
+.qrpick button[aria-pressed=true] b{background:var(--ok)}
+.qrsum{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px;font-size:15px}
+.qrsum strong{font-size:18px;color:var(--ok)}
+.qrsum button{min-height:40px;padding:0 14px;border-radius:99px;border:1.5px solid #e6cdb4;background:#fff;color:var(--main-d);font:inherit;font-size:14px;font-weight:700;cursor:pointer}
+@media (min-width:760px){.boss{grid-template-columns:1.1fr 1fr}}
+
 /* 下の帯 */
 .foot{position:fixed;left:0;right:0;bottom:0;z-index:10;background:rgba(255,250,243,.95);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-top:1px solid var(--line);padding:10px 16px calc(10px + env(safe-area-inset-bottom))}
 .foot div{max-width:900px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:10px}
@@ -201,6 +228,13 @@ main{max-width:900px;margin:0 auto;padding:16px 16px 130px}
     <button type="button" data-f="show" aria-pressed="false"><i class="dot" style="background:#5b84c9"></i>見せて決める</button>
   </div></div>
   <div id="list-m"></div>
+  <div class="sec" id="m-qr"><span class="no disp">QR</span><h3 class="disp">現在地QRを貼る場所<small>吉田様に番号で選んでいただき、押して緑に。スマホとパソコンで同じになります</small></h3></div>
+  <div class="card">
+    <a class="qrmap" href="qr_spots.webp" target="_blank" rel="noopener"><img src="qr_spots.webp" alt="1階から3階の館内図。QRを貼る候補に1から11の番号" loading="lazy" width="2240" height="2884"></a>
+    <div class="qrpick" id="qrpick"></div>
+    <div class="qrsum">選んだ番号：<strong id="qrsel">まだ</strong><button type="button" id="qrcopy">番号だけコピー</button></div>
+    <p class="note">図は押すと大きく開きます。番号のほかに貼りたい場所があれば、上の「館内の現在地QRコード」の欄に書いてください。</p>
+  </div>
 </section>
 
 <!-- 撮影 -->
@@ -214,15 +248,61 @@ main{max-width:900px;margin:0 auto;padding:16px 16px 130px}
     </div>
   </div>
   <div class="tools"><div class="chips">
-    <a href="#s-pre">前の日</a><a href="#s-0">A 外</a><a href="#s-1">B 館内</a><a href="#s-2">C 分類</a><a href="#s-3">D 特集</a><a href="#s-4">E 人・物</a><a href="#s-shops">お店ごと</a><a href="#s-time">回り方</a><a href="#s-after">撮ったあと</a>
+    <a href="#s-pre">前の日</a><a href="#s-0">A 外</a><a href="#s-1">B 館内</a><a href="#s-2">C 分類</a><a href="#s-3">D 特集</a><a href="#s-4">E 人・物</a><a href="#s-boss">社長</a><a href="#s-shops">お店ごと・声かけ</a><a href="#s-time">回り方</a><a href="#s-after">撮ったあと</a>
   </div></div>
   <div class="rule">
     <div class="box no-shot"><h4>写さない物</h4><ul><li>お客さんの顔（後ろ姿・遠くで誰か分からないなら可）</li><li>子ども（託児所・ゲームセンターは特に）</li><li>車のナンバー</li><li>ATM・レジの画面、伝票や名前の書いた紙</li><li>キャラクター商品・ほかの会社のポスターだけを大きく</li></ul></div>
     <div class="box key3"><h4>大事な3つ</h4><ol><li><b>スマホをまっすぐ立てる</b>（見上げない。自分が下がる）</li><li><b>横で2枚・縦で1枚</b>（HPは横、Instagramは縦）</li><li><b>迷ったら撮っておく</b>（載せるかは後で吉田様と決める）</li></ol></div>
   </div>
   <div id="list-s"></div>
+  <div class="sec" id="s-boss"><span class="no disp">社</span><h3 class="disp">社長のお写真<small>会社案内のページ用。13:30 のごあいさつの後、最初に撮る</small></h3></div>
+  <div class="card boss">
+    <div>
+      <figure class="ideal">
+        <svg viewBox="0 0 480 360" role="img" aria-label="理想の写真の見本の絵。明るい通路を背に、腰から上、少し斜めに立って笑顔の男性。背景の看板は少しぼけている">
+          <defs><linearGradient id="bbg" x1="0" x2="1"><stop offset="0" stop-color="#fff6e6"/><stop offset="1" stop-color="#ecd7bf"/></linearGradient>
+          <filter id="bbl"><feGaussianBlur stdDeviation="4"/></filter><linearGradient id="blt" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient></defs>
+          <rect width="480" height="360" fill="url(#bbg)"/>
+          <g filter="url(#bbl)"><path d="M0 270 L480 250 L480 360 L0 360Z" fill="#e2cdb5"/><rect x="40" y="70" width="110" height="160" fill="#f3d9c2"/><rect x="55" y="48" width="90" height="38" rx="6" fill="#d7261e"/><text x="100" y="74" text-anchor="middle" font-size="20" font-weight="700" fill="#fff" font-family="sans-serif">CITY</text><rect x="165" y="95" width="70" height="140" fill="#cfe0d6"/><rect x="400" y="80" width="80" height="170" fill="#f0c9a8"/><circle cx="120" cy="20" r="8" fill="#fff"/><circle cx="240" cy="16" r="8" fill="#fff"/><circle cx="380" cy="20" r="8" fill="#fff"/></g>
+          <rect x="0" y="0" width="120" height="360" fill="url(#blt)"/>
+          <g stroke="#fff" stroke-opacity=".85" stroke-dasharray="6 6" stroke-width="1.5"><path d="M160 0V360M320 0V360M0 120H480M0 240H480"/></g>
+          <path d="M190 360 C195 260 235 212 300 205 C365 212 405 260 410 360Z" fill="#2f3a52"/>
+          <path d="M282 208 L300 250 L318 208Z" fill="#fff"/><path d="M296 216 L304 216 L307 252 L300 264 L293 252Z" fill="#c2521b"/>
+          <path d="M282 208 L268 262 L298 252M318 208 L332 262 L302 252" fill="none" stroke="#24304a" stroke-width="3"/>
+          <rect x="286" y="178" width="28" height="32" fill="#e8b893"/>
+          <g transform="rotate(-5 300 150)"><ellipse cx="260" cy="152" rx="6" ry="10" fill="#e8b893"/><ellipse cx="340" cy="152" rx="6" ry="10" fill="#e8b893"/><ellipse cx="300" cy="150" rx="40" ry="48" fill="#f2c9a5"/>
+          <path d="M260 140 C258 100 290 90 305 92 C330 93 345 110 340 140 C335 120 310 110 290 115 C275 118 265 128 260 140Z" fill="#3b2f2a"/>
+          <path d="M283 148 q6 -6 12 0 M307 148 q6 -6 12 0" fill="none" stroke="#3b2f2a" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="281" cy="164" r="7" fill="#e88" fill-opacity=".3"/><circle cx="321" cy="164" r="7" fill="#e88" fill-opacity=".3"/>
+          <path d="M287 172 q13 12 26 0" fill="none" stroke="#a0462a" stroke-width="3" stroke-linecap="round"/></g>
+          <g font-family="sans-serif" font-size="15" font-weight="700" fill="#fff" text-anchor="middle">
+            <circle cx="40" cy="190" r="15" fill="#2e7d55"/><text x="40" y="195">1</text>
+            <circle cx="365" cy="120" r="15" fill="#2e7d55"/><text x="365" y="125">2</text>
+            <circle cx="440" cy="330" r="15" fill="#2e7d55"/><text x="440" y="335">3</text>
+            <circle cx="160" cy="48" r="15" fill="#2e7d55"/><text x="160" y="53">4</text></g>
+        </svg>
+        <figcaption>理想の1枚（見本の絵）。点線は画面の3等分の線です</figcaption>
+      </figure>
+      <div class="ng">
+        <figure><svg viewBox="0 0 240 150" aria-hidden="true"><rect width="240" height="150" fill="#5a4a40"/><ellipse cx="120" cy="10" rx="40" ry="10" fill="#fff6c8"/><path d="M120 18 L70 150 L170 150Z" fill="#fff6c8" fill-opacity=".25"/><path d="M80 150 C82 120 100 108 120 106 C140 108 158 120 160 150Z" fill="#2f3a52"/><ellipse cx="120" cy="78" rx="24" ry="29" fill="#d9ad88"/><path d="M96 72 C95 50 115 45 122 46 C138 47 146 58 144 72 C138 60 120 56 108 60Z" fill="#3b2f2a"/><ellipse cx="111" cy="80" rx="7" ry="5" fill="#6b4a36"/><ellipse cx="129" cy="80" rx="7" ry="5" fill="#6b4a36"/><path d="M112 96 h16" stroke="#7a3a24" stroke-width="2.5" stroke-linecap="round"/></svg><b>✕ 照明の真下</b><br>目の下に影ができ、疲れた顔に</figure>
+        <figure><svg viewBox="0 0 240 150" aria-hidden="true"><rect width="240" height="150" fill="#efe3d4"/><g stroke="#cdb9a2" stroke-width="2" fill="none"><path d="M0 40 L120 0 L240 40"/><path d="M30 0 L100 60M210 0 L140 60"/></g><circle cx="70" cy="18" r="5" fill="#fff"/><circle cx="170" cy="18" r="5" fill="#fff"/><path d="M50 150 C55 100 90 82 120 80 C150 82 185 100 190 150Z" fill="#2f3a52"/><ellipse cx="120" cy="62" rx="20" ry="22" fill="#f2c9a5"/><path d="M100 54 C100 38 116 34 122 35 C134 36 140 44 139 54 C134 46 118 44 108 48Z" fill="#3b2f2a"/><path d="M112 74 q8 4 16 0" stroke="#a0462a" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg><b>✕ 下から見上げる</b><br>あごが大きく、天井が写る</figure>
+      </div>
+    </div>
+    <div>
+      <h4>見本の絵の番号</h4>
+      <ol><li><b>顔を明るい方へ</b>：入口や窓の光が顔に当たる向きに立っていただく</li><li><b>目の高さで撮る</b>：スマホを社長の目の高さに。目が上の3等分の線あたりに来るように</li><li><b>腰から上</b>：体は少し斜め、顔はこちら。手は軽く前で組むか、自然に下ろす</li><li><b>背景に看板・お店が少しぼけて入る</b>：「モールの社長」と伝わる</li></ol>
+      <h4>撮り方</h4>
+      <ul><li><b>ポートレートモード</b>で撮る（背景が自然にぼけます）。2mほど離れて、はみ出すなら少し下がる</li><li>場所は入口の中か、館内の明るい通路。人通りが少ない所で</li><li>表情は2種類：口を閉じた笑顔／少し歯が見える笑顔</li><li>横・縦それぞれ10枚ほど続けて撮る（まばたき・固い表情は後で外す）</li><li>ネクタイ・襟・髪の乱れを、撮る前にひとこと確認</li></ul>
+      <h4>声かけ</h4>
+      <div class="say2">「何枚か続けて撮りますね。最初は緊張して当然なので、後ろの写真ほど良くなります」</div>
+    </div>
+  </div>
   <div class="sec" id="s-shops"><span class="no disp">店</span><h3 class="disp">お店ごと<small>撮影可と言われたお店だけ。店の前（看板）・店の中・商品2〜3つ</small></h3></div>
-  <p class="note">声かけの例：「ホームページに載せるお写真を撮らせてください。お客さまのお顔は写しません。店員さんも、写りたくなければよけて撮ります」</p>
+  <div class="card">
+    <h4>最初のひとこと</h4>
+    <div class="say2">「こんにちは。モールのホームページを作っております、大久保と申します。今日は吉田さんと一緒に、館内の写真を撮らせていただいています。お店の看板と、店内を少し撮らせていただいてもよろしいでしょうか。お客さまのお顔は写しません。店員さんも、写りたくなければよけて撮りますね」</div>
+    <ul><li>吉田様が隣にいるときは、先に吉田様からひとこと紹介していただくと早い</li><li>断られたら「承知しました、ありがとうございます」で終わり。看板だけ外から撮る</li><li>撮り終えたら「ありがとうございました」</li></ul>
+  </div>
   <div id="shops"></div>
   <div class="sec" id="s-time"><span class="no disp">時</span><h3 class="disp">当日の回り方<small>目安2時間半。11月の五島は16時半ごろから暗くなります</small></h3></div>
   <div class="time"><div><b>13:30</b><span>吉田様にごあいさつ。撮ってよいお店・社長のお写真・写ってよい店員さんを確認</span></div><div><b>13:45</b><span>A 建物の外（光がいいうちに）</span></div><div><b>14:15</b><span>B 1階の通路・案内所 → 1階のお店（飲食は14時以降が空いています）</span></div><div><b>15:00</b><span>B 2階の通路 → 2階のお店</span></div><div><b>15:40</b><span>3階 → C・D の残り</span></div><div><b>16:00</b><span>★の撮りもれ確認。外がまだ明るければ、外をもう1度</span></div></div>
@@ -257,7 +337,7 @@ const M = [
     ["ok", "資本金・従業員の人数", "<strong>資本金300万円・従業員30名</strong>（11/18）。取適法の「委託する側」の大きさに届かないので、取適法には当たらない見込み。フリーランス法は当たる（下の「60日」の項目）"],
     ["must", "委託料20万円の内訳（デザイン・文章・写真・コーディング等）", "<strong>源泉徴収は20万円全額が対象と決まりました（11/18 税理士の先生）。</strong>内訳は契約書の別紙に書く金額だけ決めます"],
     ["ok", "公開の目標日", "<strong>2027年1月1日</strong>（初売りに間に合わせたい。11/18 吉田様）"],
-    ["must", "館内の「現在地」QRコードの数と場所", "館内図の候補①〜⑪から番号で選ぶ（<a href=\"qr_spots.webp\" target=\"_blank\" rel=\"noopener\">番号つきの館内図を開く</a>）。今の見本は②総合案内所・⑧2階エスカレーター・⑪3階南玄関。21日に各候補の壁も撮る"],
+    ["must", "館内の「現在地」QRコードの数と場所", "このページのいちばん下「現在地QRを貼る場所」で、番号を押して選ぶ。今の見本は②総合案内所・⑧2階エスカレーター・⑪3階南玄関。21日に各候補の壁も撮る"],
     ["must", "ホームページの公開先（Cloudflare Pages・無料・御社の名義）", "アカウントは御社の名義で作ります"],
     ["must", "独自ドメイン（ホームページの住所）の名前と名義", "御社の名義・御社のお支払い。例：○○.jp（取得 年990円・更新 年3,344円の例）。名前の候補を決める"],
     ["must", "社長のごあいさつ文をいただく期日", "会社案内のページに載せます"],
@@ -508,7 +588,17 @@ function renderF() {
   $("#list-f").innerHTML = F.map((f, i) => [f, i]).filter(([f]) => (fcat === "すべて" || f[0] === fcat) && (!w || f.join(" ").includes(w))).map(([f, i]) =>
     `<details class="faq"><summary><span class="qq">Q</span><span>${esc(f[1])}</span><svg class="ar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><div class="a"><div class="say">${esc(f[2])}</div>${f[3] ? `<p>${esc(f[3])}</p>` : ""}${f[4] ? `<div class="src">${esc(f[4])}</div>` : ""}</div></details>`).join("") || `<p class="note">見つかりませんでした。</p>`;
 }
+// 現在地QRの候補（館内図 qr_spots.webp の番号）。選んだ番号は qr_1〜qr_11 の c に保存
+const QR = ["1階 入口（ボンパティの左）", "1階 総合案内所", "1階 エスカレーター", "1階 エレベーター", "1階 休憩所", "1階 入口（麺屋まる福の左）", "1階 入口（WCの左）", "2階 エスカレーター", "2階 エレベーター", "2階 階段（ファンタジーランドの上）", "3階 南玄関（たびのコンパス）"];
+const NUM = n => "①②③④⑤⑥⑦⑧⑨⑩⑪"[n - 1];
+const qrSel = () => QR.map((_, i) => i + 1).filter(n => (st["qr_" + n] || {}).c);
+const qrText = () => { const s = qrSel(); return s.length ? "現在地QR：" + s.map(NUM).join("") + "（" + s.map(n => QR[n - 1]).join("／") + "）" : "現在地QR：まだ選んでいない"; };
+function renderQR() {
+  $("#qrpick").innerHTML = QR.map((q, i) => `<button type="button" data-qr="${i + 1}" aria-pressed="${!!(st["qr_" + (i + 1)] || {}).c}"><b>${i + 1}</b><span>${esc(q)}</span></button>`).join("");
+  const s = qrSel(); $("#qrsel").textContent = s.length ? s.map(NUM).join(" ") : "まだ";
+}
 function apply(k) {
+  if (k.startsWith("qr_")) return renderQR();
   if (k.startsWith("shop_")) { renderShops(); return count(); }
   const it = document.querySelector(`.item[data-k="${k}"]`); if (!it) return;
   const s = st[k] || {}; it.classList.toggle("done", !!s.c); it.querySelector(".ck").setAttribute("aria-pressed", !!s.c);
@@ -526,16 +616,19 @@ function count() {
 let mf = "all";
 function filter() {
   $$("#p-m .item").forEach(it => { const k = it.dataset.kind, dn = it.classList.contains("done"); it.hidden = (mf === "todo" && dn) || (mf === "must" && !["must", "line"].includes(k)) || (mf === "line" && k !== "line") || (mf === "show" && k !== "show"); });
-  $$("#p-m .sec").forEach(s => { const g = s.nextElementSibling; const vis = [...g.querySelectorAll(".item")].some(i => !i.hidden); s.hidden = !vis; g.hidden = !vis; });
+  $$("#p-m .sec:not(#m-qr)").forEach(s => { const g = s.nextElementSibling; const vis = [...g.querySelectorAll(".item")].some(i => !i.hidden); s.hidden = !vis; g.hidden = !vis; });
 }
 const grow = t => { t.style.height = "auto"; t.style.height = t.scrollHeight + 3 + "px"; };
 
-renderM(); renderS("#list-s", S, "s", true); renderS("#list-a", A, "a", false); renderShops(); renderF(); count();
+renderM(); renderS("#list-s", S, "s", true); renderS("#list-a", A, "a", false); renderShops(); renderQR(); renderF(); count();
 $$(".memo").forEach(grow);
 
 document.addEventListener("click", ev => {
   const b = ev.target.closest(".ck");
   if (b) { const k = b.closest(".item").dataset.k; touch(k, {c: !(st[k] || {}).c}); apply(k); return; }
+  const qb = ev.target.closest("[data-qr]");
+  if (qb) { const k = "qr_" + qb.dataset.qr; touch(k, {c: !(st[k] || {}).c}); renderQR(); return; }
+  if (ev.target.closest("#qrcopy")) { copyText(qrText(), "番号をコピーしました。Claude に貼ってください"); return; }
   const t = ev.target.closest("[role=tab]");
   if (t) { $$("[role=tab]").forEach(x => x.setAttribute("aria-selected", x === t)); $$(".panel").forEach(p => p.hidden = p.id !== t.getAttribute("aria-controls")); scrollTo(0, 0); $$(".memo").forEach(grow); try { localStorage.setItem(KEY + "_tab", t.id); } catch (e) {} return; }
   const f = ev.target.closest("[data-f]");
@@ -560,14 +653,17 @@ sync();
 $("#copy").addEventListener("click", async () => {
   const out = ["【23日 打ち合わせ帳のまとめ】"];
   M.forEach((g, gi) => { out.push("", "■ " + g[0]); g[2].forEach((it, ii) => { const s = st[`m${gi}_${ii}`] || {}; out.push(`${s.c ? "済" : "未"}　${it[1]}` + (s.m ? `\n　→ ${s.m.replace(/\n/g, "\n　　")}` : "")); }); });
+  out.push("", qrText());
   out.push("", "【撮影】");
   S.forEach((g, gi) => { const d = g[2].map((it, ii) => [it, st[`s${gi}_${ii}`] || {}]).filter(([, s]) => s.c || s.m); if (d.length) { out.push("■ " + g[0]); d.forEach(([it, s]) => out.push(`${s.c ? "済" : "未"}　${it[1]}` + (s.m ? `\n　→ ${s.m}` : ""))); } });
   const sh = Object.values(SHOPS).flat().map(n => { const s = st["shop_" + n] || {}; const p = [s.ok && "撮影可", s.a && "前", s.b && "中", s.c && "商品"].filter(Boolean); return p.length ? `${n}：${p.join("・")}` : null; }).filter(Boolean);
   if (sh.length) out.push("■ お店ごと", ...sh);
-  const txt = out.join("\n");
-  try { await navigator.clipboard.writeText(txt); toast("コピーしました。Claude に貼ってください"); }
-  catch (e) { const ta = document.createElement("textarea"); ta.value = txt; document.body.appendChild(ta); ta.select(); try { document.execCommand("copy"); toast("コピーしました"); } catch (e2) { toast("コピーできませんでした"); } ta.remove(); }
+  copyText(out.join("\n"), "コピーしました。Claude に貼ってください");
 });
+async function copyText(txt, msg) {
+  try { await navigator.clipboard.writeText(txt); toast(msg); }
+  catch (e) { const ta = document.createElement("textarea"); ta.value = txt; document.body.appendChild(ta); ta.select(); try { document.execCommand("copy"); toast(msg); } catch (e2) { toast("コピーできませんでした"); } ta.remove(); }
+}
 function toast(m) { const t = $("#toast"); t.textContent = m; t.classList.add("on"); setTimeout(() => t.classList.remove("on"), 2200); }
 </script>
 </body>
