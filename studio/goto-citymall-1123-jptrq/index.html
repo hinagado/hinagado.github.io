@@ -50,6 +50,7 @@ h2 small{font-weight:400;color:var(--muted);font-size:13px}
 .t-ok{background:var(--ok-bg);color:var(--ok)}
 .t-wait{background:var(--wait-bg);color:var(--wait)}
 .t-show{background:#e4ecfa;color:#2a4f8f}
+.t-line{background:#e2f5e1;color:#1f7a1f}
 .memo{display:block;width:calc(100% - 24px);margin:0 12px 12px;min-height:44px;padding:8px 10px;border:1px solid var(--line);border-radius:10px;font:inherit;font-size:15px;line-height:1.6;background:#fffdf9;resize:vertical}
 .memo:focus,.ck:focus-visible,button:focus-visible{outline:3px solid #f2b441;outline-offset:2px}
 .chips{display:flex;flex-wrap:wrap;gap:6px;margin:0 12px 12px}
@@ -90,7 +91,7 @@ h2 small{font-weight:400;color:var(--muted);font-size:13px}
 <main>
 <section class="panel" id="p-m" role="tabpanel" aria-labelledby="tab-m">
   <div class="bar"><div class="prog"><i id="pg-m"></i></div><small id="pt-m"></small>
-    <div class="filt" role="group" aria-label="しぼる"><button type="button" data-f="all" aria-pressed="true">すべて</button><button type="button" data-f="todo" aria-pressed="false">まだ</button><button type="button" data-f="must" aria-pressed="false">必ず</button></div>
+    <div class="filt" role="group" aria-label="しぼる"><button type="button" data-f="all" aria-pressed="true">すべて</button><button type="button" data-f="todo" aria-pressed="false">まだ</button><button type="button" data-f="must" aria-pressed="false">必ず</button><button type="button" data-f="line" aria-pressed="false">LINEで質問中</button></div>
   </div>
   <div id="list-m"></div>
 </section>
@@ -114,14 +115,14 @@ h2 small{font-weight:400;color:var(--muted);font-size:13px}
 <div class="toast" id="toast" role="status"></div>
 
 <script>
-// 種類: must=必ず決める / wait=税理士の先生の回答待ち / show=見本を見せて決める / ok=済んでいる（念のため）
+// 種類: line=LINEで質問中（11/18 送付。答えが来たら ok にして答えを説明に書く） / must=必ず決める / wait=税理士の先生の回答待ち / show=見本を見せて決める / ok=済んでいる（念のため）
 const M = [
   ["ご契約の前に決めること（契約書の空欄）", "これが決まると、契約書を仕上げてクラウドサインで送れます", [
-    ["must", "ご契約に同意される方と、そのメールアドレス", "クラウドサインの同意のメールが届く先。社長ご本人か、吉田様に任せる場合は社長からその旨をメールで"],
-    ["must", "社長のお名前・肩書（登記のとおり）", "契約書の「甲」の欄に書きます"],
-    ["must", "資本金・従業員の人数", "取引の法律（取適法）に当たるかを確かめるため。LINEでおたずね済みで、まだお返事なし"],
+    ["line", "ご契約に同意される方と、そのメールアドレス", "クラウドサインの同意のメールが届く先。社長ご本人か、吉田様に任せる場合は社長からその旨をメールで"],
+    ["line", "社長のお名前・肩書（登記のとおり）", "契約書の「甲」の欄に書きます"],
+    ["line", "資本金・従業員の人数", "取引の法律（取適法）に当たるかを確かめるため。LINEでおたずね済みで、まだお返事なし"],
     ["must", "委託料20万円の内訳（デザイン・文章・写真・コーディング等）", "<strong>源泉徴収は20万円全額が対象と決まりました（11/18 税理士の先生）。</strong>内訳は契約書の別紙に書く金額だけ決めます"],
-    ["must", "公開の目標日", "12月中。年末年始・初売りに間に合わせるなら12月［　］日"],
+    ["line", "公開の目標日", "12月中。年末年始・初売りに間に合わせるなら12月［　］日"],
     ["must", "館内の「現在地」QRコードの数と場所", "入口・エスカレーター前・各階の案内板の近くなど。21日に撮った候補から選ぶ"],
     ["must", "ホームページの公開先（Cloudflare Pages・無料・御社の名義）", "アカウントは御社の名義で作ります"],
     ["must", "独自ドメイン（ホームページの住所）の名前と名義", "御社の名義・御社のお支払い。例：○○.jp（取得 年990円・更新 年3,344円の例）。名前の候補を決める"],
@@ -141,22 +142,22 @@ const M = [
     ["show", "館内図の配置が、実際の館内と合っているか", ""]
   ]],
   ["お店・催事・館内のこと", "", [
-    ["must", "チラシ・セールを載せるのは直営の9店と催事だけで合っているか", "リトル・クルサ、おやこパンダ、ファンタジーランド、森補正、シティハウス、ボンパティ、ピーパラダイス、白寿ヘルストロン、コインランドリー"],
-    ["must", "リトル・クルサの月1回のセール：チラシをいつまでにいただくか", "前の日の18時ごろに自動で出す仕組みを用意済み"],
-    ["must", "12月7日〜15日の催事「パレット」は何の販売か", "催事リストに載っていなかったので、今は「確認中」"],
-    ["must", "授乳室・車いす・ベビーカーの貸し出し・休憩所の「何階のどこ」", "アクセスのページに場所を入れます"],
+    ["line", "チラシ・セールを載せるのは直営の9店と催事だけで合っているか", "リトル・クルサ、おやこパンダ、ファンタジーランド、森補正、シティハウス、ボンパティ、ピーパラダイス、白寿ヘルストロン、コインランドリー"],
+    ["line", "リトル・クルサの月1回のセール：チラシをいつまでにいただくか", "前の日の18時ごろに自動で出す仕組みを用意済み"],
+    ["line", "12月7日〜15日の催事「パレット」は何の販売か", "催事リストに載っていなかったので、今は「確認中」"],
+    ["line", "授乳室・車いす・ベビーカーの貸し出し・休憩所の「何階のどこ」", "アクセスのページに場所を入れます"],
     ["must", "ドコモショップの LINE・Facebook の QR とロゴ", "吉田様から届く予定"],
     ["must", "まだ素材が届いていないお店", "ロゴ済み17店。残りのお店は、21日に看板を撮って代わりにするか"],
-    ["must", "五島らしいおみやげ（看板の品）", "「おみやげ」の特集に入れます"],
+    ["line", "五島らしいおみやげ（看板の品）", "「おみやげ」の特集に入れます"],
     ["must", "使えるお支払い（カード・電子マネー・QR）と免税のお店", "お店ごとに。海外の方向けの印に使います"],
     ["must", "港・空港まで、船・飛行機に間に合う目安の時間", "アクセスのページに入れます"],
-    ["must", "営業時間・休館日（2020年の案内がもと）が今も同じか", "つばき屋・ダイソーは9時からで合っているか"],
-    ["must", "面積「約2,500坪（9,046㎡）」", "坪と㎡の換算が合わないので、どちらが正しいか"],
+    ["line", "営業時間・休館日（2020年の案内がもと）が今も同じか", "つばき屋・ダイソーは9時からで合っているか"],
+    ["line", "面積「約2,500坪（9,046㎡）」", "坪と㎡の換算が合わないので、どちらが正しいか"],
     ["must", "お知らせ・Instagram を毎週何曜日に出すか", ""],
     ["must", "ポイントカード・スタンプ、宅配で送れるお店、Wi-Fi・ATM・両替", "あれば案内に入れます"]
   ]],
   ["館内ポスター・そのほか", "", [
-    ["must", "ポスターの見出しの方言が、五島で自然か", "「あん店、何時まで？」"],
+    ["line", "ポスターの見出しの方言が、五島で自然か", "「あん店、何時まで？」"],
     ["must", "ポスターを貼る場所と枚数", "QRとURLは公開のときに入れ、iPhone・Androidで読めるか試してから印刷"],
     ["must", "公開後に、ひなが堂のHPで「制作の実績」として紹介してよいか", "名前なし・見送りも可。掲載前に確認をもらう"],
     ["must", "21日に写ってしまった方の扱い", "小さく写った方は加工で消す。難しい場合はぼかすか差し替え"]
@@ -216,7 +217,7 @@ let st = {};
 try { st = JSON.parse(localStorage.getItem(KEY) || "{}"); } catch (e) { st = {}; }
 const save = () => { try { localStorage.setItem(KEY, JSON.stringify(st)); const d = new Date(); document.getElementById("saved").textContent = "保存 " + d.getHours() + ":" + String(d.getMinutes()).padStart(2, "0"); } catch (e) {} };
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"}[c]));
-const TAGS = {must: ["t-must", "必ず"], wait: ["t-wait", "回答待ち"], show: ["t-show", "見せて決める"], ok: ["t-ok", "決定済み"]};
+const TAGS = {must: ["t-must", "必ず"], wait: ["t-wait", "回答待ち"], show: ["t-show", "見せて決める"], ok: ["t-ok", "決定済み"], line: ["t-line", "LINEで質問中"]};
 const CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
 
 function render(id, groups, pre, withTag, withMemo) {
@@ -263,7 +264,7 @@ document.addEventListener("click", ev => {
 });
 function applyFilter() {
   const f = document.querySelector('.filt [aria-pressed=true]').dataset.f;
-  document.querySelectorAll("#p-m .item").forEach(it => { it.hidden = (f === "todo" && it.classList.contains("done")) || (f === "must" && it.dataset.kind !== "must"); });
+  document.querySelectorAll("#p-m .item").forEach(it => { it.hidden = (f === "todo" && it.classList.contains("done")) || (f === "must" && !["must", "line"].includes(it.dataset.kind)) || (f === "line" && it.dataset.kind !== "line"); });
   document.querySelectorAll("#p-m h2").forEach(h => { let n = h.nextElementSibling, any = false; while (n && n.tagName !== "H2") { if (n.classList.contains("item") && !n.hidden) any = true; n = n.nextElementSibling; } h.hidden = !any; if (h.nextElementSibling && h.nextElementSibling.classList.contains("lead")) h.nextElementSibling.hidden = !any; });
 }
 document.addEventListener("input", ev => {
