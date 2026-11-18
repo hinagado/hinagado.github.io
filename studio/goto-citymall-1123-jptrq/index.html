@@ -173,7 +173,7 @@ main{max-width:900px;margin:0 auto;padding:16px 16px 130px}
   <div class="row1">
     <div class="logo" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2.5"/><path d="M9 3.5V5h6V3.5M9 10.5l1.8 1.8L14.5 8.5M9 16h6"/></svg></div>
     <div class="ttl"><h1 class="disp">23日の打ち合わせ帳</h1><p>五島シティモール（株式会社プレッジ様）　11月23日</p></div>
-    <div class="sync" id="sync" role="status"><i></i><span id="synct">この端末に保存</span></div>
+    <div class="sync" id="sync" role="status"><i></i><span id="synct">つなぎ中</span></div>
   </div>
   <div class="tabs" role="tablist">
     <button role="tab" id="tab-m" aria-controls="p-m" aria-selected="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l2.5 2.5L16 9"/><rect x="4" y="4" width="16" height="16" rx="4"/></svg>確かめる<span class="n" id="n-m"></span></button>
@@ -187,7 +187,7 @@ main{max-width:900px;margin:0 auto;padding:16px 16px 130px}
 <section class="panel" id="p-m" role="tabpanel" aria-labelledby="tab-m">
   <div class="hero">
     <h2 class="disp">決まれば、契約書を仕上げて送れます</h2>
-    <p>押すと「済」。下の欄に決まったことを書きます。書いた内容は、この端末に残ります。</p>
+    <p>押すと「済」。下の欄に決まったことを書きます。スマホとパソコンで同じ内容になります。</p>
     <div class="stats">
       <svg class="ring" viewBox="0 0 64 64" aria-hidden="true"><circle class="bg" cx="32" cy="32" r="27"/><circle class="fg" id="ring-m" cx="32" cy="32" r="27" stroke-dasharray="169.6" stroke-dashoffset="169.6" transform="rotate(-90 32 32)"/><text id="ringt-m" x="32" y="37" text-anchor="middle">0%</text></svg>
       <div class="legend"><span class="tag t-must">必ず決める</span><span class="tag t-line">LINEで質問中</span><span class="tag t-wait">先生の回答待ち</span><span class="tag t-show">見せて決める</span><span class="tag t-ok">決定済み</span></div>
@@ -391,38 +391,72 @@ const F = [
 ];
 
 // ===== 保存と同期 =====
-const API = "https://script.google.com/macros/s/AKfycbxToqVQEdKxT9cMdM1YpEziujtM99mTaIusrJLzWvEOi34N57LHu60N2g2U90DQnzWJ/exec";
-const TOKEN = "__NOTES_TOKEN__";
-const KEY = "pledge1123_v2";
-let st = {}, dirty = new Set();
-try { const o = JSON.parse(localStorage.getItem(KEY) || "null") || {}; st = o.st || {}; (o.dirty || []).forEach(k => dirty.add(k)); } catch (e) {}
-try { const old = JSON.parse(localStorage.getItem("pledge1123_v1") || "null"); if (old && !Object.keys(st).length) { for (const [k, v] of Object.entries(old)) { if (!/^(m\d|shop_)/.test(k)) continue; st[k] = Object.assign({}, v, {t: 1}); dirty.add(k); } } } catch (e) {}
-const keep = () => { try { localStorage.setItem(KEY, JSON.stringify({st, dirty: [...dirty]})); } catch (e) {} };
+// 同期先: fukugyo-app/notes-sync（投稿の箱とは別の Apps Script）。項目×欄ごとに、サーバーの連番で版を持つ。
+// メモが別の端末で先に変わっていたら、サーバーが両方をつないで残す。端末の時計は使わない。
+const API = "https://script.google.com/macros/s/AKfycbysDcwjokwHMvc9O3jTRM9ohvsFUHixCDGbDdafHSkPSTbGFL6npeQ2N32eU0J_B23d/exec";
+const TOKEN = "bgiEdetzl10yamMUA2PTBKnJLvwO63xqVsG8XuoR";
+const KEY = "pledge1123_v3";
+let st = {}, rv = {}, dirty = new Set(), failed = new Set(), lastRev = 0, gen = "", saveOk = true;
+const FK = (k, f) => k + "|" + f;
+try { const o = JSON.parse(localStorage.getItem(KEY) || "null"); if (o) { st = o.st || {}; rv = o.rv || {}; (o.dirty || []).forEach(x => dirty.add(x)); lastRev = o.lastRev || 0; gen = o.gen || ""; (o.failed || []).forEach(x => failed.add(x)); } } catch (e) {}
+// 前の版（v1・v2）で書いた分を引き継ぐ（撮影は並びが変わったので引き継がない）
+try {
+  if (!Object.keys(st).length) for (const name of ["pledge1123_v2", "pledge1123_v1"]) {
+    let old = JSON.parse(localStorage.getItem(name) || "null"); if (!old) continue; if (old.st) old = old.st;
+    for (const [k, v] of Object.entries(old)) { if (!/^(m\d|shop_)/.test(k) || !v) continue; st[k] = {}; for (const f of ["c", "m", "ok", "a", "b"]) if (v[f] !== undefined) { st[k][f] = v[f]; dirty.add(FK(k, f)); } }
+    break;
+  }
+} catch (e) {}
+const keep = () => { try { localStorage.setItem(KEY, JSON.stringify({st, rv, dirty: [...dirty], failed: [...failed], lastRev, gen})); saveOk = true; } catch (e) { saveOk = false; setSync("off", "この端末に保存できません"); } };
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"}[c]));
 const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
-function setSync(cls, txt) { const s = $("#sync"); s.className = "sync " + cls; $("#synct").textContent = txt; }
+function setSync(cls, txt) { const s = $("#sync"); s.className = "sync " + cls; $("#synct").textContent = txt; s.title = txt; }
 const hm = d => d.getHours() + ":" + String(d.getMinutes()).padStart(2, "0");
 
 let pushT = null, busy = false, again = false;
-function touch(k, patch) { st[k] = Object.assign({}, st[k], patch, {t: Date.now()}); dirty.add(k); keep(); clearTimeout(pushT); pushT = setTimeout(sync, 900); setSync("busy", "保存中"); }
+function touch(k, patch) {
+  st[k] = Object.assign({}, st[k]);
+  for (const [f, v] of Object.entries(patch)) { st[k][f] = v; dirty.add(FK(k, f)); failed.delete(FK(k, f)); }
+  keep(); clearTimeout(pushT); pushT = setTimeout(sync, 800); if (saveOk) setSync("busy", "保存中");
+}
 async function sync() {
-  if (!TOKEN || TOKEN.startsWith("__")) { setSync("ok", "この端末に保存"); return; }
   if (busy) { again = true; return; }
-  busy = true; const send = {}; [...dirty].forEach(k => send[k] = st[k]);
+  busy = true;
+  const changes = [...dirty].filter(x => !failed.has(x)).map(x => { const i = x.lastIndexOf("|"), k = x.slice(0, i), f = x.slice(i + 1); return {k, f, v: (st[k] || {})[f], base: rv[x] || 0}; }).filter(c => c.v !== undefined);
   try {
-    const r = await fetch(API, {method: "POST", headers: {"Content-Type": "text/plain;charset=utf-8"}, body: JSON.stringify({action: "notes", token: TOKEN, items: send})});
+    const ctl = new AbortController(), to = setTimeout(() => ctl.abort(), 20000);
+    const r = await fetch(API, {method: "POST", headers: {"Content-Type": "text/plain;charset=utf-8"}, body: JSON.stringify({token: TOKEN, gen, since: lastRev, changes}), signal: ctl.signal});
+    clearTimeout(to);
     const j = await r.json();
     if (!j.ok) throw new Error(j.error || "ng");
-    Object.keys(send).forEach(k => { if (st[k] && st[k].t === send[k].t) dirty.delete(k); });
-    for (const [k, v] of Object.entries(j.items || {})) if (!st[k] || (+v.t || 0) > (+st[k].t || 0)) { if (dirty.has(k)) continue; st[k] = v; apply(k); }
-    keep(); setSync("ok", "同期 " + hm(new Date()));
-  } catch (e) { setSync("off", navigator.onLine ? "同期できず（端末に保存）" : "オフライン（端末に保存）"); }
-  busy = false; if (again) { again = false; sync(); }
+    if (j.gen !== gen || (j.rev || 0) < lastRev) { gen = j.gen; lastRev = 0; rv = {}; }  // 置き場が作り直された: 版を最初から数え直す
+    let merged = false, bad = 0;
+    (j.results || []).forEach(res => {
+      const x = FK(res.k, res.f), sent = changes.find(c => c.k === res.k && c.f === res.f);
+      if (!res.ok) { bad++; failed.add(x); return; }  // 書いた内容は端末に残し、次に書き直すまで送らない
+      if (res.merged) merged = true;
+      rv[x] = Math.max(rv[x] || 0, res.rev);
+      if (sent && (st[res.k] || {})[res.f] === sent.v) dirty.delete(x);
+    });
+    (j.fields || []).forEach(fd => {
+      const x = FK(fd.k, fd.f);
+      if (dirty.has(x)) return;                       // 送る前の書きかけがある: 次に送るときサーバーが両方を残す
+      if ((rv[x] || 0) > fd.rev && (st[fd.k] || {})[fd.f] !== undefined) return;
+      st[fd.k] = Object.assign({}, st[fd.k], {[fd.f]: fd.v}); rv[x] = fd.rev; apply(fd.k);
+    });
+    lastRev = Math.max(lastRev, j.rev || 0);
+    keep();
+    const wait = [...dirty].filter(x => !failed.has(x)).length;
+    if (saveOk) { if (failed.size) setSync("off", "保存できない欄あり（端末には残っています）"); else setSync(wait ? "busy" : "ok", wait ? "保存中" : "同期 " + hm(new Date())); }
+    if (merged) toast("別の端末で書いた分と、つなげて残しました");
+    if (bad) toast("保存できなかった欄があります。メモを短くしてください");
+    if (wait) again = true;
+  } catch (e) { if (saveOk) setSync("off", navigator.onLine ? "同期できず（端末に保存）" : "オフライン（端末に保存）"); }
+  busy = false; if (again) { again = false; clearTimeout(pushT); pushT = setTimeout(sync, 1500); }
 }
-setInterval(() => { if (document.visibilityState === "visible") sync(); }, 15000);
+setInterval(() => { if (document.visibilityState === "visible" && !busy) sync(); }, 15000);
 document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") sync(); });
 addEventListener("online", sync);
-
 // ===== 画面 =====
 const TAGS = {must: "必ず決める", line: "LINEで質問中", wait: "先生の回答待ち", show: "見せて決める", ok: "決定済み"};
 const CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
@@ -430,7 +464,7 @@ const MK = {y: '<span class="y">横</span>', t: '<span class="t">縦</span>', z:
 function item(k, kind, q, d, memo, extra) {
   const s = st[k] || {};
   return `<div class="item${kind ? " k-" + kind : ""}${s.c ? " done" : ""}" data-k="${k}" data-kind="${kind || ""}"><div class="top"><button type="button" class="ck" aria-pressed="${!!s.c}" aria-label="${esc(q)}を済にする">${CHECK}</button><div class="q">${kind ? `<span class="tag t-${kind}">${TAGS[kind]}</span>` : ""}<b>${q}</b>${d ? `<p>${d}</p>` : ""}${extra || ""}</div></div>` +
-    (memo ? `<textarea class="memo" rows="1" placeholder="決まったこと・メモ" aria-label="${esc(q.replace(/<[^>]+>/g, ""))}のメモ">${esc(s.m || "")}</textarea>` : "") + `</div>`;
+    (memo ? `<textarea class="memo" rows="1" maxlength="2000" placeholder="決まったこと・メモ" aria-label="${esc(q.replace(/<[^>]+>/g, ""))}のメモ">${esc(s.m || "")}</textarea>` : "") + `</div>`;
 }
 function renderM() {
   let h = "";
@@ -476,7 +510,7 @@ function apply(k) {
   if (k.startsWith("shop_")) { renderShops(); return count(); }
   const it = document.querySelector(`.item[data-k="${k}"]`); if (!it) return;
   const s = st[k] || {}; it.classList.toggle("done", !!s.c); it.querySelector(".ck").setAttribute("aria-pressed", !!s.c);
-  const m = it.querySelector(".memo"); if (m && document.activeElement !== m) { m.value = s.m || ""; grow(m); }
+  const m = it.querySelector(".memo"); if (m && m.value !== (s.m || "") && !dirty.has(FK(k, "m"))) { const foc = document.activeElement === m, pos = m.selectionStart, atEnd = pos === m.value.length; m.value = s.m || ""; grow(m); if (foc) { const q = atEnd ? m.value.length : Math.min(pos, m.value.length); m.setSelectionRange(q, q); } }
   count(); filter();
 }
 function ring(id, done, all) { const p = all ? done / all : 0; $("#ring-" + id).style.strokeDashoffset = 169.6 * (1 - p); $("#ringt-" + id).textContent = Math.round(p * 100) + "%"; }
