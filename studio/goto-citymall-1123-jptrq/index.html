@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="ja">
 <head>
 <meta charset="utf-8">
@@ -170,6 +170,12 @@ main{max-width:900px;margin:0 auto;padding:16px 16px 130px}
 .qrsum strong{font-size:18px;color:var(--ok)}
 .qrsum button{min-height:40px;padding:0 14px;border-radius:99px;border:1.5px solid #e6cdb4;background:#fff;color:var(--main-d);font:inherit;font-size:14px;font-weight:700;cursor:pointer}
 @media (min-width:760px){.boss{grid-template-columns:1.1fr 1fr}}
+.mihon{display:block;position:relative;margin:8px 0 4px;max-width:420px}
+.mihon img{display:block;width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:12px;background:#f3e6d8}
+.mihon.tall{max-width:220px}.mihon.tall img{aspect-ratio:2/3}
+.mihon span{position:absolute;left:8px;bottom:8px;background:rgba(51,37,26,.72);color:#fff;font-size:11px;padding:1px 8px;border-radius:99px}
+.ideal img,.ng img{display:block;width:100%;height:auto;border-radius:12px}
+.ng img{border-radius:8px;margin-bottom:4px}
 
 /* 下の帯 */
 .foot{position:fixed;left:0;right:0;bottom:0;z-index:10;background:rgba(255,250,243,.95);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-top:1px solid var(--line);padding:10px 16px calc(10px + env(safe-area-inset-bottom))}
@@ -258,38 +264,11 @@ main{max-width:900px;margin:0 auto;padding:16px 16px 130px}
   <div class="sec" id="s-boss"><span class="no disp">社</span><h3 class="disp">社長のお写真<small>会社案内のページ用。13:30 のごあいさつの後、最初に撮る</small></h3></div>
   <div class="card boss">
     <div>
-      <figure class="ideal">
-        <svg viewBox="0 0 480 360" role="img" aria-label="理想の写真の見本の絵。明るい通路を背に、腰から上、少し斜めに立って笑顔の男性。背景の看板は少しぼけている">
-          <defs><linearGradient id="bbg" x1="0" x2="1"><stop offset="0" stop-color="#fff6e6"/><stop offset="1" stop-color="#ecd7bf"/></linearGradient>
-          <filter id="bbl"><feGaussianBlur stdDeviation="4"/></filter><linearGradient id="blt" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient></defs>
-          <rect width="480" height="360" fill="url(#bbg)"/>
-          <g filter="url(#bbl)"><path d="M0 270 L480 250 L480 360 L0 360Z" fill="#e2cdb5"/><rect x="40" y="70" width="110" height="160" fill="#f3d9c2"/><rect x="55" y="48" width="90" height="38" rx="6" fill="#d7261e"/><text x="100" y="74" text-anchor="middle" font-size="20" font-weight="700" fill="#fff" font-family="sans-serif">CITY</text><rect x="165" y="95" width="70" height="140" fill="#cfe0d6"/><rect x="400" y="80" width="80" height="170" fill="#f0c9a8"/><circle cx="120" cy="20" r="8" fill="#fff"/><circle cx="240" cy="16" r="8" fill="#fff"/><circle cx="380" cy="20" r="8" fill="#fff"/></g>
-          <rect x="0" y="0" width="120" height="360" fill="url(#blt)"/>
-          <g stroke="#fff" stroke-opacity=".85" stroke-dasharray="6 6" stroke-width="1.5"><path d="M160 0V360M320 0V360M0 120H480M0 240H480"/></g>
-          <path d="M190 360 C195 260 235 212 300 205 C365 212 405 260 410 360Z" fill="#2f3a52"/>
-          <path d="M282 208 L300 250 L318 208Z" fill="#fff"/><path d="M296 216 L304 216 L307 252 L300 264 L293 252Z" fill="#c2521b"/>
-          <path d="M282 208 L268 262 L298 252M318 208 L332 262 L302 252" fill="none" stroke="#24304a" stroke-width="3"/>
-          <rect x="286" y="178" width="28" height="32" fill="#e8b893"/>
-          <g transform="rotate(-5 300 150)"><ellipse cx="260" cy="152" rx="6" ry="10" fill="#e8b893"/><ellipse cx="340" cy="152" rx="6" ry="10" fill="#e8b893"/><ellipse cx="300" cy="150" rx="40" ry="48" fill="#f2c9a5"/>
-          <path d="M260 140 C258 100 290 90 305 92 C330 93 345 110 340 140 C335 120 310 110 290 115 C275 118 265 128 260 140Z" fill="#3b2f2a"/>
-          <path d="M283 148 q6 -6 12 0 M307 148 q6 -6 12 0" fill="none" stroke="#3b2f2a" stroke-width="3" stroke-linecap="round"/>
-          <circle cx="281" cy="164" r="7" fill="#e88" fill-opacity=".3"/><circle cx="321" cy="164" r="7" fill="#e88" fill-opacity=".3"/>
-          <path d="M287 172 q13 12 26 0" fill="none" stroke="#a0462a" stroke-width="3" stroke-linecap="round"/></g>
-          <g font-family="sans-serif" font-size="15" font-weight="700" fill="#fff" text-anchor="middle">
-            <circle cx="40" cy="190" r="15" fill="#2e7d55"/><text x="40" y="195">1</text>
-            <circle cx="365" cy="120" r="15" fill="#2e7d55"/><text x="365" y="125">2</text>
-            <circle cx="440" cy="330" r="15" fill="#2e7d55"/><text x="440" y="335">3</text>
-            <circle cx="160" cy="48" r="15" fill="#2e7d55"/><text x="160" y="53">4</text></g>
-        </svg>
-        <figcaption>理想の1枚（見本の絵）。点線は画面の3等分の線です</figcaption>
-      </figure>
-      <div class="ng">
-        <figure><svg viewBox="0 0 240 150" aria-hidden="true"><rect width="240" height="150" fill="#5a4a40"/><ellipse cx="120" cy="10" rx="40" ry="10" fill="#fff6c8"/><path d="M120 18 L70 150 L170 150Z" fill="#fff6c8" fill-opacity=".25"/><path d="M80 150 C82 120 100 108 120 106 C140 108 158 120 160 150Z" fill="#2f3a52"/><ellipse cx="120" cy="78" rx="24" ry="29" fill="#d9ad88"/><path d="M96 72 C95 50 115 45 122 46 C138 47 146 58 144 72 C138 60 120 56 108 60Z" fill="#3b2f2a"/><ellipse cx="111" cy="80" rx="7" ry="5" fill="#6b4a36"/><ellipse cx="129" cy="80" rx="7" ry="5" fill="#6b4a36"/><path d="M112 96 h16" stroke="#7a3a24" stroke-width="2.5" stroke-linecap="round"/></svg><b>✕ 照明の真下</b><br>目の下に影ができ、疲れた顔に</figure>
-        <figure><svg viewBox="0 0 240 150" aria-hidden="true"><rect width="240" height="150" fill="#efe3d4"/><g stroke="#cdb9a2" stroke-width="2" fill="none"><path d="M0 40 L120 0 L240 40"/><path d="M30 0 L100 60M210 0 L140 60"/></g><circle cx="70" cy="18" r="5" fill="#fff"/><circle cx="170" cy="18" r="5" fill="#fff"/><path d="M50 150 C55 100 90 82 120 80 C150 82 185 100 190 150Z" fill="#2f3a52"/><ellipse cx="120" cy="62" rx="20" ry="22" fill="#f2c9a5"/><path d="M100 54 C100 38 116 34 122 35 C134 36 140 44 139 54 C134 46 118 44 108 48Z" fill="#3b2f2a"/><path d="M112 74 q8 4 16 0" stroke="#a0462a" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg><b>✕ 下から見上げる</b><br>あごが大きく、天井が写る</figure>
-      </div>
+      <figure class="ideal"><a href="mihon/boss_ok.webp" target="_blank" rel="noopener"><img src="mihon/boss_ok_s.webp" alt="理想の1枚の見本。明るい入口の近くで、腰から上、少し斜めに立って笑顔の男性。背景のお店はぼけている" width="900" height="600"></a><figcaption>理想の1枚（見本・AIで作った架空の人物）。押すと大きく開きます</figcaption></figure>
+      <div class="ng"><figure><img src="mihon/boss_ng1_s.webp" alt="" loading="lazy"><b>✕ 照明の真下</b><br>目の下に影ができ、疲れた顔に</figure><figure><img src="mihon/boss_ng2_s.webp" alt="" loading="lazy"><b>✕ 下から見上げる</b><br>あごが大きく、天井が写る</figure></div>
     </div>
     <div>
-      <h4>見本の絵の番号</h4>
+      <h4>見本のポイント</h4>
       <ol><li><b>顔を明るい方へ</b>：入口や窓の光が顔に当たる向きに立っていただく</li><li><b>目の高さで撮る</b>：スマホを社長の目の高さに。目が上の3等分の線あたりに来るように</li><li><b>腰から上</b>：体は少し斜め、顔はこちら。手は軽く前で組むか、自然に下ろす</li><li><b>背景に看板・お店が少しぼけて入る</b>：「モールの社長」と伝わる</li></ol>
       <h4>撮り方</h4>
       <ul><li><b>ポートレートモード</b>で撮る（背景が自然にぼけます）。2mほど離れて、はみ出すなら少し下がる</li><li>場所は入口の中か、館内の明るい通路。人通りが少ない所で</li><li>表情は2種類：口を閉じた笑顔／少し歯が見える笑顔</li><li>横・縦それぞれ10枚ほど続けて撮る（まばたき・固い表情は後で外す）</li><li>ネクタイ・襟・髪の乱れを、撮る前にひとこと確認</li></ul>
@@ -428,7 +407,7 @@ const S = [
     [0, "椿：つばきの商品", "z", "おみやげの特集・Instagram", "つばき屋など"]
   ]],
   ["E 人と物の写真", "必ず本人・お店の了解をもらってから", [
-    [1, "社長のお写真", "yt", "会社案内のごあいさつ", "背景は無地の壁か、モールの入口。胸から上と、全身の2通り。明るい窓を背にしない"],
+    [1, "社長のお写真", "yt", "会社案内のごあいさつ", "このすぐ下の「社長のお写真」の見本と撮り方のとおりに。腰から上、ポートレートモード、顔を明るい方へ"],
     [0, "店員さん（写ってよい方だけ）", "y", "お店ごとのページ", "名札が読めない距離で。断られたら写らない角度に"],
     [0, "メニュー・チラシの現物", "z", "お店ごとのページの確認用", "BLOSSOM・まる福のメニューは届いています。ほかのお店で掲示があれば"]
   ]]
@@ -565,12 +544,16 @@ function renderS(id, groups, pre, anchor) {
     g[2].forEach((it, ii) => {
       const [star, name, marks, use, how] = it;
       const title = (star ? "★ " : "") + esc(name) + (marks ? `<span class="mk">${[...marks].map(c => MK[c]).join("")}</span>` : "");
-      const extra = (use ? `<span class="use">使う所：${esc(use)}</span>` : "") + (how ? `<div class="how">${esc(how)}</div>` : "");
+      const mk = pre === "s" ? (MIHON[`${gi}_${ii}`] || (MIHON_ALL ? `s${gi}_${ii}` : "")) : "";
+      const pic = mk && gi > 0 ? `<a class="mihon${marks === "t" ? " tall" : ""}" href="mihon/${mk}.webp" target="_blank" rel="noopener"><img src="mihon/${mk}_s.webp" alt="${esc(name)}の見本" loading="lazy"><span>見本（AIで作ったイメージ）</span></a>` : "";
+      const extra = pic + (use ? `<span class="use">使う所：${esc(use)}</span>` : "") + (how ? `<div class="how">${esc(how)}</div>` : "");
       h += `<div class="shot">${item(`${pre}${gi}_${ii}`, "", title, "", pre === "s" && gi > 0, extra)}</div>`;
     });
   });
   $(id).innerHTML = h;
 }
+// 撮影の見本画像（mihon/ に GPT で作った絵）。キーは「グループ_番号」。社長は boss_ok を使う
+const MIHON = {"5_0": "boss_ok"}, MIHON_ALL = true;
 function renderShops() {
   let h = "";
   for (const [fl, list] of Object.entries(SHOPS)) {
