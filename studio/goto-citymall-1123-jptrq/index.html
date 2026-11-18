@@ -124,6 +124,18 @@ main{max-width:900px;margin:0 auto;padding:16px 16px 130px}
 .time{background:#fff;border-radius:var(--r);box-shadow:var(--sh);padding:6px 16px;margin-bottom:12px}
 .time div{display:flex;gap:14px;padding:9px 0;border-bottom:1px dashed var(--line);font-size:15px}
 .time div:last-child{border:0}
+.tsteps{display:grid;gap:8px;margin-bottom:10px}
+.tstep{background:#fff;border-radius:var(--r);box-shadow:var(--sh);overflow:hidden}
+.tstep summary{list-style:none;cursor:pointer;display:flex;gap:12px;align-items:center;padding:12px 16px;font-size:15.5px;font-weight:700}
+.tstep summary::-webkit-details-marker{display:none}
+.tstep summary b{flex:none;min-width:56px;padding:2px 0;border-radius:8px;background:var(--main);color:#fff;text-align:center;font-variant-numeric:tabular-nums}
+.tstep summary::after{content:"＋";margin-left:auto;color:var(--muted)}
+.tstep[open] summary::after{content:"－"}
+.tstep ol{margin:0;padding:0 16px 14px 40px;font-size:14.5px;line-height:1.75}
+.tstep li{margin:4px 0}
+.tstep li b{color:var(--main-d)}
+.tstep li.tip{list-style:none;margin-left:-22px;background:#fff8ee;border-radius:10px;padding:6px 10px;color:var(--muted)}
+.tstep li.tip::before{content:"気をつけること　";font-weight:700;color:var(--ink)}
 .time b{flex:none;width:52px;color:var(--main-d);font-variant-numeric:tabular-nums}
 
 /* 聞かれたら */
@@ -284,7 +296,50 @@ main{max-width:900px;margin:0 auto;padding:16px 16px 130px}
   </div>
   <div id="shops"></div>
   <div class="sec" id="s-time"><span class="no disp">時</span><h3 class="disp">当日の回り方<small>目安2時間半。11月の五島は16時半ごろから暗くなります</small></h3></div>
-  <div class="time"><div><b>13:30</b><span>吉田様にごあいさつ。撮ってよいお店・社長のお写真・写ってよい店員さんを確認</span></div><div><b>13:45</b><span>A 建物の外（光がいいうちに）</span></div><div><b>14:15</b><span>B 1階の通路・案内所 → 1階のお店（飲食は14時以降が空いています）</span></div><div><b>15:00</b><span>B 2階の通路 → 2階のお店</span></div><div><b>15:40</b><span>3階 → C・D の残り</span></div><div><b>16:00</b><span>★の撮りもれ確認。外がまだ明るければ、外をもう1度</span></div></div>
+  <p class="note">時刻を押すと、その時間にすることが開きます。見本の写真は上の各項目にあります。</p>
+  <div class="tsteps">
+  <details class="tstep"><summary><b>13:30</b><span>吉田様にごあいさつ・確かめる5つ</span></summary><ol>
+    <li><b>撮ってよいお店</b>「今日、中を撮ってよいお店はどこでしょうか」（Leon・VITA は許可済み）。下の「お店ごと」の表の「撮影可」に印</li>
+    <li><b>社長のお写真</b>「最初に撮らせていただけますか」→ 上の「社長のお写真」のとおりに撮る</li>
+    <li><b>写ってよい店員さん</b>「写りたくない方は、よけて撮ります」</li>
+    <li><b>現在地QRの場所</b>「貼るならどの辺りがよいでしょうか」。決めるのは23日。今日は候補①〜⑪の壁を撮るだけ</li>
+    <li><b>写ってしまったお客さん</b>「小さく写った方は、あとで消すか、ぼかします」とひとこと</li></ol></details>
+  <details class="tstep"><summary><b>13:45</b><span>A 建物の外（30分・明るいうちに）</span></summary><ol>
+    <li><b>★ 正面の全体</b>（横2・縦1）道の向こうまで下がる。空を上3分の1。17e は 0.5× が無いので、入りきらなければ横で左端・真ん中・右端の3枚（あとでつなぐ）</li>
+    <li><b>空と建物だけ</b>（横）同じ場所でスマホを少し上へ。建物は画面の下半分</li>
+    <li><b>ななめ45度</b>（横）建物の角を画面の左3分の1の線に</li>
+    <li><b>★ 看板</b>（寄り）真ん前に立ち、文字がまっすぐ読めるように。見上げすぎない</li>
+    <li><b>★ 入口・自動ドア</b>（横・縦）中央玄関（タクシー乗り場の側）を真正面から。人が通らない瞬間に</li>
+    <li><b>バス停・タクシー乗り場</b>（横）中央玄関の右側。バス停の看板の文字が読めるように</li>
+    <li><b>駐車場の広さ</b>（横）屋上か2階の窓から見下ろす。館内で回るときでもよい。ナンバーが読めない距離</li>
+    <li class="tip">太陽を背中に。逆光で暗い面は16:00に撮り直し。グリッドの縦線を柱に合わせる</li></ol></details>
+  <details class="tstep"><summary><b>14:15</b><span>1階の館内（20分）→ 1階のお店（25分）</span></summary><ol>
+    <li><b>★ 1階の通路</b>（横・縦）まん中に立ち奥まで。人がいない瞬間か、後ろ姿だけの瞬間</li>
+    <li><b>ポスター用の通路</b>（縦・場所を変えて10枚ほど）ポスター案2のスマホ画面用。人はお店をのぞく後ろ姿だけ</li>
+    <li><b>案内所</b>（横）上の表示が読めるように</li>
+    <li><b>エスカレーター・エレベーター</b>（横）少し斜めから両方入れる</li>
+    <li><b>休憩所</b>（横）ピーパラダイスの前。まわりのお店も少し入れる</li>
+    <li><b>トイレの入口</b>（横）表示だけ。中は撮らない</li>
+    <li><b>催事場</b>（横・縦）何もない状態で。催し中なら売り場の方にひとこと</li>
+    <li><b>フロア案内板</b>（寄り）正面から、文字が読めるように</li>
+    <li><b>現在地QRの候補①〜⑦</b>（横）先に指で番号を見せた写真を1枚 → 貼る壁を少し引いて（高さが分かるように）</li>
+    <li><b>季節の飾り</b>（寄り）クリスマスの飾りがあれば</li>
+    <li><b>1階のお店</b>（飲食は14時以降が空いている）撮影可のお店だけ。「最初のひとこと」を言ってから、店の前（看板を正面）・店の中（お客さんのいない方向）・商品2〜3個（寄り・少し斜め・画面いっぱい）。麺・たこ焼きは湯気のあるうちに</li>
+    <li class="tip">子どもは写さない（たこ焼き・ゲームの近くは特に）。ATM・レジの画面も。文字を読ませたい物は正面から</li></ol></details>
+  <details class="tstep"><summary><b>15:00</b><span>2階の館内（15分）→ 2階のお店（25分）</span></summary><ol>
+    <li><b>2階の通路</b>（横）まん中に立ち奥まで。エスカレーターの手すりが少し入るとよい</li>
+    <li><b>エスカレーター・エレベーター</b>（横）2階の側から</li>
+    <li><b>休憩所</b>（横）ファンタジーランドとパレットの間。まわりのお店も少し入れる</li>
+    <li><b>授乳室・ベビーカー置き場の入口</b>（横）2階 南側の男子トイレの横。表示だけ。中は撮らない</li>
+    <li><b>現在地QRの候補⑧〜⑩</b>（横）指で番号 → 壁</li>
+    <li><b>駐車場の広さ</b>（横）外で撮れていなければ、2階の窓から</li>
+    <li><b>2階のお店</b> 撮影可のお店だけ。服（パレット・SpRay など）はハンガーの並びを斜めから。めがね（ヨネザワ）は棚を寄りで。おもちゃ（おやこパンダ）・本は棚いっぱいに</li>
+    <li><b>雨の日の特集</b>（横）ゲームセンター（ファンタジーランド）・リトルシアター。子どもがいない時に。いれば機械だけを寄りで</li>
+    <li><b>美容・もみほぐし</b>（横）お客さんがいない時に。椅子や道具だけでも</li>
+    <li><b>託児所（シティハウス）</b>（横）看板と受付だけ。中と子どもは撮らない</li>
+    <li class="tip">2階は子どもが多い所（託児所・ゲーム・おもちゃ）。撮る前に画面の中に子どもがいないか必ず見る</li></ol></details>
+  </div>
+  <div class="time"><div><b>15:40</b><span>3階 → C・D の残り</span></div><div><b>16:00</b><span>★の撮りもれ確認。外がまだ明るければ、外をもう1度</span></div></div>
   <div id="list-a"></div>
 </section>
 
