@@ -2398,3 +2398,8 @@ ol.steps li>.taxis+p{grid-column:1/-1;grid-row:4}
 .taxis .tx b span{display:block;font-weight:500;font-size:13px}
 .taxis .tel{display:inline-flex;align-items:center;min-height:44px;padding:0 12px;border-radius:10px;background:#fdebd8;color:#8a3a10;font-weight:700;text-decoration:none;white-space:nowrap}
 @media (max-width:760px){ol.steps li#taxi{padding-right:14px}ol.steps li>.taxis{margin-left:-56px;grid-template-columns:1fr}}
+
+/* (9-14) 2026-11-18 お店の詳細のメニュー（小さな見本を横に並べ、押すと大きく） */
+.sd .menus{display:flex;gap:6px;overflow-x:auto;padding:2px 0 6px;scroll-snap-type:x mandatory}
+.sd .menus a{flex:none;display:block;border:1px solid var(--line);border-radius:8px;overflow:hidden;scroll-snap-align:start;background:#fff}
+.sd .menus img{display:block;width:72px;height:auto}
