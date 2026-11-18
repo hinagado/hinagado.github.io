@@ -223,7 +223,7 @@ main{max-width:900px;margin:0 auto;padding:16px 16px 130px}
     <p>押すと「済」。下の欄に決まったことを書きます。スマホとパソコンで同じ内容になります。</p>
     <div class="stats">
       <svg class="ring" viewBox="0 0 64 64" aria-hidden="true"><circle class="bg" cx="32" cy="32" r="27"/><circle class="fg" id="ring-m" cx="32" cy="32" r="27" stroke-dasharray="169.6" stroke-dashoffset="169.6" transform="rotate(-90 32 32)"/><text id="ringt-m" x="32" y="37" text-anchor="middle">0%</text></svg>
-      <div class="legend"><span class="tag t-must">必ず決める</span><span class="tag t-line">LINEで質問中</span><span class="tag t-wait">先生の回答待ち</span><span class="tag t-show">見せて決める</span><span class="tag t-ok">決定済み</span></div>
+      <div class="legend"><span class="tag t-must">必ず決める</span><span class="tag t-line">LINEで質問中</span><span class="tag t-wait">先生の回答待ち</span><span class="tag t-show">見せて決める</span></div>
     </div>
   </div>
   <div class="tools"><div class="chips" role="group" aria-label="しぼる">
@@ -528,10 +528,12 @@ function item(k, kind, q, d, memo, extra) {
     (memo ? `<textarea class="memo" rows="1" maxlength="2000" placeholder="決まったこと・メモ" aria-label="${esc(q.replace(/<[^>]+>/g, ""))}のメモ">${esc(s.m || "")}</textarea>` : "") + `</div>`;
 }
 function renderM() {
-  let h = "";
+  let h = "", no = 0;
   M.forEach((g, gi) => {
-    h += `<div class="sec"><span class="no disp">${gi + 1}</span><h3 class="disp">${esc(g[0])}${g[1] ? `<small>${esc(g[1])}</small>` : ""}</h3><span class="cnt" data-cnt="m${gi}"></span></div><div class="grid2">`;
-    g[2].forEach((it, ii) => h += item(`m${gi}_${ii}`, it[0], esc(it[1]), it[2], true));
+    // 決定済み（ok）は出さない。キー m{グループ}_{番号} は M の並びのままなので、ok を消しても他の項目の保存はずれない
+    if (!g[2].some(it => it[0] !== "ok")) return;
+    h += `<div class="sec"><span class="no disp">${++no}</span><h3 class="disp">${esc(g[0])}${g[1] ? `<small>${esc(g[1])}</small>` : ""}</h3><span class="cnt" data-cnt="m${gi}"></span></div><div class="grid2">`;
+    g[2].forEach((it, ii) => { if (it[0] !== "ok") h += item(`m${gi}_${ii}`, it[0], esc(it[1]), it[2], true); });
     h += `</div>`;
   });
   $("#list-m").innerHTML = h;
@@ -635,7 +637,7 @@ sync();
 
 $("#copy").addEventListener("click", async () => {
   const out = ["【23日 打ち合わせ帳のまとめ】"];
-  M.forEach((g, gi) => { out.push("", "■ " + g[0]); g[2].forEach((it, ii) => { const s = st[`m${gi}_${ii}`] || {}; out.push(`${s.c ? "済" : "未"}　${it[1]}` + (s.m ? `\n　→ ${s.m.replace(/\n/g, "\n　　")}` : "")); }); });
+  M.forEach((g, gi) => { if (!g[2].some(it => it[0] !== "ok")) return; out.push("", "■ " + g[0]); g[2].forEach((it, ii) => { if (it[0] === "ok") return; const s = st[`m${gi}_${ii}`] || {}; out.push(`${s.c ? "済" : "未"}　${it[1]}` + (s.m ? `\n　→ ${s.m.replace(/\n/g, "\n　　")}` : "")); }); });
   out.push("", qrText());
   out.push("", "【撮影】");
   S.forEach((g, gi) => { const d = g[2].map((it, ii) => [it, st[`s${gi}_${ii}`] || {}]).filter(([, s]) => s.c || s.m); if (d.length) { out.push("■ " + g[0]); d.forEach(([it, s]) => out.push(`${s.c ? "済" : "未"}　${it[1]}` + (s.m ? `\n　→ ${s.m}` : ""))); } });
