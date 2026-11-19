@@ -120,6 +120,8 @@ main{max-width:900px;margin:0 auto;padding:16px 16px 130px}
 .tck svg{width:18px;height:18px;opacity:0}
 .tck[aria-pressed=true]{background:var(--ok);border-color:var(--ok)}.tck[aria-pressed=true] svg{opacity:1}
 .tsteps li.tdone{color:var(--muted)}
+.tstep li.fig{list-style:none;margin-left:-24px}
+.tryimg{display:block;width:100%;border-radius:10px;margin:4px 0 6px}
 .tsteps ol:has(li[data-tk]) > li:not([data-tk]):not(.tip){list-style:"・ "}
 .lb{position:fixed;inset:0;z-index:30;background:rgba(20,14,10,.92);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px}
 .lb[hidden]{display:none}
@@ -313,7 +315,7 @@ main{max-width:900px;margin:0 auto;padding:16px 16px 130px}
     </div>
   </div>
   <div class="tools"><div class="chips">
-    <a href="#s-pre">前の日</a><a href="#s-basic">はじめに</a><a href="#s-ng">失敗例</a><a href="#s-time">回り方</a><a href="#s-trouble">困ったとき</a><a href="#s-0">A 外</a><a href="#s-1">B 館内</a><a href="#s-2">C 分類</a><a href="#s-3">D 特集</a><a href="#s-4">E 人・物</a><a href="#s-boss">社長</a><a href="#s-shops">お店</a><a href="#s-after">撮ったあと</a>
+    <a href="#s-pre">前の日</a><a href="#s-try">試す</a><a href="#s-basic">はじめに</a><a href="#s-ng">失敗例</a><a href="#s-time">回り方</a><a href="#s-trouble">困ったとき</a><a href="#s-0">A 外</a><a href="#s-1">B 館内</a><a href="#s-2">C 分類</a><a href="#s-3">D 特集</a><a href="#s-4">E 人・物</a><a href="#s-boss">社長</a><a href="#s-shops">お店</a><a href="#s-after">撮ったあと</a>
   </div></div>
   <p class="chipnote">↑ 上のボタンは、指で横にずらすと続きがあります</p>
   <div class="rule">
@@ -321,6 +323,52 @@ main{max-width:900px;margin:0 auto;padding:16px 16px 130px}
     <div class="box key3"><h4>押す回数の決まり（全部これ）</h4><ul class="cnt3"><li><span class="mk"><span class="y">横</span></span> スマホを横にして <b>3回</b> 押す</li><li><span class="mk"><span class="t">縦</span></span> スマホを縦にして <b>2回</b> 押す</li><li><span class="mk"><span class="z">寄り</span></span> 近づいて大きく、横で <b>3回</b></li></ul><p class="mini">「横」「縦」の両方が付いた物は、横3回＋縦2回。社長とポスター用だけは多めに（その項目に書いてあります）。</p></div>
   </div>
   <div id="list-pre"></div>
+  <div class="sec" id="s-try"><span class="no disp">試</span><h3 class="disp">前の日に家で試す4つ<small>全部で15分。上から順に。うまくいったら、いちばん下の □ を押す</small></h3></div>
+  <div class="card howcheck"><b>この4つを試す理由</b><p class="mini" style="margin:4px 0 8px">iPhone 17e の実際の画面は、Claude はまだ見ていません。前の日に一度さわっておけば、当日に画面の前で迷いません。書いてある通りに出ない所があっても失敗ではありません。それが分かることが目的です。</p>
+    <b>つまずいたら：その画面の写真（スクリーンショット）を Claude へ</b><ol><li>右側の横長のボタンと、左側の音量の上のボタンを、同時に押してすぐ離す</li><li>「カシャ」と鳴り、左下に小さな絵が出れば撮れています（写真のアプリに入ります）</li><li>その画像を Claude に送り、「ここで止まった」とひとこと</li></ol></div>
+  <div class="tsteps try">
+  <details class="tstep"><summary><b>試す1</b><span>打ち合わせ帳をホーム画面に置く（3分）</span></summary><ol>
+    <li class="fig"><a href="mihon/try_home.webp"><img class="tryimg" src="mihon/try_home_s.webp" alt="共有の印からホーム画面に追加し、ホーム画面の印から開く絵" loading="lazy"></a></li>
+    <li>このページを <b>Safari</b>（青い方位磁石の印のアプリ）で開く。LINE のリンクから開くと LINE の中で開くことがあります。その時は画面の右上か右下の「…」などを押し、「<b>Safariで開く</b>」を選ぶ</li>
+    <li>画面のいちばん下の、<b>四角から上に矢印が出た印（共有）</b>を押す。見当たらなければ、下の「…」を押すと出てきます</li>
+    <li>出てきた一覧を下へずらし、「<b>ホーム画面に追加</b>」→ 右上の「<b>追加</b>」</li>
+    <li>ホーム画面に、薄い緑の印が1つ増えます。それを押して、このページが開くか見る</li>
+    <li>開いたら、この下の □ を押す → 一度アプリを閉じ（画面の下から上へなでる）、ホーム画面の印からもう一度開く</li>
+    <li data-tk="t_try1"><b>できた</b>：開き直しても □ に✓が残っている（印が保存されている）</li>
+    <li class="tip">✓が消えていたら、その画面のスクリーンショットを Claude へ。当日は紙に✓でも大丈夫です</li></ol></details>
+  <details class="tstep"><summary><b>試す2</b><span>ポートレートモードを出してみる（4分）</span></summary><ol>
+    <li class="fig"><a href="mihon/try_portrait.webp"><img class="tryimg" src="mihon/try_portrait_s.webp" alt="文字の列を指でなでてポートレートにし、人がくっきり後ろがぼける絵" loading="lazy"></a></li>
+    <li>ご家族に、壁から1mほど離れて立ってもらう（いなければ、明るい窓の近くに置いたぬいぐるみで試す）</li>
+    <li>カメラを開く。シャッター（白い丸）の近くに「<b>シネマティック・ビデオ・写真・ポートレート・パノラマ</b>」のように文字が並んでいます。今は「写真」が黄色</li>
+    <li>その文字の列を、指で<b>横に1回なでる</b>。「<b>ポートレート</b>」が黄色になればOK（「パノラマ」や「ビデオ」になったら、反対の向きになでて戻す）</li>
+    <li>2mほど離れて、スマホを相手の胸の高さに。画面の下に「<b>自然光</b>」という文字が出て、<b>黄色</b>になったら準備OK</li>
+    <li>画面に「<b>離れてください</b>」と出たら1歩下がる。「<b>もっと光が必要です</b>」と出たら明るい所へ</li>
+    <li>画面の顔を軽く押してから、シャッターを「トン」</li>
+    <li>左下の小さな写真を押して見る。左上に「<b>ポートレート</b>」と出ていて、人はくっきり、後ろがぼけていれば成功</li>
+    <li data-tk="t_try2"><b>できた</b>：ポートレートで1枚撮れた（Claude に「ポートレートあった」とひとこと）</li>
+    <li class="tip">「ポートレート」の文字が無い・ぬいぐるみでは「自然光」が黄色にならない場合 → 人で試す。それでも無ければ、当日は「写真」のまま撮れば十分です（後ろのぼかしはこちらで足せます）。Claude に「ポートレートなかった」と伝える</li></ol></details>
+  <details class="tstep"><summary><b>試す3</b><span>Google ドライブに試しに送る（5分）</span></summary><ol>
+    <li class="fig"><a href="mihon/try_drive.webp"><img class="tryimg" src="mihon/try_drive_s.webp" alt="＋を押し、アップロードを選び、写真の上を指ですべらせてまとめて選ぶ絵" loading="lazy"></a></li>
+    <li>先に、家の中を2〜3枚撮っておく（何でもよい）</li>
+    <li><b>Google ドライブ</b>のアプリを開く。右上の丸い顔の印を押し、<b>ひなが堂のアカウント</b>になっているか見る（違えば、出てきた一覧から選び直す）</li>
+    <li>右下の色つきの「<b>＋</b>」→「<b>フォルダ</b>」→ 名前に「<b>1121さつえい</b>」と入れて「作成」。できたフォルダを押して開く（当日の夜は、ここに送るだけになります）</li>
+    <li>フォルダの中で、もう一度「<b>＋</b>」→「<b>アップロード</b>」→「<b>写真とビデオ</b>」</li>
+    <li>「写真へのアクセス」を聞かれたら「<b>フルアクセスを許可</b>」</li>
+    <li>写真の一覧が出たら、まず1枚を押す（<b>青い丸に✓</b>が付く）</li>
+    <li><b>まとめて選ぶ練習</b>：次の写真の上に指を置き、指を離さずに横や下へすべらせる。指が通った写真に✓が付けばできています。付かなければ、1枚ずつ押せば大丈夫（夜に少し時間がかかるだけ）</li>
+    <li>右上の「<b>アップロード</b>」（「追加」の時もあります）を押す</li>
+    <li>フォルダ「1121さつえい」の中に、写真が並べば成功。下に進み具合が出ている間は、アプリを閉じない</li>
+    <li data-tk="t_try3"><b>できた</b>：フォルダに写真が入った（Claude に「試しに送れた。まとめて選ぶは できた／できなかった」）</li>
+    <li class="tip">試しに送った写真は消さなくて大丈夫です。当日の写真と区別できます</li></ol></details>
+  <details class="tstep"><summary><b>試す4</b><span>家の中で5枚撮って、見直す（3分）</span></summary><ol>
+    <li>窓を背中にして、棚やドアに向けてスマホを構える（「はじめに」の1のとおり両手で）</li>
+    <li>画面に<b>縦横の白い線（グリッド）</b>が出ているか見る。出ていなければ「前の日」の設定をもう一度</li>
+    <li>スマホを横にして、真ん中の短い線が<b>黄色</b>になったら「トン」。3回</li>
+    <li>スマホを縦にして、2回。これで「押す回数の決まり」の練習になります</li>
+    <li>左下の小さな写真を押し、2本の指で広げて大きくし、ぶれていないか見る（下の「写真の見直し方」と同じ）</li>
+    <li><b>わざと</b>シャッターを2秒ほど押し続けてみる → 写真の一覧で、その1枚の右下に「<b>0:02</b>」のような時間が出ます。これが「動画になった」印。当日これを見たら、撮り直すだけです</li>
+    <li data-tk="t_try4"><b>できた</b>：傾かずに撮れて、動画になった時の見分け方が分かった</li></ol></details>
+  </div>
   <div class="sec" id="s-basic"><span class="no disp">初</span><h3 class="disp">はじめに：撮り方の基本7つ<small>前の日と当日の朝に読む（5分）</small></h3></div>
   <div class="basics">
     <figure class="bcard"><img src="mihon/b_hold_s.webp" alt="スマホを両手で持ち、脇をしめて立つ人の絵" loading="lazy"><figcaption><b>1. 両手で持って、脇をしめる</b>片手だとぶれます。足は肩幅に開き、ひじを体につけると、スマホが止まります。</figcaption></figure>
@@ -436,7 +484,7 @@ main{max-width:900px;margin:0 auto;padding:16px 16px 130px}
       <ol><li><b>顔を明るい方へ</b>：入口や窓の光が顔に当たる向きに立っていただく（窓を背にしない）</li><li><b>目の高さで撮る</b>：スマホを社長の目の高さに。目が上の3等分の線あたりに来るように</li><li><b>腰から上</b>：体は少し斜め、顔はこちら。手は軽く前で組むか、自然に下ろす</li><li><b>背景に看板・お店が少しぼけて入る</b>：社長には、うしろの壁や棚から1mほど離れて立っていただく</li></ol>
       <h4>ポートレートモードの出し方</h4>
       <ol><li>カメラを開き、シャッターの近くに並ぶ文字（写真・ポートレート など）を指で横にずらして「ポートレート」にする</li><li>社長から2mほど離れて構える。画面に「離れてください」などの文字が出たら1歩下がる</li><li>画面の社長の顔を軽く押してから、シャッターを「トン」</li></ol>
-      <p class="mini">ポートレートの出し方は 17e の実機では確かめていません。見つからなければ、ふつうの「写真」で撮れば十分です。</p>
+      <p class="mini">前の日に「試す2」で一度出しておくと、当日迷いません。見つからなければ、ふつうの「写真」で撮れば十分です。</p>
       <h4>撮り方</h4>
       <ul><li>場所は入口の中か、館内の明るい通路。人通りが少ない所で</li><li>表情は2種類：口を閉じた笑顔／少し歯が見える笑顔</li><li>横・縦それぞれ10枚ほど続けて撮る（まばたき・固い表情は後で外す）</li><li>ネクタイ・襟・髪の乱れを、撮る前にひとこと確認</li></ul>
       <h4>声かけ</h4>
@@ -536,7 +584,7 @@ const S = [
     [0, "空き容量を20GB以上", "", "", "設定 → 一般 → iPhoneストレージ"],
     [0, "メガネふきでレンズをふく", "", "", "指のあぶらで写真全体がぼやけます。撮り始める前に1回"],
     [0, "この打ち合わせ帳を、ホーム画面に置く", "", "", "Safari でこのページを開き、下の四角に上矢印の印（共有）→「ホーム画面に追加」。当日はホーム画面の印から開けます"],
-    [0, "Google ドライブのアプリを入れ、ひなが堂のアカウントで入っておく", "", "", "その日の夜、写真を送るのに使います（下の「撮ったあと」）。App Store で「Google ドライブ」。入ったら、写真を1枚だけ試しに送ってみる（選び方が分かります）"],
+    [0, "Google ドライブのアプリを入れ、ひなが堂のアカウントで入っておく", "", "", "その日の夜、写真を送るのに使います（下の「撮ったあと」）。App Store で「Google ドライブ」。入ったら、すぐ下の「前の日に家で試す4つ」の試す3で、試しに送ってみる"],
     [0, "当日の朝、「はじめに」の7つと「よくある失敗」を読み直す", "", "", "5分で読めます。カメラを開いて、グリッドの線が出るかも見ておく"]
   ]],
   ["A 建物の外", "最初に撮る。光がいいうちに", [
@@ -585,7 +633,7 @@ const A = [["撮ったあと（その日の夜）", "上から順に。分から
   [0, "夜、Wi-Fi のある所で、充電しながら", "", "", "写真が多いので、外の電波だと時間がかかり、電池も減ります"],
   [0, "写真は消さずに、全部送る", "", "", "ぶれた物も、選ぶのはこちらでやります。消すのは0枚でかまいません"],
   [0, "Google ドライブのアプリを開く（ひなが堂のアカウント）", "", "", "右上の丸い顔の印を押して、ひなが堂のアカウントになっているか確かめる"],
-  [0, "右下の「＋」→「フォルダ」→ 名前を「1121さつえい」（記号なし）にして作り、開く", "", "", "フォルダの中に入った状態で、次へ"],
+  [0, "フォルダ「1121さつえい」を開く", "", "", "前の日の「試す3」で作ってあります。無ければ右下の「＋」→「フォルダ」→ 名前を「1121さつえい」（記号なし）にして作る。フォルダの中に入った状態で、次へ"],
   [0, "「＋」→「アップロード」→「写真と動画」→ 今日の写真を選ぶ", "", "", "1枚目を長押しし、そのまま指を下へすべらせると、まとめて選べます。選べたら右上の「アップロード」"],
   [0, "送り終わるまで、アプリを開いたまま待つ", "", "", "画面を閉じると止まることがあります。下に出る進み具合が消えたら完了"],
   [0, "Claude に「1121さつえいに入れた。〇枚」と伝える", "", "", "選ぶ・明るさ・まっすぐ直し・人を消す・大きさはこちらでやります"],
@@ -827,7 +875,8 @@ $("#copy").addEventListener("click", async () => {
   const out = ["【23日 打ち合わせ帳のまとめ】"];
   M.forEach((g, gi) => { if (!g[2].some(it => it[0] !== "ok")) return; out.push("", "■ " + g[0]); g[2].forEach((it, ii) => { if (it[0] === "ok") return; const s = st[`m${gi}_${ii}`] || {}; out.push(`${s.c ? "済" : "未"}　${it[1]}` + (s.m ? `\n　→ ${s.m.replace(/\n/g, "\n　　")}` : "")); }); });
   out.push("", qrText());
-  out.push("", "【当日の回り方】"); $$("li[data-tk]").forEach(li => { const b = li.querySelector("b"); out.push(`${(st[li.dataset.tk] || {}).c ? "済" : "未"}　${li.closest(".tstep").querySelector("summary b").textContent} ${b ? b.textContent : ""}`); });
+  out.push("", "【前の日に試す】"); $$(".tsteps.try li[data-tk]").forEach(li => out.push(`${(st[li.dataset.tk] || {}).c ? "済" : "未"}　${li.closest(".tstep").querySelector("summary span").textContent}`));
+  out.push("", "【当日の回り方】"); $$(".tsteps:not(.try) li[data-tk]").forEach(li => { const b = li.querySelector("b"); out.push(`${(st[li.dataset.tk] || {}).c ? "済" : "未"}　${li.closest(".tstep").querySelector("summary b").textContent} ${b ? b.textContent : ""}`); });
   out.push("", "【撮影】");
   S.forEach((g, gi) => { const d = g[2].map((it, ii) => [it, st[`s${gi}_${ii}`] || {}]).filter(([, s]) => s.c || s.m); if (d.length) { out.push("■ " + g[0]); d.forEach(([it, s]) => out.push(`${s.c ? "済" : "未"}　${it[1]}` + (s.m ? `\n　→ ${s.m}` : ""))); } });
   const sh = Object.values(SHOPS).flat().map(n => { const s = st["shop_" + n] || {}; const p = [s.ok && "撮影可", s.a && "前", s.b && "中", s.c && "商品"].filter(Boolean); return p.length ? `${n}：${p.join("・")}` : null; }).filter(Boolean);
