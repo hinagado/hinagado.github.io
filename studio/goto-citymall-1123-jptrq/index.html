@@ -294,6 +294,38 @@ main{max-width:900px;margin:0 auto;padding:16px 16px 130px}
     <button type="button" data-f="line" aria-pressed="false"><i class="dot" style="background:#3aa65a"></i>LINEで質問中</button>
     <button type="button" data-f="show" aria-pressed="false"><i class="dot" style="background:#5b84c9"></i>見せて決める</button>
   </div></div>
+  <div class="sec" id="m-flow"><span class="no disp">流</span><h3 class="disp">23日の流れ<small>10:30 五島シティモール・1時間15分ほど。時刻を押すと、言うことと見る所が開きます</small></h3></div>
+  <div class="card howcheck"><b>持ち物</b><ul class="mini" style="margin:4px 0 0;padding-left:20px"><li>iPhone（充電100%）とモバイルバッテリー：見本のHPとこの帳面を見せます</li><li><b>マイナンバーカード</b>（無ければ、通知カード＋運転免許証）：7で手渡し</li></ul></div>
+  <div class="tsteps day">
+  <details class="tstep"><summary><b>前の晩</b><span>Claude が21日の写真を見本のHPに入れておく</span></summary><ol>
+    <li>21日の夜に写真を送ってもらえば、22日中に入れて、HPと打ち合わせ帳を新しくしておきます</li>
+    <li>23日の朝、見本のHPを一度開いて、写真が出ているか見る</li></ol></details>
+  <details class="tstep"><summary><b>10:30</b><span>1. ごあいさつ・21日のお礼（2分）</span></summary><ol>
+    <li>「先日は撮影にお付き合いいただき、ありがとうございました。今日は、その写真を入れた見本をお見せして、契約書の空いている所を一緒に決めさせてください。1時間ほどいただきます」</li></ol></details>
+  <details class="tstep"><summary><b>10:35</b><span>2. 写真の入った見本のHPを見せる（15分）</span></summary><ol>
+    <li>下の「見本のHPを開く」を押して、スマホを吉田様に渡す。トップから下へ、ゆっくりめくってもらう</li>
+    <li><a href="#mg2">見本のHPを見せて決めること</a>の5つを、順に聞く。決まったら □ を押して、欄に一言</li>
+    <li class="tip">その場で直せない所は「持ち帰って直します」で大丈夫。直す所はメモ欄へ</li></ol></details>
+  <details class="tstep"><summary><b>10:50</b><span>3. 契約書の空いている所を埋める（20分）</span></summary><ol>
+    <li><a href="#mg0">ご契約の前に決めること</a>を上から順に。お金に関わる所なので、ここは時間をかけて大丈夫です</li>
+    <li>「これが決まれば、契約書を仕上げてメールでお送りします」と言ってから始める</li>
+    <li class="tip">分からない所は「確かめて、LINEでお返事します」。その場で約束しない</li></ol></details>
+  <details class="tstep"><summary><b>11:10</b><span>4. 現在地QRを貼る場所を、番号で選ぶ（10分）</span></summary><ol>
+    <li>このページの下の<a href="#m-qr">現在地QRを貼る場所</a>の図を見せる。21日に撮った壁の写真もあれば見せる</li>
+    <li>吉田様が言った番号を押すと緑になります。迷う所は、その場まで歩いて見に行く</li></ol></details>
+  <details class="tstep"><summary><b>11:20</b><span>5. お店と館内の残り（15分）</span></summary><ol>
+    <li><a href="#mg3">お店・催事・館内のこと</a>の、まだの物を順に。休憩所の「2階」で合っているかもここで</li>
+    <li class="tip">お店ごとの細かいこと（お支払い・免税など）は「後で表をお送りするので、分かる範囲で」でよい</li></ol></details>
+  <details class="tstep"><summary><b>11:35</b><span>6. ポスター・実績の紹介・写った方（5分）</span></summary><ol>
+    <li><a href="#mg4">館内ポスター・そのほか</a>の3つ</li></ol></details>
+  <details class="tstep"><summary><b>11:40</b><span>7. マイナンバーを手渡す（2分）</span></summary><ol>
+    <li>「支払調書のためのマイナンバーです」とカードを見せ、表と裏を写してもらう。渡し方や書く紙があれば、その通りに</li>
+    <li class="tip">カードは預けず、写し終わったら受け取って帰る</li></ol></details>
+  <details class="tstep"><summary><b>11:45</b><span>8. 決まったことを読み上げ・次の予定（5分）</span></summary><ol>
+    <li>いちばん下の「書いた内容をコピー」を押し、決まった所を読み上げて確かめる</li>
+    <li>「契約書は〇日までにメールでお送りします。1月1日の公開に向けて、写真の差し替えと館内図を進めます」</li>
+    <li>お礼を言って終わり。帰ったら、コピーした内容を Claude に貼る → 契約書を仕上げます</li></ol></details>
+  </div>
   <div id="list-m"></div>
   <div class="sec" id="m-qr"><span class="no disp">QR</span><h3 class="disp">現在地QRを貼る場所<small>吉田様に番号で選んでいただき、押して緑に。スマホとパソコンで同じになります</small></h3></div>
   <div class="card">
@@ -753,7 +785,7 @@ function renderM() {
   M.forEach((g, gi) => {
     // 決定済み（ok）は出さない。キー m{グループ}_{番号} は M の並びのままなので、ok を消しても他の項目の保存はずれない
     if (!g[2].some(it => it[0] !== "ok")) return;
-    h += `<div class="sec"><span class="no disp">${++no}</span><h3 class="disp">${esc(g[0])}${g[1] ? `<small>${esc(g[1])}</small>` : ""}</h3><span class="cnt" data-cnt="m${gi}"></span></div><div class="grid2">`;
+    h += `<div class="sec" id="mg${gi}"><span class="no disp">${++no}</span><h3 class="disp">${esc(g[0])}${g[1] ? `<small>${esc(g[1])}</small>` : ""}</h3><span class="cnt" data-cnt="m${gi}"></span></div><div class="grid2">`;
     g[2].forEach((it, ii) => { if (it[0] !== "ok") h += item(`m${gi}_${ii}`, it[0], esc(it[1]), it[2], true); });
     h += `</div>`;
   });
