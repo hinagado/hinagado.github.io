@@ -2403,3 +2403,21 @@ ol.steps li>.taxis+p{grid-column:1/-1;grid-row:4}
 .sd .menus{display:flex;gap:6px;overflow-x:auto;padding:2px 0 6px;scroll-snap-type:x mandatory}
 .sd .menus a{flex:none;display:block;border:1px solid var(--line);border-radius:8px;overflow:hidden;scroll-snap-align:start;background:#fff}
 .sd .menus img{display:block;width:72px;height:auto}
+
+/* お店のチラシ（flyer_view.js が並べる。0件なら欄ごと隠れる）2026-11-20 */
+main>section.flyersec{margin-top:0;padding-top:8px}
+.flyersec .fy-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.flyersec .fy-head .more{white-space:nowrap}
+.fy-list{display:grid;gap:16px;margin-top:14px}
+.fy-row{grid-auto-flow:column;grid-auto-columns:min(46%,220px);overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 2px 14px;-webkit-overflow-scrolling:touch}
+.fy-row .flyer-card{scroll-snap-align:start}
+.fy-grid{grid-template-columns:repeat(auto-fill,minmax(min(46%,230px),1fr))}
+.flyer-card{display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--card-line);border-radius:16px;background:var(--white);box-shadow:var(--card-sh)}
+.flyer-image{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;object-position:top;background:var(--paper)}
+.flyer-text{display:flex;flex-direction:column;gap:2px;padding:12px 12px 14px;flex:1}
+.flyer-shop{margin:0;color:var(--red-dark);font-size:.82rem;font-weight:700}
+.flyer-title{margin:0;font-size:1rem;line-height:1.45;color:var(--ink)}
+.flyer-period{margin:2px 0 10px;color:var(--muted);font-size:.85rem}
+.flyer-open{margin-top:auto;align-self:flex-start;display:inline-block;padding:8px 14px;border-radius:999px;background:var(--red);color:#fff;font-weight:700;font-size:.88rem;text-decoration:none}
+.flyer-open:hover,.flyer-open:focus-visible{background:var(--red-dark);outline:3px solid var(--sunny);outline-offset:2px}
+@media (min-width:900px){.fy-row{grid-auto-flow:row;grid-template-columns:repeat(4,1fr);overflow:visible}}
