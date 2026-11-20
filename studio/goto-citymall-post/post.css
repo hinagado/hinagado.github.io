@@ -81,3 +81,6 @@ details p{padding-bottom:12px}
 .ex-foot{margin-top:30px;padding:20px 16px;background:var(--char);color:#fff;font-size:14px;text-align:center}
 .ex-foot a{color:#fff}
 @media (max-width:640px){.two{grid-template-columns:1fr}.rule th{white-space:normal;width:34%}}
+
+/* この端末で次から開けるようにする（2026-11-20） */
+.keep{max-width:640px;margin:10px auto 0;padding:0 16px;display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center}.keep .btn{width:auto;padding:8px 14px;font-size:.9rem}.keep .hint{margin:0;font-size:.85rem}

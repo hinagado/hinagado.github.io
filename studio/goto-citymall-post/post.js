@@ -38,8 +38,33 @@
     data = data || {};
     if (demo) return Promise.resolve(Demo.call(action, data));
     data.action = action; data.pass = pass;
-    return fetch(ENDPOINT, {method: "POST", headers: {"Content-Type": "text/plain;charset=utf-8"}, body: JSON.stringify(data), redirect: "follow", credentials: "omit"}).then(function (r) { return r.json(); });
+    return fetch(ENDPOINT, {method: "POST", headers: {"Content-Type": "text/plain;charset=utf-8"}, body: JSON.stringify(data), redirect: "follow", credentials: "omit"}).then(function (r) { return r.json(); })
+      .then(function (r) { if (r && r.auth === false && !$("app").hidden) lockOut(); return r; });
   }
+  // 鍵が使えなくなったら（作り直した等）、この端末の控えを消して入口へ戻す
+  function lockOut() {
+    pass = ""; forgetKey(); $("app").hidden = true; $("login").hidden = false;
+    $("loginErr").textContent = "このアドレスは使えなくなっています。ひなが堂にお問い合わせください。"; $("loginErr").hidden = false;
+  }
+  // この端末に覚えるのは、利用者が「次から開けるようにする」を押したときだけ。90日で切れる
+  var KEY_RE = /^[A-Za-z0-9_-]{43}$/, KEY_STORE = "postBoxKey", KEEP_DAYS = 90;
+  function savedKey() {
+    try {
+      var v = JSON.parse(localStorage.getItem(KEY_STORE) || "null");
+      if (v && KEY_RE.test(v.k) && +v.until > Date.now()) return v.k;
+      localStorage.removeItem(KEY_STORE);
+    } catch (e) { try { localStorage.removeItem(KEY_STORE); } catch (e2) {} }
+    return "";
+  }
+  function saveKey(k) { try { localStorage.setItem(KEY_STORE, JSON.stringify({k: k, until: Date.now() + KEEP_DAYS * 864e5})); } catch (e) {} }
+  function forgetKey() { try { localStorage.removeItem(KEY_STORE); } catch (e) {} }
+  function rememberUi() {
+    var on = !!savedKey(); $("keepBox").hidden = false;
+    $("keepOn").hidden = on; $("keepOff").hidden = !on;
+    $("keepNote").textContent = on ? "このスマホは、" + KEEP_DAYS + "日間このページを開くだけで箱が開きます。" : "家族と共用のスマホ・パソコンでは押さないでください。";
+  }
+  $("keepOn").onclick = function () { if (pass) { saveKey(pass); rememberUi(); } };
+  $("keepOff").onclick = function () { forgetKey(); rememberUi(); };
   var NET = "つながりませんでした。電波の良い所でもう一度お試しください。";
 
   // ---- 枠
@@ -226,19 +251,43 @@
   $("after").textContent = "受け付けたあと、" + R.DRAFT_DAYS + "営業日以内に下書きを作り、メールでお知らせします。";
   setWhen();
   function refreshBadge() { api("list").then(function (r) { if (r.ok) { var w = r.items.filter(function (x) { return x.state === "下書きあり"; }).length; $("badge").textContent = w; $("badge").hidden = !w; } }); }
-  function start() {
+  function start(first) {
     $("login").hidden = true; $("app").hidden = false;
-    api("status").then(function (r) { if (r.ok) showQuota(r.quota); });
-    refreshBadge();
-    if (location.hash === "#check") tab("check");
+    if (first && first.ok) showQuota(first.quota); else api("status").then(function (r) { if (r.ok) showQuota(r.quota); });
+    if (!demo) rememberUi();
+    if (wantCheck) tab("check"); else refreshBadge();
   }
+  var wantCheck = /(?:^#|&)check(?:&|$)/.test(location.hash);
   if (demo) { $("demoBand").hidden = false; start(); return; }
-  $("login").hidden = false;
+  // 専用アドレス（…post.html#k=鍵）で開いたときは、鍵を入れずに開く。
+  // 鍵はすぐアドレス欄から消し（画面の写真や転送で漏れないように）、この端末にだけ覚えておく
+  var keyInUrl = /(?:^#|&)k=([^&]*)/.exec(location.hash), fromUrl = false, candidate = "";
+  if (keyInUrl) {
+    try { history.replaceState(null, "", location.pathname + location.search + (wantCheck ? "#check" : "")); } catch (e) {}
+    try { candidate = decodeURIComponent(keyInUrl[1] || ""); } catch (e) { candidate = ""; }
+    fromUrl = true;
+  } else candidate = savedKey();
+  function showLoginError(text) { $("login").hidden = false; $("loginErr").textContent = text; $("loginErr").hidden = false; }
+  if (KEY_RE.test(candidate)) {
+    pass = candidate;
+    api("status").then(function (r) {
+      if (r.ok && r.role === "admin") { pass = ""; showLoginError("この鍵はここでは使えません。"); return; }  // 管理用の鍵は吉田様の画面で受けない・覚えない
+      if (r.ok) { if (fromUrl && savedKey() && savedKey() !== candidate) forgetKey(); start(r); return; }
+      pass = "";
+      if (r.auth === false) { forgetKey(); showLoginError("このアドレスは使えなくなっています。ひなが堂にお問い合わせください。"); }
+      else showLoginError(r.error || "うまくいきませんでした。少し待ってもう一度お試しください。");
+    }).catch(function () { pass = ""; showLoginError(NET); });
+  } else if (keyInUrl) { showLoginError("このアドレスは正しくありません。お渡しした専用のアドレスをそのまま開いてください。"); }
+  else $("login").hidden = false;
   $("loginForm").onsubmit = function (e) {
-    e.preventDefault(); pass = $("pass").value; $("loginErr").hidden = true;
+    e.preventDefault(); $("loginErr").hidden = true;
+    var typed = $("pass").value.trim();
+    if (!KEY_RE.test(typed)) { $("loginErr").textContent = "鍵が違います。お渡しした専用のアドレスから開いてください。"; $("loginErr").hidden = false; return; }
+    pass = typed;
     api("status").then(function (r) {
       if (!r.ok) { $("loginErr").textContent = r.error; $("loginErr").hidden = false; pass = ""; return; }
-      $("pass").value = ""; start();
+      if (r.role === "admin") { $("loginErr").textContent = "この鍵はここでは使えません。"; $("loginErr").hidden = false; pass = ""; return; }
+      $("pass").value = ""; start(r);
     }).catch(function () { $("loginErr").textContent = NET; $("loginErr").hidden = false; });
   };
 })();
