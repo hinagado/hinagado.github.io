@@ -20,6 +20,11 @@
     if (w) { const b = document.createElement("span"); b.className = "evtag " + w[1]; b.textContent = w[0]; li.prepend(b); }
     if (en < today && li.classList.contains("ev")) li.hidden = true; // 終わった催事は「これからのイベント」に出さない（2026-11-22）
   });
+  // トップの「次のイベント」が開催中なら言い方を替える（2026-11-23）
+  document.querySelectorAll("[data-evlabel]").forEach(b => {
+    const st = new Date(b.dataset.start + "T00:00:00"), en = new Date(b.dataset.end + "T23:59:59");
+    if (st <= today && today <= en) b.textContent = document.documentElement.lang === "ja" ? "開催中のイベント" : b.textContent;
+  });
   // 「公開したときの見え方」：見本の説明（.prov）・例（.tag.ex のある物）・制作の説明を隠す。見本なので保存は端末の中だけ
   const pv = document.querySelector(".pubview");
   const setPub = on => { document.documentElement.classList.toggle("public", on); if (pv) pv.setAttribute("aria-pressed", on); try { sessionStorage.setItem("pubview", on ? "1" : ""); } catch (e) { /* 何もしない */ } };

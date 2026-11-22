@@ -4,7 +4,7 @@
   const input = document.getElementById("q"), count = document.getElementById("count"), empty = document.getElementById("empty");
   const bar = document.getElementById("bar"), list = document.getElementById("list"), clear = document.getElementById("clear");
   const tabBtns = [...document.querySelectorAll("#tabs button")];
-  const kindBtns = [...document.querySelectorAll("#kinds button")], ownBtn = document.querySelector("#owns button");
+  const kindBtns = [...document.querySelectorAll("#kinds button")], ownBtn = document.querySelector("#owns [data-own]");
   const toHira = s => s.replace(/[ァ-ヶ]/g, c => String.fromCharCode(c.charCodeAt(0) - 0x60));
   const norm = s => toHira(s.normalize("NFKC").toLowerCase()).replace(/[-‐ー]/g, "");
   const floorWord = t => t.replace(/([123])\s*階/g, "$1F").replace(/([123])\s*かい/g, "$1F");

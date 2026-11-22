@@ -2531,3 +2531,42 @@ section.flyersec{padding-bottom:8px}
 .sph.n1 a{aspect-ratio:16/9}
 .lb{background:#15110d!important;z-index:2000}
 .hello-ph img{object-position:50% 80%}
+
+/* pub 2026-11-23 公開したときの見え方：見本用の節・空き枠を隠す */
+html.public .demo-only{display:none!important}
+html.public .greet{grid-template-columns:minmax(0,320px)!important;justify-content:center}
+/* 拡大表示：PC でも画面に収める（拡大を押したときだけ大きく） */
+.lb:not(.zoom) .lb-sc{align-items:center}
+.lb:not(.zoom) .lb-sc img{max-height:100%;max-width:100%;width:auto;height:auto;object-fit:contain}
+/* PC のお店の詳細：ロゴと表を縦に積み、隣のカードを伸ばさない */
+.shops{align-items:start}
+.sd-in{display:block!important}
+.sd-in .sd-logo{margin:0 0 10px}
+.sd dd a[href^="tel:"],.sd dd{word-break:keep-all;overflow-wrap:anywhere}
+/* お店の写真：枚数によらず同じ大きさの3列 */
+.sph,.sph.n1,.sph.n2{grid-template-columns:repeat(3,1fr)}
+.sph.n1 a{aspect-ratio:4/3}
+.sb .logo-s,.sb img.logo{object-fit:contain}
+/* スマホのチラシ：カードを広くして題名の1文字残りを防ぐ */
+@media (max-width:899px){.fy-row{grid-auto-columns:72%}}
+.flyer-title{text-wrap:balance}
+/* スマホの最初の画面：写真を高く、文字の下を暗く */
+@media (max-width:720px){
+  .hello-ph{min-height:56vh}
+  .hello-ph img.kb{height:100%;object-fit:cover}
+  .hello-ph::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 40%,rgba(40,20,8,.55));pointer-events:none;z-index:1}
+  .hello-in{z-index:2}
+  .hstrip .htel{grid-column:1/-1}
+}
+/* PC：上下のカードの間の隙間 */
+#back,.access section+section{margin-top:16px}
+main{min-height:60vh}
+
+/* fin 2026-11-23 最終点検の直し */
+html.public dd.un,html.public dt:has(+ dd.un),html.public dd:has(> .un:only-child),html.public dt:has(+ dd > .un:only-child){display:none}
+html.public main>section.newssec{grid-template-columns:1fr;grid-template-areas:"h" "p" "n"}
+html.public .newssec>#pane-news .newslist{columns:2;column-gap:56px}
+@media (max-width:900px){html.public .newssec>#pane-news .newslist{columns:1}}
+.greet img{margin-inline:auto;display:block}
+@media (min-width:900px){.flyersec .fy-row{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:720px){.hello-ph img{object-position:74% 78%}.hello-ph{position:relative}}
