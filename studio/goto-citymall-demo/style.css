@@ -2570,3 +2570,24 @@ html.public .newssec>#pane-news .newslist{columns:2;column-gap:56px}
 .greet img{margin-inline:auto;display:block}
 @media (min-width:900px){.flyersec .fy-row{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media (max-width:720px){.hello-ph img{object-position:74% 78%}.hello-ph{position:relative}}
+
+/* d3 2026-11-23 最終のデザイン点検 */
+.pub-only{display:none}
+html.public .pub-only{display:block;color:var(--muted);margin:8px 0 0}
+.greet-ph{margin:0;text-align:center}
+.greet-ph img{width:100%;max-width:320px;border-radius:16px;display:block;margin:0 auto}
+.greet-ph figcaption{margin-top:10px;font-weight:700;font-size:16px;letter-spacing:.06em}
+/* 館内図の店名を語の途中で折らない */
+.fm-b .fl{word-break:keep-all;overflow-wrap:anywhere;line-height:1.25}
+@media (max-width:720px){.fm-b .fl{font-size:clamp(11px,2.9vw,13px)}}
+/* チラシの縮小：縦長は白地に収める */
+.flyer-image{background:#fff}
+/* 余白をそろえる */
+main>section.flyersec{margin-top:48px}
+.access .card+.card,.access li+li{margin-top:12px}
+/* 最後の大きな写真：文字の側を暗く、看板が見える位置に */
+.closing{position:relative}
+.closing>img{object-position:70% 30%}
+.closing::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(40,20,10,.6),transparent 60%);z-index:1;pointer-events:none}
+.closing-in{position:relative;z-index:2}
+@media (min-width:900px){body{font-size:16px}}
