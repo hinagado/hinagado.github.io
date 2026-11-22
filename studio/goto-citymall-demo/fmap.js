@@ -4,6 +4,7 @@
   if (!map || !info) return;
   document.documentElement.classList.add("js-fm");
   const btns = [...map.querySelectorAll("[data-fl]")], floors = [...map.querySelectorAll(".fm-floor")];
+  const infoInit = info.innerHTML; // 2026-11-22 階を替えたときに戻す最初の文
   // 押したお店をアドレスに残す（file:// などで使えないときは黙って飛ばす）
   const remember = sid => { try { history.replaceState(null, "", location.pathname + location.search + "#fm-" + sid); } catch (e) { /* 何もしない */ } };
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -51,7 +52,35 @@
     if (r.bottom > low) scrollBy({top: Math.min(r.bottom - low, r.top - 80), behavior: reduce ? "auto" : "smooth"});
     else if (r.bottom < 0) info.scrollIntoView({block: "nearest", behavior: reduce ? "auto" : "smooth"});
   });
-  btns.forEach(b => b.addEventListener("click", () => setFloor(b.dataset.fl)));
+  const atEnd = sc => { if (sc.clientWidth) sc.parentElement.classList.toggle("end", sc.scrollLeft + sc.clientWidth >= sc.scrollWidth - 8); };
+  const markEnds = () => map.querySelectorAll(".fm-scroll").forEach(atEnd);
+  btns.forEach(b => b.addEventListener("click", () => {
+    setFloor(b.dataset.fl);
+    const on = map.querySelector(".fm-b.on");
+    if (on && on.closest(".fm-floor").dataset.floor !== b.dataset.fl) { on.classList.remove("on"); on.removeAttribute("aria-current"); info.innerHTML = infoInit; }
+    fitNow();
+  }));
+  // 2026-11-22 スマホでは図が画面より広いので、「全体を見る」で縮めて1画面に入れる（もう一度押すと元の大きさ）
+  const FT = {en: ["See the whole map", "Zoom in"], "zh-Hant": ["看全圖", "放大"], ko: ["전체 보기", "크게 보기"]}[document.documentElement.lang] || ["全体を見る", "大きく見る"];
+  const fitBtn = el("button", "fm-fit", FT[0]); fitBtn.type = "button"; fitBtn.setAttribute("aria-pressed", "false");
+  const sw = map.querySelector(".fm-swipe"); if (sw) sw.after(fitBtn);
+  const FH = {en: "Tap a shop to see its name below.", "zh-Hant": "點選店鋪，下方會顯示店名。", ko: "매장을 누르면 아래에 이름이 나옵니다."}[document.documentElement.lang] || "お店を押すと、下に名前と場所が出ます。";
+  const fitHint = el("span", "fm-fithint", FH); fitBtn.after(fitHint);
+  function fitNow() {
+    const on = map.classList.contains("fit");
+    map.querySelectorAll(".fm-floor:not([hidden]) .fm-scroll").forEach(sc => {
+      const g = sc.querySelector(".fm-grid"); if (!g) return;
+      g.style.zoom = "";
+      if (on && g.offsetWidth > sc.clientWidth) g.style.zoom = String(Math.floor(sc.clientWidth / g.offsetWidth * 1000) / 1000);
+    });
+    markEnds();
+  }
+  fitBtn.addEventListener("click", () => {
+    const on = map.classList.toggle("fit");
+    fitBtn.setAttribute("aria-pressed", String(on)); fitBtn.textContent = on ? FT[1] : FT[0];
+    fitNow();
+  });
+  addEventListener("resize", fitNow);
   document.addEventListener("click", e => {
     const a = e.target.closest(".fml"); if (!a) return;
     e.preventDefault(); show(a.dataset.shop, true); remember(a.dataset.shop);
@@ -59,9 +88,7 @@
     const box = document.getElementById("fm-" + a.dataset.shop); if (box) box.focus({preventScroll: true});
   });
   // 図を右の端まで動かしたら、「まだ右に続きます」の印（▶）を消す
-  const atEnd = sc => { if (sc.clientWidth) sc.parentElement.classList.toggle("end", sc.scrollLeft + sc.clientWidth >= sc.scrollWidth - 8); };
   map.querySelectorAll(".fm-scroll").forEach(sc => { sc.addEventListener("scroll", () => atEnd(sc), {passive: true}); });
-  const markEnds = () => map.querySelectorAll(".fm-scroll").forEach(atEnd);
   addEventListener("resize", markEnds);
   setFloor("1F");
   markEnds();

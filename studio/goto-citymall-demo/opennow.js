@@ -14,9 +14,9 @@
   const WD = ['日', '月', '火', '水', '木', '金', '土'];
   const T = {
     ja: { open: '営業中', openIrr: '営業時間内（休みはお店に確認）', before: '開店前・{t}から', after: '本日の営業は終了', closed: '本日は定休日', ask: 'お休みの場合あり（お店に確認）' },
-    en: { open: 'Open now', openIrr: 'Within hours (days off vary; ask the shop)', before: 'Not open yet · opens at {t}', after: 'Closed for today', closed: 'Closed today', ask: 'May be closed today (ask the shop)' },
-    'zh-Hant': { open: '營業中', openIrr: '營業時間內（公休日不定，請向店家確認）', before: '準備中・{t} 開始營業', after: '今日營業已結束', closed: '今日公休', ask: '今日可能公休（請向店家確認）' },
-    ko: { open: '영업 중', openIrr: '영업시간 내(휴무일은 매장에 확인)', before: '준비 중·{t}부터 영업', after: '오늘 영업 종료', closed: '오늘 휴무', ask: '오늘 휴무일 수 있음(매장에 확인)' }
+    en: { open: 'Open now', openIrr: 'Open now (closing days vary)', before: 'Opens at {t}', after: 'Closed now', closed: 'Closed today', ask: 'May be closed today (ask the shop)' },
+    'zh-Hant': { open: '營業中', openIrr: '營業中（公休日不定）', before: '準備中・{t} 開始營業', after: '今日營業已結束', closed: '今日公休', ask: '今日可能公休（請向店家確認）' },
+    ko: { open: '영업 중', openIrr: '영업 중(휴무일 비정기)', before: '준비 중·{t}부터 영업', after: '오늘 영업 종료', closed: '오늘 휴무', ask: '오늘 휴무일 수 있음(매장에 확인)' }
   };
 
   function jstNow() {

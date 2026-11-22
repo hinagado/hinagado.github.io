@@ -2434,3 +2434,44 @@ main>section.flyersec{margin-top:0;padding-top:8px}
 .ytbl td:first-child{white-space:nowrap;color:var(--main-d,#a4441a);font-weight:700}
 .ysub{margin-top:28px}
 @media (max-width:600px){.ytbl thead{display:none}.ytbl,.ytbl tbody{display:block}.ytbl tr{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;padding:12px 2px;border-bottom:1px solid #eadfd6}.ytbl th,.ytbl td{border:0;padding:0}.ytbl td:first-child{grid-column:1/3;font-size:13.5px}.ytbl tbody th{white-space:nowrap}}
+
+/* r1 2026-11-22 採点の直し */
+.flyer-image{aspect-ratio:4/3;object-fit:contain;object-position:center;background:#f4efe9}
+.flyer-open{margin-top:6px}
+.hstrip .htel a{color:var(--red-dark);text-decoration:none;border-bottom:2px solid currentColor}
+.empty-fac{font-size:.92rem;margin:6px 0 14px}
+.lb{position:fixed;inset:0;z-index:1000;background:rgba(20,14,10,.94);display:flex;flex-direction:column}
+.lb[hidden]{display:none}
+.lb-top{display:flex;align-items:center;gap:8px;padding:8px 10px;color:#fff}
+.lb-cap{flex:1;font-size:15px;font-weight:700;line-height:1.4}
+.lb button{min-width:48px;min-height:48px;border:0;border-radius:99px;background:rgba(255,255,255,.16);color:#fff;font-size:17px;font-weight:700;padding:0 16px;cursor:pointer}
+.lb button:focus-visible{outline:3px solid var(--sunny);outline-offset:2px}
+.lb-sc{flex:1;overflow:auto;-webkit-overflow-scrolling:touch;display:flex;align-items:flex-start;justify-content:center}
+.lb-sc img{display:block;max-width:100%;height:auto;margin:auto;background:#fff}
+.lb.zoom .lb-sc img{max-width:none;width:220%}
+.lb-bot{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 10px calc(8px + env(safe-area-inset-bottom));color:#fff;font-size:15px}
+html.lb-open{overflow:hidden}
+.fmp .mi a,.fmp a.tel,.sd-map a,footer a[href^="tel:"]{display:inline-flex;align-items:center;min-height:44px}
+
+.ntbl{border-collapse:collapse;margin:6px 0 8px;font-size:15px}.ntbl th,.ntbl td{padding:5px 12px 5px 0;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}.ntbl th{font-weight:500;color:var(--muted);white-space:nowrap}.ntbl td{font-weight:700;font-feature-settings:"tnum"}
+
+/* r4 2026-11-22 採点2回目の直し */
+.fm-fit{display:none;min-height:44px;margin:0 0 10px;padding:0 18px;border:2px solid var(--red);border-radius:99px;background:#fff;color:var(--red-dark);font:inherit;font-weight:700;cursor:pointer}
+.fm-fit[aria-pressed="true"]{background:var(--red);color:#fff}
+@media (max-width:900px){.fm-fit{display:inline-flex;align-items:center}}
+#fm.fit .fm-floor.end::after,#fm.fit .fm-floor::after{display:none}
+.ev .tag,.ev .soon,.ev [class*="soon"],.badge,.ev-badge{white-space:nowrap}
+.hstrip small .nw{white-space:nowrap}
+footer a[href^="tel:"],a.more,.today small a,#back a,.access a.btnlink{display:inline-flex;align-items:center;min-height:44px}
+#fm.fit .fm-swipe{display:none}
+/* r6 2026-11-22 押しやすさ（指で押す所は高さ44px以上） */
+.langbar a{min-height:44px;display:inline-flex;align-items:center}
+a.go,.telbtn,.hstrip .htel a,.slide .cap a,dd a.ext,p a.ext,dd>a[href^="tel:"]{display:inline-flex;align-items:center;min-height:44px}
+@media (max-width:760px){ol.steps.picks li{padding-bottom:10px}}
+
+/* r7 2026-11-22 */
+.fm-fithint{display:none;margin:0 0 10px 10px;font-size:14px;color:var(--muted);vertical-align:middle}
+#fm.fit .fm-fithint{display:inline}
+.fm-info a.tel,.fm-info .fm-go{display:inline-flex;align-items:center;min-height:44px}
+.fy-row,[data-flyers]{align-items:start}
+#fm.fit .fm-fithint{display:block;margin:0 0 10px}

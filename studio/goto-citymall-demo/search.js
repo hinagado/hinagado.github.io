@@ -16,13 +16,16 @@
     floor: tabBtns.some(b => b.dataset.tab === (u.get("floor") || u.get("tab"))) ? (u.get("floor") || u.get("tab")) : "all",
     kind: kindBtns.some(b => b.dataset.kind === u.get("kind")) ? u.get("kind") : "すべて",
     own: u.get("own") === "1" || u.get("tab") === "own",
+    open: u.get("open") === "1",
   };
+  const openBtn = document.getElementById("openbtn");
+  const isOpen = c => { const b = c.querySelector(".now"); return !!b && !b.hidden && (b.dataset.state === "open" || b.dataset.state === "openIrr"); };
   input.value = state.q;
   function draw(save) {
     const words = norm(floorWord(state.q)).split(/\s+/).filter(Boolean);
     let n = 0;
     cards.forEach((c, i) => {
-      const ok = (!state.own || c.dataset.tab === "own")
+      const ok = (!state.own || c.dataset.tab === "own") && (!state.open || isOpen(c))
         && (state.kind === "すべて" || c.dataset.k === state.kind)
         && (state.floor === "all" || c.dataset.f === state.floor)
         && words.every(w => index[i].includes(w));
@@ -35,14 +38,17 @@
     });
     count.textContent = n + "店";
     empty.hidden = n > 0;
+    const emp = empty.querySelector("p");
+    if (emp) { if (!emp.dataset.def) emp.dataset.def = emp.textContent; emp.textContent = n === 0 && state.open ? "いま営業中のお店はありません（開店前か、本日の営業が終わった時間です）。通常は10:00〜20:00、つばき屋・ダイソーは9:00から開いています。" : emp.dataset.def; }
     // 見つからない時の案内と「すべてのお店を見る」が、下の固定メニューの裏に隠れないように（出た時に1回だけ、必要な分だけ送る）
     if (n === 0 && !draw.wasEmpty && save) empty.scrollIntoView({block: "nearest", behavior: "instant"});
     draw.wasEmpty = n === 0;
-    clear.hidden = !state.q && state.kind === "すべて" && state.floor === "all" && !state.own;
+    clear.hidden = !state.q && state.kind === "すべて" && state.floor === "all" && !state.own && !state.open;
     bar.classList.toggle("filtered", !clear.hidden); // しぼっている間は、貼り付いた検索欄を縮めない（「解除」と選んだ条件を見せる）
     tabBtns.forEach(b => b.setAttribute("aria-pressed", b.dataset.tab === state.floor));
     kindBtns.forEach(b => b.setAttribute("aria-pressed", b.dataset.kind === state.kind));
     if (ownBtn) ownBtn.setAttribute("aria-pressed", state.own);
+    if (openBtn) openBtn.setAttribute("aria-pressed", state.open);
     if (save) {
       list.classList.add("live"); // しぼった後だけ、出てくるカードを少し動かす（開いた直後は動かさない）
       const p = new URLSearchParams();
@@ -50,6 +56,7 @@
       if (state.kind !== "すべて") p.set("kind", state.kind);
       if (state.floor !== "all") p.set("floor", state.floor);
       if (state.own) p.set("own", "1");
+      if (state.open) p.set("open", "1");
       const qs = p.toString();
       try { history.replaceState(null, "", qs ? "?" + qs : location.pathname); } catch (e) { /* file:// では保存しない */ }
     }
@@ -63,7 +70,8 @@
   tabBtns.forEach(b => b.addEventListener("click", () => { state.floor = b.dataset.tab; draw(true); toResult(); }));
   kindBtns.forEach(b => b.addEventListener("click", () => { state.kind = b.dataset.kind; draw(true); toResult(); }));
   if (ownBtn) ownBtn.addEventListener("click", () => { state.own = !state.own; draw(true); toResult(); });
-  const resetAll = () => { state.q = ""; state.own = false; state.kind = "すべて"; state.floor = "all"; input.value = ""; draw(true); toResult(); };
+  if (openBtn) openBtn.addEventListener("click", () => { state.open = !state.open; draw(true); toResult(); });
+  const resetAll = () => { state.q = ""; state.own = false; state.open = false; state.kind = "すべて"; state.floor = "all"; input.value = ""; draw(true); toResult(); };
   document.getElementById("reset").addEventListener("click", resetAll);
   clear.addEventListener("click", resetAll);
   // スマホ：下へ動かして検索欄が上に貼り付いたら、1段（検索だけ）に縮める。「しぼる」を押すと階と種類が出る
@@ -82,4 +90,5 @@
     onScroll();
   }
   draw(false);
+  if (state.open) addEventListener("load", () => draw(false)); // 営業中の印は opennow.js が後で付けるので、読み込みのあとにもう一度しぼる
 })();

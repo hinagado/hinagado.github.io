@@ -74,8 +74,8 @@
       flElement('p', 'flyer-period', flStart && flEnd ? flStart + '〜' + flEnd : flAlways));
     const flLink = flElement('a', 'flyer-open', '大きく見る');
     flLink.href = String(flItem.open);
-    flLink.target = '_blank';
-    flLink.rel = 'noopener noreferrer';
+    flLink.dataset.lb = 'flyer';
+    flLink.dataset.cap = flShop + '：' + flTitle;
     flText.appendChild(flLink);
     flArticle.append(flImage, flText);
     return flArticle;
