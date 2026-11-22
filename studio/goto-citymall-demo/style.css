@@ -2591,3 +2591,8 @@ main>section.flyersec{margin-top:48px}
 .closing::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(40,20,10,.6),transparent 60%);z-index:1;pointer-events:none}
 .closing-in{position:relative;z-index:2}
 @media (min-width:900px){body{font-size:16px}}
+
+/* m 2026-11-23 朝の点検：最後の写真のボタンがフッターの波に重ならないように */
+.closing-in{padding-bottom:56px}
+@media (max-width:720px){.closing-in{padding-bottom:72px}}
+#filters #owns{order:-1}#filters .clear{order:-2}
