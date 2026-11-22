@@ -2421,3 +2421,7 @@ main>section.flyersec{margin-top:0;padding-top:8px}
 .flyer-open{margin-top:auto;align-self:flex-start;display:inline-block;padding:8px 14px;border-radius:999px;background:var(--red);color:#fff;font-weight:700;font-size:.88rem;text-decoration:none}
 .flyer-open:hover,.flyer-open:focus-visible{background:var(--red-dark);outline:3px solid var(--sunny);outline-offset:2px}
 @media (min-width:900px){.fy-row{grid-auto-flow:row;grid-template-columns:repeat(4,1fr);overflow:visible}}
+
+.greet{display:grid;grid-template-columns:minmax(0,240px) 1fr;gap:18px;align-items:start}
+.greet img{width:100%;height:auto;border-radius:16px;box-shadow:var(--sh-up)}
+@media (max-width:600px){.greet{grid-template-columns:1fr}.greet img{max-width:260px}}
