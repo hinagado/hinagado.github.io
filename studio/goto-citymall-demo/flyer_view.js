@@ -40,9 +40,10 @@
 
   function flDemoItems() {
     if (flBox.dataset.demo === '1') return [
-      {shop: 'リトル・クルサ', title: '冬のありがとうセール', start: '2026-12-05', end: '2026-12-20', kind: 'image', img: 'img/flyer/demo1.svg', open: 'img/flyer/demo1.svg'},
-      {shop: 'おもちゃ屋おやこパンダ', title: 'クリスマスの新しいおもちゃ', start: '2026-12-01', end: '2026-12-25', kind: 'image', img: 'img/flyer/demo2.svg', open: 'img/flyer/demo2.svg'},
-      {shop: 'ボンパティ', title: 'クリスマスケーキのご予約', start: '2026-12-01', end: '2026-12-23', kind: 'image', img: 'img/flyer/demo3.svg', open: 'img/flyer/demo3.svg'}
+      // 2026-11-22 吉田様経由でお店から届いたチラシ（元は PDF。img/flyer/）
+      {shop: '家具プラス ツーピース', title: '秋のリビング・ダイニングフェア', start: '2026-11-01', end: '2026-11-30', kind: 'image', img: 'img/flyer/twopiece_1_s.webp', open: 'img/flyer/twopiece_1.webp'},
+      {shop: '家具プラス ツーピース', title: '秋の快眠ベッドフェア', start: '2026-11-01', end: '2026-11-30', kind: 'image', img: 'img/flyer/twopiece_2_s.webp', open: 'img/flyer/twopiece_2.webp'},
+      {shop: '未来ごとう', title: 'シティモールにデイサービスがあります（見学歓迎）', always: '見学・資料請求はいつでも', kind: 'image', img: 'img/flyer/mirai_1_s.webp', open: 'img/flyer/mirai_1.webp'}
     ];
     return [
       {shop: 'つばき屋', title: '冬のありがとうセール', start: '2026-12-05', end: '2026-12-20', kind: 'image',
@@ -58,9 +59,10 @@
     const flTitle = String(flItem.title || '').trim();
     const flStart = flJapaneseDay(flItem.start);
     const flEnd = flJapaneseDay(flItem.end);
-    const flImageOk = flDemo ? /^(data:image\/svg\+xml|img\/flyer\/demo\d\.svg$)/.test(String(flItem.img || '')) : flDriveImage(flItem.img);
-    const flOpenOk = flDemo ? /^(#flyer-demo-[12]|img\/flyer\/demo\d\.svg)$/.test(String(flItem.open || '')) : flDriveOpen(flItem.open);
-    if (!flShop || !flTitle || !flStart || !flEnd || !flImageOk || !flOpenOk) return null;
+    const flImageOk = flDemo ? /^(data:image\/svg\+xml|img\/flyer\/[a-z0-9_]+\.(svg|webp)$)/.test(String(flItem.img || '')) : flDriveImage(flItem.img);
+    const flOpenOk = flDemo ? /^(#flyer-demo-[12]|img\/flyer\/[a-z0-9_]+\.(svg|webp))$/.test(String(flItem.open || '')) : flDriveOpen(flItem.open);
+    const flAlways = String(flItem.always || '').trim();
+    if (!flShop || !flTitle || (!(flStart && flEnd) && !flAlways) || !flImageOk || !flOpenOk) return null;
 
     const flArticle = flElement('article', 'flyer-card');
     const flImage = flElement('img', 'flyer-image');
@@ -69,7 +71,7 @@
     flImage.alt = flShop + 'のチラシ：' + flTitle;
     const flText = flElement('div', 'flyer-text');
     flText.append(flElement('p', 'flyer-shop', flShop), flElement('h3', 'flyer-title', flTitle),
-      flElement('p', 'flyer-period', flStart + '〜' + flEnd));
+      flElement('p', 'flyer-period', flStart && flEnd ? flStart + '〜' + flEnd : flAlways));
     const flLink = flElement('a', 'flyer-open', '大きく見る');
     flLink.href = String(flItem.open);
     flLink.target = '_blank';

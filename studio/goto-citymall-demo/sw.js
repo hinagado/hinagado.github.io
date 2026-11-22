@@ -1,7 +1,7 @@
 /* このファイルは _offline/make_sw.mjs から生成されます。直接編集しないでください。 */
 "use strict";
 
-const CACHE_NAME = "gcm-goto-citymall-demo-b3f8dae5c2e7";
+const CACHE_NAME = "gcm-goto-citymall-demo-55cc76bc75f1";
 const CACHE_PREFIX = "gcm-goto-citymall-demo-";
 const FONT_CACHE = "gcm-fonts-v1";
 const PRE = [
@@ -27,6 +27,12 @@ const PRE = [
   "img/flyer/demo1.svg",
   "img/flyer/demo2.svg",
   "img/flyer/demo3.svg",
+  "img/flyer/mirai_1_s.webp",
+  "img/flyer/mirai_1.webp",
+  "img/flyer/twopiece_1_s.webp",
+  "img/flyer/twopiece_1.webp",
+  "img/flyer/twopiece_2_s.webp",
+  "img/flyer/twopiece_2.webp",
   "img/food.jpg",
   "img/ig_sheet.jpg",
   "img/ig1.jpg",
@@ -91,6 +97,10 @@ const PRE = [
   "img/menu/marufuku_01.webp",
   "img/menu/marufuku_02_s.webp",
   "img/menu/marufuku_02.webp",
+  "img/menu/marufuku_03_s.webp",
+  "img/menu/marufuku_03.webp",
+  "img/menu/marufuku_04_s.webp",
+  "img/menu/marufuku_04.webp",
   "img/qr-1f-info.png",
   "img/qr-2f-esc.png",
   "img/qr-3f-south.png",
