@@ -2482,3 +2482,38 @@ a.go,.telbtn,.hstrip .htel a,.slide .cap a,dd a.ext,p a.ext,dd>a[href^="tel:"]{d
 .more-shops[hidden]{display:none}
 .cats .cat .cl .cx{display:block;margin-top:2px;font-size:12.5px;font-weight:500;color:var(--muted);line-height:1.35;letter-spacing:0}
 .cats .cat .cl .cx .nw{display:inline-block!important;margin:0!important;padding:0!important;font:inherit!important;line-height:1.35!important;color:inherit!important;background:none!important;white-space:nowrap}
+
+/* d1 2026-11-22 デザイナーの点検（文字は最小14px・段を減らす・色をそろえる・PCの穴をふさぐ） */
+.hstrip b{font-size:14px}
+.cats .cat .cl{font-size:15px}
+.cats .cat .cl .cx{font-size:14px}
+.ev .where{font-size:14px}
+.ev b{font-size:18px}
+.jump a{font-size:14px}
+.ntbl,.ntbl th,.ntbl td{font-size:15px}
+.ytbl td,.ytbl th{font-size:15px}
+.flyer-shop,.flyer-period{font-size:14px}
+/* お店のカード */
+.shop .row span,.shop .acts a,.chips button,.stabs button{font-size:15px}
+.shop .sb>p{font-size:16px}
+/* 件数の札と「残り○店を見る」は1色に（白文字の低いコントラストをやめる） */
+.grp h2 small{background:#fdebd6;color:#8a3a10;border-color:transparent}
+.more-shops{border-color:#e2cdb8}
+/* 館内図：文字を少し大きく、設備の字を濃く、図の幅を詰める（日本語） */
+.fm-b .fl{font-size:13px}
+.fm-f .fl,.fm-f{font-size:12px;color:#5c4a3c}
+html[lang="ja"] .fm-grid{min-width:760px}
+/* PC のお知らせ：右の「セール」の見出しと箱の間の穴をふさぐ */
+main>section.newssec{grid-template-rows:auto auto auto 1fr}
+/* PC のチラシ：枚数に合わせて広げ、ボタンの位置をそろえる */
+@media (min-width:900px){
+  .fy-row{grid-template-columns:repeat(auto-fit,minmax(220px,1fr));align-items:stretch}
+  .fy-row .flyer-open{margin-top:auto}
+  .fy-row,[data-flyers]{align-items:stretch}
+}
+/* 押しやすさ・余白 */
+.hwords a{display:inline-flex;align-items:center;min-height:44px}
+.prov a,.access .nw a,p .nw a{padding:10px 4px}
+section.flyersec{padding-bottom:8px}
+.flyersec .fy-row{padding-bottom:4px}
+.grp h2 small,.shops-wrap .grp h2 small{background:#fdebd6!important;color:#8a3a10!important;box-shadow:none!important}
