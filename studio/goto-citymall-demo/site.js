@@ -66,6 +66,9 @@ document.addEventListener("click", ev => {
 (function () {
   if (!document.documentElement.classList.contains("anim")) return;
   // 最初の写真：7秒ごとに、ゆっくり寄りながら次の写真へ。3枚を2周したら1枚目で自動で止まる。右下のボタンでも止められる
+  // 写真が1枚だけのとき（2026-11-23 から外観1枚）：ボタンで、ゆっくり寄る動きを止める・動かす
+  const one = document.querySelector(".hello-ph:not([data-slides])"), b1 = one && one.querySelector(".kbpause");
+  if (one && b1) b1.addEventListener("click", () => { const p = !one.classList.contains("paused"); one.classList.toggle("paused", p); b1.setAttribute("aria-pressed", p); b1.setAttribute("aria-label", p ? b1.dataset.play : b1.dataset.pause); });
   const ph = document.querySelector(".hello-ph[data-slides]"), btn = ph && ph.querySelector(".kbpause");
   if (ph && btn) {
     const first = ph.querySelector("img.kb"), all = [first];

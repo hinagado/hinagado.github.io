@@ -2596,3 +2596,62 @@ main>section.flyersec{margin-top:48px}
 .closing-in{padding-bottom:56px}
 @media (max-width:720px){.closing-in{padding-bottom:72px}}
 #filters #owns{order:-1}#filters .clear{order:-2}
+
+/* cv 2026-11-23 お店の写真を主役に：カードの一番上に大きく1枚、その下に残りを小さく（代表「写真が活かされていない」） */
+body.page-shops .shop.hasph{padding:0;overflow:hidden}
+body.page-shops .shop.hasph>.sb{padding:14px 16px 16px}
+body.page-shops .shop.hasph>.ini{display:none}
+body.page-shops .shop.hasph .sb>h3,body.page-shops .shop.hasph .sb>p{margin-left:0}
+.sph.cover{display:block;margin:0;background:#efe6dc}
+.sph.cover .cv-main{position:relative;display:block;aspect-ratio:4/3;border-radius:0;overflow:hidden;background:#efe6dc}
+.sph.cover .cv-main img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
+.sph.cover .cv-main:hover img{transform:scale(1.03)}
+.sph.cover .cv-n{position:absolute;right:10px;bottom:10px;padding:3px 10px;border-radius:99px;background:rgba(30,20,14,.72);color:#fff;font-size:13px;font-weight:700;letter-spacing:.04em;line-height:1.6;backdrop-filter:blur(4px)}
+.sph.cover .cv-n::before{content:"";display:inline-block;width:13px;height:10px;margin-right:5px;vertical-align:-1px;border:1.6px solid #fff;border-radius:2.5px;box-sizing:border-box}
+.sph.cover .cv-th{display:grid;grid-template-columns:repeat(5,1fr);gap:3px;padding:3px 0 0;background:#fff}
+.sph.cover .cv-th a{display:block;aspect-ratio:4/3;overflow:hidden;border-radius:0;background:#efe6dc}
+.sph.cover .cv-th img{display:block;width:100%;height:100%;object-fit:cover;transition:opacity .2s}
+.sph.cover .cv-th a:hover img{opacity:.82}
+.sph.cover a:focus-visible{outline:3px solid var(--k,#c4541c);outline-offset:-3px}
+body.page-shops .shop.hasph{gap:0}
+body.page-shops .shop.hasph>.sb{padding-top:10px}
+.sph.cover.n2 .cv-th,.sph.cover.n3 .cv-th,.sph.cover.n4 .cv-th,.sph.cover.n5 .cv-th{grid-template-columns:repeat(4,1fr)}
+
+/* gal 2026-11-23 トップ「館内のお店」：撮影した写真を大きく並べる（スマホは横にめくる、パソコンは4列） */
+.galsec{margin:40px auto 8px}
+.galsec>h2{margin-bottom:4px}
+.galsec>.lead{color:var(--muted);margin:0 0 14px}
+.gal{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:18px 16px}
+.gal a{display:block;color:var(--ink);text-decoration:none}
+.gal .gl-ph{display:block;aspect-ratio:4/3;border-radius:14px;overflow:hidden;background:#efe6dc;box-shadow:0 1px 0 rgba(80,40,10,.06),0 6px 16px rgba(80,40,10,.10)}
+.gal img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
+.gal a:hover img{transform:scale(1.04)}
+.gal b{display:block;margin-top:9px;font-size:16px;line-height:1.4;word-break:keep-all;overflow-wrap:anywhere}
+.gal small{display:block;margin-top:2px;font-size:14px;color:var(--muted);line-height:1.5}
+.gal a:focus-visible .gl-ph{outline:3px solid var(--accent,#c4541c);outline-offset:3px}
+.galsec>.more{display:inline-block;margin-top:16px}
+@media (max-width:720px){
+  .galsec{margin-top:32px}
+  .gal{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:72%;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -16px;padding:0 16px 8px;scroll-padding:0 16px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .gal::-webkit-scrollbar{display:none}
+  .gal li{scroll-snap-align:start}
+}
+.gal small{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden}
+/* 外国語の長い設備名（Nursing room & diaper changing など）が隣の文字に重ならないように */
+.facs li b{white-space:normal;overflow-wrap:anywhere}
+.facs li span{flex:1 1 auto;min-width:0}
+/* 外国語版：ページ最後の注意書きがフッターの波に隠れないように */
+body.intl main{padding-bottom:64px}
+
+/* rm 2026-11-23 動きを減らす設定の方には、写真の拡大の動きを出さない */
+@media (prefers-reduced-motion:reduce){.sph.cover img,.gal img{transition:none}.sph.cover .cv-main:hover img,.gal a:hover img{transform:none}}
+
+/* f2 2026-11-23 新しい目の採点の指摘：小さい写真の列は枚数に合わせて横いっぱい・高さはそろえる（店名の高さが隣のカードとそろう） */
+.sph.cover .cv-th{grid-template-columns:repeat(4,1fr)!important;grid-auto-rows:64px}
+.sph.cover .cv-th.c1{grid-template-columns:1fr!important}.sph.cover .cv-th.c2{grid-template-columns:repeat(2,1fr)!important}.sph.cover .cv-th.c3{grid-template-columns:repeat(3,1fr)!important}
+.sph.cover .cv-th a{aspect-ratio:auto;height:100%;position:relative}
+.sph.cover .cv-th a[hidden]{display:none}
+.sph.cover .cv-more{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(30,20,14,.55);color:#fff;font-weight:700;font-size:18px;letter-spacing:.02em}
+@media (max-width:720px){.sph.cover .cv-th{grid-auto-rows:72px}}
+/* 写真の無いお店（ATM・不動産）は、隣の写真つきカードの高さまで伸ばさない */
+body.page-shops .shop:not(.hasph){align-self:start}
