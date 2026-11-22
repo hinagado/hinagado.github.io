@@ -34,6 +34,8 @@ header{position:sticky;top:0;z-index:10;background:rgba(255,250,243,.94);-webkit
 .sync.off i{background:#c0392b}
 @keyframes bl{50%{opacity:.3}}
 .tabs{display:grid;grid-template-columns:repeat(3,1fr);margin-top:8px}
+html:not(.shoot) .tabs{grid-template-columns:repeat(2,1fr)}
+html:not(.shoot) #tab-s,html:not(.shoot) #p-s{display:none!important}
 .tabs button{position:relative;min-height:48px;border:0;background:none;cursor:pointer;font-weight:700;font-size:15px;color:var(--muted);display:flex;align-items:center;justify-content:center;gap:6px}
 .tabs button svg{width:18px;height:18px}
 .tabs button[aria-selected=true]{color:var(--main-d)}
@@ -278,6 +280,7 @@ main{max-width:900px;margin:0 auto;padding:16px 16px 130px}
 .zan{margin:0 0 12px}.zan table{border-collapse:collapse;width:100%;font-size:14px}.zan th,.zan td{border-bottom:1px solid var(--line);padding:6px 6px;text-align:left;vertical-align:top}.zan th{white-space:nowrap;color:var(--main)}.zan td.d{white-space:nowrap;font-weight:700}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
+<script>if(/[?&]shoot\b/.test(location.search))document.documentElement.classList.add("shoot")</script>
 </head>
 <body>
 <header id="hd"><div class="hd">
@@ -633,7 +636,7 @@ const M = [
     ["ok", "12月7日〜15日の催事「パレット」", "<strong>洋服の販売</strong>。2階のパレットが1階で販売（11/18）。見本に反映済み"],
     ["must", "休憩所の「何階のどこ」", "<strong>1階 ピーパラダイス前／ファンタジーランドとパレットの間</strong>（11/18）。見本には「2階 ファンタジーランドとパレットの間」と2か所で書いた。21日に確かめていれば済にする。まだなら、2か所で合っているか確かめる"],
     ["must", "ドコモショップの LINE・Facebook の QR とロゴ", "吉田様から届く予定"],
-    ["must", "まだ素材が届いていないお店", "11/21 に7店のロゴが届き、見本に入れた（ダイソー・家具プラス ツーピース・釣りします 釣具店・パレット・未来ごとう・楽天モバイル・たびのコンパス）。届いたのは計33店（ドコモは本部の許可が出ずロゴなし）。<strong>まだの3店</strong>：パレット HOMME（パレットと同じロゴでよいか）、釣りします 不動産（釣具店と同じロゴでよいか）、白寿ヘルストロン。十八親和銀行ATMはページを作らないので不要。<br>あわせて聞く：ダイソーのQR（中身が何の案内か）・パレットとたびのコンパスのInstagram・LINEのQRをお店のページに載せてよいか。たびのコンパスの<b>求人</b>はメールでいただいたが、求人はお店が<b>フォームで送り、御社が「載せる」を選んで載る</b>決まりなので、公開後にフォームから送っていただく（見本には入れていない）。ツーピース様のチラシ2枚も届いた（チラシ欄の見本に使ってよいか聞く）"],
+    ["must", "まだ素材が届いていないお店", "11/21 に7店のロゴが届き、見本に入れた（ダイソー・家具プラス ツーピース・釣りします 釣具店・パレット・未来ごとう・楽天モバイル・たびのコンパス）。届いたのは計33店（ドコモは本部の許可が出ずロゴなし）。<strong>まだの3店</strong>：パレット HOMME（パレットと同じロゴでよいか）、釣りします 不動産（釣具店と同じロゴでよいか）、白寿ヘルストロン。十八親和銀行ATMはページを作らないので不要。<br>あわせて聞く：<b>ドコモ</b>は店内で許可をいただいて撮影した。看板の docomo の文字が写った店内写真を載せてよいか、本部に確認できるか（それまではロゴが目立たない形で載せる）。ダイソーのQR（中身が何の案内か）・パレットとたびのコンパスのInstagram・LINEのQRをお店のページに載せてよいか。たびのコンパスの<b>求人</b>はメールでいただいたが、求人はお店が<b>フォームで送り、御社が「載せる」を選んで載る</b>決まりなので、公開後にフォームから送っていただく（見本には入れていない）。ツーピース様のチラシ2枚も届いた（チラシ欄の見本に使ってよいか聞く）"],
     ["ok", "五島らしいおみやげ（看板の品）", "<strong>五島うどん（つばき屋で販売）</strong>（11/18）。見本の「おみやげ」につばき屋を足した"],
     ["later", "使えるお支払い（カード・電子マネー・QR）と免税のお店", "お店ごとに。海外の方向けの印に使います<br><b>23日は「後で表（またはLINE）でお願いします」と一言だけ</b>"],
     ["later", "港・空港まで、船・飛行機に間に合う目安の時間", "アクセスのページに入れます<br><b>23日は「後で表（またはLINE）でお願いします」と一言だけ</b>"],
