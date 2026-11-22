@@ -21,6 +21,26 @@
   const openBtn = document.getElementById("openbtn");
   const isOpen = c => { const b = c.querySelector(".now"); return !!b && !b.hidden && (b.dataset.state === "open" || b.dataset.state === "openIrr"); };
   input.value = state.q;
+  const foldMq = matchMedia("(max-width:720px)"), FOLD_N = 3;
+  function fold(g, on) {
+    const cs = [...g.querySelectorAll(".shop")];
+    cs.forEach((c, i) => c.classList.toggle("fold", on && i >= FOLD_N));
+    let b = g.querySelector(".more-shops");
+    const rest = cs.length - FOLD_N;
+    if (on && rest > 0) {
+      if (!b) {
+        b = document.createElement("button"); b.type = "button"; b.className = "more-shops";
+        b.addEventListener("click", () => { g.dataset.opened = "1"; fold(g, false); const nx = cs[FOLD_N]; if (nx) nx.querySelector("a, summary")?.focus({preventScroll: true}); });
+        g.append(b);
+      }
+      b.textContent = "残り" + rest + "店を見る"; b.hidden = false;
+    } else if (b) b.hidden = true;
+  }
+  // 館内図などから、たたんだお店へ飛ぶときは開いてから見せる
+  const unfoldTo = id => { const c = document.getElementById(id); if (c && c.classList.contains("fold")) { const g = c.closest(".grp"); g.dataset.opened = "1"; fold(g, false); c.scrollIntoView({block: "start"}); } };
+  addEventListener("hashchange", () => { const m = location.hash.match(/^#(shop-s\d+)$/); if (m) unfoldTo(m[1]); });
+  document.addEventListener("click", e => { const a = e.target.closest && e.target.closest('a[href^="#shop-"]'); if (a) setTimeout(() => unfoldTo(a.getAttribute("href").slice(1)), 0); });
+  foldMq.addEventListener && foldMq.addEventListener("change", () => draw(false));
   function draw(save) {
     const words = norm(floorWord(state.q)).split(/\s+/).filter(Boolean);
     let n = 0;
@@ -31,8 +51,10 @@
         && words.every(w => index[i].includes(w));
       c.hidden = !ok; if (ok) n++;
     });
+    const filtered = !!(state.q || state.own || state.open || state.kind !== "すべて" || state.floor !== "all");
     groups.forEach(g => {
       const shown = g.querySelectorAll(".shop:not([hidden])").length;
+      fold(g, !filtered && foldMq.matches && !g.dataset.opened);
       g.hidden = shown === 0;
       g.querySelector("small").textContent = shown + "店";
     });
@@ -90,5 +112,6 @@
     onScroll();
   }
   draw(false);
+  { const m = location.hash.match(/^#(shop-s\d+)$/); if (m) unfoldTo(m[1]); }
   if (state.open) addEventListener("load", () => draw(false)); // 営業中の印は opennow.js が後で付けるので、読み込みのあとにもう一度しぼる
 })();

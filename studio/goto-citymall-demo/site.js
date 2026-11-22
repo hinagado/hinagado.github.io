@@ -18,6 +18,7 @@
     let w = null;
     if (st <= today && today <= en) w = [W[0], "now"]; else if (st > today && (st - today) / 864e5 <= 7) w = [W[1], "soon"];
     if (w) { const b = document.createElement("span"); b.className = "evtag " + w[1]; b.textContent = w[0]; li.prepend(b); }
+    if (en < today && li.classList.contains("ev")) li.hidden = true; // 終わった催事は「これからのイベント」に出さない（2026-11-22）
   });
   // 「公開したときの見え方」：見本の説明（.prov）・例（.tag.ex のある物）・制作の説明を隠す。見本なので保存は端末の中だけ
   const pv = document.querySelector(".pubview");

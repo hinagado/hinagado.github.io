@@ -2475,3 +2475,10 @@ a.go,.telbtn,.hstrip .htel a,.slide .cap a,dd a.ext,p a.ext,dd>a[href^="tel:"]{d
 .fm-info a.tel,.fm-info .fm-go{display:inline-flex;align-items:center;min-height:44px}
 .fy-row,[data-flyers]{align-items:start}
 #fm.fit .fm-fithint{display:block;margin:0 0 10px}
+
+/* r8 2026-11-22 スマホのお店一覧は種類ごとに3店まで（残りはボタンで） */
+.shop.fold{display:none!important}
+.more-shops{display:flex;align-items:center;justify-content:center;width:100%;min-height:48px;margin:8px 0 0;border:2px solid var(--k,var(--line));border-radius:14px;background:#fff;color:var(--ink);font:inherit;font-weight:700;cursor:pointer}
+.more-shops[hidden]{display:none}
+.cats .cat .cl .cx{display:block;margin-top:2px;font-size:12.5px;font-weight:500;color:var(--muted);line-height:1.35;letter-spacing:0}
+.cats .cat .cl .cx .nw{display:inline-block!important;margin:0!important;padding:0!important;font:inherit!important;line-height:1.35!important;color:inherit!important;background:none!important;white-space:nowrap}
