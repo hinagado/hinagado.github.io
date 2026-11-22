@@ -1,7 +1,7 @@
 /* このファイルは _offline/make_sw.mjs から生成されます。直接編集しないでください。 */
 "use strict";
 
-const CACHE_NAME = "gcm-goto-citymall-1123-jptrq-2ccc8aa050e3";
+const CACHE_NAME = "gcm-goto-citymall-1123-jptrq-5c23de57ee8e";
 const CACHE_PREFIX = "gcm-goto-citymall-1123-jptrq-";
 const FONT_CACHE = "gcm-fonts-v1";
 const PRE = [
