@@ -2673,5 +2673,4 @@ body.page-shops .shops{align-items:start}
 #inohit small{display:block;margin-top:8px;font-size:14px;color:var(--muted)}
 
 /* 11/23 建物の外のお店 */
-.fm-b.fm-outside{border-style:dashed}.fm-outtag{position:absolute;left:50%;bottom:-8px;transform:translateX(-50%);background:#2d8a4e;color:#fff;font-style:normal;font-size:10.5px;font-weight:700;line-height:1;padding:3px 6px;border-radius:99px;white-space:nowrap}
-.fm-grid:has(.fm-outside){padding-bottom:12px}
+.fm-b.fm-outside{border-style:dashed;padding-bottom:22px}.fm-outtag{position:absolute;left:50%;bottom:4px;transform:translateX(-50%);background:#2d8a4e;max-width:calc(100% - 6px);overflow:hidden;text-overflow:clip;color:#fff;font-style:normal;font-size:10.5px;font-weight:700;line-height:1;padding:3px 6px;border-radius:99px;white-space:nowrap}
