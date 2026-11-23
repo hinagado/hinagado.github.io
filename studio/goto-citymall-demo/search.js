@@ -43,23 +43,23 @@
   foldMq.addEventListener && foldMq.addEventListener("change", () => draw(false));
   function draw(save) {
     const words = norm(floorWord(state.q)).split(/\s+/).filter(Boolean);
-    let n = 0;
+    let n = 0, all = 0; // n はお店の数（コインランドリー・ATM＝data-nc は数えない）、all は出ている札の数
     cards.forEach((c, i) => {
       const ok = (!state.own || c.dataset.tab === "own") && (!state.open || isOpen(c))
         && (state.kind === "すべて" || c.dataset.k === state.kind)
         && (state.floor === "all" || c.dataset.f === state.floor)
         && words.every(w => index[i].includes(w));
-      c.hidden = !ok; if (ok) n++;
+      c.hidden = !ok; if (ok) { all++; if (!c.dataset.nc) n++; }
     });
     const filtered = !!(state.q || state.own || state.open || state.kind !== "すべて" || state.floor !== "all");
     groups.forEach(g => {
-      const shown = g.querySelectorAll(".shop:not([hidden])").length;
+      const shown = g.querySelectorAll(".shop:not([hidden])").length, shownN = g.querySelectorAll(".shop:not([hidden]):not([data-nc])").length;
       fold(g, !filtered && foldMq.matches && !g.dataset.opened);
       g.hidden = shown === 0;
-      g.querySelector("small").textContent = shown + "店";
+      g.querySelector("small").textContent = shownN ? shownN + "店" : "";
     });
-    count.textContent = n + "店";
-    empty.hidden = n > 0;
+    count.textContent = n ? n + "店" : all + "件";
+    empty.hidden = all > 0;
     const emp = empty.querySelector("p");
     if (emp) { if (!emp.dataset.def) emp.dataset.def = emp.textContent; emp.textContent = n === 0 && state.open ? "いま営業中のお店はありません（開店前か、本日の営業が終わった時間です）。通常は10:00〜20:00、つばき屋・ダイソーは9:00から開いています。" : emp.dataset.def; }
     // 見つからない時の案内と「すべてのお店を見る」が、下の固定メニューの裏に隠れないように（出た時に1回だけ、必要な分だけ送る）

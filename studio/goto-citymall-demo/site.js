@@ -11,6 +11,13 @@
     const x = document.createElement("button"); x.type = "button"; x.className = "nav-x";
     x.setAttribute("aria-label", b.dataset.close || "メニューを閉じる");
     x.addEventListener("click", () => { set(false); b.focus(); }); n.prepend(x);
+    // 2026-11-24 代表「言葉えらびはサイドメニューへ」：上の帯の言語を、引き出しの下にも並べる（スマホでは上の帯を隠す）
+    const lb = document.querySelector(".langbar");
+    if (lb && !n.querySelector(".nav-lang")) {
+      const box = document.createElement("div"); box.className = "nav-lang"; box.setAttribute("role", "group"); box.setAttribute("aria-label", lb.getAttribute("aria-label") || "言語 / Language");
+      lb.querySelectorAll("a").forEach(a => box.append(a.cloneNode(true)));
+      n.append(box); document.documentElement.classList.add("langin");
+    }
   }
   // 2026-11-16 区切りを透明から出す動きはやめた（背の高い区切りが、画面に5%入らず出ないままになっていた）。中身は最初から見せる
   // 催事に「開催中」「まもなく」（7日以内）の印

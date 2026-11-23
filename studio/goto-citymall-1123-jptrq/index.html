@@ -283,6 +283,14 @@ main{max-width:900px;margin:0 auto;padding:16px 16px 130px}
 .zan td.d{white-space:normal;width:5.5em}.zan .card,.card.zan table{table-layout:auto}
 .fstep .no{min-width:58px;font-size:15px}.fbody{margin:0 0 18px}.fbody .fsay{margin-bottom:8px}.fbody.fnone .flowitems::after{content:"この時間の項目は、いまの絞り込みでは出ません";display:block;color:var(--muted);font-size:14px;padding:4px 2px}
 .easy{border:2px solid #2d8a4e33;background:#f2faf4;border-radius:12px;margin:0 0 6px}.easy>summary{color:#22744a;font-weight:700;padding:8px 12px;cursor:pointer}.easy .ez{padding:6px 2px 8px;border-top:1px dashed #cfe3d5}.easy .ez:first-child{border-top:0}.easy .ez b{display:block;color:#22744a}.easy .ez p{margin:3px 0 6px;line-height:1.75}.easy .emo{width:100%;margin:0;min-height:38px;font-size:15px}
+
+/* 11/24 23日のあと */
+.aft-key{border-left:5px solid #c0503a}.aft-key p{margin-top:4px}
+.aft-list{list-style:none;margin:0;padding:0}.aft-list li{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;padding:10px 0;border-bottom:1px solid #eee3d6}.aft-list li:last-child{border-bottom:0}
+.aft-st{grid-row:span 2;align-self:start;font-size:13px;font-weight:700;border-radius:99px;padding:2px 10px;white-space:nowrap}.aft-st.ok{background:#e3f1e7;color:#24663d}.aft-st.wait{background:#fdecc8;color:#7a4b00}
+.aft-b{color:#6b5a4c;font-size:15px}
+.aft-line pre{white-space:pre-wrap;word-break:break-word;font:inherit;font-size:15px;line-height:1.75;background:#fbf7f1;border-radius:10px;padding:12px;margin:8px 0 0}
+.aft-hd{display:flex;justify-content:space-between;align-items:center;gap:8px}.aft-copy{min-height:44px;padding:0 16px;border-radius:10px;border:1.5px solid #c0503a;background:#fff;color:#c0503a;font-weight:700;cursor:pointer}.aft-copy.done{background:#24663d;border-color:#24663d;color:#fff}
 </style>
 <script>if(/[?&]shoot\b/.test(location.search))document.documentElement.classList.add("shoot")</script>
 </head>
@@ -297,6 +305,7 @@ main{max-width:900px;margin:0 auto;padding:16px 16px 130px}
     <button role="tab" id="tab-m" aria-controls="p-m" aria-selected="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l2.5 2.5L16 9"/><rect x="4" y="4" width="16" height="16" rx="4"/></svg>確かめる<span class="n" id="n-m"></span></button>
     <button role="tab" id="tab-s" aria-controls="p-s" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8.5A2.5 2.5 0 0 1 6.5 6h1.8l1.4-2h4.6l1.4 2h1.8A2.5 2.5 0 0 1 20 8.5v8a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 4 16.5z"/><circle cx="12" cy="12.5" r="3.5"/></svg>撮影<span class="n" id="n-s"></span></button>
     <button role="tab" id="tab-f" aria-controls="p-f" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 5h14a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1h-7l-4.5 3.5V16H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"/><path d="M10 9.2a2 2 0 1 1 2.6 1.9c-.4.2-.6.5-.6.9v.3M12 14h.01"/></svg>聞かれたら</button>
+    <button role="tab" id="tab-a" aria-controls="p-a" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>23日のあと</button>
   </div>
 </div></header>
 
@@ -630,6 +639,83 @@ main{max-width:900px;margin:0 auto;padding:16px 16px 130px}
   <div id="list-a"></div>
 </section>
 
+<section class="panel" id="p-a" role="tabpanel" aria-labelledby="tab-a" hidden>
+  <div class="hero"><h2 class="disp">23日のあと</h2><p>打ち合わせで決まったことと、メモへの対応、LINE で送る文面です（11/24 夜にまとめました）。</p></div>
+  <div class="card aft-key"><b>いちばん大きな変更</b><p>ひなが堂は Instagram に関与しない。代わりに、テナントの催事などの<b>チラシ・ポスターを、プロの仕上がりで作る箱</b>を用意する（月4回まで）。箱の中の質問で材料を集め、届いた写真は必ず加工してから使う。</p></div>
+  <div class="sec"><span class="no disp">済</span><h3 class="disp">メモへの対応<small>上から順に。「要確認」は朝に代表へ</small></h3></div>
+  <div class="card"><ul class="aft-list">
+    <li><span class="aft-st ok">済・公開</span><b>館内図1階：けんちゃん・コインランドリーを角へ</b><span class="aft-b">GPT の絵を描き直し。3店の並び（ランドリー・ATM・不動産）はそのまま角に寄せた</span></li>
+    <li><span class="aft-st ok">済・公開</span><b>VITA の店内写真（23日のメール）</b><span class="aft-b">3枚を加工して載せた（6枚に）</span></li>
+    <li><span class="aft-st ok">済・公開</span><b>ドコモの LINE・Facebook の QR（11/20 に届いていた）</b><span class="aft-b">お店の詳細に「LINEで友だち追加」「Facebookを開く」（福江店のアカウント）</span></li>
+    <li><span class="aft-st ok">済・公開</span><b>スマホのメニューをサイドメニューに</b><span class="aft-b">右から画面の高さいっぱいに出る形</span></li>
+    <li><span class="aft-st ok">済・公開</span><b>1月1日〜3日の営業時間は全館統一</b><span class="aft-b">お知らせの表に「全館共通」と明記。「今やっている？」の印も 1/1 は 11:00〜19:00、1/2・3 は 10:00〜19:00 で全店を判定</span></li>
+    <li><span class="aft-st ok">済・公開</span><b>店の数は35（コインランドリー・ATMは数えない）</b><span class="aft-b">トップ・お店のページ・海外向けのページの数をすべて35に。お店の欄にはそのまま載せる</span></li>
+    <li><span class="aft-st wait">公開・要確認</span><b>恵の正しい店名</b><span class="aft-b">「肩こりほぐし隊 恵」にした。メモの「肩こり、ほぐし隊」の「、」を入れるかは代表に確認</span></li>
+    <li><span class="aft-st wait">公開・要確認</span><b>BLOSSOM・VITA は不定休</b><span class="aft-b">定休日の欄を「不定休」にして、営業日はお店の Instagram へ案内。Instagram のアドレスはまだ無いので、下の LINE 6 で聞く</span></li>
+    <li><span class="aft-st ok">済・公開</span><b>ドコモはほぼ無人</b><span class="aft-b">「スタッフがいる日は月に1〜2回ほど。ご用の際は電話へ」と案内</span></li>
+    <li><span class="aft-st ok">済・公開</span><b>Wi-Fi は2階の休憩所とリトル・クルサだけ</b><span class="aft-b">館内の設備の欄を直した</span></li>
+    <li><span class="aft-st ok">済・公開</span><b>言葉えらびをサイドメニューへ</b><span class="aft-b">スマホでは、上の帯をやめて、サイドメニューの下に4つの言語を並べた</span></li>
+    <li><span class="aft-st ok">済・公開</span><b>トップの外観をもう少し明るく</b><span class="aft-b">写真の影の部分を明るくし、文字のための暗い幕も薄くした</span></li>
+    <li><span class="aft-st wait">HPは公開・受付は契約後</span><b>チラシは8枠・期日が終わったら自動で消える・1つに表と裏の2枚</b><span class="aft-b">HP の表示は直して公開（見本にボンパティの表と裏）。お店から受け付ける仕組み（御社の Apps Script に入れる物）も同じ決まりに作り替え、試験127件合格。御社への設定は契約の後</span></li>
+    <li><span class="aft-st wait">作成済・公開は承認待ち</span><b>Instagram には関与しない → チラシ・ポスターの箱</b><span class="aft-b">「投稿の箱」を作り替えた（月4回・10の質問・税込の総額・片面/両面・案A案B・✓）。試験143件合格。受け側（Apps Script）の反映は本番の操作なので代表の承認後に、画面と一緒に公開</span></li>
+    <li><span class="aft-st wait">たたき台・要判断</span><b>契約書のたたき台</b><span class="aft-b">Instagram の所をチラシ・ポスター（月4件・1件の定義・写真の加工）に直し、QR を11か所までと書いた。料金と源泉徴収は代表の判断</span></li>
+    <li><span class="aft-st wait">用意した</span><b>LINE で聞く・伝えること</b><span class="aft-b">下の文面。押すとコピーできる。送るのは代表</span></li>
+  </ul></div>
+  <div class="sec"><span class="no disp">L</span><h3 class="disp">LINE で送る文面<small>3人のグループ（吉田様・植田様）へ。押すとコピー。送るのは代表</small></h3></div>
+  <div class="card aft-line"><div class="aft-hd"><b>1. はじめに・テストプレイのお願い</b><button type="button" class="aft-copy" data-copy="aftl1">コピー</button></div><pre id="aftl1">吉田様、植田様
+先日はお時間をいただき、ありがとうございました。ひなが堂の大久保です。
+このグループで、ホームページの確認を進めさせてください。
+
+見本のホームページを、スマホで実際に触ってみてください。
+・ホームページ（見本）
+https://hinagado.github.io/studio/goto-citymall-demo/
+・館内の現在地QRを読み取った時の画面（見本）
+https://hinagado.github.io/studio/goto-citymall-demo/shops.html?here=1f-info
+
+気になった所は、このLINEにそのまま書いていただければ直します。</pre></div>
+  <div class="card aft-line"><div class="aft-hd"><b>2. チラシ・ポスターの箱（見本）</b><button type="button" class="aft-copy" data-copy="aftl2">コピー</button></div><pre id="aftl2">23日にお決めいただいたとおり、ひなが堂は Instagram には関わらず、代わりに「チラシ・ポスターの箱」をご用意しました。月4回まで、プロのデザインでお作りします。
+見本の画面です（送っても、どこにも届きません）。
+https://hinagado.github.io/studio/goto-citymall-post/post.html?demo=1
+
+いただいた写真は、明るさや色、背景、余白を整えて、おいしそう・きれいに見えるように加工してから使います。
+ボンパティ様のクリスマスケーキで作った見本（表と裏）も、近いうちにお送りします。</pre></div>
+  <div class="card aft-line"><div class="aft-hd"><b>3. 現在地QRの番号の確認</b><button type="button" class="aft-copy" data-copy="aftl3">コピー</button></div><pre id="aftl3">館内の現在地QRは、23日に選んでいただいた次の7か所でお作りします。
+① 1階 入口（ボンパティの左）
+③ 1階 エスカレーター
+④ 1階 エレベーター
+⑥ 1階 入口（麺屋まる福の左）
+⑧ 2階 エスカレーター
+⑨ 2階 エレベーター
+⑪ 3階 南玄関（たびのコンパス）
+上限は11か所ですので、あと4か所まで足せます。
+この番号で合っていますか。</pre></div>
+  <div class="card aft-line"><div class="aft-hd"><b>4. 毎月の報告</b><button type="button" class="aft-copy" data-copy="aftl4">コピー</button></div><pre id="aftl4">ホームページが見られた数などの報告は、契約書では月1回、メールでお送りする形にしています。
+このまま毎月お送りしてよろしいでしょうか。ご入用の時だけでよろしければ、そのように契約書を直します。</pre></div>
+  <div class="card aft-line"><div class="aft-hd"><b>5. お支払い方法と免税</b><button type="button" class="aft-copy" data-copy="aftl5">コピー</button></div><pre id="aftl5">ホームページのお店の欄に、使えるお支払い方法を載せます。
+お店ごとに、分かる範囲で教えていただけますか。
+・クレジットカード
+・電子マネー（交通系、WAON など）
+・QRコード決済（PayPay など）
+・免税の手続きができるか
+分からないお店は、空けたままにしておきます。</pre></div>
+  <div class="card aft-line"><div class="aft-hd"><b>6. ポイントカード・宅配・両替</b><button type="button" class="aft-copy" data-copy="aftl6">コピー</button></div><pre id="aftl6">館内のことで、3つ教えてください。
+①ポイントカード・スタンプカードのあるお店
+②宅配で送れるお店
+③両替ができる所（なければ「なし」で大丈夫です）
+④BLOSSOM様と hair salon VITA様の Instagram のアドレス（営業日を Instagram でご案内するため）
+なお、無料Wi-Fiは「2階の休憩所と、リトル・クルサの店内」と載せました。</pre></div>
+  <div class="card aft-line"><div class="aft-hd"><b>7. Googleマップの持ち主の調べ方</b><button type="button" class="aft-copy" data-copy="aftl7">コピー</button></div><pre id="aftl7">Googleマップの「五島シティモール」を、どなたが管理しているかの調べ方です。
+①スマホのGoogleマップで「五島シティモール」を開く
+②お店の情報を下の方まで見る
+③「このビジネスのオーナーですか？」と出ていれば、まだどなたも管理していません。その場合は、御社のGoogleアカウントで登録できます。
+出ていない時は、どなたかが管理している可能性があります。社内に心当たりがなければ、Google の手順で管理の権限をお願いできます。
+https://support.google.com/business/answer/4566671?hl=ja
+画面の文字は変わることがありますので、分からなければスクリーンショットを送ってください。一緒に進めます。</pre></div>
+  <div class="card aft-line"><div class="aft-hd"><b>8. 契約書について</b><button type="button" class="aft-copy" data-copy="aftl8">コピー</button></div><pre id="aftl8">23日に決まったこと（Instagramには関わらず、チラシ・ポスターの作成を月4件まで担当する）に合わせて、契約書を直しています。
+仕上がりましたら、あらためてお送りします。</pre></div>
+  <p class="note">ドメインの年会費の支払い方法（カード等）は、使う会社（Cloudflare）の受け付ける方法をまだ確かめていないため、文面に入れていません［要確認］。</p>
+</section>
+
 <!-- 聞かれたら -->
 <section class="panel" id="p-f" role="tabpanel" aria-labelledby="tab-f" hidden>
   <div class="hero">
@@ -812,11 +898,11 @@ const F = [
   ["お金", "振込はいくらになりますか（源泉徴収）", "10万円から10,210円を差し引いて、89,790円ずつです。", "税理士の先生のご判断どおり、20万円全額に10.21%をかけています。請求書にも「委託料・源泉徴収税額・差し引いた額」を分けて書きます。月1万円の保守は源泉徴収の対象外なので、毎月1万円のままです。", "11/18・11/19 吉田様（税理士の先生）"],
   ["お金", "インボイスの番号はありますか", "登録していないので、番号はありません。そのぶん消費税を足さずに、総額でご請求しています。", "御社の消費税の計算への影響は、税理士の先生にご確認ください。将来ひなが堂が登録したときは、相談して決めることにしています。", "契約書（委託料）"],
   ["お金", "追加でお金がかかることはありますか", "範囲を超えるものは、できるかどうかから、まず相談させてください。", "（こちらから「無料で」とは言わない。契約書では、引き受けるときは何をするか・ほかを減らすか延ばすかをメールで決めることになっている）ドメイン・広告・印刷など、御社が直接払う費用は別です。2回目以降の撮影も別のご相談です。", "契約書 第6条"],
-  ["中身", "20万円で何をしてもらえますか", "公式ホームページ（お店ごとのページと外国語のページを含む）、Googleマップのお店の情報1件、今お使いのInstagramの整え、の3つです。", "お店ごとのページは、一覧表のお店と開店予定のお店まで含めています。外国語は英語・中国語（繁体字）・韓国語です。", "契約書（業務の内容）・別紙"],
-  ["中身", "月1万円で何をしてもらえますか", "公開後のホームページの更新を月4回、Instagramの投稿づくり、見られた数の報告です。", "お店が入力フォームで送って、御社が「載せる」を選ぶだけで載る物（求人・お知らせ・お支払い方法）は、4回に数えません。Instagramの投稿とGoogleマップの営業時間の更新も、回数に数えません。報告は翌月10日までにメールでお送りします。", "契約書 別紙「更新の数え方」"],
+  ["中身", "20万円で何をしてもらえますか", "公式ホームページ（お店ごとのページと外国語のページを含む）と、Googleマップのお店の情報1件です。Instagram は、23日のお打ち合わせで、ひなが堂は関わらないことになりました。", "お店ごとのページは、一覧表のお店と開店予定のお店まで含めています。外国語は英語・中国語（繁体字）・韓国語です。", "契約書（業務の内容）・別紙"],
+  ["中身", "月1万円で何をしてもらえますか", "公開後のホームページの更新を月4回、チラシ・ポスターの作成を月4件まで、見られた数の報告です。", "お店が入力フォームで送って、御社が「載せる」を選ぶだけで載る物（求人・お知らせ・お支払い方法）は、4回に数えません。チラシ・ポスターの作成と、Googleマップの営業時間の更新も、更新の回数に数えません。チラシ・ポスターは「チラシの箱」から材料を送っていただき、案を2つお見せして選んでいただきます。報告は翌月10日までにメールでお送りします。", "契約書 別紙「更新の数え方」"],
   ["中身", "公開前に何回まで直してもらえますか", "見た目・文章・配置の直しは、全体で2回までです。1回分は、まとめていただいた直しの指示をひとまとめに数えます。", "不具合を直すのは、この回数に含みません。2回を超える場合も、相談して決めます。", "契約書 第6条"],
   ["中身", "自分たちで更新できますか", "お知らせ・催事は、Googleスプレッドシートに書くと載る仕組みにします。お店からは、フォームで写真とメモを送っていただけます。", "見本のHPの「この見本の説明」に、表を直すと載る体験ができる所があります。", "見本のHP（demo.html）"],
-  ["中身", "いつ公開できますか", "12月10日ごろを目指しています。契約書の上では12月中を目標にしています。", "土台はできています。11月30日までに社長のお名前・ごあいさつ文・アカウントがそろい、12月5日までに素材と直してほしい所をまとめていただき、12月8日に合格をいただければ間に合います。QRの掲示・手引き・Instagram のはじめの9投稿は12月20日までです。目標で、お約束の期限ではありません（契約書 別紙）。", "契約書 別紙"],
+  ["中身", "いつ公開できますか", "12月10日ごろを目指しています。契約書の上では12月中を目標にしています。", "土台はできています。11月30日までに社長のお名前・ごあいさつ文・アカウントがそろい、12月5日までに素材と直してほしい所をまとめていただき、12月8日に合格をいただければ間に合います。QRの掲示・手引きは12月20日までです。目標で、お約束の期限ではありません（契約書 別紙）。", "契約書 別紙"],
   ["中身", "公開した後に不具合があったら", "公開から3か月は、無料で直します。フォームや自動で載る仕組みの大きな不具合は6か月です。", "外部のサービス（GoogleやInstagram）の仕様が変わったことによるものは除きます。", "契約書 第6条"],
   ["中身", "外国語の文章は正しいですか", "翻訳の道具（AI）で作り、時刻・料金・地名は日本語と1つずつ照らし合わせています。ネイティブの方の確認は含んでいません。", "ネイティブの方の確認をご希望の場合は、別にご相談です。", "契約書 別紙「含まないもの」"],
   ["中身", "LINE公式アカウントもやってもらえますか", "今のご契約には入っていません。作るかどうか・配信を誰がするかは、別にご相談させてください。", "作る場合は、持ち主は御社のお名前にします。料金は無料（月200通まで）から始められます。", "契約書 別紙「含まないもの」"],
@@ -825,7 +911,7 @@ const F = [
   ["写真", "お店の写真を差し替えたい・外したいときは", "お店ごとに言っていただければ、差し替えも外すのもできます。", "公開前は「直してほしい所」（12/5まで）にまとめていただければ、その中で直します。公開後は月4回の更新の中で行います。", "11/22 見本に各店1〜3枚を入れた"],
   ["写真", "人やほかの会社のロゴが写っていませんか", "お客さま・店員さんが写った写真は使っていません。車のナンバーはぼかしています。", "ドコモは、店舗の写真は許可をいただいたので載せ、ロゴは載せていません。けいたい相談室の俳優のポスターは顔をぼかしました。俳優のポスターや有名なキャラクターが大きく写る写真も外しました。社長様のお写真だけ、お許しをいただいて載せています。", "11/22 点検"],
   ["写真", "トップの写真がくもり空なのが気になる", "晴れた日に撮り直せます。", "吉田様に晴れた日の昼に正面から1枚撮っていただくか、ひなが堂が伺う日を決めます。今は明るく加工して使っています。", "11/22"],
-  ["写真", "撮った写真は何に使いますか", "ホームページ、モールのInstagram・Googleマップ、館内ポスターに使います。", "お代をいただいた後は、チラシなど御社の広報にも、写っている方の承諾の範囲で使っていただけます（契約書 第7条）。ひなが堂の制作の実績として紹介するのは、御社のお許しをいただいた場合だけです。", "契約書（写真の承諾）"],
+  ["写真", "撮った写真は何に使いますか", "ホームページ、Googleマップ、館内のポスター・チラシに使います。", "お代をいただいた後は、チラシなど御社の広報にも、写っている方の承諾の範囲で使っていただけます（契約書 第7条）。ひなが堂の制作の実績として紹介するのは、御社のお許しをいただいた場合だけです。", "契約書（写真の承諾）"],
   ["写真", "お客さんや子どもが写ったら", "顔が分かる方・子どもは写しません。小さく写ってしまった方は、加工で消すか、ぼかすか、別の写真に替えます。", "載せる前に、吉田様に見ていただきます。", "撮影の手引き"],
   ["写真", "店員さんが写りたくないと言ったら", "その方が写らない角度で撮ります。お店の看板と商品だけでも、十分伝わります。", "", "撮影の手引き"],
   ["写真", "撮影を断るお店があったら", "そのお店は撮りません。看板の写真か、いただいたロゴで載せます。", "あとから撮りたいとなったら、お店から写真を送っていただく形にできます。", "撮影の手引き"],
@@ -837,7 +923,7 @@ const F = [
   ["そのほか", "ホームページの住所（ドメイン）はどうなりますか", "御社の名義で、goto-citymall.jp のような住所を取るのがおすすめです。年に数千円で、御社から直接のお支払いです。", "取らずに無料の住所でも動きますが、ポスターやQRに刷った後で変えると刷り直しになるので、公開の前に決めます。申し込む前に、公式の料金表で値段と更新料を確かめてお見せします。", "契約書 第7条第5項"],
   ["そのほか", "知らない人が勝手に投稿したり、チラシを載せたりできませんか", "できません。どちらも専用のアドレスがないと送れず、送られても御社が✓や「載せる」を押した物しか外に出ません。", "アドレスは推測できない長さの鍵になっています。怪しい試しが続くと、ひなが堂に知らせが来ます。", "お店のチラシ欄のご案内"],
   ["そのほか", "専用のアドレスをなくした・人に知られたら", "ひなが堂にご連絡ください。そのアドレスだけ作り直します。古いアドレスはすぐ使えなくなり、ほかのお店には影響しません。", "店長など責任者の方へ1店ずつ渡し、店頭には貼らないでください。", "お店のチラシ欄のご案内"],
-  ["そのほか", "Instagram や Google のパスワードを渡す必要はありますか", "いいえ。パスワードは受け取りません。御社が持ち主のまま、ひなが堂に「管理の権限」を付けていただく形です。", "御社のアカウントには2段階認証（ログインのときにスマホでも確かめる設定）をお願いしています。", "契約書 第7条第5項"],
+  ["そのほか", "Google のパスワードを渡す必要はありますか", "いいえ。パスワードは受け取りません。御社が持ち主のまま、ひなが堂に「管理の権限」を付けていただく形です。", "御社のアカウントには2段階認証（ログインのときにスマホでも確かめる設定）をお願いしています。", "契約書 第7条第5項"],
   ["そのほか", "チラシの写真から、撮った場所などが漏れませんか", "送られた画像は、撮った場所などの情報を消してから保存します。", "PDF の中の作った人の名前は消せないので、気になる場合は画像で送っていただきます。", "お店のチラシ欄のご案内"],
   ["そのほか", "ほかのお店（テナント）にも作ってもらえますか", "ひなが堂として、別にご相談を承ります。", "今回のご契約とは別のお話になります。", ""]
 ];
@@ -1095,5 +1181,12 @@ async function copyText(txt, msg) {
 function toast(m) { const t = $("#toast"); t.textContent = m; t.classList.add("on"); setTimeout(() => t.classList.remove("on"), 2200); }
 </script>
 <script src="offline.js" defer></script>
+
+<script>
+// 11/24 LINE の文面をコピー（押すと「コピーしました」）
+document.addEventListener("click", ev => { const b = ev.target.closest && ev.target.closest(".aft-copy"); if (!b) return; const s = document.getElementById(b.dataset.copy).textContent;
+  const ok = () => { b.textContent = "コピーしました"; b.classList.add("done"); setTimeout(() => { b.textContent = "コピー"; b.classList.remove("done"); }, 1800); };
+  (navigator.clipboard ? navigator.clipboard.writeText(s) : Promise.reject()).then(ok, () => { const r = document.createRange(); r.selectNodeContents(document.getElementById(b.dataset.copy)); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); try { document.execCommand("copy"); ok(); } catch (e) {} }); });
+</script>
 </body>
 </html>

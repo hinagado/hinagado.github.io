@@ -1,5 +1,5 @@
 // 「今やっている？」の印。お店の営業時間・定休日（御社の一覧表 11/13）から、日本時間で判定する。
-// 海外からの方が見ても日本時間で数える。年末年始（12/31〜1/3）は特別な時間なので出さない。
+// 海外からの方が見ても日本時間で数える。12/31 は特別な時間なので出さない。1/1〜3 は全館共通の時間で判定する。
 // 試験用：URL に ?now=2026-11-17T11:00 を付けると、その日本時間で判定する。
 (function () {
   'use strict';
@@ -41,7 +41,12 @@
 
   // 戻り値: null（出さない）/ {k: 'open'|'openIrr'|'before'|'after'|'closed', t}
   function judge(el, now) {
-    if ((now.mo === 12 && now.d === 31) || (now.mo === 1 && now.d <= 3)) return null;
+    if (now.mo === 12 && now.d === 31) return null;
+    if (now.mo === 1 && now.d <= 3) { // 2026-11-24 代表：1/1〜3 は毎年、全館統一の時間
+      const r0 = now.d === 1 ? [660, 1140] : [600, 1140], m0 = now.h * 60 + now.mi;
+      if (m0 < r0[0]) return { k: 'before', t: `${Math.floor(r0[0] / 60)}:00` };
+      return m0 >= r0[1] ? { k: 'after' } : { k: 'open' };
+    }
     if (!YEARS.has(now.y)) return null; // 祝日の一覧が無い年は判定しない（一覧を足せば出る）
     const today = dayInfo(now.y, now.mo, now.d);
     const c = el.dataset.c || '';

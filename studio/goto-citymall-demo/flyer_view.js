@@ -7,6 +7,9 @@
   const flParams = new URLSearchParams(location.search);
   const flDemo = flParams.get('demo') === '1' || document.body.dataset.flyersDemo === '1' || flBox.dataset.demo === '1'; // 見本のページでは箱に data-demo="1"（公開するときに外す）
   const flSource = document.body.dataset.postsSrc;
+  const FL_SLOTS = 8; // 2026-11-23 打合せ：ホームページに載るチラシは8枠まで
+  // 日本時間の今日（YYYY-MM-DD）。載せ終わりが今日より前のチラシは出さない（期日が終わったら自動で消える）。試験用に ?today=2026-12-01
+  const flToday = (/^\d{4}-\d{2}-\d{2}$/.test(flParams.get('today') || '') ? flParams.get('today') : new Date(Date.now() + 9 * 3600e3).toISOString().slice(0, 10));
 
   function flElement(flTag, flClass, flText) {
     const flNode = document.createElement(flTag);
@@ -40,9 +43,10 @@
 
   function flDemoItems() {
     if (flBox.dataset.demo === '1') return [
-      // 2026-11-22 吉田様経由でお店から届いたチラシ（元は PDF。img/flyer/）
-      {shop: '家具プラス ツーピース', title: '秋のリビング・ダイニングフェア', start: '2026-11-01', end: '2026-11-30', kind: 'image', img: 'img/flyer/twopiece_1_s.webp', open: 'img/flyer/twopiece_1.webp'},
-      {shop: '家具プラス ツーピース', title: '秋の快眠ベッドフェア', start: '2026-11-01', end: '2026-11-30', kind: 'image', img: 'img/flyer/twopiece_2_s.webp', open: 'img/flyer/twopiece_2.webp'},
+      // 2026-11-24 チラシの箱の見本1号（表＝チラシ、裏＝予約申込書）。届いた写真は加工してから使う
+      {shop: 'ボンパティ', title: 'クリスマスケーキ ご予約承り中（見本）', start: '2026-11-24', end: '2026-12-10', kind: 'image', img: 'img/flyer/bonpati_xmas_1_s.webp', open: 'img/flyer/bonpati_xmas_1.webp', img2: 'img/flyer/bonpati_xmas_2_s.webp', open2: 'img/flyer/bonpati_xmas_2.webp'},
+      // 2026-11-22 吉田様経由でお店から届いたチラシ（元は PDF。img/flyer/）。1つの投稿に2枚（表・裏）載せる形の見本にした
+      {shop: '家具プラス ツーピース', title: '秋のリビング・ダイニングフェア／快眠ベッドフェア', start: '2026-11-01', end: '2026-11-30', kind: 'image', img: 'img/flyer/twopiece_1_s.webp', open: 'img/flyer/twopiece_1.webp', img2: 'img/flyer/twopiece_2_s.webp', open2: 'img/flyer/twopiece_2.webp'},
       {shop: '未来ごとう', title: 'シティモールにデイサービスがあります（見学歓迎）', always: '見学・資料請求はいつでも', kind: 'image', img: 'img/flyer/mirai_1_s.webp', open: 'img/flyer/mirai_1.webp'}
     ];
     return [
@@ -63,6 +67,10 @@
     const flOpenOk = flDemo ? /^(#flyer-demo-[12]|img\/flyer\/[a-z0-9_]+\.(svg|webp))$/.test(String(flItem.open || '')) : flDriveOpen(flItem.open);
     const flAlways = String(flItem.always || '').trim();
     if (!flShop || !flTitle || (!(flStart && flEnd) && !flAlways) || !flImageOk || !flOpenOk) return null;
+    if (flItem.end && String(flItem.end) < flToday) return null; // 期日が終わったチラシは出さない
+    const flHas2 = !!(flItem.img2 || flItem.open2);
+    const fl2Ok = !flHas2 || (flDemo ? /^img\/flyer\/[a-z0-9_]+\.(svg|webp)$/.test(String(flItem.img2 || '')) && /^img\/flyer\/[a-z0-9_]+\.(svg|webp)$/.test(String(flItem.open2 || '')) : flDriveImage(flItem.img2) && flDriveOpen(flItem.open2));
+    if (!fl2Ok) return null;
 
     const flArticle = flElement('article', 'flyer-card');
     const flImage = flElement('img', 'flyer-image');
@@ -72,17 +80,28 @@
     const flText = flElement('div', 'flyer-text');
     flText.append(flElement('p', 'flyer-shop', flShop), flElement('h3', 'flyer-title', flTitle),
       flElement('p', 'flyer-period', flStart && flEnd ? flStart + '〜' + flEnd : flAlways));
-    const flLink = flElement('a', 'flyer-open', '大きく見る');
+    const flGroup = 'flyer-' + (flCard.n = (flCard.n || 0) + 1); // 表と裏を、拡大表示で続けて見られるように同じ組に
+    const flLink = flElement('a', 'flyer-open', flHas2 ? '表を大きく見る' : '大きく見る');
     flLink.href = String(flItem.open);
-    flLink.dataset.lb = 'flyer';
-    flLink.dataset.cap = flShop + '：' + flTitle;
+    flLink.dataset.lb = flGroup;
+    flLink.dataset.cap = flShop + '：' + flTitle + (flHas2 ? '（表）' : '');
     flText.appendChild(flLink);
+    if (flHas2) {
+      const flBack = flElement('a', 'flyer-open flyer-back', '裏面を見る');
+      flBack.href = String(flItem.open2);
+      flBack.dataset.lb = flGroup;
+      flBack.dataset.cap = flShop + '：' + flTitle + '（裏）';
+      flText.appendChild(flBack);
+      flArticle.classList.add('has-back');
+      const flTag = flElement('span', 'flyer-pages', '表・裏');
+      flText.prepend(flTag);
+    }
     flArticle.append(flImage, flText);
     return flArticle;
   }
 
   function flRender(flItems) {
-    const flCards = Array.isArray(flItems) ? flItems.map(flCard).filter(Boolean) : [];
+    const flCards = Array.isArray(flItems) ? flItems.map(flCard).filter(Boolean).slice(0, FL_SLOTS) : [];
     if (!flCards.length) { flSection.hidden = true; return; }
     flBox.replaceChildren.apply(flBox, flCards);
     flSection.hidden = false;

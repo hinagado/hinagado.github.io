@@ -2712,3 +2712,17 @@ body.page-shops .shops{align-items:start}
 /* 引き出しの「×」はスマホの幅だけ */
 .nav-x{display:none}
 @media (max-width:900px){header nav .nav-x{display:block}}
+/* 2026-11-24 スマホでは言葉えらびをサイドメニューの下に（上の帯は隠す）。JavaScript が動かない時は上の帯のまま */
+.nav-lang{display:none}
+@media (max-width:900px){
+  html.langin .langbar{display:none}
+  header nav .nav-lang{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:16px 18px 8px;margin-top:auto;border-top:1px solid var(--line)}
+  header nav .nav-lang a,header nav .nav-lang a:visited{display:flex;align-items:center;justify-content:center;min-height:48px;padding:6px 8px;border:1.5px solid var(--line);border-bottom:1.5px solid var(--line);border-radius:12px;font-size:16px;color:var(--ink);text-align:center}
+  header nav .nav-lang a[aria-current]{background:var(--main,#8a3a1a);border-color:var(--main,#8a3a1a);color:#fff}
+}
+/* 2026-11-24 トップの外観をもう少し明るく：下の暗い幕を薄く（白い文字は読めるまま） */
+.hello-ph::after{background:linear-gradient(transparent 50%,rgba(40,20,8,.45))}
+
+/* 2026-11-24 チラシの表と裏 */
+.flyer-pages{display:inline-block;font-size:12px;font-weight:700;color:#fff;background:var(--main,#8a3a1a);border-radius:99px;padding:1px 9px;margin-bottom:4px}
+.flyer-card .flyer-back{margin-left:10px}
