@@ -2686,3 +2686,29 @@ body.page-shops .shops{align-items:start}
 .fm-fac{position:absolute;transform:translate(-50%,-50%);background:rgba(255,255,255,.88);color:#5b5650;font-size:max(10px,.78cqw);font-weight:700;padding:.12em .5em;border-radius:5px;white-space:nowrap;pointer-events:none}
 .fm-fac.ent{background:#2d8a4e;color:#fff}
 :lang(ja) .fm-pin{white-space:nowrap;max-width:none}
+
+/* 2026-11-23 代表「携帯で見た時サイドメニューがおかしい」：右から出るのに横幅いっぱいの下がり窓で止まっていた。
+   右から画面の高さいっぱいに出る引き出しにする。display を切り替えず visibility で出し入れ（iPhone の古い Safari でも同じ動き） */
+@media (max-width:900px){
+  header nav,html.anim header nav{display:flex;position:fixed;top:0;right:0;bottom:0;left:auto;width:min(84vw,340px);height:100dvh;
+    flex-direction:column;gap:0;background:#fff;border:0;border-left:1px solid var(--line);box-shadow:-12px 0 28px rgba(30,18,10,.18);
+    padding:64px 0 calc(24px + env(safe-area-inset-bottom));overflow-y:auto;overscroll-behavior:contain;z-index:40;
+    visibility:hidden;opacity:1;transform:translateX(100%);transition:transform .2s ease-in,visibility 0s linear .2s}
+  header nav.open,html.anim header nav.open{display:flex;visibility:visible;transform:none;transition:transform .25s cubic-bezier(.2,.8,.2,1),visibility 0s}
+  @starting-style{html.anim header nav.open{transform:translateX(100%)}}
+  header nav a,header nav a:visited{padding:15px 22px;font-size:17px;border-bottom:1px solid var(--line);white-space:normal}
+  header nav a[aria-current=page]{border-left:4px solid var(--main,var(--red));padding-left:18px;background:var(--tint,#fdf3e8)}
+  header nav .nav-x{position:absolute;top:10px;right:10px;width:44px;height:44px;border:0;border-radius:50%;background:none;cursor:pointer;color:var(--char,#3a2a20)}
+  header nav .nav-x::before,header nav .nav-x::after{content:"";position:absolute;left:11px;right:11px;top:21px;height:3px;border-radius:2px;background:currentColor;transform:rotate(45deg)}
+  header nav .nav-x::after{transform:rotate(-45deg)}
+  html:has(#gnav.open),html:has(#gnav.open) body{overflow:hidden}
+}
+@media (max-width:900px) and (prefers-reduced-motion:reduce){header nav,header nav.open{transition:none}}
+
+/* 引き出しと幕は、下の固定メニュー（z-index 30）より上に。今のページの行は下線を赤にしない */
+@media (max-width:900px){html:has(#gnav.open) header{z-index:60}body:has(#gnav.open)::before{z-index:50}header nav a[aria-current=page]{border-bottom-color:var(--line)}}
+/* 指で押した所に「なぞった色」が残らないように（タッチの端末だけ） */
+@media (max-width:900px) and (hover:none){header nav a:hover:not([aria-current]){color:var(--ink);border-bottom-color:var(--line)}}
+/* 引き出しの「×」はスマホの幅だけ */
+.nav-x{display:none}
+@media (max-width:900px){header nav .nav-x{display:block}}

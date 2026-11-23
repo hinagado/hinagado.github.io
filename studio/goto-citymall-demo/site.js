@@ -7,6 +7,10 @@
     document.addEventListener("keydown", e => { if (e.key === "Escape" && n.classList.contains("open")) { set(false); b.focus(); } });
     document.addEventListener("click", e => { if (n.classList.contains("open") && !n.contains(e.target) && !b.contains(e.target)) set(false); });
     n.addEventListener("click", e => { if (e.target.tagName === "A") set(false); });
+    // 2026-11-23 引き出しの中の「×」（右上の三本線は引き出しの下に隠れるため）
+    const x = document.createElement("button"); x.type = "button"; x.className = "nav-x";
+    x.setAttribute("aria-label", b.dataset.close || "メニューを閉じる");
+    x.addEventListener("click", () => { set(false); b.focus(); }); n.prepend(x);
   }
   // 2026-11-16 区切りを透明から出す動きはやめた（背の高い区切りが、画面に5%入らず出ないままになっていた）。中身は最初から見せる
   // 催事に「開催中」「まもなく」（7日以内）の印
