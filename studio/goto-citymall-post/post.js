@@ -37,7 +37,7 @@
   $("tBox").onclick=function(){tab("box");};$("tCheck").onclick=function(){tab("check");};
 
   R.KINDS.forEach(function(k){var l=el("label"),i=el("input"),s=el("span","",k);i.type="radio";i.name="kind";i.value=k;i.onchange=function(){$("kindOtherWrap").hidden=k!=="その他";};l.append(i,s);$("kinds").append(l);});
-  var SHOPS="小麦の奴隷／ボンパティ／文明堂／御菓子司はたなか／和敬庵／つばき屋／ダイソー／楽天モバイル／ピーパラダイス／hair salon VITA／美髪・髪質改善クリニックLeon／携帯相談室／ドコモショップ サテライト／麺屋まる福／リトル・クルサ／BLOSSOM／釣具店 釣りします／たこ焼きけんちゃん／ファンタジーランド／メガネのヨネザワ／パレット／ツーピース／託児所シティハウス／おもちゃ屋 おやこパンダ／もみほぐし隊 恵／SpRay／未来ごとう／オックスフォード／森補正専門店／パレット HOMME／リトルシアター／バッグの多津屋 Hanako／白寿ヘルストロン／たびのコンパス／十八親和銀行／モール全体".split("／");
+  var SHOPS="小麦の奴隷／ボンパティ／文明堂／御菓子司はたなか／和敬庵／つばき屋／ダイソー／楽天モバイル／ピーパラダイス／hair salon VITA／美髪・髪質改善クリニックLeon／携帯相談室／ドコモショップ サテライト／麺屋まる福／リトル・クルサ／BLOSSOM／釣具店 釣りします／たこ焼きけんちゃん／ファンタジーランド／メガネのヨネザワ／パレット／ツーピース／託児所シティハウス／おもちゃ屋 おやこパンダ／肩こり、ほぐし(隊) 恵-megumi-／SpRay／未来ごとう／オックスフォード／森補正専門店／パレット HOMME／リトルシアター／バッグの多津屋 Hanako／白寿ヘルストロン／たびのコンパス／十八親和銀行／モール全体".split("／");
   SHOPS.forEach(function(n){var o=el("option","",n);o.value=n;$("shop").append(o);});
   function count(input,out,max){$(input).oninput=function(){$(out).textContent=this.value.length+" / "+max;};}
   count("headline","headlineCount",20);count("details","detailsCount",60);
