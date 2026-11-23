@@ -1,293 +1,80 @@
-// 投稿の箱の画面。本番は Apps Script、見本（?demo=1 か送信先が未設定）は画面の中だけで動く
-(function () {
-  var ENDPOINT = "https://script.google.com/macros/s/AKfycbxToqVQEdKxT9cMdM1YpEziujtM99mTaIusrJLzWvEOi34N57LHu60N2g2U90DQnzWJ/exec";
-  var HANDLE = "goto.citymall";
-  var $ = function (id) { return document.getElementById(id); };
-  var demo = !ENDPOINT || new URLSearchParams(location.search).get("demo") === "1";
-  var pass = "", photos = [], R = PostRules, today = new Date(), viewing = {};
-  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+// チラシ・ポスターの箱。本番はApps Script、?demo=1ではこの画面の中だけで動く。
+(function(){
+  var ENDPOINT="https://script.google.com/macros/s/AKfycbxToqVQEdKxT9cMdM1YpEziujtM99mTaIusrJLzWvEOi34N57LHu60N2g2U90DQnzWJ/exec";
+  var $=function(id){return document.getElementById(id);},R=PostRules;
+  var demo=!ENDPOINT||new URLSearchParams(location.search).get("demo")==="1";
+  var pass="",photos=[],heroPhoto=0,today=new Date(),viewing={};
+  function el(tag,cls,text){var e=document.createElement(tag);if(cls)e.className=cls;if(text!=null)e.textContent=text;return e;}
+  function val(name){var c=document.querySelector('input[name="'+name+'"]:checked');return c?c.value:"";}
+  function vals(name){return[].slice.call(document.querySelectorAll('input[name="'+name+'"]:checked')).map(function(x){return x.value;});}
 
-  // ---- 通信
-  var Demo = {
-    rows: [{id: "例-1", shop: "BLOSSOM", kind: "お店の紹介", message: "（例）1階のレストラン・カフェを紹介したい", when: R.ymd(R.earliest(today)), state: "下書きあり", revisions: 0, versions: [
-      {title: "BLOSSOM", caption: "1階のレストラン・カフェ BLOSSOM。\nお買い物のあとに、ひと息つきませんか。\n\n営業時間 11:00〜21:00\n#五島シティモール #福江島", image: "sample_blossom.jpg"}]}],
-    call: function (action, b) {
-      var rows = this.rows, find = function (id) { return rows.filter(function (r) { return r.id === id; })[0]; }, quota = function () { var k = R.monthKey(R.ymd(today)); return {month: k, used: R.used(rows, k), limit: R.LIMIT}; }, bad;
-      if (action === "status") return {ok: true, quota: quota()};
-      if (action === "list") return {ok: true, items: rows.slice().reverse(), quota: quota()};
-      if (action === "submit") {
-        bad = R.checkSubmit(b, today, rows); if (bad) return {ok: false, error: bad};
-        var id = "例-" + (rows.length + 1);
-        rows.push({id: id, shop: b.shop, kind: b.kind, message: b.message, when: b.when, state: "下書きあり", revisions: 0, versions: [{title: b.shop || b.kind, caption: b.message + "\n\n#五島シティモール #福江島", image: b.photos[0]}]});
-        return {ok: true, id: id, quota: quota()};
-      }
-      var r = find(b.id);
-      if (action === "approve") { bad = R.checkApprove(r, b.version); if (bad) return {ok: false, error: bad}; r.state = "承認済み"; r.approvedVersion = b.version; return {ok: true}; }
-      if (action === "revise") {
-        bad = R.checkRevise(r, b.note); if (bad) return {ok: false, error: bad};
-        r.revisions++;
-        var base = r.versions[b.version] || r.versions[r.versions.length - 1];
-        // 見本なので、すぐ直ったことにして案を増やす
-        r.versions.push({title: base.title, caption: "（" + (r.versions.length + 1) + "案目・直しの見本）\n" + base.caption, image: base.image, note: b.note});
-        return {ok: true};
-      }
-      return {ok: false, error: "できない操作です。"};
-    },
-  };
-  function api(action, data) {
-    data = data || {};
-    if (demo) return Promise.resolve(Demo.call(action, data));
-    data.action = action; data.pass = pass;
-    return fetch(ENDPOINT, {method: "POST", headers: {"Content-Type": "text/plain;charset=utf-8"}, body: JSON.stringify(data), redirect: "follow", credentials: "omit"}).then(function (r) { return r.json(); })
-      .then(function (r) { if (r && r.auth === false && !$("app").hidden) lockOut(); return r; });
-  }
-  // 鍵が使えなくなったら（作り直した等）、この端末の控えを消して入口へ戻す
-  function lockOut() {
-    pass = ""; forgetKey(); $("app").hidden = true; $("login").hidden = false;
-    $("loginErr").textContent = "このアドレスは使えなくなっています。ひなが堂にお問い合わせください。"; $("loginErr").hidden = false;
-  }
-  // この端末に覚えるのは、利用者が「次から開けるようにする」を押したときだけ。90日で切れる
-  var KEY_RE = /^[A-Za-z0-9_-]{43}$/, KEY_STORE = "postBoxKey", KEEP_DAYS = 90;
-  function savedKey() {
-    try {
-      var v = JSON.parse(localStorage.getItem(KEY_STORE) || "null");
-      if (v && KEY_RE.test(v.k) && +v.until > Date.now()) return v.k;
-      localStorage.removeItem(KEY_STORE);
-    } catch (e) { try { localStorage.removeItem(KEY_STORE); } catch (e2) {} }
-    return "";
-  }
-  function saveKey(k) { try { localStorage.setItem(KEY_STORE, JSON.stringify({k: k, until: Date.now() + KEEP_DAYS * 864e5})); } catch (e) {} }
-  function forgetKey() { try { localStorage.removeItem(KEY_STORE); } catch (e) {} }
-  function rememberUi() {
-    var on = !!savedKey(); $("keepBox").hidden = false;
-    $("keepOn").hidden = on; $("keepOff").hidden = !on;
-    $("keepNote").textContent = on ? "このスマホは、" + KEEP_DAYS + "日間このページを開くだけで箱が開きます。" : "家族と共用のスマホ・パソコンでは押さないでください。";
-  }
-  $("keepOn").onclick = function () { if (pass) { saveKey(pass); rememberUi(); } };
-  $("keepOff").onclick = function () { forgetKey(); rememberUi(); };
-  var NET = "つながりませんでした。電波の良い所でもう一度お試しください。";
-
-  // ---- 枠
-  function showQuota(q) {
-    if (!q) return;
-    var left = Math.max(0, q.limit - q.used), m = +q.month.slice(5);
-    $("quota").innerHTML = "";
-    $("quota").append(el("span", "", m + "月は、あと "), el("b", "", left), el("span", "", " 本入れられます"), el("small", "", q.limit + "本のうち"));
-    $("ring").setAttribute("stroke-dasharray", (left / q.limit * 100) + " 100");
-  }
-
-  // ---- タブ
-  function tab(name) {
-    var box = name === "box";
-    $("box").hidden = !box; $("check").hidden = box;
-    $("tBox").setAttribute("aria-selected", box); $("tCheck").setAttribute("aria-selected", !box);
-    if (!box) loadList();
-    scrollTo({top: 0, behavior: "instant"});
-  }
-  $("tBox").onclick = function () { tab("box"); };
-  $("tCheck").onclick = function () { tab("check"); };
-
-  // ---- 種類
-  var ICON = {"お店の紹介": '<path d="M4 10l1.5-5h13L20 10M5 10v9h14v-9M4 10h16M10 19v-5h4v5"/>', "セール・催し": '<path d="M4 12l8-8h8v8l-8 8zM15.5 8.5h.01"/>', "新しい商品": '<path d="M12 3l2.5 6 6.5.5-5 4.2 1.6 6.3L12 16.5 6.4 20 8 13.7l-5-4.2 6.5-.5z"/>', "お知らせ": '<path d="M4 10v4h3l8 5V5L7 10zM18 9.5a3.5 3.5 0 010 5"/>', "そのほか": '<circle cx="6" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="18" cy="12" r="1.5"/>'};
-  R.KINDS.forEach(function (k, i) {
-    var l = el("label", "kind"), r = el("input"), s = el("span");
-    r.type = "radio"; r.name = "kind"; r.value = k; r.id = "kind" + i;
-    s.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true">' + ICON[k] + "</svg>"; s.append(el("b", "", k));
-    l.append(r, s); $("kinds").append(l);
-  });
-  function kindValue() { var c = document.querySelector('input[name=kind]:checked'); return c ? c.value : ""; }
-  $("message").oninput = function () { $("count").textContent = this.value.length + " / 1000"; };
-
-  // ---- 写真: 端末の中で縮小してから送る
-  function shrink(file) {
-    return new Promise(function (ok, ng) {
-      var url = URL.createObjectURL(file), im = new Image();
-      im.onload = function () {
-        var k = Math.min(1, 1600 / Math.max(im.width, im.height)), c = document.createElement("canvas");
-        c.width = Math.round(im.width * k); c.height = Math.round(im.height * k);
-        c.getContext("2d").drawImage(im, 0, 0, c.width, c.height); URL.revokeObjectURL(url);
-        ok(c.toDataURL("image/jpeg", 0.85));
-      };
-      im.onerror = function () { URL.revokeObjectURL(url); ng(new Error("image")); };
-      im.src = url;
-    });
-  }
-  function drawThumbs() {
-    $("thumbs").innerHTML = "";
-    photos.forEach(function (p, i) {
-      var w = el("div", "thumb"), im = new Image(), x = el("button", "", "×");
-      im.src = p; im.alt = "選んだ写真 " + (i + 1); x.type = "button"; x.setAttribute("aria-label", "写真" + (i + 1) + "を外す");
-      x.onclick = function () { photos.splice(i, 1); drawThumbs(); };
-      w.append(im, x); $("thumbs").append(w);
-    });
-  }
-  $("photos").onchange = function () {
-    var files = [].slice.call(this.files), room = R.MAX_PHOTOS - photos.length;
-    showErr(files.length > room ? "写真は" + R.MAX_PHOTOS + "枚までです。" : "");
-    Promise.all(files.slice(0, room).map(function (f) { return shrink(f).catch(function () { return null; }); })).then(function (list) {
-      var bad = list.filter(function (x) { return !x; }).length;
-      photos = photos.concat(list.filter(Boolean)); drawThumbs();
-      if (bad) showErr("読み込めない写真がありました。JPEG か PNG の写真でお試しください。");
-    });
-    this.value = "";
-  };
-  function showErr(s) { $("formErr").textContent = s; $("formErr").hidden = !s; }
-
-  // ---- 送る
-  $("form").onsubmit = function (e) {
-    e.preventDefault();
-    var data = {photos: photos, kind: kindValue(), shop: $("shop").value.trim(), message: $("message").value.trim(), when: $("when").value, consent: $("consent").checked};
-    var local = R.checkSubmit(data, today, []);
-    if (local) return showErr(local);
-    showErr(""); $("send").disabled = true; $("send").textContent = "送っています…";
-    api("submit", data).then(function (r) {
-      if (!r.ok) return showErr(r.error);
-      showQuota(r.quota);
-      $("form").hidden = true; $("done").hidden = false; $("done").innerHTML = "";
-      var a = el("button", "btn wide", demo ? "下書きを確認する" : "確認の画面へ"); a.type = "button"; a.onclick = function () { tab("check"); };
-      var n = el("button", "btn line wide", "もう1件入れる"); n.type = "button"; n.onclick = reset;
-      $("done").append(el("div", "tick", "✓"), el("h2", "", "受け付けました"), el("p", "", "受付番号 " + r.id + "。" + (demo ? "見本なので、すぐ下書きができました。本番では、" : "") + R.DRAFT_DAYS + "営業日以内に下書きを作り、メールでお知らせします。"), a, n);
-      scrollTo({top: 0, behavior: "instant"});
-    }).catch(function () { showErr(NET); }).finally(function () { $("send").disabled = false; $("send").textContent = "この内容で下書きを頼む"; });
-  };
-  function reset() { $("form").reset(); photos = []; drawThumbs(); showErr(""); $("count").textContent = "0 / 1000"; $("form").hidden = false; $("done").hidden = true; setWhen(); scrollTo({top: 0, behavior: "instant"}); }
-
-  // ---- 確認: 実際の投稿に近い形で見せる
-  var STATE = {"受付": "下書きを作っています", "直し依頼": "直しています", "承認済み": "✓ 確認済み", "下書きあり": "確認をお願いします"};
-  var I = {
-    heart: '<path d="M12 20.5s-8-5-8-11a4.5 4.5 0 018-2.8A4.5 4.5 0 0120 9.5c0 6-8 11-8 11z"/>',
-    talk: '<path d="M20.5 12a8.5 8.5 0 01-12.6 7.4L3.5 20.5l1.1-4.4A8.5 8.5 0 1120.5 12z"/>',
-    send: '<path d="M21 3L10.5 13.5M21 3l-6.5 18-4-7.5L3 9.5z"/>',
-    save: '<path d="M6 3h12v18l-6-5-6 5z"/>',
-    home: '<path d="M3.5 11L12 3.5l8.5 7.5V20.5h-6v-6h-5v6h-6z"/>',
-    find: '<circle cx="11" cy="11" r="7"/><path d="M16.5 16.5L21 21"/>',
-    plus: '<rect x="3.5" y="3.5" width="17" height="17" rx="4.5"/><path d="M12 8v8M8 12h8"/>',
-    reel: '<rect x="3.5" y="3.5" width="17" height="17" rx="4.5"/><path d="M10 9l5 3-5 3z"/>',
-  };
-  function icon(n) { var s = el("span", "ig-i"); s.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true">' + I[n] + "</svg>"; return s; }
-  function captionTo(box, text) {
-    String(text).split(/(#[^\s#]+)/).forEach(function (part) { box.append(/^#/.test(part) ? el("span", "tag", part) : document.createTextNode(part)); });
-  }
-  function dateText(when) { var d = R.parseYmd(when); return d ? (d.getMonth() + 1) + "月" + d.getDate() + "日" : ""; }
-  var imgs = {};
-  function loadImage(id, at, im) {
-    var key = id + ":" + at;
-    (imgs[key] = imgs[key] || api("image", {id: id, version: at})).then(function (r) { if (r.ok) im.src = r.image; else { delete imgs[key]; im.alt = r.error; } }).catch(function () { delete imgs[key]; im.alt = NET; });
-  }
-  function phone(v, when, id, at) {
-    var p = el("div", "ig"); p.setAttribute("aria-label", "投稿の見え方");
-    var bar = el("div", "ig-bar"); bar.append(el("span", "ig-back", "‹"), el("b", "", "投稿"), el("span", "ig-sp"));
-    var hd = el("div", "ig-hd"), av = el("span", "ig-av"), name = el("b", "", HANDLE); av.append(el("i", "", "五")); hd.append(av, name, el("span", "ig-dots", "•••"));
-    var im = new Image(); im.alt = "投稿の画像"; im.className = "ig-img";
-    if (v.image) im.src = v.image; else loadImage(id, at, im);
-    var acts = el("div", "ig-acts"); acts.append(icon("heart"), icon("talk"), icon("send"), el("span", "ig-sp"), icon("save"));
-    var cap = el("p", "ig-cap"); cap.append(el("b", "", HANDLE + " ")); captionTo(cap, v.caption);
-    var date = el("p", "ig-date", dateText(when));
-    var nav = el("div", "ig-nav"); ["home", "find", "plus", "reel"].forEach(function (n) { nav.append(icon(n)); }); var me = el("span", "ig-av sm"); me.append(el("i", "", "五")); nav.append(me);
-    p.append(bar, hd, im, acts, cap, date, nav);
-    return p;
-  }
-  function loadList() {
-    var list = $("list"); list.textContent = "読み込み中…";
-    api("list").then(function (r) {
-      if (!r.ok) { list.textContent = r.error; return; }
-      showQuota(r.quota); list.innerHTML = "";
-      var wait = r.items.filter(function (x) { return x.state === "下書きあり"; }).length;
-      $("badge").textContent = wait; $("badge").hidden = !wait;
-      if (!r.items.length) { list.append(el("p", "lead", "まだありません。")); return; }
-      r.items.forEach(function (x) { list.append(card(x)); });
-    }).catch(function () { list.textContent = NET; });
-  }
-  function card(x) {
-    var c = el("article", "card"), vs = x.versions || [];
-    var top = el("div", "card-top"); top.append(el("span", "st" + (x.state === "承認済み" ? " ok" : x.state === "下書きあり" ? " wait" : ""), STATE[x.state] || x.state), el("span", "hint", "公開希望 " + x.when.replace(/-/g, "/")));
-    c.append(top);
-    if (!vs.length) { c.append(el("p", "memo", x.message)); return c; }
-    var at = viewing[x.id]; if (at == null || at >= vs.length) at = vs.length - 1;
-    if (x.state === "承認済み" && x.approvedVersion != null) at = x.approvedVersion;
-    var draw = function () { viewing[x.id] = at; var old = c.querySelector(".card-body"); if (old) old.remove(); c.append(body()); };
-    function body() {
-      var b = el("div", "card-body"), v = vs[at];
-      if (vs.length > 1 && x.state === "下書きあり") {
-        var sw = el("div", "vers"), prev = el("button", "vbtn", "‹ 前の案に戻る"), next = el("button", "vbtn", "次の案 ›");
-        prev.type = next.type = "button"; prev.disabled = at === 0; next.disabled = at === vs.length - 1;
-        prev.onclick = function () { at--; draw(); }; next.onclick = function () { at++; draw(); };
-        sw.append(prev, el("b", "vnow", (at + 1) + "案目 / " + vs.length + "案"), next); b.append(sw);
-        b.append(el("p", "hint center", "案を切り替えても、まだ決定されません。"));
-        if (v.note) b.append(el("p", "was", "この案で頼んだ直し：" + v.note));
-      }
-      b.append(phone(v, x.when, x.id, at));
-      if (x.state === "下書きあり") {
-        b.append(el("p", "hint center", "✓を押しても、すぐには公開されません。公開希望日に合わせて投稿します。"));
-        var ok = el("button", "btn wide big", "✓ この案で公開をお願いする"); ok.type = "button";
-        ok.onclick = function () { if (confirm((at + 1) + "案目の内容で公開をお願いします。よろしいですか？")) act("approve", {id: x.id, version: at}); };
-        b.append(ok);
-        var left = R.MAX_REVISIONS - (+x.revisions || 0);
-        if (left > 0) {
-          var re = el("button", "btn line wide", "直してほしい（あと" + left + "回）"); re.type = "button";
-          re.onclick = function () { re.hidden = true; ok.hidden = true; b.append(reviseForm(x, at, function () { re.hidden = false; ok.hidden = false; })); };
-          b.append(re);
-        } else b.append(el("p", "hint center", "作り直しは" + R.MAX_REVISIONS + "回まで済みました。ご不安な点があれば、メールでお気軽にご相談ください。"));
-      }
-      return b;
+  var Demo={rows:[{id:"見本-1",shop:"ボンパティ",kind:"予約受付",headline:"クリスマスケーキご予約承り中",wantedDate:R.ymd(R.earliest(today)),when:R.ymd(R.earliest(today)),state:"下書きあり",revisions:0,versions:[{label:"案A",image:"sample_flyer_bonpati.jpg"},{label:"案B",image:"sample_flyer_bonpati.jpg"}]}],call:function(action,b){
+    var rows=this.rows,find=function(id){return rows.filter(function(x){return x.id===id;})[0];};
+    function quota(){var k=R.monthKey(R.ymd(today));return{month:k,used:R.used(rows,k),limit:R.LIMIT};}
+    if(action==="status")return{ok:true,quota:quota()};
+    if(action==="list")return{ok:true,items:rows.slice().reverse(),quota:quota()};
+    if(action==="image")return{ok:true,image:"sample_flyer_bonpati.jpg"};
+    if(action==="submit"){
+      var bad=R.checkSubmit(b,today,rows);if(bad)return{ok:false,error:bad};
+      var id="見本-"+(rows.length+1);rows.push({id:id,shop:b.shop,kind:b.kind,headline:b.headline,wantedDate:b.wantedDate,when:b.when,state:"下書きあり",revisions:0,versions:[{label:"案A",image:"sample_flyer_bonpati.jpg"},{label:"案B",image:"sample_flyer_bonpati.jpg"}]});return{ok:true,id:id,quota:quota()};
     }
-    c.append(body());
-    return c;
-  }
-  function reviseForm(x, at, cancel) {
-    var w = el("div", "revise"), l = el("label", "", "直してほしい所"), t = el("textarea"), s = el("button", "btn wide", "この内容で頼む"), n = el("button", "btn line wide", "やめる"), id = "note-" + x.id;
-    l.htmlFor = id; t.id = id; t.rows = 3; t.maxLength = 500; t.placeholder = "例：文章をもっと短く。写真を明るく。";
-    s.type = n.type = "button";
-    s.onclick = function () { delete viewing[x.id]; act("revise", {id: x.id, note: t.value, version: at}); };
-    n.onclick = function () { w.remove(); cancel(); };
-    w.append(l, t, s, n); return w;
-  }
-  function act(action, data) {
-    api(action, data).then(function (r) { if (!r.ok) alert(r.error); loadList(); }).catch(function () { alert(NET); });
-  }
+    var row=find(b.id),err;
+    if(action==="approve"){err=R.checkApprove(row,b.version);if(err)return{ok:false,error:err};row.state="承認済み";row.approvedVersion=b.version;return{ok:true};}
+    if(action==="revise"){err=R.checkRevise(row,b.note);if(err)return{ok:false,error:err};row.revisions++;var base=row.versions[b.version]||row.versions[0];row.versions.push({label:"修正版"+row.revisions,image:base.image,note:b.note});return{ok:true};}
+    return{ok:false,error:"できない操作です。"};
+  }};
+  function api(action,data){data=data||{};if(demo)return Promise.resolve(Demo.call(action,data));data.action=action;data.pass=pass;return fetch(ENDPOINT,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(data),redirect:"follow",credentials:"omit"}).then(function(r){return r.json();}).then(function(r){if(r&&r.auth===false&&!$("app").hidden)lockOut();return r;});}
+  function lockOut(){pass="";forgetKey();$("app").hidden=true;$("login").hidden=false;$("loginErr").textContent="このアドレスは使えなくなっています。ひなが堂にお問い合わせください。";$("loginErr").hidden=false;}
+  var KEY_RE=/^[A-Za-z0-9_-]{43}$/,KEY_STORE="postBoxKey",KEEP_DAYS=90,NET="つながりませんでした。電波の良い所でもう一度お試しください。";
+  function savedKey(){try{var v=JSON.parse(localStorage.getItem(KEY_STORE)||"null");if(v&&KEY_RE.test(v.k)&&+v.until>Date.now())return v.k;localStorage.removeItem(KEY_STORE);}catch(e){try{localStorage.removeItem(KEY_STORE);}catch(e2){}}return"";}
+  function saveKey(k){try{localStorage.setItem(KEY_STORE,JSON.stringify({k:k,until:Date.now()+KEEP_DAYS*864e5}));}catch(e){}}
+  function forgetKey(){try{localStorage.removeItem(KEY_STORE);}catch(e){}}
+  function rememberUi(){var on=!!savedKey();$("keepBox").hidden=false;$("keepOn").hidden=on;$("keepOff").hidden=!on;$("keepNote").textContent=on?"このスマホは、90日間このページを開くだけで箱が開きます。":"家族と共用のスマホ・パソコンでは押さないでください。";}
+  $("keepOn").onclick=function(){if(pass){saveKey(pass);rememberUi();}};$("keepOff").onclick=function(){forgetKey();rememberUi();};
 
-  // ---- 始める
-  function setWhen() { var s = R.ymd(R.earliest(today)); $("when").min = s; $("when").value = ""; $("whenHelp").textContent = s.replace(/-/g, "/") + " 以降を選べます（" + R.LEAD_DAYS + "営業日あと）。"; }
-  $("after").textContent = "受け付けたあと、" + R.DRAFT_DAYS + "営業日以内に下書きを作り、メールでお知らせします。";
-  setWhen();
-  function refreshBadge() { api("list").then(function (r) { if (r.ok) { var w = r.items.filter(function (x) { return x.state === "下書きあり"; }).length; $("badge").textContent = w; $("badge").hidden = !w; } }); }
-  function start(first) {
-    $("login").hidden = true; $("app").hidden = false;
-    if (first && first.ok) showQuota(first.quota); else api("status").then(function (r) { if (r.ok) showQuota(r.quota); });
-    if (!demo) rememberUi();
-    if (wantCheck) tab("check"); else refreshBadge();
+  function showQuota(q){if(!q)return;var left=Math.max(0,q.limit-q.used);$("quota").innerHTML="";$("quota").append(el("span","","今月あと"),el("b","",left),el("span","","回"),el("small","","月4回まで"));$("ring").setAttribute("stroke-dasharray",(left/q.limit*100)+" 100");}
+  function tab(name){var box=name==="box";$("box").hidden=!box;$("check").hidden=box;$("tBox").setAttribute("aria-selected",box);$("tCheck").setAttribute("aria-selected",!box);if(!box)loadList();scrollTo({top:0,behavior:"instant"});}
+  $("tBox").onclick=function(){tab("box");};$("tCheck").onclick=function(){tab("check");};
+
+  R.KINDS.forEach(function(k){var l=el("label"),i=el("input"),s=el("span","",k);i.type="radio";i.name="kind";i.value=k;i.onchange=function(){$("kindOtherWrap").hidden=k!=="その他";};l.append(i,s);$("kinds").append(l);});
+  var SHOPS="小麦の奴隷／ボンパティ／文明堂／御菓子司はたなか／和敬庵／つばき屋／ダイソー／楽天モバイル／ピーパラダイス／hair salon VITA／美髪・髪質改善クリニックLeon／携帯相談室／ドコモショップ サテライト／麺屋まる福／リトル・クルサ／BLOSSOM／釣具店 釣りします／たこ焼きけんちゃん／ファンタジーランド／メガネのヨネザワ／パレット／ツーピース／託児所シティハウス／おもちゃ屋 おやこパンダ／もみほぐし隊 恵／SpRay／未来ごとう／オックスフォード／森補正専門店／パレット HOMME／リトルシアター／バッグの多津屋 Hanako／白寿ヘルストロン／たびのコンパス／十八親和銀行／モール全体".split("／");
+  SHOPS.forEach(function(n){var o=el("option","",n);o.value=n;$("shop").append(o);});
+  function count(input,out,max){$(input).oninput=function(){$(out).textContent=this.value.length+" / "+max;};}
+  count("headline","headlineCount",20);count("details","detailsCount",60);
+
+  function shrink(file){return new Promise(function(ok,ng){var url=URL.createObjectURL(file),im=new Image();im.onload=function(){var k=Math.min(1,1600/Math.max(im.width,im.height)),c=document.createElement("canvas");c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);c.getContext("2d").drawImage(im,0,0,c.width,c.height);URL.revokeObjectURL(url);ok(c.toDataURL("image/jpeg",.85));};im.onerror=function(){URL.revokeObjectURL(url);ng(new Error("image"));};im.src=url;});}
+  function drawThumbs(){$("thumbs").innerHTML="";photos.forEach(function(p,i){var w=el("div","thumb"),im=new Image(),star=el("button","star",i===heroPhoto?"★ 主役":"☆ 主役にする"),x=el("button","remove","×");im.src=p;im.alt="選んだ写真 "+(i+1);star.type=x.type="button";star.setAttribute("aria-label","写真"+(i+1)+"を主役にする");x.setAttribute("aria-label","写真"+(i+1)+"を外す");star.onclick=function(){heroPhoto=i;drawThumbs();};x.onclick=function(){photos.splice(i,1);if(heroPhoto>=photos.length)heroPhoto=Math.max(0,photos.length-1);drawThumbs();};w.append(im,star,x);$("thumbs").append(w);});}
+  $("photos").onchange=function(){var files=[].slice.call(this.files),room=R.MAX_PHOTOS-photos.length;$("noPhoto").checked=false;showErr(files.length>room?"写真は4枚までです。":"");Promise.all(files.slice(0,room).map(function(f){return shrink(f).catch(function(){return null;});})).then(function(list){var bad=list.filter(function(x){return!x;}).length;photos=photos.concat(list.filter(Boolean));drawThumbs();if(bad)showErr("読み込めない写真がありました。JPEGかPNGでお試しください。");});this.value="";};
+  $("noPhoto").onchange=function(){if(this.checked){photos=[];heroPhoto=0;drawThumbs();}};
+  function productRow(){var row=el("div","product-row");[{c:"product-name",p:"品名",m:40},{c:"product-size",p:"大きさ・量",m:30},{c:"product-price",p:"値段",m:20}].forEach(function(a){var i=el("input",a.c);i.placeholder=a.p;i.maxLength=a.m;i.setAttribute("aria-label",a.p);row.append(i);});var x=el("button","remove-row","×");x.type="button";x.setAttribute("aria-label","この商品の行を消す");x.onclick=function(){row.remove();};row.append(x);return row;}
+  function resetProducts(){$("products").innerHTML="";$("products").append(productRow());}
+  $("addProduct").onclick=function(){if($("products").children.length<8)$("products").append(productRow());};resetProducts();
+  function products(){return[].slice.call(document.querySelectorAll(".product-row")).map(function(r){return{name:r.querySelector(".product-name").value.trim(),size:r.querySelector(".product-size").value.trim(),price:r.querySelector(".product-price").value.trim()};}).filter(function(x){return x.name||x.size||x.price;});}
+  function showErr(s){$("formErr").textContent=s;$("formErr").hidden=!s;if(s)$("formErr").scrollIntoView({block:"center"});}
+  function collect(){var cs=vals("contact");return{formats:val("format")?[val("format")]:[],sides:val("sides"),backNote:$("backNote").value.trim(),uses:vals("use"),kind:val("kind"),kindOther:$("kindOther").value.trim(),shop:$("shop").value,photos:photos,heroPhoto:heroPhoto,noPhoto:$("noPhoto").checked,headline:$("headline").value.trim(),details:$("details").value.trim(),products:products(),hidePrices:$("hidePrices").checked,tax:val("tax"),startDate:$("startDate").value,endDate:$("endDate").value,deadline:$("deadline").value,time:$("time").value.trim(),contacts:{phone:cs.indexOf("phone")>=0,hours:cs.indexOf("hours")>=0,location:cs.indexOf("location")>=0},mood:val("mood"),season:$("season").value,color:$("color").value.trim(),requiredText:$("requiredText").value.trim(),bannedText:$("bannedText").value.trim(),wantedDate:$("wantedDate").value,when:$("wantedDate").value,consentShop:$("consentShop").checked,consentPeople:$("consentPeople").checked,consentDetails:$("consentDetails").checked};}
+  $("form").onsubmit=function(e){e.preventDefault();var data=collect(),bad=R.checkSubmit(data,today,[]);if(bad)return showErr(bad);showErr("");$("send").disabled=true;$("send").textContent="送っています…";api("submit",data).then(function(r){if(!r.ok)return showErr(r.error);showQuota(r.quota);$("form").hidden=true;$("done").hidden=false;$("done").innerHTML="";var a=el("button","btn wide","案を確認する"),n=el("button","btn line wide","もう1件入れる");a.type=n.type="button";a.onclick=function(){tab("check");};n.onclick=reset;$("done").append(el("div","tick","✓"),el("h2","","受け付けました"),el("p","","受付番号 "+r.id+"。2〜3営業日を目安に案A・案Bを作り、メールでお知らせします。"),a,n);scrollTo({top:0,behavior:"instant"});}).catch(function(){showErr(NET);}).finally(function(){$("send").disabled=false;$("send").textContent="この材料で制作を頼む";});};
+  function reset(){$("form").reset();photos=[];heroPhoto=0;drawThumbs();resetProducts();showErr("");$("headlineCount").textContent="0 / 20";$("detailsCount").textContent="0 / 60";$("form").hidden=false;$("done").hidden=true;setWhen();scrollTo({top:0,behavior:"instant"});}
+
+  var STATE={"受付":"案を制作しています","直し依頼":"直しています","承認済み":"✓ 決定済み","下書きあり":"確認をお願いします"},imgs={};
+  function loadImage(id,at,im){var key=id+":"+at;(imgs[key]=imgs[key]||api("image",{id:id,version:at})).then(function(r){if(r.ok)im.src=r.image;else{delete imgs[key];im.alt=r.error;}}).catch(function(){delete imgs[key];im.alt=NET;});}
+  function flyer(v,id,at){var wrap=el("div","flyer-wrap"),im=new Image();im.className="flyer";im.alt=(v.label||"案")+"のチラシ";if(v.image)im.src=v.image;else loadImage(id,at,im);wrap.append(im);return wrap;}
+  function loadList(){var list=$("list");list.textContent="読み込み中…";api("list").then(function(r){if(!r.ok){list.textContent=r.error;return;}showQuota(r.quota);list.innerHTML="";var wait=r.items.filter(function(x){return x.state==="下書きあり";}).length;$("badge").textContent=wait;$("badge").hidden=!wait;if(!r.items.length){list.append(el("p","lead","まだありません。"));return;}r.items.forEach(function(x){list.append(card(x));});}).catch(function(){list.textContent=NET;});}
+  function card(x){var c=el("article","card"),vs=x.versions||[],top=el("div","card-top");top.append(el("span","st"+(x.state==="承認済み"?" ok":x.state==="下書きあり"?" wait":""),STATE[x.state]||x.state),el("span","hint","受け取り希望 "+String(x.wantedDate||x.when||"").replace(/-/g,"/")));c.append(top,el("h2","card-title",x.shop+"　"+(x.headline||x.kind||"")));if(!vs.length){c.append(el("p","memo","案を制作しています。"));return c;}var at=viewing[x.id];if(at===-1)at=vs.length-1;if(at==null||at<0||at>=vs.length)at=0;if(x.state==="承認済み"&&x.approvedVersion!=null)at=x.approvedVersion;
+    function draw(){viewing[x.id]=at;var old=c.querySelector(".card-body");if(old)old.remove();c.append(body());}
+    function body(){var b=el("div","card-body"),v=vs[at],sw=el("div","vers"),prev=el("button","vbtn","‹ 前の案"),next=el("button","vbtn","次の案 ›"),label=v.label||("案"+String.fromCharCode(65+at));prev.type=next.type="button";prev.disabled=at===0;next.disabled=at===vs.length-1;prev.onclick=function(){at--;draw();};next.onclick=function(){at++;draw();};sw.append(prev,el("b","vnow",label+"（"+(at+1)+" / "+vs.length+"）"),next);b.append(sw);if(v.note)b.append(el("p","was","この修正で頼んだこと："+v.note));b.append(flyer(v,x.id,at));if(x.state==="承認済み"){b.append(el("p","delivery","✓ この案で決まりました。印刷用PDFと画像（HP用）をお渡しします。"));return b;}if(x.state==="下書きあり"){var ok=el("button","btn wide big","✓ この案で決定する");ok.type="button";ok.onclick=function(){if(confirm(label+"で決定します。よろしいですか？"))act("approve",{id:x.id,version:at});};b.append(ok);var left=R.MAX_REVISIONS-(+x.revisions||0);if(left>0){var re=el("button","btn line wide","直してほしい所を書く（あと"+left+"回）");re.type="button";re.onclick=function(){re.hidden=true;ok.hidden=true;b.append(reviseForm(x,at,function(){re.hidden=false;ok.hidden=false;}));};b.append(re);}else b.append(el("p","hint center","作り直しは3回まで済みました。続きはメールでご相談ください。"));}return b;}
+    c.append(body());return c;
   }
-  var wantCheck = /(?:^#|&)check(?:&|$)/.test(location.hash);
-  if (demo) { $("demoBand").hidden = false; start(); return; }
-  // 専用アドレス（…post.html#k=鍵）で開いたときは、鍵を入れずに開く。
-  // 鍵はすぐアドレス欄から消し（画面の写真や転送で漏れないように）、この端末にだけ覚えておく
-  var keyInUrl = /(?:^#|&)k=([^&]*)/.exec(location.hash), fromUrl = false, candidate = "";
-  if (keyInUrl) {
-    try { history.replaceState(null, "", location.pathname + location.search + (wantCheck ? "#check" : "")); } catch (e) {}
-    try { candidate = decodeURIComponent(keyInUrl[1] || ""); } catch (e) { candidate = ""; }
-    fromUrl = true;
-  } else candidate = savedKey();
-  function showLoginError(text) { $("login").hidden = false; $("loginErr").textContent = text; $("loginErr").hidden = false; }
-  if (KEY_RE.test(candidate)) {
-    pass = candidate;
-    api("status").then(function (r) {
-      if (r.ok && r.role === "admin") { pass = ""; showLoginError("この鍵はここでは使えません。"); return; }  // 管理用の鍵は吉田様の画面で受けない・覚えない
-      if (r.ok) { if (fromUrl && savedKey() && savedKey() !== candidate) forgetKey(); start(r); return; }
-      pass = "";
-      if (r.auth === false) { forgetKey(); showLoginError("このアドレスは使えなくなっています。ひなが堂にお問い合わせください。"); }
-      else showLoginError(r.error || "うまくいきませんでした。少し待ってもう一度お試しください。");
-    }).catch(function () { pass = ""; showLoginError(NET); });
-  } else if (keyInUrl) { showLoginError("このアドレスは正しくありません。お渡しした専用のアドレスをそのまま開いてください。"); }
-  else $("login").hidden = false;
-  $("loginForm").onsubmit = function (e) {
-    e.preventDefault(); $("loginErr").hidden = true;
-    var typed = $("pass").value.trim();
-    if (!KEY_RE.test(typed)) { $("loginErr").textContent = "鍵が違います。お渡しした専用のアドレスから開いてください。"; $("loginErr").hidden = false; return; }
-    pass = typed;
-    api("status").then(function (r) {
-      if (!r.ok) { $("loginErr").textContent = r.error; $("loginErr").hidden = false; pass = ""; return; }
-      if (r.role === "admin") { $("loginErr").textContent = "この鍵はここでは使えません。"; $("loginErr").hidden = false; pass = ""; return; }
-      $("pass").value = ""; start(r);
-    }).catch(function () { $("loginErr").textContent = NET; $("loginErr").hidden = false; });
-  };
+  function reviseForm(x,at,cancel){var w=el("div","revise"),l=el("label","","直してほしい所"),t=el("textarea"),s=el("button","btn wide","この内容で頼む"),n=el("button","btn line wide","やめる"),id="note-"+x.id;l.htmlFor=id;t.id=id;t.rows=3;t.maxLength=500;t.placeholder="例：見出しを大きく。写真をもう少し明るく。";s.type=n.type="button";s.onclick=function(){viewing[x.id]=-1;act("revise",{id:x.id,note:t.value,version:at});};/* 11/24 頼んだ後は、できた修正版（いちばん後ろ）を見せる */n.onclick=function(){w.remove();cancel();};w.append(l,t,s,n);return w;}
+  function act(action,data){api(action,data).then(function(r){if(!r.ok)alert(r.error);loadList();}).catch(function(){alert(NET);});}
+
+  function setWhen(){var s=R.ymd(R.earliest(today));$("wantedDate").min=s;$("wantedDate").value="";$("whenHelp").textContent=s.replace(/-/g,"/")+" 以降を選べます（"+R.LEAD_DAYS+"営業日あと）。";}
+  $("after").textContent="受付後、2〜3営業日を目安に案A・案Bをお送りします。";setWhen();
+  function refreshBadge(){api("list").then(function(r){if(r.ok){var w=r.items.filter(function(x){return x.state==="下書きあり";}).length;$("badge").textContent=w;$("badge").hidden=!w;}});}
+  function start(first){$("login").hidden=true;$("app").hidden=false;if(first&&first.ok)showQuota(first.quota);else api("status").then(function(r){if(r.ok)showQuota(r.quota);});if(!demo)rememberUi();if(wantCheck)tab("check");else refreshBadge();}
+  var wantCheck=/(?:^#|&)check(?:&|$)/.test(location.hash);if(demo){$("demoBand").hidden=false;start();return;}
+  var keyInUrl=/(?:^#|&)k=([^&]*)/.exec(location.hash),fromUrl=false,candidate="";
+  if(keyInUrl){try{history.replaceState(null,"",location.pathname+location.search+(wantCheck?"#check":""));}catch(e){}try{candidate=decodeURIComponent(keyInUrl[1]||"");}catch(e){candidate="";}fromUrl=true;}else candidate=savedKey();
+  function showLoginError(text){$("login").hidden=false;$("loginErr").textContent=text;$("loginErr").hidden=false;}
+  if(KEY_RE.test(candidate)){pass=candidate;api("status").then(function(r){if(r.ok&&r.role==="admin"){pass="";showLoginError("この鍵はここでは使えません。");return;}if(r.ok){if(fromUrl&&savedKey()&&savedKey()!==candidate)forgetKey();start(r);return;}pass="";if(r.auth===false){forgetKey();showLoginError("このアドレスは使えなくなっています。ひなが堂にお問い合わせください。");}else showLoginError(r.error||"うまくいきませんでした。少し待ってもう一度お試しください。");}).catch(function(){pass="";showLoginError(NET);});}else if(keyInUrl)showLoginError("このアドレスは正しくありません。お渡しした専用のアドレスをそのまま開いてください。");else $("login").hidden=false;
+  $("loginForm").onsubmit=function(e){e.preventDefault();$("loginErr").hidden=true;var typed=$("pass").value.trim();if(!KEY_RE.test(typed)){$("loginErr").textContent="鍵が違います。お渡しした専用のアドレスから開いてください。";$("loginErr").hidden=false;return;}pass=typed;api("status").then(function(r){if(!r.ok){$("loginErr").textContent=r.error;$("loginErr").hidden=false;pass="";return;}if(r.role==="admin"){$("loginErr").textContent="この鍵はここでは使えません。";$("loginErr").hidden=false;pass="";return;}$("pass").value="";start(r);}).catch(function(){$("loginErr").textContent=NET;$("loginErr").hidden=false;});};
 })();

@@ -1,44 +1,39 @@
 <!doctype html>
-<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><meta name="theme-color" content="#96161c">
-<title>投稿の箱｜五島シティモール様</title>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><meta name="theme-color" content="#7b2633">
+<title>チラシ・ポスターの箱｜五島シティモール様</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@700;900&family=Zen+Kaku+Gothic+New:wght@500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="post.css"><link rel="stylesheet" href="tool.css"></head><body class="tool">
 <div class="demo" id="demoBand" hidden>見本です。入力した内容や写真は、どこにも送られません。</div>
-
-<section class="login" id="login" hidden><div class="login-card"><p class="eyebrow">五島シティモール様</p><h1>投稿の箱</h1>
-  <p class="hint">ひなが堂からお渡しした<b>専用のアドレス</b>から開くと、そのまま開きます。</p><form id="loginForm"><label for="pass">鍵（アドレスの「#k=」のあとの文字）</label><input id="pass" type="password" autocomplete="off" maxlength="43" required><button class="btn wide">開く</button></form>
-  <p class="err" id="loginErr" role="alert" hidden></p></div></section>
-
+<section class="login" id="login" hidden><div class="login-card"><p class="eyebrow">五島シティモール様</p><h1>チラシ・ポスターの箱</h1><p class="hint">ひなが堂からお渡しした<b>専用のアドレス</b>から開くと、そのまま使えます。</p><form id="loginForm"><label for="pass">鍵（アドレスの「#k=」のあとの文字）</label><input id="pass" type="password" autocomplete="off" maxlength="43" required><button class="btn wide">開く</button></form><p class="err" id="loginErr" role="alert" hidden></p></div></section>
 <div id="app" hidden>
 <div class="keep" id="keepBox" hidden><button type="button" class="btn line" id="keepOn">このスマホで次から開けるようにする</button><button type="button" class="btn line" id="keepOff" hidden>このスマホの鍵を消す</button><p class="hint" id="keepNote"></p></div>
-  <header class="top"><div class="top-in"><div class="top-row"><div><p class="eyebrow">五島シティモール様</p><h1>投稿の箱</h1></div><a href="index.html">使い方</a></div>
-    <div class="meter"><svg viewBox="0 0 44 44" aria-hidden="true"><circle class="m-bg" cx="22" cy="22" r="18"/><circle class="m-on" id="ring" cx="22" cy="22" r="18" pathLength="100" stroke-dasharray="0 100" transform="rotate(-90 22 22)"/></svg><div class="quota" id="quota" aria-live="polite"></div></div>
-    <nav class="tabs" role="tablist"><button id="tBox" role="tab" aria-selected="true" aria-controls="box">箱に入れる</button><button id="tCheck" role="tab" aria-selected="false" aria-controls="check">確認して✓<span class="badge" id="badge" hidden></span></button></nav>
-  </div></header>
+<header class="top"><div class="top-in"><div class="top-row"><div><p class="eyebrow">五島シティモール様</p><h1>チラシ・ポスターの箱</h1></div><a href="index.html">使い方</a></div>
+<div class="meter"><svg viewBox="0 0 44 44" aria-hidden="true"><circle class="m-bg" cx="22" cy="22" r="18"/><circle class="m-on" id="ring" cx="22" cy="22" r="18" pathLength="100" stroke-dasharray="0 100" transform="rotate(-90 22 22)"/></svg><div class="quota" id="quota" aria-live="polite"></div></div>
+<nav class="tabs" role="tablist"><button id="tBox" role="tab" aria-selected="true" aria-controls="box">材料を入れる</button><button id="tCheck" role="tab" aria-selected="false" aria-controls="check">案を確認して✓<span class="badge" id="badge" hidden></span></button></nav></div></header>
+<main><section id="box" role="tabpanel"><form id="form" novalidate>
+<fieldset class="step"><legend><b>1</b>作る物と使い道</legend><p class="step-help">大きさと、どこで使うかを教えてください。</p><p class="example">例：チラシを店頭で配り、同じ内容をHPにも載せる</p>
+<div class="choice-grid three" id="formats"><label><input type="radio" name="format" value="チラシ（A4縦）"><span>チラシ<br><small>A4縦</small></span></label><label><input type="radio" name="format" value="ポスター（A3縦）"><span>ポスター<br><small>A3縦</small></span></label><label><input type="radio" name="format" value="両方"><span>両方<br><small>同じ内容で</small></span></label></div><div class="inline-choice"><span>チラシ（A4）の面</span><label><input type="radio" name="sides" value="片面"> 片面</label><label><input type="radio" name="sides" value="両面"> 両面（裏も作る）</label><label><input type="radio" name="sides" value="おまかせ" checked> おまかせ</label></div><p class="hint">ポスター（A3）は片面です。</p><label for="backNote">裏面に載せたいこと <small>両面の時・任意</small></label><textarea id="backNote" rows="2" maxlength="200" placeholder="例：予約申込書、地図、メニューの一覧"></textarea>
+<p class="subhead">使い道（いくつでも）</p><div class="check-grid"><label><input type="checkbox" name="use" value="店頭に貼る"><span>店頭に貼る</span></label><label><input type="checkbox" name="use" value="お客様に配る"><span>お客様に配る</span></label><label><input type="checkbox" name="use" value="HPのチラシ欄に載せる"><span>HPのチラシ欄に載せる</span></label></div></fieldset>
 
-  <main>
-  <section id="box" role="tabpanel"><form id="form" novalidate>
-    <fieldset class="step"><legend><b>1</b>写真を選ぶ</legend>
-      <input class="vh" id="photos" type="file" accept="image/*" multiple>
-      <label class="drop" for="photos"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3a1 1 0 011 1v10a1 1 0 01-1 1H4a1 1 0 01-1-1V9a1 1 0 011-1z"/><circle cx="12" cy="13.5" r="3.5"/></svg><strong>写真を選ぶ</strong><span>4枚まで。スマホのアルバムから選べます</span></label>
-      <div class="thumbs" id="thumbs"></div></fieldset>
+<fieldset class="step"><legend><b>2</b>何のお知らせですか</legend><p class="step-help">いちばん近いものを1つ選びます。</p><p class="example">例：クリスマスケーキのご予約なら「予約受付」</p><div class="choice-grid two" id="kinds"></div><label id="kindOtherWrap" hidden>その他の内容<input id="kindOther" maxlength="60" placeholder="例：営業時間変更のお知らせ"></label></fieldset>
 
-    <fieldset class="step"><legend><b>2</b>何の投稿ですか</legend><div class="kinds" id="kinds"></div></fieldset>
+<fieldset class="step"><legend><b>3</b>どのお店ですか</legend><p class="step-help">お店を一覧から選んでください。</p><p class="example">例：館内共通の催しなら「モール全体」</p><label for="shop">お店</label><select id="shop"><option value="">選んでください</option></select></fieldset>
 
-    <fieldset class="step"><legend><b>3</b>伝えたいこと</legend>
-      <label for="shop">お店の名前 <small>あれば</small></label><input id="shop" maxlength="100" placeholder="例：BLOSSOM" autocomplete="off">
-      <label for="message">メモ</label><textarea id="message" rows="5" maxlength="1000" placeholder="例：秋の新メニュー。栗のケーキ。11月末まで。"></textarea>
-      <p class="hint"><span>箇条書きのままで大丈夫です。文章はこちらで整えます。</span><span id="count">0 / 1000</span></p></fieldset>
+<fieldset class="step"><legend><b>4</b>写真</legend><p class="step-help">4枚まで。選んだあと、主役の写真に★を付けます。</p><p class="photo-tip">撮り方のこつ：明るい所で、真上か斜め45度から。背景を片づけ、人の顔は入れない。</p><p class="example">例：ケーキを白いお皿にのせて、窓ぎわで斜め上から1枚。<br>送っていただいた写真は、ひなが堂が明るさ・色・背景・余白を整えて、おいしそうに見えるように加工してから使います（そのままは載せません）。商品の形や飾りは変えません。</p><input class="vh" id="photos" type="file" accept="image/*" multiple><label class="drop" for="photos"><strong>写真を選ぶ</strong><span>スマホのアルバムから選べます</span></label><div class="thumbs" id="thumbs"></div><label class="plain-check"><input id="noPhoto" type="checkbox"><span>写真なし（文字と飾りで作る）</span></label></fieldset>
 
-    <fieldset class="step"><legend><b>4</b>いつ出しますか</legend><label for="when">公開を希望する日</label><input id="when" type="date"><p class="hint" id="whenHelp"></p></fieldset>
+<fieldset class="step"><legend><b>5</b>いちばん伝えたいこと</legend><p class="step-help">ひと目で伝わる短い言葉から決めます。</p><p class="example">例：クリスマスケーキ ご予約承り中</p><label for="headline">いちばん伝えたい一言 <small>20字まで</small></label><input id="headline" maxlength="20" placeholder="例：歳末大感謝セール"><p class="counter" id="headlineCount">0 / 20</p><label for="details">補足 <small>60字まで・任意</small></label><textarea id="details" rows="3" maxlength="60" placeholder="例：人気のケーキを今年もご用意しました。数に限りがあります。"></textarea><p class="counter" id="detailsCount">0 / 60</p></fieldset>
 
-    <label class="agree"><input id="consent" type="checkbox"><span>写真に写っているお店や人に、掲載の了承を取りました。</span></label>
-    <p class="err" id="formErr" role="alert" hidden></p>
-    <p class="hint center" id="after"></p>
-    <button class="btn wide big" id="send">この内容で下書きを頼む</button>
-  </form><div class="done" id="done" role="status" hidden></div></section>
+<fieldset class="step"><legend><b>6</b>商品と値段</legend><p class="step-help">載せたい商品が複数あれば、行を足せます。</p><p class="example">例：生クリーム／5号／3,800円</p><div id="products"></div><button type="button" class="btn line small" id="addProduct">＋ 商品の行を足す</button><label class="plain-check"><input id="hidePrices" type="checkbox"><span>値段は載せない</span></label><div class="inline-choice"><span>値段の表示</span><label><input type="radio" name="tax" value="税込" checked> 税込の総額</label><label><input type="radio" name="tax" value="税込と税抜を併記"> 税込と税抜を並べる</label></div><p class="hint">お客様向けのチラシは、決まりにより<b>税込の総額</b>で載せます。表の値段が税抜の時は、その旨を補足に書いてください。</p></fieldset>
 
-  <section id="check" role="tabpanel" hidden><p class="lead">実際の投稿に近い形で確かめられます。よければ✓を押してください。✓がない投稿は公開しません。</p><div id="list"></div></section>
-  </main>
-</div>
-<script src="logic.js?v=20261120"></script><script src="post.js?v=20261120"></script></body></html>
+<fieldset class="step"><legend><b>7</b>日にちと連絡先</legend><p class="step-help">決まっている所だけで大丈夫です。</p><p class="example">例：12月1日〜25日、予約は18日まで</p><div class="date-grid"><label>開始日<input id="startDate" type="date"></label><label>終了日<input id="endDate" type="date"></label><label>予約の締切<input id="deadline" type="date"></label><label>時間 <small>任意</small><input id="time" maxlength="40" placeholder="例：10時〜18時"></label></div><p class="subhead">載せる連絡先（いくつでも）</p><div class="check-grid"><label><input type="checkbox" name="contact" value="phone"><span>電話</span></label><label><input type="checkbox" name="contact" value="hours"><span>営業時間</span></label><label><input type="checkbox" name="contact" value="location"><span>場所（階）</span></label></div></fieldset>
+
+<fieldset class="step"><legend><b>8</b>見た目の雰囲気</legend><p class="step-help">迷ったら「おまかせ」で大丈夫です。</p><p class="example">例：上品・高級、クリスマス、赤と金</p><div class="choice-grid two"><label><input type="radio" name="mood" value="上品・高級"><span>上品・高級</span></label><label><input type="radio" name="mood" value="にぎやか・お得感"><span>にぎやか・お得感</span></label><label><input type="radio" name="mood" value="やさしい・手づくり"><span>やさしい・手づくり</span></label><label><input type="radio" name="mood" value="すっきり・今どき"><span>すっきり・今どき</span></label><label><input type="radio" name="mood" value="おまかせ" checked><span>おまかせ</span></label></div><label for="season">季節の飾り</label><select id="season"><option>おまかせ</option><option>なし</option><option>春</option><option>夏</option><option>秋</option><option>冬</option><option>クリスマス</option><option>お正月</option><option>バレンタイン</option></select><label for="color">色の希望 <small>任意</small></label><input id="color" maxlength="50" placeholder="例：赤と金。迷う時は「おまかせ」"></fieldset>
+
+<fieldset class="step"><legend><b>9</b>注意書き</legend><p class="step-help">小さくても必ず載せる言葉を教えてください。</p><p class="example">例：写真はイメージです。なくなり次第終了。</p><label for="requiredText">必ず入れる言葉・注意書き <small>任意</small></label><textarea id="requiredText" rows="3" maxlength="300"></textarea><label for="bannedText">使ってはいけない言葉 <small>任意</small></label><textarea id="bannedText" rows="2" maxlength="200" placeholder="例：「激安」は使わない"></textarea></fieldset>
+
+<fieldset class="step"><legend><b>10</b>受け取り希望日</legend><p class="step-help">仕上がった案を受け取りたい日です。</p><p class="example">案A・案Bは、受付から2〜3営業日を目安にお送りします。</p><label for="wantedDate">いつまでに欲しいですか</label><input id="wantedDate" type="date"><p class="hint" id="whenHelp"></p></fieldset>
+
+<div class="agreements"><label class="agree"><input id="consentShop" type="checkbox"><span>お店（催事の時は主催の方）から、この内容をチラシ・ポスターに載せる了承を取りました。</span></label><label class="agree"><input id="consentPeople" type="checkbox"><span>写真に人が写っていないこと、または写っている方の了承を取ったことを確認しました。</span></label><label class="agree"><input id="consentDetails" type="checkbox"><span>値段・日にちなど、書いた内容に間違いがないことを確認しました。</span></label></div><p class="err" id="formErr" role="alert" hidden></p><p class="hint center" id="after"></p><button class="btn wide big" id="send">この材料で制作を頼む</button>
+</form><div class="done" id="done" role="status" hidden></div></section>
+<section id="check" role="tabpanel" hidden><p class="lead">案A・案Bを見比べます。良い案を表示して✓で決定するか、直してほしい所を書いてください。</p><div id="list"></div></section></main></div>
+<script src="logic.js?v=20261124"></script><script src="post.js?v=20261124"></script></body></html>
