@@ -2726,3 +2726,6 @@ body.page-shops .shops{align-items:start}
 /* 2026-11-24 チラシの表と裏 */
 .flyer-pages{display:inline-block;font-size:12px;font-weight:700;color:#fff;background:var(--main,#8a3a1a);border-radius:99px;padding:1px 9px;margin-bottom:4px}
 .flyer-card .flyer-back{margin-left:10px}
+
+/* 11/24 裏面のボタンは下の行で左にそろえる */
+.flyer-card .flyer-back{margin-left:0;margin-top:8px}
