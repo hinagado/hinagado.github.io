@@ -28,7 +28,25 @@
     if (sb) sb.hidden = k !== "souv";
     if (none) none.hidden = shops.some(s => !s.hidden);
     document.querySelectorAll("#list .grp").forEach(g => { const n = g.querySelectorAll(".shop:not([hidden])").length; g.hidden = !n; const sm = g.querySelector("h2 small"); if (sm) sm.textContent = n; });
+    fold(k === "all" && !words.length && mq.matches);
   };
+  // 2026-11-23 スマホのお店の一覧は、階ごとに3店＋「残りを見る」（日本語版と同じ）
+  const list = document.getElementById("list"), mq = matchMedia("(max-width:720px)"), FOLD_N = 3;
+  function fold(on) {
+    document.querySelectorAll("#list .grp").forEach(g => {
+      const cs = [...g.querySelectorAll(".shop")], open = on && !g.dataset.opened;
+      cs.forEach((c, i) => c.classList.toggle("fold", open && i >= FOLD_N));
+      let b = g.querySelector(".more-shops"); const rest = cs.length - FOLD_N;
+      if (open && rest > 0) {
+        if (!b) { b = document.createElement("button"); b.type = "button"; b.className = "more-shops"; b.addEventListener("click", () => { g.dataset.opened = "1"; fold(true); const nx = cs[FOLD_N]; if (nx) nx.querySelector("a, summary, button")?.focus({preventScroll: true}); }); g.append(b); }
+        b.textContent = (list && list.dataset.more || "+{n}").replace("{n}", rest); b.hidden = false;
+      } else if (b) b.hidden = true;
+    });
+  }
+  const unfoldTo = id => { const c = document.getElementById(id); if (c && c.classList.contains("fold")) { const g = c.closest(".grp"); g.dataset.opened = "1"; fold(true); c.scrollIntoView({block: "start"}); } };
+  addEventListener("hashchange", () => { const m = location.hash.match(/^#(shop-s\d+)$/); if (m) unfoldTo(m[1]); });
+  document.addEventListener("click", e => { const a = e.target.closest && e.target.closest('a[href^="#shop-"]'); if (a) setTimeout(() => unfoldTo(a.getAttribute("href").slice(1)), 0); });
+  mq.addEventListener && mq.addEventListener("change", () => set(cur));
   btns.forEach(b => b.addEventListener("click", () => set(b.dataset.k)));
   if (q) q.addEventListener("input", () => set(cur));
   const clr = document.getElementById("iclear"); if (clr) clr.addEventListener("click", () => { if (q) q.value = ""; set("all"); });
@@ -36,6 +54,7 @@
   try { k = new URLSearchParams(location.search).get("k") || "all"; } catch (e) { /* 何もしない */ }
   if (!btns.some(b => b.dataset.k === k)) k = "all";
   set(k);
+  { const m = location.hash.match(/^#(shop-s\d+)$/); if (m) unfoldTo(m[1]); }
   // 館内図の階の切り替え（fmap.js）で高さが変わるので、読み込みが終わってから一覧の見出しへ
   const go = () => { const h = document.querySelector("#list h2"); if (h) scrollTo({top: h.getBoundingClientRect().top + scrollY - 70, behavior: "instant"}); };
   if (k !== "all") { if (document.readyState === "complete") requestAnimationFrame(go); else addEventListener("load", () => requestAnimationFrame(go), {once: true}); }

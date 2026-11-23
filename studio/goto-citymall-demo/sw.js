@@ -1,7 +1,7 @@
 /* このファイルは _offline/make_sw.mjs から生成されます。直接編集しないでください。 */
 "use strict";
 
-const CACHE_NAME = "gcm-goto-citymall-demo-4dc4f96096fb";
+const CACHE_NAME = "gcm-goto-citymall-demo-58b589679365";
 const CACHE_PREFIX = "gcm-goto-citymall-demo-";
 const FONT_CACHE = "gcm-fonts-v1";
 const PRE = [
@@ -14,6 +14,16 @@ const PRE = [
   "en/shops.html",
   "flyer_view.js",
   "fmap.js",
+  "img/access/bus1_s.webp",
+  "img/access/bus1.webp",
+  "img/access/bus2_s.webp",
+  "img/access/bus2.webp",
+  "img/access/door_s.webp",
+  "img/access/door.webp",
+  "img/access/front_s.webp",
+  "img/access/front.webp",
+  "img/access/ramp_s.webp",
+  "img/access/ramp.webp",
   "img/art_cover.jpg",
   "img/art_hero.jpg",
   "img/art_omiyage.jpg",

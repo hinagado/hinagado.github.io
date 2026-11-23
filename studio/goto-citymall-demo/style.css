@@ -2589,7 +2589,7 @@ main>section.flyersec{margin-top:48px}
 .closing{position:relative}
 .closing>img{object-position:70% 30%}
 .closing::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(40,20,10,.6),transparent 60%);z-index:1;pointer-events:none}
-.closing-in{position:relative;z-index:2}
+.closing-in{z-index:2}
 @media (min-width:900px){body{font-size:16px}}
 
 /* m 2026-11-23 朝の点検：最後の写真のボタンがフッターの波に重ならないように */
@@ -2655,3 +2655,19 @@ body.intl main{padding-bottom:64px}
 @media (max-width:720px){.sph.cover .cv-th{grid-auto-rows:72px}}
 /* 写真の無いお店（ATM・不動産）は、隣の写真つきカードの高さまで伸ばさない */
 body.page-shops .shop:not(.hasph){align-self:start}
+
+/* r9 2026-11-23 採点2回目の指摘 */
+/* 英語版の館内図がPC幅で右端が切れる：広い画面では入れ物に収める */
+@media (min-width:1000px){:lang(en) .fm-grid,:lang(ko) .fm-grid{min-width:0}}
+/* PCで詳細を開いたとき、隣のカードが間延びしない */
+body.page-shops .shops{align-items:start}
+/* アクセスの写真 */
+.accph{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin:12px 0 0}
+.accph figure{margin:0}
+.accph a{display:block;aspect-ratio:4/3;border-radius:12px;overflow:hidden;background:#efe6dc}
+.accph img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.accph a:hover img{transform:scale(1.03)}
+.accph figcaption{margin-top:6px;font-size:14px;line-height:1.5;color:var(--muted)}
+.accph.acc-bus{grid-template-columns:1fr 1fr;max-width:560px}
+@media (prefers-reduced-motion:reduce){.accph img{transition:none}.accph a:hover img{transform:none}}
+#inohit small{display:block;margin-top:8px;font-size:14px;color:var(--muted)}
