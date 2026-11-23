@@ -2674,3 +2674,14 @@ body.page-shops .shops{align-items:start}
 
 /* 11/23 建物の外のお店 */
 .fm-b.fm-outside{border-style:dashed;padding-bottom:22px}.fm-outtag{position:absolute;left:50%;bottom:4px;transform:translateX(-50%);background:#2d8a4e;max-width:calc(100% - 6px);overflow:hidden;text-overflow:clip;color:#fff;font-style:normal;font-size:10.5px;font-weight:700;line-height:1;padding:3px 6px;border-radius:99px;white-space:nowrap}
+
+/* 11/23 絵の館内図 */
+.fm-ill{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 0 12px;border-radius:16px}
+.fm-ill-in{position:relative;min-width:860px;container-type:inline-size;border-radius:16px;overflow:hidden;background:#fdf3e8}
+.fm-ill img{display:block;width:100%;height:auto}
+.fm-pin{position:absolute;transform:translate(-50%,-50%);display:grid;justify-items:center;gap:2px;background:#fffdf8;color:var(--k,#5b5650);font-weight:700;font-size:max(11px,.9cqw);line-height:1.25;padding:.28em .5em;border-radius:6px;white-space:normal;max-width:6.4cqw;text-align:center;text-decoration:none;box-shadow:0 1px 3px rgba(60,30,10,.22)}
+.fm-pin:hover,.fm-pin.on{background:var(--k,#5b5650);color:#fff}
+.fm-pin.k0{--k:#c8283f}.fm-pin.k1{--k:#c06400}.fm-pin.k2{--k:#1d7f5b}.fm-pin.k3{--k:#2a5fae}.fm-pin.k4{--k:#b8336c}.fm-pin.k5{--k:#5a49a8}.fm-pin.own{--k:#8a6a14}
+.fm-pin i{font-style:normal;font-size:.78em;background:#2d8a4e;color:#fff;border-radius:99px;padding:.05em .55em}
+.fm-fac{position:absolute;transform:translate(-50%,-50%);background:rgba(255,255,255,.88);color:#5b5650;font-size:max(10px,.78cqw);font-weight:700;padding:.12em .5em;border-radius:5px;white-space:nowrap;pointer-events:none}
+.fm-fac.ent{background:#2d8a4e;color:#fff}

@@ -22,6 +22,8 @@
     setFloor(box.closest(".fm-floor").dataset.floor);
     map.querySelectorAll(".fm-b.on").forEach(x => { x.classList.remove("on"); x.removeAttribute("aria-current"); });
     box.classList.add("on"); box.setAttribute("aria-current", "true");
+    map.querySelectorAll(".fm-pin.on").forEach(x => x.classList.remove("on"));
+    map.querySelectorAll(`.fm-pin[data-shop="${sid}"]`).forEach(x => x.classList.add("on"));
     const name = card.querySelector("h3").textContent;
     info.replaceChildren();
     info.append(el("b", "fm-nm", name), el("p", "", card.querySelector(".sb > p:not(.roma)").textContent));
@@ -44,7 +46,7 @@
     if (scroll) map.scrollIntoView({block: "start", behavior: reduce ? "auto" : "smooth"});
   }
   map.addEventListener("click", e => {
-    const a = e.target.closest(".fm-b"); if (!a) return;
+    const a = e.target.closest(".fm-b, .fm-pin"); if (!a) return;
     e.preventDefault(); show(a.dataset.shop, false); remember(a.dataset.shop);
     // スマホでは案内が図の下に出るので、画面の外なら見える所まで動かす
     const r = info.getBoundingClientRect(), tb = document.querySelector(".tabbar");
