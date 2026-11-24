@@ -2685,7 +2685,7 @@ body.page-shops .shops{align-items:start}
 .fm-pin i{font-style:normal;font-size:.78em;background:#2d8a4e;color:#fff;border-radius:99px;padding:.05em .55em}
 .fm-fac{position:absolute;transform:translate(-50%,-50%);background:rgba(255,255,255,.88);color:#5b5650;font-size:max(10px,.78cqw);font-weight:700;padding:.12em .5em;border-radius:5px;white-space:nowrap;pointer-events:none}
 .fm-fac.ent{background:#2d8a4e;color:#fff}
-:lang(ja) .fm-pin{white-space:nowrap;max-width:none}
+:lang(ja) .fm-pin,:lang(zh-Hant) .fm-pin{white-space:nowrap;max-width:none}
 
 /* 2026-11-23 代表「携帯で見た時サイドメニューがおかしい」：右から出るのに横幅いっぱいの下がり窓で止まっていた。
    右から画面の高さいっぱいに出る引き出しにする。display を切り替えず visibility で出し入れ（iPhone の古い Safari でも同じ動き） */

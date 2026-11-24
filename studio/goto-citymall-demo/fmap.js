@@ -113,3 +113,45 @@
   addEventListener("hashchange", fromHash);
   fromHash();
 })();
+
+// 2026-11-24 絵の館内図の名札が重ならないようにする（代表「名札の重なりも改善して」）。
+// 文字の大きさは画面の幅や言葉で変わるので、出した後に測って、重なる名札だけを上下に少しずらす。
+// お店の名札を先に置き、設備の名札（階段など）は置けない時だけ隠す。JavaScript がない時は元の位置のまま。
+(function () {
+  const boxes = [...document.querySelectorAll(".fm-ill-in")];
+  if (!boxes.length) return;
+  const hit = (a, b) => Math.min(a.right, b.right) - Math.max(a.left, b.left) > 1 && Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top) > 1;
+  function layout(box) {
+    const B = box.getBoundingClientRect();
+    if (!B.width) return;
+    const els = [...box.querySelectorAll(".fm-pin"), ...box.querySelectorAll(".fm-fac")];
+    els.forEach(e => { e.style.transform = ""; e.style.visibility = ""; });
+    const placed = [];
+    for (const e of els) {
+      const r0 = e.getBoundingClientRect();
+      if (!r0.width) continue;
+      const step = r0.height + 2, fac = e.classList.contains("fm-fac");
+      const tries = [0, 0.5, -0.5, 1, -1, 1.5, -1.5, 2, -2];
+      let ok = null;
+      for (const k of tries) {
+        const dy = k * step, r = {left: r0.left, right: r0.right, top: r0.top + dy, bottom: r0.bottom + dy};
+        if (r.top < B.top || r.bottom > B.bottom) continue;
+        if (!placed.some(p => hit(p, r))) { ok = {dy, r}; break; }
+      }
+      if (!ok) {
+        if (fac) { e.style.visibility = "hidden"; continue; }
+        ok = {dy: 0, r: r0}; // どうしても置けないお店は元の位置（隠さない）
+      }
+      if (ok.dy) e.style.transform = `translate(-50%, calc(-50% + ${Math.round(ok.dy)}px))`;
+      placed.push(ok.r);
+    }
+  }
+  const run = () => boxes.forEach(layout);
+  let t = 0;
+  const later = () => { clearTimeout(t); t = setTimeout(run, 60); };
+  if ("ResizeObserver" in window) { const ro = new ResizeObserver(later); boxes.forEach(b => ro.observe(b)); }
+  addEventListener("resize", later);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(run);
+  addEventListener("load", run);
+  run();
+})();
