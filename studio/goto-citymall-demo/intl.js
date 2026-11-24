@@ -27,7 +27,7 @@
     if (clr) clr.hidden = k === "all" && !words.length;
     if (sb) sb.hidden = k !== "souv";
     if (none) none.hidden = shops.some(s => !s.hidden);
-    document.querySelectorAll("#list .grp").forEach(g => { const n = g.querySelectorAll(".shop:not([hidden])").length; g.hidden = !n; const sm = g.querySelector("h2 small"); if (sm) sm.textContent = n; });
+    document.querySelectorAll("#list .grp").forEach(g => { const n = g.querySelectorAll(".shop:not([hidden])").length, nc = g.querySelectorAll(".shop:not([hidden]):not([data-nc])").length; g.hidden = !n; const sm = g.querySelector("h2 small"); if (sm) sm.textContent = nc || ""; /* 11/25 ATM・開店前の店は数えない（日本語と同じ） */ });
     fold(k === "all" && !words.length && mq.matches);
   };
   // 2026-11-23 スマホのお店の一覧は、階ごとに3店＋「残りを見る」（日本語版と同じ）

@@ -8,7 +8,7 @@
   const toHira = s => s.replace(/[ァ-ヶ]/g, c => String.fromCharCode(c.charCodeAt(0) - 0x60));
   const norm = s => toHira(s.normalize("NFKC").toLowerCase().replace(/子供/g, "子ども")).replace(/[-‐ー]/g, "");
   // 2026-11-25 第三者評価「レストラン・夕食で0件」：探す言葉の言い換え（どれかに当たれば出す）
-  const ALT = {}; [[["レストラン", "ごはん", "ご飯", "食事", "夕食", "夕飯", "晩ごはん", "ディナー", "食堂", "グルメ"], ["飲食"]], [["お菓子", "おかし", "スイーツ"], ["菓子", "ケーキ", "スイーツ"]]].forEach(([ks, vs]) => ks.forEach(k => { ALT[norm(k)] = [norm(k), ...vs.map(norm)]; }));
+  const ALT = {}; [[["レストラン", "ごはん", "ご飯", "食事", "食堂", "グルメ"], ["飲食"]], [["夕食", "夕飯", "晩ごはん", "晩ご飯", "ディナー"], ["blossom", "クルサ"]], [["カフェ", "喫茶"], ["カフェ", "喫茶", "コーヒー"]], [["お菓子", "おかし", "スイーツ"], ["菓子", "ケーキ", "スイーツ"]]].forEach(([ks, vs]) => ks.forEach(k => { ALT[norm(k)] = [norm(k), ...vs.map(norm)]; }));
   const floorWord = t => t.replace(/([123])\s*階/g, "$1F").replace(/([123])\s*かい/g, "$1F");
   const index = cards.map(c => norm(c.dataset.s));
   const u = new URLSearchParams(location.search);

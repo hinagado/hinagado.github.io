@@ -2788,3 +2788,9 @@ body.page-shops .shops{align-items:start}
 .hstrip .hs-note{display:block;font-size:12.5px;font-weight:500;color:var(--muted);line-height:1.4}
 #nenmatsu{scroll-margin-top:90px}
 .flyer-image.flyer-zoomable{cursor:zoom-in}
+
+/* 11/25 PC幅の帯：「専門店の多くは19:00まで」で時間の欄が細くなり2行に割れていた。広い画面では時間の横に並べる */
+@media (min-width:901px){.hstrip .hs-note{display:none}.hstrip>span{white-space:nowrap}}
+
+/* 11/25 繁体字のます目の図：カナの店名の下の読み */
+.fm-b .fm-roma{display:block;font-size:10.5px;font-weight:500;line-height:1.2;color:var(--muted);word-break:break-word}
