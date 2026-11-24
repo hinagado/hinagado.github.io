@@ -1,13 +1,27 @@
 /* このファイルは _offline/make_sw.mjs から生成されます。直接編集しないでください。 */
 "use strict";
 
-const CACHE_NAME = "gcm-goto-citymall-post-d8efc9b12ba4";
+const CACHE_NAME = "gcm-goto-citymall-post-271b320683e9";
 const CACHE_PREFIX = "gcm-goto-citymall-post-";
 const FONT_CACHE = "gcm-fonts-v1";
 const PRE = [
+  "flyer/send.html",
   "./",
   "index.html",
   "logic.js",
+  "manual/after_back.webp",
+  "manual/after_front.webp",
+  "manual/b1.webp",
+  "manual/b4.webp",
+  "manual/b5.webp",
+  "manual/b9.webp",
+  "manual/bc.webp",
+  "manual/bd.webp",
+  "manual/before.webp",
+  "manual/box.html",
+  "manual/f1.webp",
+  "manual/flyer.html",
+  "manual/h1.webp",
   "post.css",
   "post.html",
   "post.js",

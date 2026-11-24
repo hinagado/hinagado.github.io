@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <style>
+    :root { color-scheme: light; font-family: "BIZ UDPGothic", "BIZ UDゴシック", "Noto Sans JP", system-ui, sans-serif; color: #202124; background: #f5f7f4; }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-size: 18px; line-height: 1.65; }
+    main { width: min(100% - 24px, 680px); margin: 0 auto; padding: 18px 0 48px; }
+    h1 { margin: 8px 0 4px; font-size: clamp(27px, 7vw, 38px); line-height: 1.3; color: #174f35; }
+    .lead { margin-top: 6px; }
+    .notice { padding: 12px 16px; border: 2px solid #9a6700; border-radius: 12px; background: #fff4ce; font-weight: 700; }
+    form, .done { padding: 20px 16px; border: 1px solid #d8ddd8; border-radius: 18px; background: #fff; box-shadow: 0 3px 14px rgba(23, 79, 53, .08); }
+    .field { margin: 0 0 24px; }
+    .shop { margin: 0; padding: 12px 14px; border-radius: 10px; background: #eef5f0; color: #174f35; font-size: 21px; font-weight: 800; }
+    label, legend { display: block; margin-bottom: 7px; font-weight: 800; font-size: 20px; }
+    input, button { width: 100%; min-height: 54px; border: 2px solid #65736b; border-radius: 10px; background: #fff; color: #202124; font: inherit; }
+    input { padding: 10px 12px; }
+    input:focus, button:focus { outline: 4px solid #b9e5cd; outline-offset: 2px; border-color: #176b45; }
+    .hint { display: block; margin-top: 5px; color: #59635e; font-size: 15px; }
+    fieldset { padding: 0; border: 0; }
+    .dates { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .dates label { font-size: 17px; }
+    .preview { min-height: 56px; margin-top: 10px; padding: 10px; border-radius: 10px; background: #f0f4f1; }
+    .preview:empty { display: none; }
+    .preview img { display: block; max-width: 100%; max-height: 260px; margin: auto; border-radius: 6px; object-fit: contain; }
+    .preview p { margin: 0; overflow-wrap: anywhere; }
+    button { border: 0; background: #176b45; color: #fff; font-weight: 800; font-size: 22px; cursor: pointer; }
+    button:disabled { background: #718078; cursor: wait; }
+    .status { min-height: 1.8em; margin: 12px 0 0; color: #a12d22; font-weight: 700; }
+    .sending { color: #174f35; }
+    .done { text-align: center; }
+    .done h2 { margin-top: 0; color: #174f35; font-size: 28px; }
+    .done p { margin-bottom: 0; }
+    [hidden] { display: none !important; }
+    @media (max-width: 480px) { .dates { grid-template-columns: 1fr; } form { padding: 18px 14px; } }
+  </style>
+</head>
+<body>
+<main>
+  <p id="fl-demo" class="notice" hidden>見本です。送られません</p>
+  <h1>お店のチラシを送る</h1>
+  <p class="lead">順番に入れて、最後に「送る」を押してください。</p>
+
+  <form id="fl-form" novalidate>
+    <div class="field">
+      <label>お店</label>
+      <p id="fl-shop" class="shop"></p>
+    </div>
+    <div class="field">
+      <label for="fl-title">1. 見出し</label>
+      <input id="fl-title" type="text" maxlength="30" required placeholder="例：冬のありがとうセール">
+      <span class="hint">1〜30字で入れてください。</span>
+    </div>
+    <fieldset class="field">
+      <legend>2. 載せる期間</legend>
+      <div class="dates">
+        <label for="fl-start">開始<input id="fl-start" type="date" required></label>
+        <label for="fl-end">終了<input id="fl-end" type="date" required></label>
+      </div>
+      <span class="hint">終了は今日から60日以内です。</span>
+    </fieldset>
+    <div class="field">
+      <label for="fl-file">3. 表の画像かPDF</label>
+      <input id="fl-file" type="file" accept="image/jpeg,image/png,application/pdf" required>
+      <span class="hint">JPEG・PNG・PDF、8MBまで。画像は付帯情報を外してから送ります。</span>
+      <div id="fl-preview" class="preview" aria-live="polite"></div>
+    </div>
+    <div class="field">
+      <label for="fl-file2">4. 裏の画像（なくてもかまいません）</label>
+      <input id="fl-file2" type="file" accept="image/jpeg,image/png">
+      <span class="hint">JPEG・PNG、8MBまで。表がPDFの時は裏を付けられません。</span>
+      <div id="fl-preview2" class="preview" aria-live="polite"></div>
+    </div>
+    <button id="fl-send" type="submit">送る</button>
+    <p id="fl-status" class="status" role="alert" aria-live="assertive"></p>
+  </form>
+
+  <section id="fl-done" class="done" tabindex="-1" hidden>
+    <h2>受け付けました</h2>
+    <p>運営の確認のあと載ります。</p>
+  </section>
+</main>
+
+<script type="application/json" id="fl-page"><?!= flPageJson ?></script>
+<script>
+(function () {
+  'use strict';
+  const flForm = document.getElementById('fl-form');
+  const flShop = document.getElementById('fl-shop');
+  const flTitle = document.getElementById('fl-title');
+  const flStart = document.getElementById('fl-start');
+  const flEnd = document.getElementById('fl-end');
+  const flFile = document.getElementById('fl-file');
+  const flFile2 = document.getElementById('fl-file2');
+  const flPreview = document.getElementById('fl-preview');
+  const flPreview2 = document.getElementById('fl-preview2');
+  const flSend = document.getElementById('fl-send');
+  const flStatus = document.getElementById('fl-status');
+  const flDone = document.getElementById('fl-done');
+  const flAllowed = ['image/jpeg', 'image/png', 'application/pdf'];
+  const flMaxBytes = 8 * 1024 * 1024;
+  let flPreviewUrl = '';
+  let flPreviewUrl2 = '';
+
+  let flPage;
+  try { flPage = JSON.parse(document.getElementById('fl-page').textContent); } catch (flError) {
+    // ファイルを直接開く時だけ使う、送信されない架空の見本。
+    flPage = {ok: true, shop: '見本のお店A', k: 'local-demo-key', demo: true};
+  }
+  if (!flPage || flPage.ok !== true || typeof flPage.shop !== 'string' || typeof flPage.k !== 'string') return;
+  flShop.textContent = flPage.shop;
+  const flDemo = flPage.demo === true;
+  document.getElementById('fl-demo').hidden = !flDemo;
+
+  function flLocalDay(flDate) {
+    return [flDate.getFullYear(), String(flDate.getMonth() + 1).padStart(2, '0'), String(flDate.getDate()).padStart(2, '0')].join('-');
+  }
+  const flTodayDate = new Date();
+  const flLastDate = new Date(flTodayDate.getFullYear(), flTodayDate.getMonth(), flTodayDate.getDate() + 60);
+  const flToday = flLocalDay(flTodayDate);
+  flStart.value = flToday;
+  flEnd.value = flToday;
+  flEnd.min = flToday;
+  flEnd.max = flLocalDay(flLastDate);
+  flStart.addEventListener('change', function () { if (flEnd.value && flStart.value > flEnd.value) flEnd.value = flStart.value; });
+
+  function flMessage(flText, flSending) {
+    flStatus.textContent = flText || '';
+    flStatus.classList.toggle('sending', Boolean(flSending));
+  }
+
+  function flFileProblem(flChosen, flBack) {
+    if (!flChosen) return flBack ? '' : '表のファイルを選んでください。';
+    if (flBack && ['image/jpeg', 'image/png'].indexOf(flChosen.type) < 0) return '裏はJPEGかPNGを選んでください。';
+    if (!flBack && flAllowed.indexOf(flChosen.type) < 0) return 'JPEG・PNG・PDFのどれかを選んでください。';
+    if (Array.from(flChosen.name || '').length > 200) return 'ファイル名は200字以内にしてください。';
+    // 画像は必ず canvas で描き直すため、容量は描き直した後に判定する。
+    if (flChosen.type === 'application/pdf' && flChosen.size > flMaxBytes) return 'PDFが8MBを超えています。8MB以下にしてください。';
+    return '';
+  }
+
+  flFile.addEventListener('change', function () {
+    if (flPreviewUrl) URL.revokeObjectURL(flPreviewUrl);
+    flPreviewUrl = '';
+    flPreview.replaceChildren();
+    const flChosen = flFile.files[0];
+    const flProblem = flFileProblem(flChosen, false);
+    if (flProblem) { flMessage(flProblem); flFile.value = ''; return; }
+    flMessage('');
+    if (flChosen.type === 'application/pdf') {
+      flFile2.value = '';
+      flFile2.disabled = true;
+      if (flPreviewUrl2) URL.revokeObjectURL(flPreviewUrl2);
+      flPreviewUrl2 = '';
+      flPreview2.replaceChildren();
+      const flName = document.createElement('p');
+      flName.textContent = 'PDF：' + flChosen.name;
+      flPreview.appendChild(flName);
+    } else {
+      flFile2.disabled = false;
+      flPreviewUrl = URL.createObjectURL(flChosen);
+      const flImage = document.createElement('img');
+      flImage.src = flPreviewUrl;
+      flImage.alt = '選んだチラシの見本';
+      flPreview.appendChild(flImage);
+    }
+  });
+
+  flFile2.addEventListener('change', function () {
+    if (flPreviewUrl2) URL.revokeObjectURL(flPreviewUrl2);
+    flPreviewUrl2 = '';
+    flPreview2.replaceChildren();
+    const flChosen = flFile2.files[0];
+    if (!flChosen) { flMessage(''); return; }
+    const flProblem = flFileProblem(flChosen, true);
+    if (flProblem) { flMessage(flProblem); flFile2.value = ''; return; }
+    if (flFile.files[0] && flFile.files[0].type === 'application/pdf') {
+      flMessage('表がPDFの時は裏を付けられません。');
+      flFile2.value = '';
+      return;
+    }
+    flMessage('');
+    flPreviewUrl2 = URL.createObjectURL(flChosen);
+    const flImage = document.createElement('img');
+    flImage.src = flPreviewUrl2;
+    flImage.alt = '選んだ裏の見本';
+    flPreview2.appendChild(flImage);
+  });
+
+  function flImageElement(flBlob) {
+    return new Promise(function (flResolve, flReject) {
+      const flUrl = URL.createObjectURL(flBlob);
+      const flImage = new Image();
+      flImage.onload = function () { URL.revokeObjectURL(flUrl); flResolve(flImage); };
+      flImage.onerror = function () { URL.revokeObjectURL(flUrl); flReject(new Error('画像を読み取れませんでした。')); };
+      flImage.src = flUrl;
+    });
+  }
+
+  function flCanvasBlob(flCanvas, flMime, flQuality) {
+    return new Promise(function (flResolve) { flCanvas.toBlob(flResolve, flMime, flQuality); });
+  }
+
+  // JPEG は JPEG、PNG は PNG のまま、大小にかかわらず必ず canvas を通す。
+  // PNG の描き直しが8MBを超えた時だけ、白背景の JPEG に切り替えてもう一度試す。
+  async function flRedraw(flChosen) {
+    if (flChosen.type === 'application/pdf') return {blob: flChosen, mime: flChosen.type, name: flChosen.name};
+    const flImage = await flImageElement(flChosen);
+    const flLong = Math.max(flImage.naturalWidth, flImage.naturalHeight);
+    if (!flLong) throw new Error('画像の大きさを読み取れませんでした。');
+    const flScale = Math.min(1, 2000 / flLong);
+    const flCanvas = document.createElement('canvas');
+    flCanvas.width = Math.max(1, Math.round(flImage.naturalWidth * flScale));
+    flCanvas.height = Math.max(1, Math.round(flImage.naturalHeight * flScale));
+    const flContext = flCanvas.getContext('2d');
+    if (!flContext) throw new Error('画像を描き直せませんでした。');
+    flContext.drawImage(flImage, 0, 0, flCanvas.width, flCanvas.height);
+    let flMime = flChosen.type;
+    let flBlob = await flCanvasBlob(flCanvas, flMime, flMime === 'image/jpeg' ? 0.9 : undefined);
+    if (!flBlob) throw new Error('画像を描き直せませんでした。');
+    if (flMime === 'image/png' && flBlob.size > flMaxBytes) {
+      const flJpegCanvas = document.createElement('canvas');
+      flJpegCanvas.width = flCanvas.width;
+      flJpegCanvas.height = flCanvas.height;
+      const flJpegContext = flJpegCanvas.getContext('2d');
+      if (!flJpegContext) throw new Error('画像をJPEGへ描き直せませんでした。');
+      flJpegContext.fillStyle = '#fff';
+      flJpegContext.fillRect(0, 0, flJpegCanvas.width, flJpegCanvas.height);
+      flJpegContext.drawImage(flCanvas, 0, 0);
+      flMime = 'image/jpeg';
+      flBlob = await flCanvasBlob(flJpegCanvas, flMime, 0.85);
+      if (!flBlob) throw new Error('画像をJPEGへ描き直せませんでした。');
+    }
+    const flExtension = flMime === 'image/png' ? '.png' : '.jpg';
+    return {blob: flBlob, mime: flMime, name: flChosen.name.replace(/\.[^.]*$/, '') + flExtension};
+  }
+
+  function flBase64(flBlob) {
+    return new Promise(function (flResolve, flReject) {
+      const flReader = new FileReader();
+      flReader.onload = function () { flResolve(String(flReader.result).split(',')[1] || ''); };
+      flReader.onerror = function () { flReject(new Error('ファイルを読み取れませんでした。')); };
+      flReader.readAsDataURL(flBlob);
+    });
+  }
+
+  function flShowDone() {
+    flForm.hidden = true;
+    flDone.hidden = false;
+    flDone.focus();
+  }
+
+  flForm.addEventListener('submit', async function (flEvent) {
+    flEvent.preventDefault();
+    flMessage('');
+    if (!flForm.reportValidity()) return;
+    if (Array.from(flTitle.value.trim()).length > 30) { flMessage('見出しは30字以内にしてください。'); return; }
+    if (flStart.value > flEnd.value) { flMessage('載せ始めは、載せ終わり以前の日にしてください。'); return; }
+    if (flEnd.value < flToday || flEnd.value > flEnd.max) { flMessage('載せ終わりは今日から60日以内にしてください。'); return; }
+    const flChosen = flFile.files[0];
+    const flChosen2 = flFile2.files[0];
+    const flProblem = flFileProblem(flChosen, false) || flFileProblem(flChosen2, true);
+    if (flProblem) { flMessage(flProblem); return; }
+    if (flChosen.type === 'application/pdf' && flChosen2) { flMessage('表がPDFの時は裏を付けられません。'); return; }
+
+    flSend.disabled = true;
+    flMessage('送っています。画面を閉じずにお待ちください…', true);
+    try {
+      const flReady = await flRedraw(flChosen);
+      if (flReady.blob.size > flMaxBytes) throw new Error('送るデータが8MBを超えています。別のファイルを選んでください。');
+      const flData = await flBase64(flReady.blob);
+      const flObject = {k: flPage.k, title: flTitle.value.trim(), start: flStart.value,
+        end: flEnd.value, name: flReady.name, mime: flReady.mime, data: flData};
+      if (flChosen2) {
+        const flReady2 = await flRedraw(flChosen2);
+        if (flReady2.blob.size > flMaxBytes) throw new Error('裏のデータが8MBを超えています。別のファイルを選んでください。');
+        flObject.name2 = flReady2.name;
+        flObject.mime2 = flReady2.mime;
+        flObject.data2 = await flBase64(flReady2.blob);
+      }
+      if (flDemo) {
+        setTimeout(flShowDone, 1000);
+        return;
+      }
+      google.script.run
+        .withSuccessHandler(function (flResult) {
+          if (flResult && flResult.ok === true) flShowDone();
+          else { flSend.disabled = false; flMessage('送れませんでした。もう一度お試しください。'); }
+        })
+        .withFailureHandler(function (flError) {
+          flSend.disabled = false;
+          flMessage((flError && flError.message ? flError.message : '送れませんでした。もう一度お試しください。').replace(/^Exception:\s*/, ''));
+        })
+        .flUpload(flObject);
+    } catch (flError) {
+      flSend.disabled = false;
+      flMessage(flError && flError.message ? flError.message : 'ファイルを読み取れませんでした。');
+    }
+  });
+})();
+</script>
+</body>
+</html>
