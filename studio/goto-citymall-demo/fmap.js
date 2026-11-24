@@ -165,7 +165,8 @@
     const MIN = 44;
     for (const p of pins) {
       const r = p.r, w = r.right - r.left, h = r.bottom - r.top;
-      const nv = Math.max(0, (MIN - h) / 2), nh = Math.max(0, (MIN - w) / 2);
+      // 2026-11-24 片側が隣でふさがっていたら、足りない分を空いている側に回す（調べる範囲は片側で足りない分まるごと）
+      const nv = Math.max(0, MIN - h), nh = Math.max(0, MIN - w);
       let t = Math.min(nv, r.top - B.top), b = Math.min(nv, B.bottom - r.bottom), l = Math.min(nh, r.left - B.left), rr = Math.min(nh, B.right - r.right);
       for (const q of placed) {
         if (q === r) continue;
@@ -175,7 +176,9 @@
         if (oy && q.right <= r.left) l = Math.min(l, (r.left - q.right) / 2);
         if (oy && q.left >= r.right) rr = Math.min(rr, (q.left - r.right) / 2);
       }
-      p.x = {t: Math.max(0, t), b: Math.max(0, b), l: Math.max(0, l), r: Math.max(0, rr)};
+      const share = (ra, rb, need) => { ra = Math.max(0, ra); rb = Math.max(0, rb); let a = Math.min(ra, need / 2), c = Math.min(rb, need / 2); a = Math.min(ra, need - c); c = Math.min(rb, need - a); return [a, c]; };
+      const [tt, bb] = share(t, b, nv), [ll, rx] = share(l, rr, nh);
+      p.x = {t: tt, b: bb, l: ll, r: rx};
     }
     // ななめ隣どうしで広げた範囲が重なったら、重なった分を両方から縮める
     const ex = p => ({left: p.r.left - p.x.l, right: p.r.right + p.x.r, top: p.r.top - p.x.t, bottom: p.r.bottom + p.x.b});
