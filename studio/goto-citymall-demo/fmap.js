@@ -120,13 +120,15 @@
 (function () {
   const boxes = [...document.querySelectorAll(".fm-ill-in")];
   if (!boxes.length) return;
-  const hit = (a, b) => Math.min(a.right, b.right) - Math.max(a.left, b.left) > 1 && Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top) > 1;
+  document.documentElement.classList.add("js-fl"); // 置き場所が決まるまで名札を出さない（跳ねて見えないように）
+  const hit = (a, b) => Math.min(a.right, b.right) - Math.max(a.left, b.left) > -2 && Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top) > -2; // 2px のすき間をとる
   function layout(box) {
     const B = box.getBoundingClientRect();
     if (!B.width) return;
     const els = [...box.querySelectorAll(".fm-fac.tr"), ...box.querySelectorAll(".fm-pin"), ...box.querySelectorAll(".fm-fac:not(.tr)")]; // 乗り物（タクシー・バス）を先に置く
-    els.forEach(e => { e.style.transform = ""; e.style.visibility = ""; });
-    const placed = [];
+    els.forEach(e => { e.style.transform = ""; e.style.visibility = ""; e.style.removeProperty("--ht"); e.style.removeProperty("--hb"); e.style.removeProperty("--hl"); e.style.removeProperty("--hr"); });
+    box.querySelectorAll(".fm-ld").forEach(x => x.remove());
+    const placed = [], pins = [];
     for (const e of els) {
       const r0 = e.getBoundingClientRect();
       if (!r0.width) continue;
@@ -144,9 +146,55 @@
       }
       if (ok.dy) e.style.transform = `translate(-50%, calc(-50% + ${Math.round(ok.dy)}px))`;
       placed.push(ok.r);
+      if (!fac) pins.push({e, r: ok.r});
+      // 2026-11-24 ずらした名札は、もとの場所（お店）へ短い線と点でつなぐ
+      if (!fac && ok.dy) {
+        const cx = (r0.left + r0.right) / 2 - B.left, ay = (r0.top + r0.bottom) / 2 - B.top;
+        const y1 = ok.dy > 0 ? ok.r.top - B.top : ok.r.bottom - B.top;
+        const top = Math.min(ay, y1), h = Math.abs(y1 - ay);
+        if (h > 3) {
+          const ld = document.createElement("i");
+          ld.className = "fm-ld" + (ok.dy > 0 ? " dn" : " up");
+          ld.setAttribute("aria-hidden", "true");
+          ld.style.cssText = `left:${cx}px;top:${top}px;height:${h}px;--k:${getComputedStyle(e).getPropertyValue("--k")}`;
+          box.append(ld);
+        }
+      }
     }
+    // 2026-11-24 押せる範囲：見た目はそのままで、上下左右を最大44pxまで広げる。隣の名札とはすき間の半分までにして、押せる範囲どうしは重ならない
+    const MIN = 44;
+    for (const p of pins) {
+      const r = p.r, w = r.right - r.left, h = r.bottom - r.top;
+      const nv = Math.max(0, (MIN - h) / 2), nh = Math.max(0, (MIN - w) / 2);
+      let t = Math.min(nv, r.top - B.top), b = Math.min(nv, B.bottom - r.bottom), l = Math.min(nh, r.left - B.left), rr = Math.min(nh, B.right - r.right);
+      for (const q of placed) {
+        if (q === r) continue;
+        const ox = Math.min(r.right + nh, q.right) - Math.max(r.left - nh, q.left) > 0, oy = Math.min(r.bottom + nv, q.bottom) - Math.max(r.top - nv, q.top) > 0;
+        if (ox && q.bottom <= r.top) t = Math.min(t, (r.top - q.bottom) / 2);
+        if (ox && q.top >= r.bottom) b = Math.min(b, (q.top - r.bottom) / 2);
+        if (oy && q.right <= r.left) l = Math.min(l, (r.left - q.right) / 2);
+        if (oy && q.left >= r.right) rr = Math.min(rr, (q.left - r.right) / 2);
+      }
+      p.x = {t: Math.max(0, t), b: Math.max(0, b), l: Math.max(0, l), r: Math.max(0, rr)};
+    }
+    // ななめ隣どうしで広げた範囲が重なったら、重なった分を両方から縮める
+    const ex = p => ({left: p.r.left - p.x.l, right: p.r.right + p.x.r, top: p.r.top - p.x.t, bottom: p.r.bottom + p.x.b});
+    for (let i = 0; i < pins.length; i++) for (let j = i + 1; j < pins.length; j++) {
+      const A = pins[i], C = pins[j], a = ex(A), c = ex(C);
+      const dx = Math.min(a.right, c.right) - Math.max(a.left, c.left), dy = Math.min(a.bottom, c.bottom) - Math.max(a.top, c.top);
+      if (dx <= 0 || dy <= 0) continue;
+      const sepX = A.r.right <= C.r.left || C.r.right <= A.r.left, sepY = A.r.bottom <= C.r.top || C.r.bottom <= A.r.top;
+      if (sepY && (!sepX || dy <= dx)) { const h = dy / 2 + 0.5; if (A.r.bottom <= C.r.top) { A.x.b = Math.max(0, A.x.b - h); C.x.t = Math.max(0, C.x.t - h); } else { A.x.t = Math.max(0, A.x.t - h); C.x.b = Math.max(0, C.x.b - h); } }
+      else if (sepX) { const h = dx / 2 + 0.5; if (A.r.right <= C.r.left) { A.x.r = Math.max(0, A.x.r - h); C.x.l = Math.max(0, C.x.l - h); } else { A.x.l = Math.max(0, A.x.l - h); C.x.r = Math.max(0, C.x.r - h); } }
+    }
+    for (const p of pins) {
+      const s = p.e.style;
+      s.setProperty("--ht", p.x.t.toFixed(1) + "px"); s.setProperty("--hb", p.x.b.toFixed(1) + "px");
+      s.setProperty("--hl", p.x.l.toFixed(1) + "px"); s.setProperty("--hr", p.x.r.toFixed(1) + "px");
+    }
+    box.classList.add("laid");
   }
-  const run = () => boxes.forEach(layout);
+  const run = () => boxes.forEach(b => { try { layout(b); } finally { if (b.getBoundingClientRect().width) b.classList.add("laid"); } });
   let t = 0;
   const later = () => { clearTimeout(t); t = setTimeout(run, 60); };
   if ("ResizeObserver" in window) { const ro = new ResizeObserver(later); boxes.forEach(b => ro.observe(b)); }

@@ -2738,12 +2738,21 @@ body.page-shops .shops{align-items:start}
 .fm-ill-in .fm-pin,.fm-ill-in .fm-fac{z-index:2}
 .fm-mv{position:absolute;left:var(--x0);top:var(--y);height:var(--h);opacity:0;animation:fm-go var(--t) linear var(--d) infinite;animation-play-state:paused}
 .fm-mv img{display:block;height:100%;width:auto;animation:fm-bob .42s ease-in-out infinite alternate;animation-play-state:paused}
-.fm-mv.walk{opacity:1;animation-name:fm-walk}
+.fm-mv.walk{animation-name:fm-stroll}
 .fm-mv.walk img{animation-duration:.32s}
 .fm-ill-in.run .fm-mv,.fm-ill-in.run .fm-mv img{animation-play-state:running}
-@keyframes fm-go{0%{transform:translate(-50%,-100%) translateX(0) scaleX(var(--s));opacity:0}3%{opacity:1}97%{opacity:1}100%{transform:translate(-50%,-100%) translateX(var(--dx)) scaleX(var(--s));opacity:0}}
+/* 車：65%の時間で道路を走り抜け、残りは道路を空ける。人：45%の時間で歩いて消え、残りは出ない（同時に見えるのは2〜3人） */
+@keyframes fm-go{0%{transform:translate(-50%,-100%) translateX(0) scaleX(var(--s));opacity:0}2%{opacity:1}63%{opacity:1}65%{transform:translate(-50%,-100%) translateX(var(--dx)) scaleX(var(--s));opacity:0}100%{transform:translate(-50%,-100%) translateX(var(--dx)) scaleX(var(--s));opacity:0}}
+@keyframes fm-stroll{0%{transform:translate(-50%,-100%) translateX(0) scaleX(var(--s));opacity:0}4%{opacity:1}41%{opacity:1}45%{transform:translate(-50%,-100%) translateX(var(--dx)) scaleX(var(--s));opacity:0}100%{transform:translate(-50%,-100%) translateX(var(--dx)) scaleX(var(--s));opacity:0}}
 @keyframes fm-walk{0%{transform:translate(-50%,-100%) translateX(0) scaleX(1)}49.9%{transform:translate(-50%,-100%) translateX(var(--dx)) scaleX(1)}50%{transform:translate(-50%,-100%) translateX(var(--dx)) scaleX(-1)}100%{transform:translate(-50%,-100%) translateX(0) scaleX(-1)}}
 @keyframes fm-bob{from{transform:translateY(0)}to{transform:translateY(-6%)}}
 .fm-ill-in.stop .fm-anim{display:none}
 .fm-move{font:inherit;font-size:15px;font-weight:700;color:var(--ink,#4a3b30);background:#fff;border:1.5px solid #d9c9b8;border-radius:99px;padding:8px 16px;min-height:44px;margin:0 0 8px;cursor:pointer}
 @media (prefers-reduced-motion: reduce){.fm-anim,.fm-move{display:none}}
+/* 2026-11-24 確かめ3回目：押せる範囲（見た目はそのまま・JSが隣と重ならない大きさを --ht 等に入れる）／ずらした名札とお店をつなぐ線／置き場所が決まるまで名札を出さない／乗り物の記号 */
+.fm-ill-in .fm-pin::after{content:"";position:absolute;top:calc(-1 * var(--ht,0px));bottom:calc(-1 * var(--hb,0px));left:calc(-1 * var(--hl,0px));right:calc(-1 * var(--hr,0px))}
+.fm-ld{position:absolute;z-index:2;width:2px;margin-left:-1px;background:var(--k,#5b5650);opacity:.75;pointer-events:none}
+.fm-ld::after{content:"";position:absolute;left:50%;width:7px;height:7px;margin-left:-3.5px;border-radius:50%;background:var(--k,#5b5650);box-shadow:0 0 0 1.5px #fff}
+.fm-ld.dn::after{top:-3.5px}.fm-ld.up::after{bottom:-3.5px}
+.js-fl .fm-ill-in:not(.laid) .fm-pin,.js-fl .fm-ill-in:not(.laid) .fm-fac{visibility:hidden}
+.fm-fac.tr svg{width:1.15em;height:1.15em;vertical-align:-.2em;margin-right:.25em;fill:currentColor}
