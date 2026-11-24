@@ -2732,3 +2732,18 @@ body.page-shops .shops{align-items:start}
 
 /* 11/24 裏面のボタンは下の行で左にそろえる */
 .flyer-card .flyer-back{margin-left:0;margin-top:8px}
+
+/* 2026-11-24 館内図の上を動く車と人（名札より下・見えている時だけ動く・動きを減らす設定では出さない） */
+.fm-anim{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+.fm-ill-in .fm-pin,.fm-ill-in .fm-fac{z-index:2}
+.fm-mv{position:absolute;left:var(--x0);top:var(--y);height:var(--h);opacity:0;animation:fm-go var(--t) linear var(--d) infinite;animation-play-state:paused}
+.fm-mv img{display:block;height:100%;width:auto;animation:fm-bob .42s ease-in-out infinite alternate;animation-play-state:paused}
+.fm-mv.walk{opacity:1;animation-name:fm-walk}
+.fm-mv.walk img{animation-duration:.32s}
+.fm-ill-in.run .fm-mv,.fm-ill-in.run .fm-mv img{animation-play-state:running}
+@keyframes fm-go{0%{transform:translate(-50%,-100%) translateX(0) scaleX(var(--s));opacity:0}3%{opacity:1}97%{opacity:1}100%{transform:translate(-50%,-100%) translateX(var(--dx)) scaleX(var(--s));opacity:0}}
+@keyframes fm-walk{0%{transform:translate(-50%,-100%) translateX(0) scaleX(1)}49.9%{transform:translate(-50%,-100%) translateX(var(--dx)) scaleX(1)}50%{transform:translate(-50%,-100%) translateX(var(--dx)) scaleX(-1)}100%{transform:translate(-50%,-100%) translateX(0) scaleX(-1)}}
+@keyframes fm-bob{from{transform:translateY(0)}to{transform:translateY(-6%)}}
+.fm-ill-in.stop .fm-anim{display:none}
+.fm-move{font:inherit;font-size:15px;font-weight:700;color:var(--ink,#4a3b30);background:#fff;border:1.5px solid #d9c9b8;border-radius:99px;padding:8px 16px;min-height:44px;margin:0 0 8px;cursor:pointer}
+@media (prefers-reduced-motion: reduce){.fm-anim,.fm-move{display:none}}

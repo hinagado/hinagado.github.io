@@ -155,3 +155,27 @@
   addEventListener("load", run);
   run();
 })();
+
+// 2026-11-24 館内図の車と人：図が画面に見えている時だけ動かす。「動きを止める」で止め、選んだことを覚える
+(function () {
+  const boxes = [...document.querySelectorAll(".fm-ill-in")].filter(b => b.querySelector(".fm-anim"));
+  if (!boxes.length || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const W = {en: ["Stop the animation", "Play the animation"], "zh-Hant": ["停止動畫", "播放動畫"], ko: ["움직임 멈추기", "움직임 보기"]}[document.documentElement.lang] || ["動きを止める", "動かす"];
+  let stop = false;
+  try { stop = localStorage.getItem("fm-anim-stop") === "1"; } catch (e) { /* 何もしない */ }
+  const seen = new Map();
+  const apply = () => boxes.forEach(b => { b.classList.toggle("stop", stop); b.classList.toggle("run", !stop && !!seen.get(b)); });
+  boxes.forEach(b => {
+    const btn = document.createElement("button");
+    btn.type = "button"; btn.className = "fm-move";
+    const label = () => { btn.textContent = stop ? W[1] : W[0]; btn.setAttribute("aria-pressed", String(stop)); };
+    label();
+    btn.addEventListener("click", () => { stop = !stop; try { localStorage.setItem("fm-anim-stop", stop ? "1" : "0"); } catch (e) { /* 何もしない */ } document.querySelectorAll(".fm-move").forEach(x => { x.textContent = stop ? W[1] : W[0]; x.setAttribute("aria-pressed", String(stop)); }); apply(); });
+    b.parentElement.before(btn);
+  });
+  if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver(es => { es.forEach(x => seen.set(x.target, x.isIntersecting)); apply(); });
+    boxes.forEach(b => io.observe(b));
+  } else { boxes.forEach(b => seen.set(b, true)); }
+  apply();
+})();

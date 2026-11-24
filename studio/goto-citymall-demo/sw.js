@@ -1,7 +1,7 @@
 /* このファイルは _offline/make_sw.mjs から生成されます。直接編集しないでください。 */
 "use strict";
 
-const CACHE_NAME = "gcm-goto-citymall-demo-081ff83065ae";
+const CACHE_NAME = "gcm-goto-citymall-demo-75ae69988737";
 const CACHE_PREFIX = "gcm-goto-citymall-demo-";
 const FONT_CACHE = "gcm-fonts-v1";
 const PRE = [
@@ -50,6 +50,16 @@ const PRE = [
   "img/flyer/twopiece_2.webp",
   "img/fmap/_bk1124n_1f.webp",
   "img/fmap/1f.webp",
+  "img/fmap/anim/bus.webp",
+  "img/fmap/anim/car_blue.webp",
+  "img/fmap/anim/car_red.webp",
+  "img/fmap/anim/p_bags.webp",
+  "img/fmap/anim/p_child.webp",
+  "img/fmap/anim/p_elder.webp",
+  "img/fmap/anim/p_pack.webp",
+  "img/fmap/anim/p_stroller.webp",
+  "img/fmap/anim/p_tote.webp",
+  "img/fmap/anim/taxi.webp",
   "img/food.jpg",
   "img/ig_sheet.jpg",
   "img/ig1.jpg",
