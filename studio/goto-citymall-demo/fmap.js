@@ -125,7 +125,7 @@
   function layout(box) {
     const B = box.getBoundingClientRect();
     if (!B.width) return;
-    const els = [...box.querySelectorAll(".fm-fac.tr"), ...box.querySelectorAll(".fm-pin"), ...box.querySelectorAll(".fm-fac:not(.tr)")]; // 乗り物（タクシー・バス）を先に置く
+    const els = [...box.querySelectorAll(".fm-fac.trm, .fm-fac.tr"), ...box.querySelectorAll(".fm-pin"), ...box.querySelectorAll(".fm-fac:not(.tr):not(.trm)")]; // 乗り物（タクシー・バス）を先に置く
     els.forEach(e => { e.style.transform = ""; e.style.visibility = ""; e.style.removeProperty("--ht"); e.style.removeProperty("--hb"); e.style.removeProperty("--hl"); e.style.removeProperty("--hr"); });
     box.querySelectorAll(".fm-ld").forEach(x => x.remove());
     const placed = [], pins = [];

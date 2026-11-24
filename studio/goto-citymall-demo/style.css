@@ -2756,3 +2756,8 @@ body.page-shops .shops{align-items:start}
 .fm-ld.dn::after{top:-3.5px}.fm-ld.up::after{bottom:-3.5px}
 .js-fl .fm-ill-in:not(.laid) .fm-pin,.js-fl .fm-ill-in:not(.laid) .fm-fac{visibility:hidden}
 .fm-fac.tr svg{width:1.15em;height:1.15em;vertical-align:-.2em;margin-right:.25em;fill:currentColor}
+/* 2026-11-24 乗り場の印（縁石の上の青い印）／パソコンでは名札の文字を少し大きく（年配の方にも読みやすく） */
+.fm-fac.trm{padding:0;width:max(18px,1.9cqw);height:max(8px,.75cqw);border-radius:99px;background:#1f5fae;box-shadow:0 0 0 2px #fff,0 1px 3px rgba(20,40,80,.35)}
+@media (min-width:900px){.fm-ill-in .fm-pin{font-size:max(12.5px,.95cqw)}.fm-ill-in .fm-fac{font-size:max(11.5px,.78cqw)}.fm-ill-in .fm-fac.tr{font-size:max(12.5px,.85cqw)}}
+/* 11/24 英語・韓国語の名札も1行（短い呼び名にしたので。折り返すと縦に長くなり、縁石の印とぶつかる） */
+.fm-ill-in .fm-pin{white-space:nowrap;max-width:none}
