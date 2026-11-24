@@ -98,6 +98,9 @@
     flLink.dataset.lb = flGroup;
     flLink.dataset.cap = flShop + '：' + flTitle + (flHas2 ? '（表）' : '');
     flText.appendChild(flLink);
+    // 2026-11-25 第三者評価「チラシの絵を押しても開かない」：絵を押しても「大きく見る」と同じに開く（キーボードではボタンの方を使う）
+    flImage.classList.add('flyer-zoomable');
+    flImage.addEventListener('click', function () { flLink.click(); });
     if (flHas2) {
       const flBack = flElement('a', 'flyer-open flyer-back', '裏面を見る');
       flBack.href = String(flItem.open2);

@@ -8,7 +8,12 @@
   // 押したお店をアドレスに残す（file:// などで使えないときは黙って飛ばす）
   const remember = sid => { try { history.replaceState(null, "", location.pathname + location.search + "#fm-" + sid); } catch (e) { /* 何もしない */ } };
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  // 2026-11-25 第三者評価「絵の札を押すと、案内がます目の図のさらに下に出て、絵が画面から消える」：
+  // 絵の札を押したら案内を絵のすぐ下へ移す（図は幅によらず1列）。階を替えたら元の場所へ戻す
+  const infoHome = info.parentElement, infoNext = info.nextSibling;
+  const infoBack = () => { if (info.parentElement !== infoHome) infoHome.insertBefore(info, infoNext); };
   const setFloor = f => {
+    infoBack();
     btns.forEach(b => b.setAttribute("aria-pressed", b.dataset.fl === f));
     floors.forEach(x => { x.hidden = x.dataset.floor !== f; });
     floors.forEach(x => { const sc = x.querySelector(".fm-scroll"); if (sc && sc.clientWidth) x.classList.toggle("end", sc.scrollLeft + sc.clientWidth >= sc.scrollWidth - 8); });
@@ -48,6 +53,8 @@
   map.addEventListener("click", e => {
     const a = e.target.closest(".fm-b, .fm-pin"); if (!a) return;
     e.preventDefault(); show(a.dataset.shop, false); remember(a.dataset.shop);
+    const ill = a.classList.contains("fm-pin") && a.closest(".fm-ill");
+    if (ill) ill.after(info); // 11/25 図は幅によらず1列なので、パソコンでも絵のすぐ下に出す
     // スマホでは案内が図の下に出るので、画面の外なら見える所まで動かす
     const r = info.getBoundingClientRect(), tb = document.querySelector(".tabbar");
     const low = innerHeight - (tb && getComputedStyle(tb).display !== "none" ? tb.getBoundingClientRect().height : 0) - 16; // 箱の下の端は、下の固定メニューの少し上まで

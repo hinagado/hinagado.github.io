@@ -4,7 +4,7 @@
   if (dlg) {
     document.addEventListener("click", e => {
       const b = e.target.closest(".showja"); if (!b) return;
-      dlg.querySelector(".sb-ja").textContent = b.dataset.ja; dlg.querySelector(".sb-sub").textContent = b.dataset.sub || "";
+      dlg.querySelector(".sb-ja").textContent = b.dataset.ja; dlg.querySelector(".sb-sub").textContent = b.dataset.sub || ""; const tr = dlg.querySelector(".sb-tr"); if (tr) { tr.textContent = b.dataset.tr || ""; tr.hidden = !b.dataset.tr; }
       const m = document.getElementById("showmap"); if (m) { m.hidden = !b.dataset.map; if (b.dataset.map) m.href = b.dataset.map; }
       if (dlg.showModal) dlg.showModal(); else dlg.setAttribute("open", "");
     });
@@ -22,7 +22,7 @@
     const words = (q ? q.value : "").toLowerCase().trim().split(/\s+/).filter(Boolean);
     const ok = s => k === "all" || (k === "souv" ? s.dataset.souv === "1" : k.startsWith("f:") ? s.dataset.f === k.slice(2) : s.dataset.k === k);
     shops.forEach(s => { s.hidden = !(ok(s) && words.every(w => (s.dataset.s || "").includes(w))); });
-    const n = shops.filter(s => !s.hidden).length, cnt = document.getElementById("icount"), clr = document.getElementById("iclear"), sb = document.getElementById("souvback");
+    const n = shops.filter(s => !s.hidden && !s.dataset.nc).length, cnt = document.getElementById("icount"), clr = document.getElementById("iclear"), sb = document.getElementById("souvback");
     if (cnt) cnt.textContent = cnt.dataset.tpl.replace("{n}", n);
     if (clr) clr.hidden = k === "all" && !words.length;
     if (sb) sb.hidden = k !== "souv";
@@ -45,7 +45,7 @@
   }
   const unfoldTo = id => { const c = document.getElementById(id); if (c && c.classList.contains("fold")) { const g = c.closest(".grp"); g.dataset.opened = "1"; fold(true); c.scrollIntoView({block: "start"}); } };
   addEventListener("hashchange", () => { const m = location.hash.match(/^#(shop-s\d+)$/); if (m) unfoldTo(m[1]); });
-  document.addEventListener("click", e => { const a = e.target.closest && e.target.closest('a[href^="#shop-"]'); if (a) setTimeout(() => unfoldTo(a.getAttribute("href").slice(1)), 0); });
+  document.addEventListener("click", e => { const a = e.target.closest && e.target.closest('a[href^="#shop-"]'); if (a && !a.closest("#fm")) setTimeout(() => unfoldTo(a.getAttribute("href").slice(1)), 0); });
   mq.addEventListener && mq.addEventListener("change", () => set(cur));
   btns.forEach(b => b.addEventListener("click", () => set(b.dataset.k)));
   if (q) q.addEventListener("input", () => set(cur));

@@ -2781,3 +2781,10 @@ body.page-shops .shops{align-items:start}
 .fm-pan button{flex:1;font:inherit;font-size:15px;font-weight:700;color:var(--ink,#4a3b30);background:#fff;border:1.5px solid #d9c9b8;border-radius:12px;min-height:44px;cursor:pointer}
 .fm-pan-l::before{content:"◀ "}.fm-pan-r::after{content:" ▶"}
 .fm-move:focus-visible,.fm-zoom:focus-visible,.fm-pan button:focus-visible{outline:3px solid #2f6fb3;outline-offset:2px}
+/* 2026-11-25 見せる画面の日本語の意味（お客さまの言葉） */
+.showbox .sb-tr{font-size:16px;line-height:1.6;color:#5b5650;margin:10px 0 0;padding-top:10px;border-top:1px dashed #d9c9b8}
+
+/* 2026-11-25 営業時間の下に「専門店の多くは19:00まで」 */
+.hstrip .hs-note{display:block;font-size:12.5px;font-weight:500;color:var(--muted);line-height:1.4}
+#nenmatsu{scroll-margin-top:90px}
+.flyer-image.flyer-zoomable{cursor:zoom-in}

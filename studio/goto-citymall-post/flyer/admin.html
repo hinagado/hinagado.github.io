@@ -43,7 +43,7 @@ dialog form{text-align:right;padding:8px}
 <div class="wrap">
 <h1>運営のご担当者の画面（見本）</h1>
 <p class="lead">本番では、Google スプレッドシートの「チラシ」のタブです。お店からチラシが届くと、下のようなお知らせメールが届きます。</p>
-<div class="mail"><b>お知らせメール（見本）</b>件名：<span id="mailShop">見本のお店A</span>からチラシが届きました<br>本文：表で「載せる」を選ぶと載ります。（表のアドレス）</div>
+<div class="mail"><b>お知らせメール（見本）</b>件名：<span id="mailShop">見本のお店A</span>からチラシが届きました（<span id="mailTitle">見出し</span>）<br>本文：お店・見出し・載せる期間・受付日時・<b style="display:inline;color:inherit;font-size:inherit">一覧表の行（例：7行目）</b>と、その行を直接開くリンク</div>
 <div class="steps"><b>お試しの手順</b><ol>
 <li>届いたチラシの「開く」を押して、中身を確かめる</li>
 <li>「載せる」の列で「載せる」を選ぶ（自動で保存されます）</li>
@@ -83,6 +83,7 @@ dialog form{text-align:right;padding:8px}
       return;
     }
     document.getElementById('mailShop').textContent = list[list.length - 1].shop;
+    document.getElementById('mailTitle').textContent = list[list.length - 1].title;
     // 8枠：期間内で「載せる」の物を、載せ始めの新しい順に（ホームページの見本のもとからの3件を含めて8件まで）
     const live = list.filter(x => x.status === '載せる' && x.start <= today && x.end >= today).sort((a, b) => b.start.localeCompare(a.start));
     const over = new Set(live.slice(SLOTS - FIXED).map(x => x.id));

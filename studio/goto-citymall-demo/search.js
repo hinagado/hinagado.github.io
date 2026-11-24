@@ -6,7 +6,9 @@
   const tabBtns = [...document.querySelectorAll("#tabs button")];
   const kindBtns = [...document.querySelectorAll("#kinds button")], ownBtn = document.querySelector("#owns [data-own]");
   const toHira = s => s.replace(/[ァ-ヶ]/g, c => String.fromCharCode(c.charCodeAt(0) - 0x60));
-  const norm = s => toHira(s.normalize("NFKC").toLowerCase()).replace(/[-‐ー]/g, "");
+  const norm = s => toHira(s.normalize("NFKC").toLowerCase().replace(/子供/g, "子ども")).replace(/[-‐ー]/g, "");
+  // 2026-11-25 第三者評価「レストラン・夕食で0件」：探す言葉の言い換え（どれかに当たれば出す）
+  const ALT = {}; [[["レストラン", "ごはん", "ご飯", "食事", "夕食", "夕飯", "晩ごはん", "ディナー", "食堂", "グルメ"], ["飲食"]], [["お菓子", "おかし", "スイーツ"], ["菓子", "ケーキ", "スイーツ"]]].forEach(([ks, vs]) => ks.forEach(k => { ALT[norm(k)] = [norm(k), ...vs.map(norm)]; }));
   const floorWord = t => t.replace(/([123])\s*階/g, "$1F").replace(/([123])\s*かい/g, "$1F");
   const index = cards.map(c => norm(c.dataset.s));
   const u = new URLSearchParams(location.search);
@@ -36,10 +38,10 @@
       b.textContent = "残り" + rest + "店を見る"; b.hidden = false;
     } else if (b) b.hidden = true;
   }
-  // 館内図などから、たたんだお店へ飛ぶときは開いてから見せる
+  // 館内図などから、たたんだお店へ飛ぶときは開いてから見せる（11/25 館内図の札は図の下に案内を出すので対象外。巻き込まれて図から飛んでいた）
   const unfoldTo = id => { const c = document.getElementById(id); if (c && c.classList.contains("fold")) { const g = c.closest(".grp"); g.dataset.opened = "1"; fold(g, false); c.scrollIntoView({block: "start"}); } };
   addEventListener("hashchange", () => { const m = location.hash.match(/^#(shop-s\d+)$/); if (m) unfoldTo(m[1]); });
-  document.addEventListener("click", e => { const a = e.target.closest && e.target.closest('a[href^="#shop-"]'); if (a) setTimeout(() => unfoldTo(a.getAttribute("href").slice(1)), 0); });
+  document.addEventListener("click", e => { const a = e.target.closest && e.target.closest('a[href^="#shop-"]'); if (a && !a.closest("#fm")) setTimeout(() => unfoldTo(a.getAttribute("href").slice(1)), 0); });
   foldMq.addEventListener && foldMq.addEventListener("change", () => draw(false));
   function draw(save) {
     const words = norm(floorWord(state.q)).split(/\s+/).filter(Boolean);
@@ -48,7 +50,7 @@
       const ok = (!state.own || c.dataset.tab === "own") && (!state.open || isOpen(c))
         && (state.kind === "すべて" || c.dataset.k === state.kind)
         && (state.floor === "all" || c.dataset.f === state.floor)
-        && words.every(w => index[i].includes(w));
+        && words.every(w => (ALT[w] || [w]).some(x => index[i].includes(x)));
       c.hidden = !ok; if (ok) { all++; if (!c.dataset.nc) n++; }
     });
     const filtered = !!(state.q || state.own || state.open || state.kind !== "すべて" || state.floor !== "all");

@@ -21,7 +21,9 @@
   }
   // 2026-11-16 区切りを透明から出す動きはやめた（背の高い区切りが、画面に5%入らず出ないままになっていた）。中身は最初から見せる
   // 催事に「開催中」「まもなく」（7日以内）の印
-  const today = new Date(); today.setHours(0, 0, 0, 0);
+  // ?now=2026-12-08T12:00 で日付を変えて確かめられる（試験用。お店の営業中の表示と同じ書き方）
+  let nowQ = null; try { nowQ = new URLSearchParams(location.search).get("now"); } catch (e) { /* 何もしない */ }
+  const today = nowQ && !isNaN(new Date(nowQ).getTime()) ? new Date(nowQ) : new Date(); today.setHours(0, 0, 0, 0);
   document.querySelectorAll("[data-start][data-end]").forEach(li => {
     const st = new Date(li.dataset.start + "T00:00:00"), en = new Date(li.dataset.end + "T23:59:59");
     const lang = document.documentElement.lang;
@@ -30,6 +32,23 @@
     if (st <= today && today <= en) w = [W[0], "now"]; else if (st > today && (st - today) / 864e5 <= 7) w = [W[1], "soon"];
     if (w) { const b = document.createElement("span"); b.className = "evtag " + w[1]; b.textContent = w[0]; li.prepend(b); }
     if (en < today && li.classList.contains("ev")) li.hidden = true; // 終わった催事は「これからのイベント」に出さない（2026-11-22）
+  });
+  // 2026-11-25 第三者評価「終わった催しが『次のイベント』のまま」：今日の日付で、開催中か次の催しを選び直す
+  document.querySelectorAll("[data-evs]").forEach(a => {
+    let evs = []; try { evs = JSON.parse(a.dataset.evs); } catch (e) { return; }
+    if (!Array.isArray(evs)) return;
+    const okDay = v => typeof v === "string" && /^\d{4}-\d{2}-\d{2}$/.test(v);
+    evs = evs.filter(x => Array.isArray(x) && x.length >= 6 && okDay(x[0]) && okDay(x[1]) && x[0] <= x[1]);
+    // 施設のある日本の日付（海外から見ても同じ催しを出す）。?now= の時はその日
+    let jd = ""; try { jd = new Intl.DateTimeFormat("sv-SE", {timeZone: "Asia/Tokyo"}).format(nowQ ? today : new Date()); } catch (e) { jd = ""; }
+    if (!okDay(jd)) jd = today.getFullYear() + "-" + String(today.getMonth() + 1).padStart(2, "0") + "-" + String(today.getDate()).padStart(2, "0");
+    const byStart = (p, q) => p[0] < q[0] ? -1 : p[0] > q[0] ? 1 : 0;
+    const pick = evs.filter(x => x[0] <= jd && jd <= x[1]).sort(byStart)[0] || evs.filter(x => x[0] > jd).sort(byStart)[0];
+    const b = a.querySelector("[data-evlabel]");
+    if (!pick || !b) { if (!pick) a.hidden = true; return; }
+    b.dataset.start = pick[0]; b.dataset.end = pick[1];
+    const set = (sel, v) => { const x = a.querySelector(sel); if (x) x.textContent = v; };
+    set(".evn-when", pick[2]); set(".evn-what", pick[3] + "「" + pick[4] + "」"); set(".evn-sub", pick[5]);
   });
   // トップの「次のイベント」が開催中なら言い方を替える（2026-11-23）
   document.querySelectorAll("[data-evlabel]").forEach(b => {
