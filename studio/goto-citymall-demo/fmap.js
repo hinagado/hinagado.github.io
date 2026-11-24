@@ -227,3 +227,31 @@
   } else { boxes.forEach(b => seen.set(b, true)); }
   apply();
 })();
+// 2026-11-24 絵の館内図を「大きく見る」（文字も大きくなる）と、横に長い時は「左・中央・右」へ動かすボタン（年配の方・PCの小さい文字への対応）
+(function () {
+  const ills = [...document.querySelectorAll(".fm-ill")];
+  if (!ills.length) return;
+  const lang = document.documentElement.lang;
+  const T = {en: ["Make it bigger", "Back to normal size", "Left", "Center", "Right", "Move the map"], "zh-Hant": ["放大地圖", "恢復原本大小", "左", "中間", "右", "移動地圖"], ko: ["지도 크게 보기", "원래 크기로", "왼쪽", "가운데", "오른쪽", "지도 이동"]}[lang] || ["図を大きくする", "元の大きさに戻す", "左", "まん中", "右", "図を動かす"];
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  ills.forEach(ill => {
+    const bar = document.createElement("div"); bar.className = "fm-ctl";
+    const mv = ill.previousElementSibling && ill.previousElementSibling.classList.contains("fm-move") ? ill.previousElementSibling : null;
+    ill.before(bar); if (mv) bar.append(mv);
+    const zb = document.createElement("button"); zb.type = "button"; zb.className = "fm-zoom"; zb.setAttribute("aria-pressed", "false"); zb.textContent = T[0];
+    bar.append(zb);
+    const nav = document.createElement("div"); nav.className = "fm-pan"; nav.setAttribute("role", "group"); nav.setAttribute("aria-label", T[5]);
+    const go = k => { const max = ill.scrollWidth - ill.clientWidth; ill.scrollTo({left: k * max, behavior: reduce ? "auto" : "smooth"}); };
+    [[T[2], 0, "l"], [T[3], 0.5, "c"], [T[4], 1, "r"]].forEach(([t, k, c]) => { const b = document.createElement("button"); b.type = "button"; b.className = "fm-pan-" + c; b.textContent = t; b.addEventListener("click", () => go(k)); nav.append(b); });
+    ill.after(nav);
+    const upd = () => { nav.hidden = !(ill.clientWidth && ill.scrollWidth > ill.clientWidth + 8); };
+    zb.addEventListener("click", () => {
+      const keep = ill.scrollWidth > ill.clientWidth ? (ill.scrollLeft + ill.clientWidth / 2) / ill.scrollWidth : 0.5; // 見ていた所を真ん中に保つ
+      const on = ill.classList.toggle("big");
+      zb.setAttribute("aria-pressed", String(on)); zb.textContent = on ? T[1] : T[0];
+      upd(); ill.scrollLeft = Math.max(0, keep * ill.scrollWidth - ill.clientWidth / 2);
+    });
+    if ("ResizeObserver" in window) new ResizeObserver(upd).observe(ill);
+    addEventListener("resize", upd); upd();
+  });
+})();

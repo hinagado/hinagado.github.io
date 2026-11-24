@@ -2761,3 +2761,14 @@ body.page-shops .shops{align-items:start}
 @media (min-width:900px){.fm-ill-in .fm-pin{font-size:max(12.5px,.95cqw)}.fm-ill-in .fm-fac{font-size:max(11.5px,.78cqw)}.fm-ill-in .fm-fac.tr{font-size:max(12.5px,.85cqw)}}
 /* 11/24 英語・韓国語の名札も1行（短い呼び名にしたので。折り返すと縦に長くなり、縁石の印とぶつかる） */
 .fm-ill-in .fm-pin{white-space:nowrap;max-width:none}
+/* 2026-11-24 図を大きくする・左右へ動かすボタン */
+.fm-ctl{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 8px}
+.fm-ctl .fm-move{margin:0}
+.fm-zoom{font:inherit;font-size:15px;font-weight:700;color:var(--ink,#4a3b30);background:#fff;border:1.5px solid #d9c9b8;border-radius:99px;padding:8px 16px;min-height:44px;cursor:pointer}
+.fm-zoom[aria-pressed="true"]{background:#4a3b30;color:#fff;border-color:#4a3b30}
+.fm-ill.big .fm-ill-in{min-width:1290px;width:160%}
+.fm-pan{display:flex;gap:8px;margin:-4px 0 12px}
+.fm-pan[hidden]{display:none}
+.fm-pan button{flex:1;font:inherit;font-size:15px;font-weight:700;color:var(--ink,#4a3b30);background:#fff;border:1.5px solid #d9c9b8;border-radius:12px;min-height:44px;cursor:pointer}
+.fm-pan-l::before{content:"◀ "}.fm-pan-r::after{content:" ▶"}
+.fm-move:focus-visible,.fm-zoom:focus-visible,.fm-pan button:focus-visible{outline:3px solid #2f6fb3;outline-offset:2px}
