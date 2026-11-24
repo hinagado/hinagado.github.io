@@ -124,7 +124,7 @@
   function layout(box) {
     const B = box.getBoundingClientRect();
     if (!B.width) return;
-    const els = [...box.querySelectorAll(".fm-pin"), ...box.querySelectorAll(".fm-fac")];
+    const els = [...box.querySelectorAll(".fm-fac.tr"), ...box.querySelectorAll(".fm-pin"), ...box.querySelectorAll(".fm-fac:not(.tr)")]; // 乗り物（タクシー・バス）を先に置く
     els.forEach(e => { e.style.transform = ""; e.style.visibility = ""; });
     const placed = [];
     for (const e of els) {
