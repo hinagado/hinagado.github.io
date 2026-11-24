@@ -6,7 +6,7 @@
   const tabBtns = [...document.querySelectorAll("#tabs button")];
   const kindBtns = [...document.querySelectorAll("#kinds button")], ownBtn = document.querySelector("#owns [data-own]");
   const toHira = s => s.replace(/[ァ-ヶ]/g, c => String.fromCharCode(c.charCodeAt(0) - 0x60));
-  const norm = s => toHira(s.normalize("NFKC").toLowerCase().replace(/子供/g, "子ども")).replace(/[-‐ー]/g, "");
+  const norm = s => toHira(s.normalize("NFKC").toLowerCase().replace(/子供/g, "子ども")).replace(/こども/g, "子ども").replace(/[-‐ー]/g, "");
   // 2026-11-25 第三者評価「レストラン・夕食で0件」：探す言葉の言い換え（どれかに当たれば出す）
   const ALT = {}; [[["レストラン", "ごはん", "ご飯", "食事", "食堂", "グルメ"], ["飲食"]], [["夕食", "夕飯", "晩ごはん", "晩ご飯", "ディナー"], ["blossom", "クルサ"]], [["カフェ", "喫茶"], ["カフェ", "喫茶", "コーヒー"]], [["お菓子", "おかし", "スイーツ"], ["菓子", "ケーキ", "スイーツ"]]].forEach(([ks, vs]) => ks.forEach(k => { ALT[norm(k)] = [norm(k), ...vs.map(norm)]; }));
   const floorWord = t => t.replace(/([123])\s*階/g, "$1F").replace(/([123])\s*かい/g, "$1F");
@@ -58,7 +58,7 @@
       const shown = g.querySelectorAll(".shop:not([hidden])").length, shownN = g.querySelectorAll(".shop:not([hidden]):not([data-nc])").length;
       fold(g, !filtered && foldMq.matches && !g.dataset.opened);
       g.hidden = shown === 0;
-      g.querySelector("small").textContent = shownN ? shownN + "店" : "";
+      g.querySelector("small").textContent = shownN ? shownN + "店" + (shown > shownN ? "・ほか" + (shown - shownN) + "件" : "") : (shown ? shown + "件" : "");
     });
     count.textContent = n ? n + "店" : all + "件";
     empty.hidden = all > 0;
@@ -115,5 +115,10 @@
   }
   draw(false);
   { const m = location.hash.match(/^#(shop-s\d+)$/); if (m) unfoldTo(m[1]); }
+  // 2026-11-25 第三者評価「検索・種類から来ると、結果が最初の画面の一番下に隠れる」：条件つきで開いた時は結果の先頭へ
+  if (!location.hash && (state.q || state.kind !== "すべて" || state.floor !== "all" || state.own || state.open)) {
+    const toFirst = () => { const r = list.getBoundingClientRect(); if (r.top > innerHeight * 0.5) scrollBy({top: r.top - bar.getBoundingClientRect().height - 12, behavior: "instant"}); };
+    if (document.readyState === "complete") requestAnimationFrame(toFirst); else addEventListener("load", () => requestAnimationFrame(toFirst), {once: true});
+  }
   if (state.open) addEventListener("load", () => draw(false)); // 営業中の印は opennow.js が後で付けるので、読み込みのあとにもう一度しぼる
 })();
