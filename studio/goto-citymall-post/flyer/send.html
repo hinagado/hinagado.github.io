@@ -82,6 +82,7 @@
   </section>
 </main>
 
+<script src="try.js"></script>
 <script type="application/json" id="fl-page"><?!= flPageJson ?></script>
 <script>
 (function () {
@@ -280,6 +281,8 @@
         flObject.data2 = await flBase64(flReady2.blob);
       }
       if (flDemo) {
+        // 2026-11-24 見本のお試し：見本の公開ページだけが読み込む try.js があれば、このスマホの中に保存する（本番には無い）
+        if (typeof window.flTryStore === 'function') { try { await window.flTryStore(flObject, flPage.shop); } catch (flTryError) { /* お試しの保存に失敗しても、見本の流れは止めない */ } }
         setTimeout(flShowDone, 1000);
         return;
       }

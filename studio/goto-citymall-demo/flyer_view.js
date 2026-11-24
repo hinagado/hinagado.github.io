@@ -41,14 +41,24 @@
     return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(flSvg);
   }
 
+  // 2026-11-24 お試し：見本の送る画面から送り、運営の表（見本）で「載せる」にしたチラシ（このスマホの中だけ・見本のページだけ）
+  function flTryItems() {
+    let flList = [];
+    try { flList = JSON.parse(localStorage.getItem('gcm-flyer-try') || '[]'); } catch (flError) { flList = []; }
+    if (!Array.isArray(flList)) return [];
+    return flList.filter(function (flItem) { return flItem && flItem.status === '載せる' && String(flItem.start) <= flToday && String(flItem.end) >= flToday; })
+      .sort(function (flA, flB) { return String(flB.start).localeCompare(String(flA.start)); })
+      .map(function (flItem) { return {shop: flItem.shop, title: flItem.title, start: flItem.start, end: flItem.end, kind: flItem.kind, img: flItem.img, open: flItem.open, img2: flItem.img2, open2: flItem.open2, try: true}; });
+  }
+
   function flDemoItems() {
-    if (flBox.dataset.demo === '1') return [
+    if (flBox.dataset.demo === '1') return flTryItems().concat([
       // 2026-11-24 チラシの箱の見本1号（表＝チラシ、裏＝予約申込書）。届いた写真は加工してから使う
       {shop: 'ボンパティ', title: 'クリスマスケーキ ご予約承り中（見本）', start: '2026-11-24', end: '2026-12-10', kind: 'image', img: 'img/flyer/bonpati_xmas_1_s.webp', open: 'img/flyer/bonpati_xmas_1.webp', img2: 'img/flyer/bonpati_xmas_2_s.webp', open2: 'img/flyer/bonpati_xmas_2.webp'},
       // 2026-11-22 吉田様経由でお店から届いたチラシ（元は PDF。img/flyer/）。1つの投稿に2枚（表・裏）載せる形の見本にした
       {shop: '家具プラス ツーピース', title: '秋のリビング・ダイニングフェア／快眠ベッドフェア', start: '2026-11-01', end: '2026-11-30', kind: 'image', img: 'img/flyer/twopiece_1_s.webp', open: 'img/flyer/twopiece_1.webp', img2: 'img/flyer/twopiece_2_s.webp', open2: 'img/flyer/twopiece_2.webp'},
       {shop: '未来ごとう', title: 'シティモールにデイサービスがあります（見学歓迎）', always: '見学・資料請求はいつでも', kind: 'image', img: 'img/flyer/mirai_1_s.webp', open: 'img/flyer/mirai_1.webp'}
-    ];
+    ]);
     return [
       {shop: 'つばき屋', title: '冬のありがとうセール', start: '2026-12-05', end: '2026-12-20', kind: 'image',
         img: flDemoSvg('#ffe08a', 'つばき屋', '冬のセール'), open: '#flyer-demo-1'},
@@ -63,13 +73,15 @@
     const flTitle = String(flItem.title || '').trim();
     const flStart = flJapaneseDay(flItem.start);
     const flEnd = flJapaneseDay(flItem.end);
-    const flImageOk = flDemo ? /^(data:image\/svg\+xml|img\/flyer\/[a-z0-9_]+\.(svg|webp)$)/.test(String(flItem.img || '')) : flDriveImage(flItem.img);
-    const flOpenOk = flDemo ? /^(#flyer-demo-[12]|img\/flyer\/[a-z0-9_]+\.(svg|webp))$/.test(String(flItem.open || '')) : flDriveOpen(flItem.open);
+    const flTry = flDemo && flItem.try === true && flBox.dataset.demo === '1'; // お試しのチラシ（このスマホの中の画像）
+    const flTryImg = function (flValue) { return /^data:image\/(jpeg|svg\+xml)[;,]/.test(String(flValue || '')); };
+    const flImageOk = flTry ? flTryImg(flItem.img) : flDemo ? /^(data:image\/svg\+xml|img\/flyer\/[a-z0-9_]+\.(svg|webp)$)/.test(String(flItem.img || '')) : flDriveImage(flItem.img);
+    const flOpenOk = flTry ? flTryImg(flItem.open) : flDemo ? /^(#flyer-demo-[12]|img\/flyer\/[a-z0-9_]+\.(svg|webp))$/.test(String(flItem.open || '')) : flDriveOpen(flItem.open);
     const flAlways = String(flItem.always || '').trim();
     if (!flShop || !flTitle || (!(flStart && flEnd) && !flAlways) || !flImageOk || !flOpenOk) return null;
     if (flItem.end && String(flItem.end) < flToday) return null; // 期日が終わったチラシは出さない
     const flHas2 = !!(flItem.img2 || flItem.open2);
-    const fl2Ok = !flHas2 || (flDemo ? /^img\/flyer\/[a-z0-9_]+\.(svg|webp)$/.test(String(flItem.img2 || '')) && /^img\/flyer\/[a-z0-9_]+\.(svg|webp)$/.test(String(flItem.open2 || '')) : flDriveImage(flItem.img2) && flDriveOpen(flItem.open2));
+    const fl2Ok = !flHas2 || (flTry ? flTryImg(flItem.img2) && flTryImg(flItem.open2) : flDemo ? /^img\/flyer\/[a-z0-9_]+\.(svg|webp)$/.test(String(flItem.img2 || '')) && /^img\/flyer\/[a-z0-9_]+\.(svg|webp)$/.test(String(flItem.open2 || '')) : flDriveImage(flItem.img2) && flDriveOpen(flItem.open2));
     if (!fl2Ok) return null;
 
     const flArticle = flElement('article', 'flyer-card');
