@@ -2577,6 +2577,11 @@ html.public .pub-only{display:block;color:var(--muted);margin:8px 0 0}
 .greet-ph{margin:0;text-align:center}
 .greet-ph img{width:100%;max-width:320px;border-radius:16px;display:block;margin:0 auto}
 .greet-ph figcaption{margin-top:10px;font-weight:700;font-size:16px;letter-spacing:.06em}
+/* 2026-11-24 代表「ごあいさつ文は例文でいい」：例文を載せる。公開版も写真と文の2列（スマホは縦） */
+html.public .greet{grid-template-columns:minmax(0,240px) 1fr!important;justify-content:normal}
+.greet-tx p{line-height:2;margin:0 0 1em}
+.greet-tx .greet-sign{text-align:right;font-weight:700;margin-top:1.4em}
+@media (max-width:600px){html.public .greet{grid-template-columns:1fr!important}}
 /* 館内図の店名を語の途中で折らない */
 .fm-b .fl{word-break:keep-all;overflow-wrap:anywhere;line-height:1.25}
 @media (max-width:720px){.fm-b .fl{font-size:clamp(11px,2.9vw,13px)}}
@@ -2746,6 +2751,10 @@ body.page-shops .shops{align-items:start}
 @keyframes fm-stroll{0%{transform:translate(-50%,-100%) translateX(0) scaleX(var(--s));opacity:0}4%{opacity:1}41%{opacity:1}45%{transform:translate(-50%,-100%) translateX(var(--dx)) scaleX(var(--s));opacity:0}100%{transform:translate(-50%,-100%) translateX(var(--dx)) scaleX(var(--s));opacity:0}}
 @keyframes fm-walk{0%{transform:translate(-50%,-100%) translateX(0) scaleX(1)}49.9%{transform:translate(-50%,-100%) translateX(var(--dx)) scaleX(1)}50%{transform:translate(-50%,-100%) translateX(var(--dx)) scaleX(-1)}100%{transform:translate(-50%,-100%) translateX(0) scaleX(-1)}}
 @keyframes fm-bob{from{transform:translateY(0)}to{transform:translateY(-6%)}}
+/* 11/24 代表「2階に子どもが楽しんでいる…アニメーション」：子どもは跳ねながら進む（play） */
+.fm-mv.play{animation-name:fm-stroll}
+.fm-mv.play img{animation:fm-hop .5s ease-in-out infinite alternate;animation-play-state:paused}
+@keyframes fm-hop{from{transform:translateY(0)}to{transform:translateY(-22%)}}
 .fm-ill-in.stop .fm-anim{display:none}
 .fm-move{font:inherit;font-size:15px;font-weight:700;color:var(--ink,#4a3b30);background:#fff;border:1.5px solid #d9c9b8;border-radius:99px;padding:8px 16px;min-height:44px;margin:0 0 8px;cursor:pointer}
 @media (prefers-reduced-motion: reduce){.fm-anim,.fm-move{display:none}}

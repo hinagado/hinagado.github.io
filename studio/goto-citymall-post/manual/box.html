@@ -34,10 +34,10 @@ ol.steps>li .fig{grid-column:1/-1}
 .ba img{width:100%;height:auto;border:1px solid var(--line);border-radius:10px}
 .ba figcaption{font-size:14px;color:var(--muted);line-height:1.5;margin-top:4px}
 .ba .arr{font-size:28px;color:var(--c);font-weight:700}
-@media (max-width:560px){.ba{grid-template-columns:1fr 1fr}.ba .arr{grid-column:1/-1;text-align:center;transform:rotate(90deg)}.ba figure:first-child{grid-column:1/-1;max-width:260px;margin:0 auto}}
+@media (max-width:560px){.ba{grid-template-columns:1fr}.ba .arr{text-align:center;transform:rotate(90deg)}.ba figure:first-child{max-width:260px;margin:0 auto}}
 .chk{list-style:none;padding:0;margin:6px 0 0}
 .chk li{position:relative;padding-left:32px;margin:6px 0}
-.chk li::before{content:"";position:absolute;left:0;top:5px;width:20px;height:20px;border:2px solid var(--c);border-radius:5px;background:#fff}
+.chk li::before{content:"✓";position:absolute;left:2px;top:0;color:var(--c);font-weight:700;font-size:19px}
 ul.dot{margin:6px 0 0 1.2em;padding:0}
 ul.dot li{margin:4px 0}
 .note{background:var(--warn);border-radius:14px;padding:14px 16px;margin:14px 0}
@@ -49,60 +49,96 @@ th{background:var(--soft)}
 th.ed,td.ed{background:#e7f3ea}
 .tblw{overflow-x:auto}
 .who{display:inline-block;font-size:14px;font-weight:700;color:#fff;background:var(--c);border-radius:99px;padding:2px 12px;margin-bottom:6px}
+.flow{list-style:none;padding:0;margin:16px 0;display:grid;gap:10px}
+.flow li{background:#fff;border:2px solid var(--c);border-radius:16px;padding:14px 16px 14px 70px;position:relative;min-height:64px}
+.flow li b{display:block;font-size:20px;line-height:1.4;color:var(--c)}
+.flow li span{font-size:15px;color:var(--muted)}
+.flow li i{font-style:normal;position:absolute;left:14px;top:50%;transform:translateY(-50%);width:42px;height:42px;border-radius:50%;background:var(--c);color:#fff;font-weight:700;font-size:20px;display:flex;align-items:center;justify-content:center}
+.flow li+li::before{content:"▼";position:absolute;top:-17px;left:27px;font-size:14px;color:var(--c)}
+.who2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:18px 0}
+.who2 a{display:flex;flex-direction:column;justify-content:center;min-height:88px;border-radius:16px;background:var(--c);color:#fff;text-decoration:none;font-weight:700;font-size:19px;padding:12px 14px;line-height:1.4}
+.who2 a small{font-size:14px;font-weight:400;opacity:.92;margin-top:4px}
+.who2 a.alt{background:#fff;color:var(--c);border:2px solid var(--c)}
+.do{font-weight:700}
+.tip{font-size:15px;color:var(--muted);margin-top:6px}
+.tip::before{content:"ポイント　";color:var(--c);font-weight:700}
+.shot.wide{max-width:100%}
+.qa dt{font-weight:700;margin-top:12px}
+.qa dt::before{content:"Q　";color:var(--c)}
+.qa dd{margin:2px 0 0;padding-left:1.4em}
+.top{display:inline-block;margin-top:6px;font-size:15px}
 footer{max-width:760px;margin:0 auto;padding:16px;color:var(--muted);font-size:14px;border-top:1px solid var(--line)}
 a{color:var(--c)}
 :focus-visible{outline:3px solid #1769aa;outline-offset:2px;border-radius:4px}
 </style></head><body>
-<header><div class="in"><small>五島シティモール様　ご担当者様へ</small><h1>チラシ・ポスターの箱の使い方</h1><p>材料を入れるだけで、ひなが堂がチラシとポスターに仕上げます。</p></div></header>
+<header><div class="in"><small>五島シティモール様　ご担当者様へ</small><h1>チラシ・ポスターの箱の使い方</h1><p>スマホで材料を入れるだけで、ひなが堂がチラシとポスターに仕上げます。</p></div></header>
 <main class="wrap">
-<nav class="toc" aria-label="目次"><b>目次</b><ol>
-<li><a href="#what">この箱でできること</a></li><li><a href="#sample">見本：ボンパティ様のクリスマスケーキ</a></li>
-<li><a href="#how">使い方（8つの手順）</a></li><li><a href="#rule">回数と日にちの決まり</a></li><li><a href="#try">お試しのお願い</a></li></ol></nav>
-
-<h2 id="what">この箱でできること</h2>
-<p>テナント様の催事・セール・予約受付などのチラシとポスターを、ひなが堂がプロの仕上がりでお作りします。御社のご担当者様が、スマホから<b>材料（写真と、伝えたいこと）を入れるだけ</b>です。文章や見た目が決まっていなくても大丈夫です。</p>
+<div class="note" style="margin-top:20px"><b>この箱は、モール運営のご担当者様が使います。</b>お店から写真・値段・日にちなどを集めて、ご担当者様が入れてください。専用のアドレスは、お店へは渡さないでください。</div>
+<h2 id="what" style="margin-top:24px">まず、流れは3つだけ</h2>
+<ol class="flow">
+<li><i>1</i><b>スマホで材料を入れて送る</b><span>写真と、伝えたいこと。写真がない時は「写真なし」も選べます</span></li>
+<li><i>2</i><b>案が2つ届く</b><span>受付から2〜3営業日が目安。メールでお知らせします</span></li>
+<li><i>3</i><b>よい方に✓を付ける</b><span>印刷用のPDFと、ホームページ用の画像をお渡しします</span></li>
+</ol>
 <div class="keys">
-<div><b>月4件まで</b><span>モール全体で。箱の画面では「月4回」と数えます</span></div>
-<div><b>案を2つ</b><span>受付から2〜3営業日を目安に、案A・案Bをお送りします</span></div>
-<div><b>✓で決定</b><span>直しは3回まで。決定後に印刷用PDFと、HP用の画像をお渡しします</span></div>
+<div><b>月4件まで</b><span>モール全体で。画面の上に「今月あと○回」と出ます</span></div>
+<div><b>直しは3回まで</b><span>直してほしい所は、画面にそのまま書けます</span></div>
 </div>
 <div class="card"><h3>「1件」の数え方</h3>
-<ul class="dot"><li>A4のチラシ（片面または両面）</li><li>A3のポスター（片面）</li><li>同じ内容のチラシとポスターの組</li></ul>
-<p>このどれか1つで1件です。</p></div>
-<div class="note">いただいた写真は、そのまま載せません。<b>明るさ・色・背景・余白を必ず整えてから</b>使います。商品の形や飾りは変えません。</div>
+<p>次のどれか1つで、1件です。</p>
+<ul class="dot"><li>A4のチラシ（片面または両面）</li><li>A3のポスター（片面）</li><li>同じ内容のチラシとポスターの組</li></ul></div>
+
+<nav class="toc" aria-label="目次"><b>目次</b><ol>
+<li><a href="#sample">見本：ボンパティ様のクリスマスケーキ</a></li>
+<li><a href="#how">使い方（画面の順に13の手順）</a></li><li><a href="#qa">こんな時は</a></li>
+<li><a href="#rule">決まりごと</a></li><li><a href="#try">（今回だけ）お試しのお願い</a></li></ol></nav>
 
 <h2 id="sample">見本：ボンパティ様のクリスマスケーキ</h2>
-<p>ボンパティ様からいただいた去年のチラシを材料にして、箱から頼んだ場合の仕上がりの見本を作りました（表と、裏の予約申込書）。</p>
+<p>ボンパティ様からいただいた2025年のチラシを材料にして、箱から頼んだ場合の仕上がりを作りました（表と、裏の予約申込書）。</p>
 <div class="ba">
-<figure><img class="" src="before.webp" width="900" height="1272" alt="いただいた材料（去年のチラシ）" loading="lazy" decoding="async"><figcaption>いただいた材料<br>（去年のチラシ）</figcaption></figure>
+<figure><img class="" src="before.webp" width="900" height="1272" alt="いただいた材料（去年のチラシ）" loading="lazy" decoding="async"><figcaption>いただいた材料<br>（2025年のチラシ）</figcaption></figure>
 <div class="arr" aria-hidden="true">→</div>
 <figure><img class="" src="after_front.webp" width="900" height="1273" alt="仕上がりの見本・表" loading="lazy" decoding="async"><figcaption>仕上がり・表</figcaption></figure>
 <figure><img class="" src="after_back.webp" width="900" height="1273" alt="仕上がりの見本・裏（予約申込書）" loading="lazy" decoding="async"><figcaption>仕上がり・裏<br>（予約申込書）</figcaption></figure>
 </div>
-<p style="font-size:15px;color:var(--muted);margin-top:8px">値段は、いただいた資料の今年の欄のとおりで、すべて税込の表示です。</p>
+<p class="tip">値段は、いただいた資料の2026年の欄のとおりで、すべて税込の表示です。写真は、明るさ・色・背景・余白を整えてから使います（商品の形は変えません）。</p>
 
-<h2 id="how">使い方（8つの手順）</h2>
+<h2 id="how">使い方（画面の順に13の手順）</h2>
+<p>画面の番号（1〜10）の順に、上から入れていくだけです。画面の6〜9は、分かる所だけで大丈夫です。</p>
 <ol class="steps">
-<li><h3>専用のアドレスを開く</h3><p>ひなが堂からお送りする<b>専用のアドレス</b>を開くと、そのまま箱が開きます。合言葉やログインはいりません。「このスマホで次から開けるようにする」を押すと、次からはアドレスなしで開けます（家族と共用のスマホ・パソコンでは押さないでください）。</p></li>
-<li><h3>作る物と使い道を選ぶ</h3><p>チラシ（A4）・ポスター（A3）・両方から選び、どこで使うかに印を付けます。</p><div class="fig"><img class="shot" src="b1.webp" width="772" height="1550" alt="手順2の画面：作る物と使い道" loading="lazy" decoding="async"></div></li>
-<li><h3>何のお知らせか・どのお店かを選ぶ</h3><p>「予約受付」「セール」などから近いものを1つ。お店は一覧から選びます（館内全体の催しは「モール全体」）。</p></li>
-<li><h3>写真を入れる</h3><p>4枚まで。主役の写真に★を付けます。写真がない時は「写真なし（文字と飾りで作る）」で大丈夫です。</p><div class="fig"><img class="shot" src="b4.webp" width="772" height="1654" alt="手順4の画面：写真を選ぶ" loading="lazy" decoding="async"></div></li>
-<li><h3>いちばん伝えたいことを書く</h3><p>ひと目で伝わる短い言葉（20字まで）。続けて、商品と値段、日にち、雰囲気、注意書きを、分かる所だけ入れます。迷う所は「おまかせ」で進められます。</p><div class="fig"><img class="shot" src="b5.webp" width="772" height="904" alt="手順5の画面：いちばん伝えたいこと" loading="lazy" decoding="async"></div></li>
-<li><h3>3つの確認に印を付けて送る</h3><p>お店の了承・写っている人の了承・内容のまちがいがないこと、を確かめて「この材料で制作を頼む」を押します。</p><div class="fig"><img class="shot" src="b9.webp" width="772" height="686" alt="手順6の画面：確認の印と送るボタン" loading="lazy" decoding="async"></div></li>
-<li><h3>受付の画面が出たら完了</h3><p>案ができたら、メールでお知らせします。</p><div class="fig"><img class="shot" src="bd.webp" width="772" height="710" alt="手順7の画面：受け付けました" loading="lazy" decoding="async"></div></li>
-<li><h3>案A・案Bを見比べて✓で決定</h3><p>上の「案を確認して✓」を押すと、届いた案が見られます。良い案を表示して✓、直してほしい時はそのまま書けます（3回まで）。決定後に、印刷用PDFとHP用の画像をお渡しします。</p><div class="fig"><img class="shot" src="bc.webp" width="772" height="1786" alt="手順8の画面：案A・案Bを見比べる" loading="lazy" decoding="async"></div></li>
+<li><h3>専用のアドレスを開く</h3><p class="do">ひなが堂からお送りする専用のアドレスを押すと、箱が開きます。</p><p class="tip">合言葉やログインはいりません。上の「今月あと○回」が、その月にあと頼める件数です。</p><div class="fig"><a class="zoom" href="b0.webp" target="_blank" rel="noopener" aria-label="箱を開いた時の画面の上の部分を大きく見る"><img class="shot" src="b0.webp" width="780" height="474" alt="箱を開いた時の画面の上の部分" loading="lazy" decoding="async"></a></div></li>
+<li><h3>作る物と使い道を選ぶ（画面の1）</h3><p class="do">チラシ・ポスター・両方から1つ選び、どこで使うかに印を付けます。</p><div class="fig"><a class="zoom" href="b1.webp" target="_blank" rel="noopener" aria-label="画面の1：作る物と使い道を大きく見る"><img class="shot" src="b1.webp" width="772" height="1550" alt="画面の1：作る物と使い道" loading="lazy" decoding="async"></a></div></li>
+<li><h3>何のお知らせか・どのお店かを選ぶ（画面の2・3）</h3><p class="do">いちばん近いものを1つ押して、お店を一覧から選びます。</p><p class="tip">館内全体の催しは、お店を「モール全体」にします。</p><div class="fig"><a class="zoom" href="b2.webp" target="_blank" rel="noopener" aria-label="画面の2と3：何のお知らせか、どのお店かを大きく見る"><img class="shot" src="b2.webp" width="772" height="1230" alt="画面の2と3：何のお知らせか、どのお店か" loading="lazy" decoding="async"></a></div></li>
+<li><h3>写真を入れる（画面の4）</h3><p class="do">写真を選びます（4枚まで）。主役の写真に★を付けます。</p><p class="tip">写真がなければ「写真なし（文字と飾りで作る）」で大丈夫です。暗い写真も、できる範囲でこちらで整えます（使えない時はご相談します）。</p><div class="fig"><a class="zoom" href="b4.webp" target="_blank" rel="noopener" aria-label="画面の4：写真を選ぶを大きく見る"><img class="shot" src="b4.webp" width="772" height="1654" alt="画面の4：写真を選ぶ" loading="lazy" decoding="async"></a></div></li>
+<li><h3>いちばん伝えたいことを書く（画面の5）</h3><p class="do">ひと目で伝わる短い言葉を、20字までで書きます。</p><p class="tip">例：クリスマスケーキ ご予約承り中</p><div class="fig"><a class="zoom" href="b5.webp" target="_blank" rel="noopener" aria-label="画面の5：いちばん伝えたいことを大きく見る"><img class="shot" src="b5.webp" width="772" height="904" alt="画面の5：いちばん伝えたいこと" loading="lazy" decoding="async"></a></div></li>
+<li><h3>商品と値段（画面の6）</h3><p class="do">商品の名前と値段を入れて、「税込」か「税抜」を選びます。</p><p class="tip">画面の6〜9は、分かる所だけで大丈夫です。</p><div class="fig"><a class="zoom" href="b6.webp" target="_blank" rel="noopener" aria-label="画面の6：商品と値段を大きく見る"><img class="shot" src="b6.webp" width="772" height="1116" alt="画面の6：商品と値段" loading="lazy" decoding="async"></a></div></li>
+<li><h3>日にちと連絡先（画面の7）</h3><p class="do">催しや受付の日にちと、お客さまからの問い合わせ先を入れます。</p><div class="fig"><a class="zoom" href="b7.webp" target="_blank" rel="noopener" aria-label="画面の7：日にちと連絡先を大きく見る"><img class="shot" src="b7.webp" width="772" height="1422" alt="画面の7：日にちと連絡先" loading="lazy" decoding="async"></a></div></li>
+<li><h3>見た目の雰囲気（画面の8）</h3><p class="do">近い雰囲気を選びます。迷ったら「おまかせ」で大丈夫です。</p><div class="fig"><a class="zoom" href="b8.webp" target="_blank" rel="noopener" aria-label="画面の8：見た目の雰囲気を大きく見る"><img class="shot" src="b8.webp" width="772" height="1034" alt="画面の8：見た目の雰囲気" loading="lazy" decoding="async"></a></div></li>
+<li><h3>注意書き（画面の9）</h3><p class="do">「数に限りがあります」など、載せたい注意書きがあれば入れます。</p><div class="fig"><a class="zoom" href="b9q.webp" target="_blank" rel="noopener" aria-label="画面の9：注意書きを大きく見る"><img class="shot" src="b9q.webp" width="772" height="934" alt="画面の9：注意書き" loading="lazy" decoding="async"></a></div></li>
+<li><h3>受け取りたい日を選ぶ（画面の10）</h3><p class="do">案を受け取りたい日を選びます。</p><p class="tip">選べるのは、作るのに間に合う日からです。配る日・貼る日から逆算して、早めにお申し込みください。</p><div class="fig"><a class="zoom" href="b10.webp" target="_blank" rel="noopener" aria-label="画面の10：受け取り希望日を大きく見る"><img class="shot" src="b10.webp" width="772" height="616" alt="画面の10：受け取り希望日" loading="lazy" decoding="async"></a></div></li>
+<li><h3>3つの確認に印を付けて送る</h3><p class="do">3つに印を付けて「この材料で制作を頼む」を押します。</p><p class="tip">お店の了承・写っている人の了承・内容にまちがいがないこと、の3つです。</p><div class="fig"><a class="zoom" href="b9.webp" target="_blank" rel="noopener" aria-label="確認の印と送るボタンを大きく見る"><img class="shot" src="b9.webp" width="772" height="686" alt="確認の印と送るボタン" loading="lazy" decoding="async"></a></div></li>
+<li><h3>「受け付けました」が出たら完了</h3><p class="do">あとは待つだけです。案ができたらメールでお知らせします。</p><div class="fig"><a class="zoom" href="bd.webp" target="_blank" rel="noopener" aria-label="受け付けましたの画面を大きく見る"><img class="shot" src="bd.webp" width="772" height="710" alt="受け付けましたの画面" loading="lazy" decoding="async"></a></div></li>
+<li><h3>案A・案Bを見比べて、よい方に✓</h3><p class="do">「案を確認して✓」を押して、届いた案を見比べ、よい方に✓を付けます。</p><p class="tip">直してほしい時は、直してほしい所を書いて「この内容で頼む」を押します（3回まで）。直した案ができたら、またメールでお知らせします。✓のあとに、印刷用のPDFとホームページ用の画像をお渡しします。</p><div class="fig"><a class="zoom" href="bc.webp" target="_blank" rel="noopener" aria-label="案A・案Bを見比べる画面を大きく見る"><img class="shot" src="bc.webp" width="772" height="1786" alt="案A・案Bを見比べる画面" loading="lazy" decoding="async"></a></div></li>
 </ol>
 
-<h2 id="rule">回数と日にちの決まり</h2>
+<h2 id="qa">こんな時は</h2>
+<div class="card"><dl class="qa">
+<dt>写真がない</dt><dd>「写真なし」を選べば、文字と飾りで作ります。</dd>
+<dt>急ぎで欲しい</dt><dd>送ったあと、LINEのグループで一言ください。間に合うかどうかをお答えします。</dd>
+<dt>月4件を超えそう</dt><dd>送る前に、LINEのグループでご相談ください（お受けできない時もあります）。</dd>
+<dt>入れまちがえて送った</dt><dd>LINEのグループで一言ください。どう直すかをご案内します。</dd>
+<dt>画面が手引きと違って、先に進めない</dt><dd>LINEのグループで、画面の写真（スクリーンショット）を送ってください。</dd>
+<dt>アドレスを、人に送ってしまった・なくした</dt><dd>すぐにひなが堂へ。新しいアドレスに替えます。</dd>
+</dl></div>
+
+<h2 id="rule">決まりごと</h2>
 <div class="card"><ul class="dot">
-<li>月4件まで（モール全体で）。画面の上に、その月の残りの回数が出ます。</li>
-<li>案A・案Bは、受付から<b>2〜3営業日</b>が目安です。印刷や配る日から逆算して、早めにお申し込みください。</li>
-<li>月4件を超える物や、急ぎのものは、この4件とは別にご相談ください。</li>
-<li>専用のアドレスは、その箱の鍵です。人に送ったり、貼り出したりしないでください。漏れたかもしれない時は、すぐひなが堂へ。新しいアドレスに替えます。</li>
+<li>専用のアドレスは、その箱の鍵です。人に送ったり、貼り出したりしないでください。</li>
+<li>「このスマホで次から開けるようにする」を押すと、次からアドレスなしで開けます。家族と共用のスマホ・パソコンでは押さないでください。</li>
 </ul></div>
 
-<h2 id="try">お試しのお願い</h2>
-<p>下の見本の箱で、手順2〜8を実際に触ってみてください。見本は、入れた内容も写真も<b>どこにも送られません</b>。</p>
+<h2 id="try">（今回だけ）お試しのお願い</h2>
+<p>下の見本の箱で、手順2〜13を実際に触ってみてください。見本は、入れた内容も写真も<b>どこにも送られません</b>。</p>
 <a class="btn" href="https://hinagado.github.io/studio/goto-citymall-post/post.html?demo=1">見本の箱を開く</a>
 <div class="card"><h3>見ていただきたい所</h3><ul class="chk">
 <li>質問の順番と言葉が分かりやすいか（迷った所はどこか）</li>
@@ -111,5 +147,5 @@ a{color:var(--c)}
 <li>ボンパティ様の見本の仕上がり（直したい所があれば）</li>
 </ul><p>気になった所は、LINEのグループにそのままお書きください。</p></div>
 </main>
-<footer>制作：ひなが堂　2026年11月24日版。画面は見本です（実際の画面と少し違うことがあります）。</footer>
+<footer>制作：ひなが堂　2026年11月24日版。画面は見本です（実際の画面と少し違うことがあります）。画面が違って先に進めない時は、画面の写真を撮ってお知らせください（お店の方は、運営のご担当者へ）。</footer>
 </body></html>

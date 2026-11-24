@@ -34,10 +34,10 @@ ol.steps>li .fig{grid-column:1/-1}
 .ba img{width:100%;height:auto;border:1px solid var(--line);border-radius:10px}
 .ba figcaption{font-size:14px;color:var(--muted);line-height:1.5;margin-top:4px}
 .ba .arr{font-size:28px;color:var(--c);font-weight:700}
-@media (max-width:560px){.ba{grid-template-columns:1fr 1fr}.ba .arr{grid-column:1/-1;text-align:center;transform:rotate(90deg)}.ba figure:first-child{grid-column:1/-1;max-width:260px;margin:0 auto}}
+@media (max-width:560px){.ba{grid-template-columns:1fr}.ba .arr{text-align:center;transform:rotate(90deg)}.ba figure:first-child{max-width:260px;margin:0 auto}}
 .chk{list-style:none;padding:0;margin:6px 0 0}
 .chk li{position:relative;padding-left:32px;margin:6px 0}
-.chk li::before{content:"";position:absolute;left:0;top:5px;width:20px;height:20px;border:2px solid var(--c);border-radius:5px;background:#fff}
+.chk li::before{content:"✓";position:absolute;left:2px;top:0;color:var(--c);font-weight:700;font-size:19px}
 ul.dot{margin:6px 0 0 1.2em;padding:0}
 ul.dot li{margin:4px 0}
 .note{background:var(--warn);border-radius:14px;padding:14px 16px;margin:14px 0}
@@ -49,76 +49,100 @@ th{background:var(--soft)}
 th.ed,td.ed{background:#e7f3ea}
 .tblw{overflow-x:auto}
 .who{display:inline-block;font-size:14px;font-weight:700;color:#fff;background:var(--c);border-radius:99px;padding:2px 12px;margin-bottom:6px}
+.flow{list-style:none;padding:0;margin:16px 0;display:grid;gap:10px}
+.flow li{background:#fff;border:2px solid var(--c);border-radius:16px;padding:14px 16px 14px 70px;position:relative;min-height:64px}
+.flow li b{display:block;font-size:20px;line-height:1.4;color:var(--c)}
+.flow li span{font-size:15px;color:var(--muted)}
+.flow li i{font-style:normal;position:absolute;left:14px;top:50%;transform:translateY(-50%);width:42px;height:42px;border-radius:50%;background:var(--c);color:#fff;font-weight:700;font-size:20px;display:flex;align-items:center;justify-content:center}
+.flow li+li::before{content:"▼";position:absolute;top:-17px;left:27px;font-size:14px;color:var(--c)}
+.who2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:18px 0}
+.who2 a{display:flex;flex-direction:column;justify-content:center;min-height:88px;border-radius:16px;background:var(--c);color:#fff;text-decoration:none;font-weight:700;font-size:19px;padding:12px 14px;line-height:1.4}
+.who2 a small{font-size:14px;font-weight:400;opacity:.92;margin-top:4px}
+.who2 a.alt{background:#fff;color:var(--c);border:2px solid var(--c)}
+.do{font-weight:700}
+.tip{font-size:15px;color:var(--muted);margin-top:6px}
+.tip::before{content:"ポイント　";color:var(--c);font-weight:700}
+.shot.wide{max-width:100%}
+.qa dt{font-weight:700;margin-top:12px}
+.qa dt::before{content:"Q　";color:var(--c)}
+.qa dd{margin:2px 0 0;padding-left:1.4em}
+.top{display:inline-block;margin-top:6px;font-size:15px}
 footer{max-width:760px;margin:0 auto;padding:16px;color:var(--muted);font-size:14px;border-top:1px solid var(--line)}
 a{color:var(--c)}
 :focus-visible{outline:3px solid #1769aa;outline-offset:2px;border-radius:4px}
 </style></head><body>
 <header><div class="in"><small>五島シティモール様　運営のご担当者様・テナントの皆さまへ</small><h1>お店のチラシをホームページに載せる</h1><p>お店のチラシを、スマホから送ってホームページに載せられます。</p></div></header>
 <main class="wrap">
-<nav class="toc" aria-label="目次"><b>目次</b><ol>
-<li><a href="#flow">全体の流れ</a></li><li><a href="#shop">お店の方：チラシを送る</a></li>
-<li><a href="#staff">運営のご担当者：確かめて「載せる」</a></li><li><a href="#hp">ホームページでの見え方</a></li><li><a href="#try">お試しのお願い</a></li></ol></nav>
-
-<h2 id="flow">全体の流れ</h2>
-<p>テナント様が、お店で作ったチラシを<b>スマホから送る</b>と、運営のご担当者が確かめて「載せる」を選んだ物だけが、載せる期間のあいだ、ホームページの「お店のチラシ」に出ます。<b>期間が過ぎると自動で消えます。</b></p>
-<div class="keys">
-<div><b>表と裏の2枚</b><span>1つのチラシに、表と裏の画像を付けられます</span></div>
-<div><b>8枠まで</b><span>同時に載るのは8件まで。載せ始めの新しい順です</span></div>
-<div><b>60日以内</b><span>載せ終わりは、送った日から60日以内</span></div>
+<div class="who2">
+<a href="#shop">お店の方<small>チラシを送る</small></a>
+<a href="#staff" class="alt">運営のご担当者<small>確かめて「載せる」</small></a>
 </div>
-<div class="note">ひなが堂がチラシを作る「チラシ・ポスターの箱」とは別の仕組みです。こちらは、<b>お店がすでに持っているチラシ</b>をホームページに載せるための入口です。</div>
 
-<h2 id="shop"><span class="who">お店の方へ</span><br>チラシを送る</h2>
-<ol class="steps">
-<li><h3>お店ごとの専用のアドレスを開く</h3><p>運営からもらったアドレス（QRコード）を開くと、お店の名前が入った画面が出ます。ホーム画面に置いておくと便利です。</p></li>
-<li><h3>見出しを入れる</h3><p>1〜30字。例：冬のありがとうセール</p></li>
-<li><h3>載せる期間を選ぶ</h3><p>開始と終了の日。終了は今日から60日以内です。終了の日まで載って、次の日に消えます。</p></li>
-<li><h3>表の画像かPDFを選ぶ</h3><p>JPEG・PNG・PDF、8MBまで。画像がいちばんきれいに出ます。撮った場所などの情報は自動で消えます。</p></li>
-<li><h3>裏があれば、裏の画像を選ぶ</h3><p>JPEG・PNG、8MBまで。なくてもかまいません。表がPDFの時は、裏は付けられません。</p></li>
-<li><h3>「送る」を押す</h3><p>「受け付けました」と出たら完了です。運営の確認のあとに載ります。</p><div class="fig"><img class="shot" src="f1.webp" width="780" height="2547" alt="お店がチラシを送る画面" loading="lazy" decoding="async"></div></li>
+<h2 id="flow" style="margin-top:20px">全体の流れ</h2>
+<ol class="flow">
+<li><i>1</i><b>お店の方が、スマホでチラシを送る</b><span>できあがったチラシの画像かPDFを選んで「送る」</span></li>
+<li><i>2</i><b>運営のご担当者が、中身を見て「載せる」</b><span>お知らせのメールが届きます</span></li>
+<li><i>3</i><b>ホームページの「お店のチラシ」に出る</b><span>載せる期間が過ぎると、自動で消えます</span></li>
 </ol>
-<div class="card"><h3>送る前に確かめてください</h3><ul class="chk">
-<li>お客さまの顔や名前が写っていない</li><li>値段・日付・電話番号が合っている</li>
-<li>ほかの会社のキャラクターや写真を、許可なく使っていない</li><li>文字が小さすぎない（スマホで見られます）</li></ul>
-<p style="margin-top:10px">送れるのは1つのお店で1日5件まで。同じ物を2回送ると断られます。直したい・やめたい時は、先に運営へお知らせください。</p></div>
+<div class="keys">
+<div><b>表は必ず・裏はある時だけ</b><span>1つのチラシに、表と裏の画像を付けられます</span></div>
+<div><b>8件まで</b><span>同時に載るのは8件まで。載せ始めの新しい順</span></div>
+<div><b>60日以内</b><span>載せ終わりは、送る日から60日以内</span></div>
+</div>
+<div class="note">ひなが堂がチラシを作る「チラシ・ポスターの箱」とは別の仕組みです。こちらは、<b>お店がすでに持っているチラシ</b>を、作り直さずにホームページに載せる入口です。</div>
 
-<h2 id="staff"><span class="who">運営のご担当者へ</span><br>確かめて「載せる」</h2>
+<h2 id="shop"><span class="who">お店の方へ</span><br>チラシを送る（4つの手順）</h2>
+<p>運営からもらった、お店ごとの専用のアドレス（QRコード）を開きます。お店の名前が入った画面が出ます。</p>
 <ol class="steps">
-<li><h3>メールが届く</h3><p>件名は「（お店の名前）からチラシが届きました」。本文のリンクから表を開きます。</p></li>
-<li><h3>表の「チラシ」のタブで、中身を見る</h3><p>いちばん下の行が、新しく届いたチラシです。「ファイル（URL）」「裏のファイル（URL）」を押して中身を確かめます。</p></li>
-<li><h3>「載せる」の列で「載せる」を選ぶ</h3><p>載せ始めの日から、ホームページに出ます。途中で止める時は「載せない」を選びます。</p></li>
-<li><h3>載せ終わりの次の日に、自動で消えます</h3><p>何もしなくて大丈夫です。</p></li>
+<li><h3>見出しを入れる</h3><p class="do">チラシの題を、1〜30字で入れます（空いていると送れません）。</p><p class="tip">お店の名前が自分のお店か、確かめてください。</p><div class="fig"><a class="zoom" href="f1.webp" target="_blank" rel="noopener" aria-label="お店の名前と見出しの欄を大きく見る"><img class="shot" src="f1.webp" width="764" height="952" alt="お店の名前と見出しの欄" loading="lazy" decoding="async"></a></div></li>
+<li><h3>載せる期間を選ぶ</h3><p class="do">開始の日と終了の日を選びます。</p><p class="tip">終了は、今日から60日以内。終了の日まで載って、次の日に消えます。</p><div class="fig"><a class="zoom" href="f2.webp" target="_blank" rel="noopener" aria-label="載せる期間の欄を大きく見る"><img class="shot" src="f2.webp" width="704" height="552" alt="載せる期間の欄" loading="lazy" decoding="async"></a></div></li>
+<li><h3>チラシの画像を選ぶ</h3><p class="do">表の画像（またはPDF）を選びます。裏があれば、裏の画像も選びます。</p><p class="tip">表は JPEG・PNG・PDF、裏は JPEG・PNG で、どれも1つ8MBまでです。表をPDFにした時は、裏は付けられません。</p><div class="fig"><a class="zoom" href="f3.webp" target="_blank" rel="noopener" aria-label="表と裏の画像を選ぶ欄を大きく見る"><img class="shot" src="f3.webp" width="704" height="1264" alt="表と裏の画像を選ぶ欄" loading="lazy" decoding="async"></a></div></li>
+<li><h3>「送る」を押す</h3><p class="do">「受け付けました」と出たら完了です。</p><p class="tip">運営の確認のあとに、ホームページに載ります。</p><div class="fig"><a class="zoom" href="f4.webp" target="_blank" rel="noopener" aria-label="受け付けましたの画面を大きく見る"><img class="shot" src="f4.webp" width="764" height="314" alt="受け付けましたの画面" loading="lazy" decoding="async"></a></div></li>
 </ol>
-<div class="card"><h3>表の見本（架空のお店）</h3>
-<div class="tblw"><table><thead><tr><th>受付日時</th><th>お店</th><th>見出し</th><th class="ed">載せ始め</th><th class="ed">載せ終わり</th><th>ファイル</th><th class="ed">載せる</th><th class="ed">運営のメモ</th><th>裏のファイル</th></tr></thead>
-<tbody><tr><td>12/1 10:12</td><td>見本のお店A</td><td>冬のセール</td><td class="ed">12/5</td><td class="ed">12/20</td><td>開く</td><td class="ed">載せる ▾</td><td class="ed"></td><td>開く</td></tr>
-<tr><td>12/2 15:40</td><td>見本のお店B</td><td>新しいおもちゃ</td><td class="ed">12/3</td><td class="ed">12/25</td><td>開く</td><td class="ed">（空き）▾</td><td class="ed">確認中</td><td></td></tr></tbody></table></div>
-<p style="font-size:15px;color:var(--muted);margin-top:8px">緑の4列は書き換えてよい列です。ほかの列は仕組みが使うので書き換えないでください（実際の表では守られています）。</p></div>
-<div class="card"><h3>こんなときは</h3><ul class="dot">
-<li><b>8枠が埋まっている：</b>載せ始めの新しい8件が出ます。あふれた分は、表のメモに「枠（8件）が埋まっているため、まだ載っていません」と出て、枠が空くと出ます。</li>
-<li><b>載せたくない：</b>「載せない」を選ぶか、空いたままに。お店へは御社からお伝えください。</li>
-<li><b>お店が直した物を送ってきた：</b>新しい行で届きます。古い行を「載せない」にしてから、新しい行を「載せる」に。</li>
-<li><b>まちがって送られた物：</b>「載せない」にして、ひなが堂へ一言ください。</li>
-</ul></div>
+<div class="card"><h3>送る前に、4つ確かめてください</h3><ul class="chk">
+<li>顔・名前・名札などで人が分かる時は、その人からホームページに載せる了承をもらっている</li><li>値段・日付・電話番号が合っている</li>
+<li>写真・イラスト・キャラクター・ロゴは、お店で作った物か、載せてよいと許可をもらった物</li><li>文字が小さすぎない（スマホで見られます）</li></ul>
+<p class="tip">送れるのは、1つのお店で1日5件まで。まったく同じ物をもう一度送ると断られます。直した物は、新しく送れば別の受付になります。</p></div>
+<div class="note"><b>お店の方の手順は、ここまでです。</b>直したい・載せるのをやめたい時は、運営のご担当者へお知らせください。</div>
+<a class="top" href="#flow">↑ 全体の流れに戻る</a>
 
-<h2 id="hp">ホームページでの見え方</h2>
-<p>トップと「お知らせ・イベント」のページに並びます。押すと大きく見られ、裏がある時は「裏面を見る」が出ます。いま載っているチラシがない時は、欄ごと隠れます。</p>
-<img class="shot" src="h1.webp" width="780" height="1364" alt="ホームページの「お店のチラシ」欄" loading="lazy" decoding="async">
-
-<h2 id="try">お試しのお願い</h2>
-<p>1台のスマホで、<b>送る → 確かめて「載せる」 → ホームページに出る</b>まで、続けて試せます。見本は、そのスマホの中だけで動き、<b>どこにも送られません</b>。</p>
+<h2 id="staff"><span class="who">運営のご担当者へ</span><br>確かめて「載せる」（4つの手順）</h2>
 <ol class="steps">
-<li><h3>お店の画面（見本）でチラシを送る</h3><p>見出しを入れ、手元の写真やチラシの画像を選んで「送る」を押します。</p></li>
-<li><h3>運営の表（見本）で「載せる」を選ぶ</h3><p>「受け付けました」の下のボタンから開けます。「開く」で中身を確かめて、「載せる」の列で「載せる」を選びます。</p></li>
-<li><h3>ホームページで見る</h3><p>表の下の「ホームページで見る」を押すと、お店のチラシ欄の先頭に出ています。「載せない」に戻すと消えます。</p></li>
+<li><h3>お知らせのメールを開く</h3><p class="do">件名「（お店の名前）からチラシが届きました」のメールを開き、本文のいちばん下のアドレスを押します。受付の一覧表（Google スプレッドシート）が開きます。</p><div class="fig"><a class="zoom" href="a1.webp" target="_blank" rel="noopener" aria-label="お知らせのメール（見本）を大きく見る"><img class="shot" src="a1.webp" width="748" height="294" alt="お知らせのメール（見本）" loading="lazy" decoding="async"></a></div></li>
+<li><h3>届いた行を見つける</h3><p class="do">一覧表の「チラシ」のタブで、メールと同じお店で、受付日時がメールの届いた時刻と同じ行を探します。</p><p class="tip">一覧表は横に長い表です。見つけた行の左端の行番号を覚えておき、右へ動かしても、同じ行番号の所で確かめてください。</p><div class="fig"><a class="zoom" href="a2a.webp" target="_blank" rel="noopener" aria-label="一覧表の左側：受付日時・お店・見出しの列を大きく見る"><img class="shot" src="a2a.webp" width="529" height="225" alt="一覧表の左側：受付日時・お店・見出しの列" loading="lazy" decoding="async"></a></div></li>
+<li><h3>載せる期間を確かめる</h3><p class="do">「載せ始め」と「載せ終わり」の日を確かめます。直したい時は、ここで書き換えられます。</p><div class="fig"><a class="zoom" href="a2b.webp" target="_blank" rel="noopener" aria-label="一覧表の緑の列：載せ始め・載せ終わりを大きく見る"><img class="shot" src="a2b.webp" width="520" height="225" alt="一覧表の緑の列：載せ始め・載せ終わり" loading="lazy" decoding="async"></a></div></li>
+<li><h3>中身を見て、「載せる」を選ぶ</h3><p class="do">「ファイル」を押して、メールのお店のチラシか、見出しが合っているかを確かめてから、「載せる」の列で「載せる」を選びます。選ぶだけで保存されます。</p><p class="tip">裏がある時は、一番右の「裏のファイル」も押して見ます。途中でやめる時は「載せない」に。載せ終わりの次の日には、何もしなくても自動で消えます。</p><div class="fig"><a class="zoom" href="a2c.webp" target="_blank" rel="noopener" aria-label="一覧表のファイルの列と、載せるの列（「載せる」を選んだところ）を大きく見る"><img class="shot" src="a2c.webp" width="350" height="225" alt="一覧表のファイルの列と、載せるの列（「載せる」を選んだところ）" loading="lazy" decoding="async"></a></div></li>
 </ol>
-<a class="btn" href="https://hinagado.github.io/studio/goto-citymall-post/flyer/send.html">お試しを始める（お店の画面・見本）</a><div class="card"><h3>見ていただきたい所</h3><ul class="chk">
+<p>「載せる」にした物のうち、載せる期間の中で、載せ始めが新しい8件までがホームページに出ます（下の「こんな時は」もご覧ください）。</p>
+<div class="card"><h3>一覧表の約束</h3>
+<p>書き換えるのは、緑の4列（載せ始め・載せ終わり・載せる・運営のメモ）だけです。ほかの列は仕組みが使うので、書き換えないでください（本番の一覧表では、ほかの列は書き換えられない設定にします）。</p></div>
+<div class="card"><h3>こんな時は</h3><dl class="qa">
+<dt>載せる物が8件を超えた</dt><dd>載せる期間の中の物のうち、載せ始めの新しい8件が出ます。あふれた分は「運営のメモ」の列に「枠（8件）が埋まっているため、まだ載っていません」と出ます。枠が空いた時に、載せる期間の中で、新しい方から8件に入っていれば出ます。</dd>
+<dt>載せたくない</dt><dd>「載せない」を選ぶか、空いたままにします。お店へは御社からお伝えください。</dd>
+<dt>お店が直した物を送ってきた</dt><dd>新しい行で届きます。古い行を「載せない」にしてから、新しい行を「載せる」にします。</dd>
+<dt>まちがって送られた物がある</dt><dd>「載せない」にして、ひなが堂へ一言ください。</dd>
+</dl></div>
+<a class="top" href="#flow">↑ 全体の流れに戻る</a>
+
+<h2 id="hp"><span class="who">お二人とも</span><br>ホームページでの見え方</h2>
+<p>トップと「お知らせ・イベント」のページに並びます。押すと大きく見られ、裏がある時は「裏面を見る」が出ます。載っているチラシがない時は、欄ごと隠れます。</p>
+<a class="zoom" href="h1.webp" target="_blank" rel="noopener" aria-label="ホームページの「お店のチラシ」欄を大きく見る"><img class="shot" src="h1.webp" width="780" height="1364" alt="ホームページの「お店のチラシ」欄" loading="lazy" decoding="async"></a>
+
+<h2 id="try">（今回だけ）お試しのお願い</h2>
+<p>1台のスマホで、<b>送る → 「載せる」 → ホームページに出る</b>まで、続けて試せます。見本は、そのスマホの中だけで動き、<b>どこにも送られません</b>。</p>
+<ol class="flow">
+<li><i>1</i><b>お店の画面（見本）で送る</b><span>見出しを入れ、手元の写真かチラシの画像を選んで「送る」</span></li>
+<li><i>2</i><b>運営の表（見本）で「載せる」</b><span>「受け付けました」の下のボタンから開けます</span></li>
+<li><i>3</i><b>「ホームページで見る」を押す</b><span>お店のチラシ欄の先頭に出ています（「載せない」に戻すと消えます）</span></li>
+</ol>
+<a class="btn" href="https://hinagado.github.io/studio/goto-citymall-post/flyer/send.html">お試しを始める（お店の画面・見本）</a>
+<div class="card"><h3>見ていただきたい所</h3><ul class="chk">
 <li>お店の方が、説明なしで送れそうか</li>
 <li>同時に載るのは8件まで、で足りるか</li>
 <li>載せ終わりは60日以内、でよいか</li>
-<li>「載せる」を選ぶご担当者はどなたにするか（届いたお知らせのメールの送り先）</li>
+<li>「載せる」を選ぶご担当者はどなたにするか（お知らせのメールの送り先）</li>
 </ul></div>
 <div class="note">本番の受付は、ご契約のあとに御社のアカウントに設定します。お店ごとの専用のアドレス（QRコード）も、その時にお作りします。</div>
 </main>
-<footer>制作：ひなが堂　2026年11月24日版。画面は見本です（実際の画面と少し違うことがあります）。</footer>
+<footer>制作：ひなが堂　2026年11月24日版。画面は見本です（実際の画面と少し違うことがあります）。画面が違って先に進めない時は、画面の写真を撮ってお知らせください（お店の方は、運営のご担当者へ）。</footer>
 </body></html>

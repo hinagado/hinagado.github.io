@@ -50,7 +50,7 @@ dialog form{text-align:right;padding:8px}
 <li>下の「ホームページで見る」を押すと、お店のチラシ欄に出ています</li></ol></div>
 <p class="swipe">表は横に動かせます。右の方に、緑の「載せる」の列があります。</p>
 <div class="sheet"><div class="tab"><span>チラシ</span></div><div class="scroll"><table>
-<thead><tr><th>受付日時</th><th>お店</th><th>見出し</th><th class="ed">載せ始め</th><th class="ed">載せ終わり</th><th>ファイル</th><th>裏のファイル</th><th class="ed">載せる</th><th class="ed">運営のメモ</th></tr></thead>
+<thead><tr><th>受付日時</th><th>お店</th><th>見出し</th><th class="ed">載せ始め</th><th class="ed">載せ終わり</th><th>ファイル</th><th class="ed">載せる</th><th class="ed">運営のメモ</th><th>裏のファイル</th></tr></thead>
 <tbody id="rows"></tbody></table></div>
 <p class="note">緑の4列は書き換えてよい列です（本番の表では、ほかの列は書き換えられないよう守られています）。見本のホームページには、この見本のチラシのほかに、もとから3件の見本が載っています（同時に載るのは8件まで）。</p></div>
 <a class="btn" href="../../goto-citymall-demo/index.html#flyer" id="toHp">ホームページで見る →</a>
@@ -92,7 +92,7 @@ dialog form{text-align:right;padding:8px}
       tr.append(el('td', '', x.shop), el('td', 'ttl', x.title));
       ['start', 'end'].forEach(k => { const td = el('td', 'ed'), i = el('input'); i.type = 'date'; i.value = x[k]; i.addEventListener('change', () => { const l = load(), y = l.find(z => z.id === x.id); if (y && i.value) { y[k] = i.value; save(l); render(); } }); td.append(i); tr.append(td); });
       const f = el('td'); if (okImg(x.img)) { const t = el('img', 'thumb'); t.src = x.img; t.alt = ''; f.append(t); } f.append(openBtn(x.open, '開く')); tr.append(f);
-      const f2 = el('td'); if (x.open2) { const t = el('img', 'thumb'); t.src = x.img2; t.alt = ''; f2.append(t, openBtn(x.open2, '開く')); } tr.append(f2);
+      const f2 = el('td'); if (x.open2) { const t = el('img', 'thumb'); t.src = x.img2; t.alt = ''; f2.append(t, openBtn(x.open2, '開く')); }
       const sd = el('td', 'ed'), s = el('select'); s.setAttribute('aria-label', x.title + 'を載せるか');
       [['', '（空き）'], ['載せる', '載せる'], ['載せない', '載せない']].forEach(([v, t]) => { const o = el('option', '', t); o.value = v; if (x.status === v) o.selected = true; s.append(o); });
       s.addEventListener('change', () => { const l = load(), y = l.find(z => z.id === x.id); if (y) { y.status = s.value; save(l); render(); } });
@@ -108,7 +108,7 @@ dialog form{text-align:right;padding:8px}
         else auto = '';
       }
       if (auto) md.append(el('span', 'auto', auto));
-      tr.append(md);
+      tr.append(md, f2);
       tb.append(tr);
     });
   }

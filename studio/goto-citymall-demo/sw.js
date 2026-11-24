@@ -1,7 +1,7 @@
 /* このファイルは _offline/make_sw.mjs から生成されます。直接編集しないでください。 */
 "use strict";
 
-const CACHE_NAME = "gcm-goto-citymall-demo-1280520815fd";
+const CACHE_NAME = "gcm-goto-citymall-demo-55147f0e9b6e";
 const CACHE_PREFIX = "gcm-goto-citymall-demo-";
 const FONT_CACHE = "gcm-fonts-v1";
 const PRE = [
@@ -50,15 +50,28 @@ const PRE = [
   "img/flyer/twopiece_2.webp",
   "img/fmap/_bk1124n_1f.webp",
   "img/fmap/1f.webp",
+  "img/fmap/2f.webp",
+  "img/fmap/3f.webp",
   "img/fmap/anim/bus.webp",
   "img/fmap/anim/car_blue.webp",
   "img/fmap/anim/car_red.webp",
+  "img/fmap/anim/car_white.webp",
+  "img/fmap/anim/car_yellow.webp",
+  "img/fmap/anim/e_couple.webp",
+  "img/fmap/anim/e_hat.webp",
+  "img/fmap/anim/k_balloon.webp",
+  "img/fmap/anim/k_bear.webp",
+  "img/fmap/anim/k_run.webp",
   "img/fmap/anim/p_bags.webp",
   "img/fmap/anim/p_child.webp",
   "img/fmap/anim/p_elder.webp",
   "img/fmap/anim/p_pack.webp",
+  "img/fmap/anim/p_shopbags.webp",
   "img/fmap/anim/p_stroller.webp",
   "img/fmap/anim/p_tote.webp",
+  "img/fmap/anim/t_camera.webp",
+  "img/fmap/anim/t_case.webp",
+  "img/fmap/anim/t_family.webp",
   "img/fmap/anim/taxi.webp",
   "img/food.jpg",
   "img/ig_sheet.jpg",
