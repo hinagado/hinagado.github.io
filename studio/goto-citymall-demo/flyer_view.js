@@ -54,7 +54,7 @@
   function flDemoItems() {
     if (flBox.dataset.demo === '1') return flTryItems().concat([
       // 2026-11-24 チラシの箱の見本1号（表＝チラシ、裏＝予約申込書）。届いた写真は加工してから使う
-      {shop: 'ボンパティ', title: 'クリスマスケーキ ご予約承り中（見本）', start: '2026-11-24', end: '2026-12-10', kind: 'image', img: 'img/flyer/bonpati_xmas_1_s.webp', open: 'img/flyer/bonpati_xmas_1.webp', img2: 'img/flyer/bonpati_xmas_2_s.webp', open2: 'img/flyer/bonpati_xmas_2.webp'},
+      {shop: 'ボンパティ', title: 'クリスマスケーキ ご予約承り中（見本）', start: '2026-11-24', end: '2026-12-10', kind: 'image', img: 'img/flyer/bonpati_xmas_1_s.webp', open: 'img/flyer/bonpati_xmas_1.webp'} /* 11/25 先方の依頼で裏面は外した */,
       // 2026-11-22 吉田様経由でお店から届いたチラシ（元は PDF。img/flyer/）。1つの投稿に2枚（表・裏）載せる形の見本にした
       {shop: '家具プラス ツーピース', title: '秋のリビング・ダイニングフェア／快眠ベッドフェア', start: '2026-11-01', end: '2026-11-30', kind: 'image', img: 'img/flyer/twopiece_1_s.webp', open: 'img/flyer/twopiece_1.webp', img2: 'img/flyer/twopiece_2_s.webp', open2: 'img/flyer/twopiece_2.webp'},
       {shop: '未来ごとう', title: 'シティモールにデイサービスがあります（見学歓迎）', always: '見学・資料請求はいつでも', kind: 'image', img: 'img/flyer/mirai_1_s.webp', open: 'img/flyer/mirai_1.webp'}
