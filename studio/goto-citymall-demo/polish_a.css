@@ -247,3 +247,10 @@ a.go{border-radius:var(--r-s);letter-spacing:.02em}
 @media (min-width:901px){header nav a{min-width:44px;text-align:center}}
 @media (max-width:374px){.hd-lang{min-width:44px;justify-content:center}}
 .newslist .tag.end,.newslist li.done .tag.end{background:#efe9e4;color:#5b4c42;border-color:#cfc4bb}
+
+/* 11/26 区画の見出しの上の小さな英字（代表「英字文言は追加で」）。飾りなので細く・字間を広く・濃さは4.5以上 */
+.sec-en{margin:0 0 4px;font-family:"Zen Kaku Gothic New",system-ui,sans-serif;font-size:12.5px;font-weight:700;letter-spacing:.22em;line-height:1.4;color:#9c3f12;font-feature-settings:"palt"}
+main section>.sec-en{margin-bottom:2px}
+.page-hd .sec-en{margin-bottom:6px;font-size:13px}
+@media (min-width:901px){.sec-en{font-size:13px}.page-hd .sec-en{font-size:14px}}
+.page-hd .in p.sec-en{color:#9c3f12}
