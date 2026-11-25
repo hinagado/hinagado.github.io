@@ -1,7 +1,7 @@
 /* このファイルは _offline/make_sw.mjs から生成されます。直接編集しないでください。 */
 "use strict";
 
-const CACHE_NAME = "gcm-goto-citymall-demo-aa9e4f141309";
+const CACHE_NAME = "gcm-goto-citymall-demo-1be529533ca4";
 const CACHE_PREFIX = "gcm-goto-citymall-demo-";
 const FONT_CACHE = "gcm-fonts-v1";
 const PRE = [
@@ -22,6 +22,10 @@ const PRE = [
   "img/access/door.webp",
   "img/access/front_s.webp",
   "img/access/front.webp",
+  "img/access/nursing1_s.webp",
+  "img/access/nursing1.webp",
+  "img/access/nursing2_s.webp",
+  "img/access/nursing2.webp",
   "img/access/ramp_s.webp",
   "img/access/ramp.webp",
   "img/art_cover.jpg",
