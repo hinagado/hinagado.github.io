@@ -68,9 +68,6 @@
     empty.hidden = all > 0;
     const emp = empty.querySelector("p");
     if (emp) { if (!emp.dataset.def) emp.dataset.def = emp.textContent; emp.textContent = n === 0 && state.open ? "いま営業中のお店はありません（開店前か、本日の営業が終わった時間です）。通常は10:00〜20:00、つばき屋・ダイソーは9:00から開いています。" : emp.dataset.def; }
-    // 2026-11-26 操作性監査「トイレ・授乳室・ロッカーで0件のまま」：設備の言葉なら、設備の案内へのリンクを出す
-    if (!draw.fac) { draw.fac = document.createElement("p"); draw.fac.className = "fac-hint"; draw.fac.innerHTML = 'トイレ・授乳室・休憩所・コインロッカーなどは、<a href="access.html#family">館内の設備</a>でご案内しています。'; draw.fac.hidden = true; if (emp) emp.after(draw.fac); }
-    draw.fac.hidden = !(n === 0 && /トイレ|といれ|お手洗|おてあらい|授乳|じゅにゅう|おむつ|オムツ|ベビーカー|車いす|くるまいす|ろっかー|ロッカー|喫煙|たばこ|タバコ|休憩|きゅうけい|wi-?fi|ワイファイ/i.test(state.q.normalize("NFKC")));
     // 見つからない時の案内と「すべてのお店を見る」が、下の固定メニューの裏に隠れないように（出た時に1回だけ、必要な分だけ送る）
     if (n === 0 && !draw.wasEmpty && save) empty.scrollIntoView({block: "nearest", behavior: "instant"});
     draw.wasEmpty = n === 0;

@@ -337,3 +337,39 @@ body.page-recruit .slot b { font-family: var(--round); letter-spacing: .05em; }
   body.page-access .jump{flex-wrap:wrap;gap:8px;padding:0 16px}
   body.page-access .jump a{flex:1 1 calc(33.333% - 8px);min-width:0;white-space:normal;font-size:14px;padding:6px 8px}
 }
+
+/* ===== 2026-11-26 再採点（見た目77）で見つかった「改修で生じた崩れ」の直し（孫悟空） ===== */
+/* 新1・新4：上に貼り付く絞り込みと近道の札は、折り返さず横1列（右端を薄くぼかして続きを示す） */
+@media (max-width:720px){
+  .shopquick,.quick.shopquick,.intl-filter{flex-wrap:nowrap!important;overflow-x:auto!important;scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 28px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 28px),transparent);padding-right:24px!important}
+  .shopquick::-webkit-scrollbar,.intl-filter::-webkit-scrollbar{display:none}
+}
+/* 新2：店名と Language ボタンの間をあける */
+@media (max-width:900px){.hd .logo{margin-right:12px}.hd-lang{margin-left:auto}}
+/* 新3：PC のお知らせの段組みに英字の段を足し、見出しの上に出す */
+@media (min-width:1000px){
+  main>section.newssec{grid-template-areas:"e e" "h h" "p p" "n sh" "n s";grid-template-rows:auto auto auto auto 1fr}
+  html.public main>section.newssec{grid-template-areas:"e" "h" "p" "n"}
+  .newssec>.sec-en{grid-area:e}
+}
+/* 残2：PC の最初の写真が全体にくすむ → 影は左下だけ、下の帯も薄く */
+@media (min-width:721px){
+  .hello-ph::before{background:linear-gradient(75deg,rgba(40,22,10,.52) 0%,rgba(40,22,10,.18) 40%,rgba(40,22,10,0) 62%)!important}
+  .hello-ph::after{background:linear-gradient(180deg,rgba(30,18,10,0) 58%,rgba(30,18,10,.38))!important}
+}
+/* 残4：イベントのカードはトップもお知らせも同じ形。PC は3列、日付は上の札、内容は下 */
+@media (min-width:1000px){
+  .evs{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))!important}
+  .evs .ev{grid-template-columns:minmax(0,1fr)!important;align-content:start;row-gap:4px}
+  .evs .ev time{grid-column:1!important;grid-row:auto!important;justify-self:start;display:inline-flex;gap:2px;padding:4px 12px;border-radius:99px;place-items:center}
+  .evs .ev time span{display:inline}
+}
+/* 残5：英語などのトップの情報の箱は、PC で3列 */
+@media (min-width:901px){
+  .intl .today .card{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 28px}
+  .intl .today .card>.wide{grid-column:auto;border-left:1px solid var(--line);padding-left:24px}
+  .intl .today .card>.wide:first-child{border-left:0;padding-left:0}
+}
+
+/* 11/26 操作性の再採点：PC で拡大が元の絵の2.5倍（3005px）になりぼやけた → 1400px まで */
+.lb.zoom .lb-sc img{width:min(220%,1400px)}
