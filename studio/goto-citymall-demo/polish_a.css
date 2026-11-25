@@ -254,3 +254,21 @@ main section>.sec-en{margin-bottom:2px}
 .page-hd .sec-en{margin-bottom:6px;font-size:13px}
 @media (min-width:901px){.sec-en{font-size:13px}.page-hd .sec-en{font-size:14px}}
 .page-hd .in p.sec-en{color:#9c3f12}
+
+
+/* ===== 2026-11-26 トップを短く：目的別のカードに写真とひとこと（読み物2本をまとめた） ===== */
+.fwsec>h2{margin-bottom:20px}
+.fw{overflow:hidden}
+.fw .fw-ph{display:block;width:calc(100% + 48px);max-width:none;margin:-24px -24px 16px;aspect-ratio:16/9;object-fit:cover;border-radius:0}
+.fw .fw-tx{margin:6px 0 10px;font-size:16px;line-height:1.75;color:var(--ink)}
+.fw h3 small{display:block}
+@media (max-width:720px){.fw .fw-ph{width:calc(100% + 40px);margin:-16px -20px 14px}}
+/* 見出しの型がそろっていなかった所：セール・Instagram */
+.newssec .sub-h{font-family:var(--round);font-weight:900;font-size:20px}
+.igs .ig-hd h2{font-family:var(--round);font-weight:900}
+
+/* 11/26 スマホではカードの写真を横長に低く */
+@media (max-width:720px){.fw .fw-ph{aspect-ratio:21/9}.fw .fw-tx{font-size:15.5px;margin-bottom:6px}}
+
+.fw .fw-ph{height:220px!important;aspect-ratio:auto!important}
+@media (max-width:720px){.fw .fw-ph{height:150px!important}}
