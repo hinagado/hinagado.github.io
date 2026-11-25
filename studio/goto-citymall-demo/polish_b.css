@@ -373,3 +373,31 @@ body.page-recruit .slot b { font-family: var(--round); letter-spacing: .05em; }
 
 /* 11/26 操作性の再採点：PC で拡大が元の絵の2.5倍（3005px）になりぼやけた → 1400px まで */
 .lb.zoom .lb-sc img{width:min(220%,1400px)}
+
+
+/* ===== 2026-11-26 見た目3回目の直し ===== */
+/* 新1：PC のイベントカード。中の部品が前の格子の位置に残って、日付が1文字ずつ縦に並んでいた → 上から順に並べる */
+@media (min-width:721px){
+  .evs .ev{display:flex!important;flex-direction:column;align-items:flex-start;gap:4px;padding:18px 20px}
+  .evs .ev>*{grid-column:auto!important;grid-row:auto!important}
+  .evs .ev time{display:inline-flex!important;flex-direction:row;flex-wrap:wrap;gap:0 2px;align-self:flex-start;width:auto;white-space:nowrap;overflow-wrap:normal;word-break:keep-all;padding:4px 12px;border-radius:99px;line-height:1.5}
+  .evs .ev time span{display:inline;white-space:nowrap}
+  .evs .ev .evtag{align-self:flex-start;margin:0 0 2px}
+  .evs .ev.car{grid-column:1/-1}
+}
+/* 新2：英語などのトップの3列の箱は、上の線と余白をそろえる */
+@media (min-width:901px){
+  .intl .today .card{align-items:start}
+  .intl .today .card>.wide{border-top:0!important;padding-top:0!important;margin-top:0!important}
+}
+/* 残2：スマホの上の帯で、店名と Language の間をはっきりあける */
+@media (max-width:900px){.hd .logo{margin-right:16px!important;flex:0 1 auto}.hd-lang{margin-left:auto!important}}
+/* 残3：トップの年末年始の表は「日ごとの時間を見る」で開く（お知らせのページでは開いたまま） */
+.nt-more>summary{display:inline-flex;align-items:center;min-height:44px;cursor:pointer;color:var(--red-dark);font-weight:700;text-decoration:underline;text-underline-offset:3px}
+
+/* 11/26 上の display:flex!important が hidden（終わった催し・トップで省いた催し）に勝っていた */
+.evs .ev[hidden]{display:none!important}
+
+/* 11/26 店名の文字が枠からはみ出してボタンに触れていた → 店名は縮めず、文字とボタンを少し小さく */
+@media (max-width:900px){.hd .logo{flex:none!important;margin-right:0!important;font-size:16px!important}.hd-lang{padding:0 9px!important;font-size:12px!important;gap:4px!important}}
+@media (max-width:374px){.hd .logo{font-size:14px!important}.hd .logo img{width:34px;height:34px}}

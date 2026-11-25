@@ -44,7 +44,7 @@
     if (en < today && li.classList.contains("ev")) li.hidden = true; // 終わった催事は「これからのイベント」に出さない（2026-11-22）
   });
   // 2026-11-26 トップを短く：これからのイベントは先頭から data-top-n 件（終わった催しを隠したあとで数える）。残りは「予定をすべて見る」
-  document.querySelectorAll("[data-top-n]").forEach(sec => { const n = +sec.dataset.topN || 2; let k = 0; sec.querySelectorAll(".ev[data-start]").forEach(li => { if (li.hidden) return; k++; if (k > n) { li.hidden = true; li.dataset.topCut = "1"; } }); });
+  document.querySelectorAll("[data-top-n]").forEach(sec => { const n = +sec.dataset.topN || 2; let k = 0; sec.querySelectorAll(".ev[data-start]").forEach(li => { if (li.hidden) return; if (li.querySelector(".evtag.now")) { li.hidden = true; li.dataset.topCut = "now"; return; } k++; if (k > n) { li.hidden = true; li.dataset.topCut = "1"; } }); });
   // 2026-11-25 第三者評価「終わった催しが『次のイベント』のまま」：今日の日付で、開催中か次の催しを選び直す
   document.querySelectorAll("[data-evs]").forEach(a => {
     let evs = []; try { evs = JSON.parse(a.dataset.evs); } catch (e) { return; }
