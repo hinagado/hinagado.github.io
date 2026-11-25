@@ -401,3 +401,6 @@ body.page-recruit .slot b { font-family: var(--round); letter-spacing: .05em; }
 /* 11/26 店名の文字が枠からはみ出してボタンに触れていた → 店名は縮めず、文字とボタンを少し小さく */
 @media (max-width:900px){.hd .logo{flex:none!important;margin-right:0!important;font-size:16px!important}.hd-lang{padding:0 9px!important;font-size:12px!important;gap:4px!important}}
 @media (max-width:374px){.hd .logo{font-size:14px!important}.hd .logo img{width:34px;height:34px}}
+
+/* 11/26 見た目4回目：トップの PC でイベントが2枚になり右が空いた → キッチンカーも同じ列に並べる */
+@media (min-width:1000px){.page-index .evs .ev.car{grid-column:auto!important}}
