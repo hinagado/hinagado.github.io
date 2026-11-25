@@ -11,6 +11,8 @@
   // 2026-11-25 第三者評価「絵の札を押すと、案内がます目の図のさらに下に出て、絵が画面から消える」：
   // 絵の札を押したら案内を絵のすぐ下へ移す（図は幅によらず1列）。階を替えたら元の場所へ戻す
   const infoHome = info.parentElement, infoNext = info.nextSibling;
+  // 11/26 案内は「左・まん中・右」のボタンのさらに下に出す（ボタンが案内の下に回っていた）
+  const under = ill => (ill.nextElementSibling && ill.nextElementSibling.classList.contains("fm-pan")) ? ill.nextElementSibling : ill;
   const infoBack = () => { if (info.parentElement !== infoHome) infoHome.insertBefore(info, infoNext); };
   const setFloor = f => {
     infoBack();
@@ -54,7 +56,9 @@
     const a = e.target.closest(".fm-b, .fm-pin"); if (!a) return;
     e.preventDefault(); show(a.dataset.shop, false); remember(a.dataset.shop);
     const ill = a.classList.contains("fm-pin") && a.closest(".fm-ill");
-    if (ill) ill.after(info); // 11/25 図は幅によらず1列なので、パソコンでも絵のすぐ下に出す
+    if (ill) under(ill).after(info); // 11/25 図は幅によらず1列なので、パソコンでも絵のすぐ下に出す
+    // 2026-11-26 キーボードで札を押した時は、案内へ操作位置を移す（案内のリンクまで Tab 20回かかっていた）
+    if (e.detail === 0) { info.tabIndex = -1; info.focus({preventScroll: true}); }
     // スマホでは案内が図の下に出るので、画面の外なら見える所まで動かす
     const r = info.getBoundingClientRect(), tb = document.querySelector(".tabbar");
     const low = innerHeight - (tb && getComputedStyle(tb).display !== "none" ? tb.getBoundingClientRect().height : 0) - 16; // 箱の下の端は、下の固定メニューの少し上まで
@@ -90,11 +94,26 @@
     fitNow();
   });
   addEventListener("resize", fitNow);
+  // 2026-11-26 操作性監査「お店の『館内図』を押すと、館内図の見出しに着くだけで、どこがそのお店か分からない」：
+  // 絵の図にそのお店の札があれば、絵まで動かし、札を横の真ん中に寄せて光らせ、案内を絵のすぐ下に出す
+  function toPin(sid) {
+    const pin = map.querySelector(`.fm-floor:not([hidden]) .fm-pin[data-shop="${sid}"]`), ill = pin && pin.closest(".fm-ill");
+    if (!ill || !ill.getBoundingClientRect().width) { map.scrollIntoView({block: "start", behavior: "instant"}); return null; }
+    under(ill).after(info);
+    const pr = pin.getBoundingClientRect(), ir = ill.getBoundingClientRect();
+    ill.scrollLeft += pr.left + pr.width / 2 - (ir.left + ill.clientWidth / 2);
+    const top = (ill.previousElementSibling && ill.previousElementSibling.classList.contains("fm-ctl") ? ill.previousElementSibling : ill).getBoundingClientRect().top;
+    scrollTo({top: scrollY + top - 72, behavior: "instant"});
+    pin.classList.remove("hl"); void pin.offsetWidth; pin.classList.add("hl");
+    setTimeout(() => pin.classList.remove("hl"), 2600);
+    return pin;
+  }
   document.addEventListener("click", e => {
     const a = e.target.closest(".fml"); if (!a) return;
-    e.preventDefault(); show(a.dataset.shop, true); remember(a.dataset.shop);
+    e.preventDefault(); show(a.dataset.shop, false); remember(a.dataset.shop);
+    const pin = toPin(a.dataset.shop);
     // キーボードで押した人の操作位置も、館内図のそのお店へ移す
-    const box = document.getElementById("fm-" + a.dataset.shop); if (box) box.focus({preventScroll: true});
+    const box = pin || document.getElementById("fm-" + a.dataset.shop); if (box) box.focus({preventScroll: true});
   });
   // 図を右の端まで動かしたら、「まだ右に続きます」の印（▶）を消す
   map.querySelectorAll(".fm-scroll").forEach(sc => { sc.addEventListener("scroll", () => atEnd(sc), {passive: true}); });
@@ -116,7 +135,13 @@
     // アドレスの「#fm」でブラウザが後から動かすので、読み込みのあとにもう一度合わせる
     if (document.readyState === "complete") requestAnimationFrame(toPin); else addEventListener("load", () => requestAnimationFrame(toPin), {once: true});
   }
-  const fromHash = () => { const m = location.hash.match(/^#fm-(s\d+)$/); if (m) show(m[1], true); };
+  const fromHash = () => {
+    const m = location.hash.match(/^#fm-(s\d+)$/); if (!m) return;
+    show(m[1], false);
+    // 他のページから #fm-s○ で来た時も、絵の札へ（画像の読み込みで位置がずれるので、読み込みのあとにもう一度）
+    toPin(m[1]);
+    if (document.readyState !== "complete") addEventListener("load", () => requestAnimationFrame(() => toPin(m[1])), {once: true});
+  };
   addEventListener("hashchange", fromHash);
   fromHash();
 })();

@@ -8,7 +8,11 @@
   const toHira = s => s.replace(/[ァ-ヶ]/g, c => String.fromCharCode(c.charCodeAt(0) - 0x60));
   const norm = s => toHira(s.normalize("NFKC").toLowerCase().replace(/子供/g, "子ども")).replace(/こども/g, "子ども").replace(/[-‐ー]/g, "");
   // 2026-11-25 第三者評価「レストラン・夕食で0件」：探す言葉の言い換え（どれかに当たれば出す）
-  const ALT = {}; [[["レストラン", "ごはん", "ご飯", "食事", "食堂", "グルメ"], ["飲食"]], [["夕食", "夕飯", "晩ごはん", "晩ご飯", "ディナー"], ["blossom", "クルサ"]], [["カフェ", "喫茶"], ["カフェ", "喫茶", "コーヒー"]], [["お菓子", "おかし", "スイーツ"], ["菓子", "ケーキ", "スイーツ"]]].forEach(([ks, vs]) => ks.forEach(k => { ALT[norm(k)] = [norm(k), ...vs.map(norm)]; }));
+  const ALT = {}; [[["レストラン", "ごはん", "ご飯", "食事", "食堂", "グルメ"], ["飲食"]], [["夕食", "夕飯", "晩ごはん", "晩ご飯", "ディナー"], ["blossom", "クルサ"]], [["カフェ", "喫茶"], ["カフェ", "喫茶", "コーヒー"]], [["お菓子", "おかし", "スイーツ"], ["菓子", "ケーキ", "スイーツ"]],
+    // 2026-11-26 操作性監査「こどもふく・ひゃっきん で0件」：読みがなでも当たるように
+    [["こどもふく", "子どもふく", "子供ふく", "キッズ"], ["子ども服", "キッズ", "ベビー"]], [["ひゃっきん", "百均", "100均", "ひゃくえん", "100えん"], ["100円", "ダイソー"]],
+    [["ふく", "ようふく", "洋服"], ["服", "衣料"]], [["めがね", "眼鏡", "メガネ"], ["めがね", "眼鏡", "メガネ"]], [["くすり", "薬"], ["薬", "くすり", "ドラッグ"]],
+    [["ほん", "本屋", "書店"], ["本", "書店"]], [["けいたい", "携帯", "スマホ"], ["携帯", "スマホ", "モバイル"]]].forEach(([ks, vs]) => ks.forEach(k => { ALT[norm(k)] = [norm(k), ...vs.map(norm)]; }));
   const floorWord = t => t.replace(/([123])\s*階/g, "$1F").replace(/([123])\s*かい/g, "$1F");
   const index = cards.map(c => norm(c.dataset.s));
   const u = new URLSearchParams(location.search);
@@ -64,6 +68,9 @@
     empty.hidden = all > 0;
     const emp = empty.querySelector("p");
     if (emp) { if (!emp.dataset.def) emp.dataset.def = emp.textContent; emp.textContent = n === 0 && state.open ? "いま営業中のお店はありません（開店前か、本日の営業が終わった時間です）。通常は10:00〜20:00、つばき屋・ダイソーは9:00から開いています。" : emp.dataset.def; }
+    // 2026-11-26 操作性監査「トイレ・授乳室・ロッカーで0件のまま」：設備の言葉なら、設備の案内へのリンクを出す
+    if (!draw.fac) { draw.fac = document.createElement("p"); draw.fac.className = "fac-hint"; draw.fac.innerHTML = 'トイレ・授乳室・休憩所・コインロッカーなどは、<a href="access.html#family">館内の設備</a>でご案内しています。'; draw.fac.hidden = true; if (emp) emp.after(draw.fac); }
+    draw.fac.hidden = !(n === 0 && /トイレ|といれ|お手洗|おてあらい|授乳|じゅにゅう|おむつ|オムツ|ベビーカー|車いす|くるまいす|ろっかー|ロッカー|喫煙|たばこ|タバコ|休憩|きゅうけい|wi-?fi|ワイファイ/i.test(state.q.normalize("NFKC")));
     // 見つからない時の案内と「すべてのお店を見る」が、下の固定メニューの裏に隠れないように（出た時に1回だけ、必要な分だけ送る）
     if (n === 0 && !draw.wasEmpty && save) empty.scrollIntoView({block: "nearest", behavior: "instant"});
     draw.wasEmpty = n === 0;
@@ -117,7 +124,8 @@
   { const m = location.hash.match(/^#(shop-s\d+)$/); if (m) unfoldTo(m[1]); }
   // 2026-11-25 第三者評価「検索・種類から来ると、結果が最初の画面の一番下に隠れる」：条件つきで開いた時は結果の先頭へ
   if (!location.hash && (state.q || state.kind !== "すべて" || state.floor !== "all" || state.own || state.open)) {
-    const toFirst = () => { const r = list.getBoundingClientRect(); if (r.top > innerHeight * 0.5) scrollBy({top: r.top - bar.getBoundingClientRect().height - 12, behavior: "instant"}); };
+    // 11/26 0件の時は「見つかりません」の案内の先頭へ（検索の帯の裏に隠れていた）
+    const toFirst = () => { if (!empty.hidden) { empty.style.scrollMarginTop = (bar.getBoundingClientRect().height + 80) + "px"; empty.scrollIntoView({block: "start", behavior: "instant"}); return; } const t = list, r = t.getBoundingClientRect(); if (r.top > innerHeight * 0.5) scrollBy({top: r.top - bar.getBoundingClientRect().height - 12, behavior: "instant"}); };
     if (document.readyState === "complete") requestAnimationFrame(toFirst); else addEventListener("load", () => requestAnimationFrame(toFirst), {once: true});
   }
   if (state.open) addEventListener("load", () => draw(false)); // 営業中の印は opennow.js が後で付けるので、読み込みのあとにもう一度しぼる

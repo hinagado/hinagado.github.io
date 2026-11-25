@@ -2794,3 +2794,165 @@ body.page-shops .shops{align-items:start}
 
 /* 11/25 繁体字のます目の図：カナの店名の下の読み */
 .fm-b .fm-roma{display:block;font-size:10.5px;font-weight:500;line-height:1.2;color:var(--muted);word-break:break-word}
+
+
+/* ===== 2026-11-26 デザイン監査（Fable・72点）を受けた見た目の調整。上の層は触らず、ここで上書きする ===== */
+:root{--r-s:12px;--r-m:20px;--r-pill:99px}
+
+/* --- 2・3. スマホの最初の画面：空ばかりの写真を低くし、基本情報を 2×2 にそろえ、電話は大きな押しボタンに --- */
+@media (max-width:720px){
+  .hello-ph{min-height:0!important;height:min(44svh,350px)!important;aspect-ratio:auto!important}
+  .hello-ph>img,.hello-ph img,.hello-ph img.kb{object-position:66% 88%!important}
+  .hstrip{grid-template-columns:1fr 1fr;align-items:start;gap:12px 14px;padding:14px 16px 12px}
+  .hstrip .hs-note{display:none}
+  .hstrip>span{min-height:0}
+  .hstrip .htel{grid-column:1/-1;flex-direction:row!important;align-items:center!important;justify-content:space-between;gap:10px;padding-top:10px;border-top:1px solid var(--line)}
+  .hstrip .htel a{flex:1;justify-content:center;gap:8px;min-height:50px;padding:0 14px;border:0;border-radius:var(--r-s);background:var(--red-dark);color:#fff;font-size:20px;letter-spacing:.02em;box-shadow:0 2px 0 rgba(74,40,14,.18)}
+  .hstrip .htel a::before{content:"";width:20px;height:20px;background:currentColor;-webkit-mask:var(--i-tel) center/contain no-repeat;mask:var(--i-tel) center/contain no-repeat}
+  .hstrip small{order:9;padding-top:10px}
+}
+
+/* --- 4. チラシのカード：「表・裏」の札は小さな札のまま、ボタンは横に並べて主・副を分ける --- */
+.flyer-text .flyer-pages{align-self:flex-start;display:inline-block;width:auto;font-size:12.5px;padding:2px 10px;border-radius:var(--r-pill)}
+.flyer-text .flyer-title{min-height:2.9em}
+.flyer-card.has-back .flyer-text{display:grid;grid-template-columns:auto auto;justify-content:start;column-gap:8px;align-content:start}
+.flyer-card.has-back .flyer-text>:not(.flyer-open){grid-column:1/-1}
+.flyer-card.has-back .flyer-text .flyer-open{margin:8px 0 0!important;align-self:end}
+.flyer-card .flyer-open{display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border-radius:var(--r-s)}
+.flyer-card .flyer-open.flyer-back{margin-left:0;background:#fff;color:var(--red-dark);box-shadow:inset 0 0 0 1.5px var(--red-dark)}
+.flyer-card .flyer-open.flyer-back:hover,.flyer-card .flyer-open.flyer-back:focus-visible{background:var(--red-soft);color:var(--red-dark)}
+
+/* --- 5. PC：写真の上の文句の下に、左から薄い影を敷いて読みやすく --- */
+@media (min-width:721px){
+  .hello-ph::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,rgba(40,22,10,.5) 0%,rgba(40,22,10,.22) 42%,rgba(40,22,10,0) 66%)}
+  .hello-in{z-index:2}
+}
+
+/* --- 8. 見出しの段：区画の見出しは丸文字の太字で、スマホ24px／PC30px にそろえる --- */
+main section>h2:not(.vh){font-family:var(--round);font-weight:900;font-size:24px;line-height:1.35}
+@media (min-width:901px){main section>h2:not(.vh){font-size:30px}}
+
+/* --- 9. PC：文章が横に伸びすぎない、箱が余らない --- */
+@media (min-width:901px){
+  main p.lead,main .nbody,main .news-item p,main .newslist p{max-width:46em}
+  #nenmatsu table{max-width:560px}
+}
+@media (min-width:1000px){
+  .evsec .evs{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+}
+
+/* --- 13. 区画の間隔：スマホ52px／PC80px に一本化。「すべて見る」の上は24px --- */
+main>section{padding-top:52px}
+main>section.first,main>section.catsec{padding-top:24px}
+@media (min-width:901px){main>section{padding-top:80px}main>section.first,main>section.catsec{padding-top:32px}}
+main section>a.more{margin-top:24px}
+
+/* --- 14. 6分類の説明：行数が違っても高さをそろえ、文字を大きめに --- */
+.cats .cat .cl .cx{min-height:2.7em;font-size:14px}
+@media (max-width:720px){.cats .cat .cl .cx{font-size:13.5px}}
+
+/* --- 15. 小さい橙の文字は濃い茶色に（60代の方にも読める濃さ） --- */
+.forwho .fw-for,.fw-for,.lead small,.flyer-period,.flyer-shop{color:var(--red-dark)}
+.flyer-period{font-size:15px}
+
+/* --- 16. アクセス：行き方カードの絵は上にそろえる --- */
+.route::before,.route .rt-ic{align-self:start}
+
+/* --- 10・11. お店のカード：スマホは写真を少し低く、小写真の列は隠す（「写真○枚」から全部見られる）。PCは店名の高さをそろえる --- */
+@media (max-width:720px){
+  .page-shops .sph.cover .cv-main{aspect-ratio:16/10;display:block;overflow:hidden}
+  .page-shops .sph.cover .cv-main img{width:100%;height:100%;object-fit:cover}
+  .page-shops .sph.cover .cv-th{display:none!important}
+}
+@media (min-width:901px){
+  body.page-shops .sb>h3{min-height:44px;display:flex;align-items:center}
+}
+
+/* 11/26 スマホの写真：元の写真の上半分が空なので、写真を縦に大きく敷いて下（建物）側を見せる */
+@media (max-width:720px){
+  .hello-ph>img,.hello-ph img.kb{top:auto!important;bottom:0!important;height:138%!important}
+  .hstrip small span,.hstrip small .nw{font-size:inherit!important;font-weight:inherit}
+  .hstrip small{font-size:15px!important;font-weight:500}
+}
+
+/* ===== 2026-11-26 操作性監査（Fable・70点）を受けた調整 ===== */
+/* 3. スマホの上の帯に「Language」。PC は上の言葉えらびの帯があるので出さない */
+.hd-lang{display:none}
+@media (max-width:900px){
+  .hd-lang{display:inline-flex;align-items:center;gap:5px;flex:none;min-height:44px;margin-left:auto;margin-right:6px;padding:0 12px;border:1.5px solid var(--line);border-radius:var(--r-pill,99px);background:#fff;color:var(--ink);font:inherit;font-size:14px;font-weight:700;cursor:pointer}
+  .hd-lang:focus-visible{outline:3px solid #1a5fb4;outline-offset:2px}
+  #gnav.lang-first .nav-lang{order:-1;margin-top:8px;margin-bottom:6px}
+  #gnav.lang-first .nav-x{order:-2}
+}
+@media (max-width:360px){.hd-lang span{display:none}.hd-lang{padding:0 10px}}
+/* 14. 文字を大きくしても三本線が消えない */
+.menu-btn{flex:none;min-width:44px}
+.logo{min-width:0}
+
+/* 4. きょうの営業 */
+.hstrip .hs-today{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 10px}
+.hstrip .hs-today b{font-size:14px;font-weight:700;color:var(--ink);margin:0}
+.hstrip .hs-today em{font-style:normal;font-weight:700;padding:1px 10px;border-radius:99px;background:#e7f3ea;color:#1f6b3a;font-size:15px}
+.hstrip .hs-today.before em,.hstrip .hs-today.early em{background:#fff3d6;color:#7a4b00}
+.hstrip .hs-today.closed em{background:#efe9e4;color:#5b4c42}
+.hstrip .hs-today a,.hstrip .hs-today small{font-size:14px;font-weight:500}
+.hstrip .hs-today a{color:var(--red-dark)}
+@media (max-width:720px){.hstrip .hs-today{grid-column:1/-1;padding-bottom:10px;border-bottom:1px solid var(--line)}}
+@media (min-width:721px){.hstrip .hs-today{flex-basis:100%;justify-content:center;padding-bottom:6px}}
+
+/* 1. お店の「館内図」から来た時、そのお店の札を光らせる */
+@keyframes fm-hl{0%,100%{box-shadow:0 0 0 0 rgba(255,196,0,0)}30%,70%{box-shadow:0 0 0 6px rgba(255,196,0,.95),0 0 0 10px rgba(194,82,27,.35)}}
+.fm-pin.hl{animation:fm-hl 1.3s ease-in-out 2;z-index:6}
+@media (prefers-reduced-motion:reduce){.fm-pin.hl{animation:none;box-shadow:0 0 0 5px #ffc400}}
+#fm-info:focus{outline:3px solid #1a5fb4;outline-offset:3px}
+
+/* 7. スマホで「図を大きくする」と、文字もはっきり大きく */
+@media (max-width:720px){
+  .fm-ill.big .fm-pin{font-size:15px}
+  .fm-ill.big .fm-fac{font-size:13px}
+}
+/* 9. 押せない「▶」の丸は、案内の箱を出している間は隠す */
+.fm-floor:has(#fm-info)::after{display:none}
+
+/* 2. チラシの拡大：左の端からも見られる（真ん中寄せで左が切れていた） */
+.lb.zoom .lb-sc{justify-content:flex-start!important;align-items:flex-start!important}
+.lb.zoom .lb-sc img{margin:0 auto;flex:none}
+
+/* 10. チラシのボタン：狭いカードでは縦に並べて幅いっぱい、文字は折らない */
+.flyer-card .flyer-open{white-space:nowrap}
+@media (max-width:720px){
+  .flyer-card.has-back .flyer-text{display:flex;flex-direction:column}
+  .flyer-card .flyer-open,.flyer-card.has-back .flyer-text .flyer-open{align-self:stretch;justify-content:center;margin:8px 0 0!important;padding:0 10px;font-size:14.5px}
+}
+
+/* 12. しぼり込みの札：スマホでは折り返して全部見せる */
+@media (max-width:720px){
+  .shopquick,.quick.shopquick,.intl-filter{flex-wrap:wrap!important;overflow:visible!important;margin-right:0!important}
+}
+
+/* 16. 小さい押し物を44pxに（たとえばの札、しぼり込み、チラシ） */
+.hwords a{min-height:44px;display:inline-flex;align-items:center}
+.shopquick a,.quick.shopquick a,#filters button,.intl-filter button{min-height:44px}
+
+/* 15. 色の濃さ（4.5以上） */
+.fm-pin.k1{--k:#a85600}
+.fm-pin i,.fm-outtag,.fm-fac.ent{background:#24733f}
+.fm-pin i{font-size:max(.78em,11px)}
+.newslist li.done h3,.newslist li.done p{color:#6f6863}
+.newslist li.done .tag{color:#6f6863;border-color:#6f6863}
+
+/* 17. 検索欄に入った時、はっきり分かる枠 */
+.hsearch:focus-within,.tools:focus-within,.page-shops .tools:focus-within{outline:3px solid #1a5fb4;outline-offset:2px}
+.flyer-open:focus-visible{outline:3px solid #1a5fb4!important;outline-offset:2px}
+
+/* 検索で設備の言葉を入れた時の案内 */
+.fac-hint{margin:10px 0 0;padding:12px 14px;border-radius:var(--r-s,12px);background:var(--band);font-size:16px}
+.fac-hint a{color:var(--red-dark);font-weight:700}
+#bus,#taxi{scroll-margin-top:90px}
+
+/* 11/26 スマホの上の帯：Language ボタンを足しても店名が切れないように */
+@media (max-width:900px){
+  .hd .logo{white-space:nowrap;font-size:17px;gap:8px}
+  .hd-lang{padding:0 10px;font-size:13px;gap:4px;margin-right:4px}
+}
+@media (max-width:374px){.hd .logo{font-size:15px}.hd-lang span{display:none}}

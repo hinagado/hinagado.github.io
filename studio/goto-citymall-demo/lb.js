@@ -15,8 +15,20 @@
     close.addEventListener('click', hide);
     prev.addEventListener('click', () => show(at - 1));
     next.addEventListener('click', () => show(at + 1));
-    zoomBtn.addEventListener('click', () => { const z = box.classList.toggle('zoom'); zoomBtn.textContent = z ? '縮小' : '拡大'; });
+    // 2026-11-26 操作性監査「拡大すると左側が見られない」：拡大したら、絵の真ん中を画面の真ん中に（左右どちらへも動かせる）
+    zoomBtn.addEventListener('click', () => {
+      const z = box.classList.toggle('zoom'); zoomBtn.textContent = z ? '縮小' : '拡大';
+      requestAnimationFrame(() => { sc.scrollLeft = Math.max(0, (sc.scrollWidth - sc.clientWidth) / 2); sc.scrollTop = 0; });
+    });
     box.addEventListener('keydown', e => {
+      // 2026-11-26 Tab で後ろのページへ抜けない（窓の中のボタンを回る）
+      if (e.key === 'Tab') {
+        const f = [...box.querySelectorAll('button')].filter(b => !b.hidden);
+        const i = f.indexOf(document.activeElement);
+        if (e.shiftKey && i <= 0) { e.preventDefault(); f[f.length - 1].focus(); }
+        else if (!e.shiftKey && i === f.length - 1) { e.preventDefault(); f[0].focus(); }
+        return;
+      }
       if (e.key === 'Escape') hide();
       else if (e.key === 'ArrowLeft') show(at - 1);
       else if (e.key === 'ArrowRight') show(at + 1);
@@ -36,7 +48,13 @@
     prev.hidden = next.hidden = list.length < 2;
     box.classList.remove('zoom'); zoomBtn.textContent = '拡大'; sc.scrollTo(0, 0);
   }
-  function hide() { box.hidden = true; document.documentElement.classList.remove('lb-open'); if (back) back.focus(); }
+  // 2026-11-26 操作性監査「拡大中にスマホの『戻る』を押すと、ページごと離れる」：開く時に履歴を1つ積み、『戻る』で窓だけ閉じる
+  // 開くたびに番号を振り、履歴の今の位置がその番号の時だけ「戻る」で消す（閉じてすぐ開き直した時に、遅れて来た戻りで新しい窓を閉じない）
+  let pushed = false, tok = 0;
+  const here = () => !!(history.state && history.state.lb === tok);
+  function close() { box.hidden = true; document.documentElement.classList.remove('lb-open'); if (back) back.focus({preventScroll: true}); }
+  function hide() { if (box.hidden) return; close(); if (pushed) { pushed = false; if (here()) history.back(); } }
+  addEventListener('popstate', () => { if (box && !box.hidden && !here()) { pushed = false; close(); } });
   document.addEventListener('click', e => {
     const a = e.target.closest && e.target.closest('a[data-lb]');
     if (!a || e.ctrlKey || e.metaKey || e.shiftKey) return;
@@ -44,6 +62,7 @@
     if (!box) build();
     list = [...document.querySelectorAll('a[data-lb="' + a.dataset.lb + '"]')];
     back = a; box.hidden = false; document.documentElement.classList.add('lb-open');
+    if (!pushed) { try { tok = Date.now(); history.pushState(Object.assign({}, history.state, {lb: tok}), ''); pushed = true; } catch (err) { pushed = false; } }
     show(list.indexOf(a)); box.querySelector('.lb-close').focus();
   });
 })();

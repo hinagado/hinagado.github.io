@@ -1,0 +1,339 @@
+﻿/* 2026-11-26 仕上げB（お店・お知らせ・アクセス・会社・求人）
+   ・必ず body.page-xxx で範囲を絞る（共通部品とトップは polish_a.css の担当）
+   ・角丸は 12 / 20 / 28（--r-s / --r-m / --r-l）、影は --sh-1 / --sh-2 / --sh-3 の3段だけを使う
+   ・ボタンは 主（塗り）／副（白地に細い枠・角丸12）／文字リンク の3種に揃える
+   ・館内図の絵の中（.fm-ill-in・.fm-pin・.fm-fac）の大きさ・位置には触らない */
+
+/* ───────── 1. ページの頭（.page-hd／お店は .shero） ───────── */
+body:is(.page-shops, .page-news, .page-access, .page-company, .page-recruit) :is(.page-hd, .shero) {
+  background:
+    radial-gradient(90% 130% at 0% 0%, rgba(255, 250, 242, .95) 0%, rgba(255, 250, 242, 0) 62%),
+    linear-gradient(180deg, #fff3e3 0%, #fdebd5 100%);
+}
+body:is(.page-news, .page-access, .page-company, .page-recruit) .page-hd h1 {
+  padding-bottom: 14px;
+  margin-bottom: 10px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 4'%3E%3Crect width='44' height='4' rx='2' fill='%23c2521b'/%3E%3C/svg%3E") left bottom / 44px 4px no-repeat;
+}
+body:is(.page-shops, .page-news, .page-access, .page-company, .page-recruit) :is(.page-hd, .shero) h1 {
+  letter-spacing: .06em;
+}
+@media (min-width: 901px) {
+  body:is(.page-news, .page-access, .page-company, .page-recruit) .page-hd h1 { font-size: 40px; line-height: 1.3; padding-bottom: 18px; margin-bottom: 14px; }
+  body.page-shops .shero h1 { font-size: 40px; line-height: 1.3; }
+  /* 写真は白いふちの「焼いた写真」に */
+  body:is(.page-shops, .page-news, .page-access, .page-company, .page-recruit) :is(.page-hd, .shero).has-ph .phd-ph {
+    border-radius: var(--r-l, 28px);
+    box-shadow: 0 0 0 6px #fff, var(--sh-2);
+  }
+}
+body.page-shops .shero .kick { letter-spacing: .16em; }
+
+/* 目次の札（アクセスの上） */
+body.page-access .jump a { border-width: 1px; box-shadow: 0 1px 2px rgba(74, 40, 14, .05); }
+
+/* ───────── 2. お店：検索と絞り込みの帯 ───────── */
+body.page-shops .stabs {
+  border: 1px solid var(--btn-line);
+  border-radius: var(--r-s, 12px);
+  box-shadow: 0 1px 2px rgba(74, 40, 14, .05);
+}
+body.page-shops .stabs button { letter-spacing: .04em; }
+body.page-shops .tools {
+  border-radius: var(--r-s, 12px);
+  box-shadow: 0 1px 2px rgba(74, 40, 14, .05), inset 0 1px 2px rgba(74, 40, 14, .04);
+}
+body.page-shops .tools .count { color: var(--muted); letter-spacing: .02em; }
+body.page-shops #filters .chips button { border-width: 1px; letter-spacing: .03em; }
+body.page-shops #filters .chips button[aria-pressed="true"] { box-shadow: 0 1px 2px rgba(74, 40, 14, .14); }
+/* 近道の札は一段しずかに（絞り込みの札と競わせない） */
+body.page-shops .shopquick a {
+  background: transparent;
+  box-shadow: inset 0 0 0 1px var(--card-line);
+  color: var(--ink);
+}
+body.page-shops .shopquick a:hover { background: var(--band); }
+body.page-shops .lead.hrs-note { color: var(--muted); }
+
+/* ───────── 3. お店：種類の見出し ───────── */
+body.page-shops .grp h2 {
+  gap: 12px;
+  padding-bottom: 14px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--hair, rgba(90, 58, 38, .13));
+  letter-spacing: .06em;
+}
+body.page-shops .grp .gi { width: 44px; height: 44px; border-radius: 14px; }
+body.page-shops .grp h2 small { letter-spacing: .02em; font-variant-numeric: tabular-nums; }
+@media (min-width: 901px) {
+  body.page-shops .grp { margin-bottom: 64px; }
+  body.page-shops .grp h2 { font-size: 26px; }
+}
+
+/* ───────── 4. お店カード ───────── */
+body.page-shops .shop {
+  border-radius: var(--r-m, 20px);
+  box-shadow: 0 0 0 1px rgba(90, 58, 38, .06), var(--sh-1);
+}
+body.page-shops .sph.cover .cv-main::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  box-shadow: inset 0 -1px 0 rgba(60, 30, 10, .08);
+}
+body.page-shops .sph.cover .cv-n {
+  right: 12px; bottom: 12px; padding: 3px 11px;
+  background: rgba(40, 26, 18, .66); letter-spacing: .06em;
+}
+body.page-shops .sph.cover .cv-th { gap: 2px; padding-top: 2px; }
+
+/* 店名は丸文字で一段大きく、種類は一歩さがる */
+body.page-shops .sb > h3 {
+  font-family: var(--round);
+  font-size: 19px; font-weight: 700; letter-spacing: .04em;
+}
+body.page-shops .sb > p { color: var(--muted); letter-spacing: .02em; }
+body.page-shops .sb > .slogo { border-radius: 10px; border-color: var(--hair, rgba(90, 58, 38, .13)); }
+
+/* 札の列：階だけ枠の札にして、時間の札と見分ける */
+body.page-shops .sb > .row { gap: 6px; }
+body.page-shops .sb > .row > .floor {
+  background: #fff; box-shadow: inset 0 0 0 1px var(--btn-line);
+  font-weight: 700; color: var(--ink);
+}
+
+/* 下の操作の段：細い線で区切り、主（館内図）／副（電話）／文字（詳細）を一列に */
+body.page-shops .shop > .sb { column-gap: 0; }
+body.page-shops .sb > .slogo { margin-left: 8px; }
+body.page-shops .shop { overflow: hidden; }
+body.page-shops .sb > .acts { position: relative; margin-top: 14px; padding-top: 14px; }
+/* 線はカードの端から端まで（ボタンが2段に折り返す幅でも、線は1本で揃う） */
+body.page-shops .sb > .acts::before {
+  content: ""; position: absolute; top: 0; left: -40px; right: -640px; height: 1px;
+  background: var(--hair, rgba(90, 58, 38, .13)); pointer-events: none;
+}
+body.page-shops .sb > .sd[open] { margin-top: 10px; }
+body.page-shops .acts a.fml, body.page-shops .acts a.fml:visited { letter-spacing: .06em; }
+body.page-shops .acts a.tel, body.page-shops .acts a.tel:visited { border-width: 1px; letter-spacing: .02em; }
+body.page-shops .sd summary { letter-spacing: .06em; }
+body.page-shops .sd-in { border-radius: var(--r-s, 12px); }
+
+/* 写真のないカード（ATM など）も同じ調子に */
+body.page-shops .shop:not(.hasph) .ini { box-shadow: inset 0 0 0 1px rgba(194, 82, 27, .12); }
+
+/* 残りを見る */
+body.page-shops .more-shops {
+  min-height: 52px; margin-top: 16px;
+  border: 1px solid var(--btn-line); border-radius: var(--r-s, 12px);
+  background: #fff; box-shadow: 0 1px 2px rgba(74, 40, 14, .05);
+  letter-spacing: .06em;
+}
+body.page-shops .more-shops:hover { background: var(--tint); border-color: var(--main); }
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  body.page-shops .shop.hasph { transition: box-shadow .35s var(--ease, ease); }
+  body.page-shops .shop.hasph:hover { box-shadow: 0 0 0 1px rgba(90, 58, 38, .06), var(--sh-2); }
+}
+
+/* ───────── 5. お店：館内図のまわり ───────── */
+body.page-shops #fm > h2 { font-size: 24px; line-height: 1.35; }
+@media (min-width: 901px) { body.page-shops #fm > h2 { font-size: 30px; } }
+
+/* 凡例はひとまとまりの箱に */
+body.page-shops #fm .fm-legend {
+  display: flex; flex-wrap: wrap; gap: 6px 18px;
+  margin: 0 0 16px; padding: 12px 16px;
+  border: 1px solid var(--card-line); border-radius: var(--r-s, 12px);
+  background: #fff;
+}
+
+/* 階の切り替え・動き・拡大・全体・左右：同じ「副ボタン」に揃える */
+body.page-shops #fm .fm-tools button { border-radius: var(--r-s, 12px); letter-spacing: .06em; }
+body.page-shops #fm :is(.fm-move, .fm-zoom, .fm-fit, .fm-pan button) {
+  min-height: 44px; padding: 0 16px;
+  border: 1.5px solid var(--btn-line); border-radius: var(--r-s, 12px);
+  background: #fff; color: var(--ink);
+  font-size: 15px; font-weight: 700; letter-spacing: .04em;
+  box-shadow: 0 1px 2px rgba(74, 40, 14, .05);
+}
+body.page-shops #fm :is(.fm-move, .fm-zoom, .fm-fit, .fm-pan button):hover { background: var(--tint); border-color: var(--main); }
+body.page-shops #fm :is(.fm-zoom, .fm-fit)[aria-pressed="true"] { background: var(--main); border-color: var(--main); color: #fff; }
+body.page-shops #fm .fm-ctl { gap: 8px; margin-bottom: 12px; }
+
+/* 絵の枠・案内の箱（大きさは変えず、ふちと影だけ） */
+body.page-shops #fm .fm-ill { border-radius: var(--r-m, 20px); box-shadow: 0 0 0 1px rgba(90, 58, 38, .08), var(--sh-1); }
+body.page-shops #fm-info { border-radius: var(--r-m, 20px); box-shadow: var(--sh-1); }
+
+/* ───────── 6. お知らせ ───────── */
+/* イベント：320px 幅で「開催中」の札が縦に割れてカードからはみ出していたのを直す */
+body.page-news .ev .evtag { white-space: nowrap; }
+@media (max-width: 374px) {
+  body.page-news .ev > time { grid-area: 1 / 1 / auto / -1; justify-self: start; }
+  body.page-news .ev > .evtag { grid-area: 2 / 1 / auto / -1; justify-self: start; }
+  body.page-news .ev > .where { grid-area: 3 / 1 / auto / -1; }
+  body.page-news .ev > b { grid-area: 4 / 1 / auto / -1; }
+  body.page-news .ev > span:last-child { grid-area: 5 / 1 / auto / -1; }
+}
+
+/* 一覧：PC は「日付と札｜見出しと本文」の2段組み */
+body.page-news .newslist { border-top: 1px solid var(--hair, rgba(90, 58, 38, .13)); }
+body.page-news .newslist li { border-bottom-color: var(--hair, rgba(90, 58, 38, .13)); padding: 20px 0; }
+body.page-news .newslist h3 { font-size: 19px; margin-bottom: 4px; }
+body.page-news .newslist p, body.page-news .newslist .ext { font-size: 16px; }
+body.page-news .newslist li > div { max-width: 44em; }
+@media (min-width: 768px) {
+  body.page-news .newslist li {
+    grid-template-columns: 10.5em minmax(0, 1fr);
+    grid-template-rows: auto 1fr;
+    gap: 8px 32px; align-items: start;
+    padding: 28px 0;
+  }
+  body.page-news .newslist li > :is(time, .date-ex) { grid-column: 1; grid-row: 1; line-height: 1.6; padding-top: 2px; }
+  body.page-news .newslist li > .tag { grid-column: 1; grid-row: 2; justify-self: start; align-self: start; }
+  body.page-news .newslist li > div { grid-column: 2; grid-row: 1 / span 2; }
+  body.page-news .newslist h3 { font-size: 20px; }
+}
+/* 営業時間の小さな表 */
+body.page-news .ntbl {
+  border-collapse: separate; border-spacing: 0;
+  width: min(100%, 440px); margin: 10px 0 14px;
+  border: 1px solid var(--card-line); border-radius: var(--r-s, 12px);
+  background: #fff; overflow: hidden;
+}
+body.page-news .ntbl th, body.page-news .ntbl td { padding: 10px 16px; font-size: 16px; border-bottom: 1px solid var(--card-line); }
+body.page-news .ntbl tr:last-child > * { border-bottom: 0; }
+body.page-news .ntbl th { background: #fffaf3; }
+
+/* チラシのカード：台紙にのせた見せ方 */
+body.page-news .flyer-card { border-radius: var(--r-m, 20px); border-color: transparent; box-shadow: 0 0 0 1px rgba(90, 58, 38, .06), var(--sh-1); }
+body.page-news .flyer-image { background: var(--band); padding: 14px 14px 12px; box-sizing: border-box; filter: drop-shadow(0 2px 3px rgba(60, 30, 10, .16)); }
+body.page-news .flyer-text { padding: 14px 16px 16px; gap: 3px; }
+body.page-news .flyer-text .flyer-pages { justify-self: start; letter-spacing: .08em; }
+body.page-news .flyer-shop { letter-spacing: .04em; }
+body.page-news .flyer-title { font-size: 17px; line-height: 1.5; letter-spacing: .03em; }
+body.page-news .flyer-card .flyer-open { letter-spacing: .04em; }
+body.page-news .flyer-card .flyer-open.flyer-back { box-shadow: inset 0 0 0 1.5px var(--btn-line); color: var(--ink); }
+body.page-news .flyer-card .flyer-open.flyer-back:hover { background: var(--tint); color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--main); }
+body.page-news .flyer-card.has-back .flyer-text .flyer-open { padding: 0 12px; }
+@media (min-width: 901px) {
+  /* PC は3列。チラシの絵を大きく、2つのボタンがカードの中に収まる幅に */
+  body.page-news .fy-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+  body.page-news .flyer-text { padding: 16px 20px 20px; }
+  body.page-news .flyer-card.has-back .flyer-text .flyer-open { padding: 0 18px; }
+}
+@media (min-width: 721px) and (max-width: 900px) {
+  /* タブレット幅：2つのボタンは縦に積む（横に並べるとカードからはみ出していた） */
+  body.page-news .flyer-card.has-back .flyer-text { display: flex; flex-direction: column; }
+  body.page-news .flyer-card .flyer-open,
+  body.page-news .flyer-card.has-back .flyer-text .flyer-open { align-self: stretch; justify-content: center; }
+}
+@media (max-width: 720px) {
+  body.page-news .flyer-image { padding: 10px 10px 8px; }
+  body.page-news .flyer-text { padding: 12px 12px 14px; }
+  body.page-news .flyer-title { font-size: 16px; letter-spacing: 0; }
+  body.page-news .flyer-shop { letter-spacing: 0; }
+  body.page-news .flyer-card .flyer-open { letter-spacing: 0; }
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  body.page-news .flyer-card { transition: box-shadow .35s var(--ease, ease); }
+  body.page-news .flyer-card:hover { box-shadow: 0 0 0 1px rgba(90, 58, 38, .06), var(--sh-2); }
+}
+
+/* 1年の催事の表：白い台にのせる */
+body.page-news .tblwrap {
+  border: 1px solid var(--card-line); border-radius: var(--r-m, 20px);
+  background: #fff; box-shadow: var(--sh-1);
+}
+body.page-news .ytbl th, body.page-news .ytbl td { padding: 13px 20px; border-bottom-color: var(--card-line); font-size: 16px; }
+body.page-news .ytbl thead th { background: #fbf3ea; font-size: 14px; letter-spacing: .12em; padding-top: 11px; padding-bottom: 11px; }
+body.page-news .ytbl tbody tr:last-child > * { border-bottom: 0; }
+body.page-news .ysub { margin: 36px 0 14px; font-family: var(--round); letter-spacing: .04em; }
+@media (max-width: 600px) {
+  body.page-news .ytbl tr { padding: 12px 16px; border-bottom-color: var(--card-line); }
+  body.page-news .ytbl tbody tr:last-child { border-bottom: 0; }
+  body.page-news .ytbl th, body.page-news .ytbl td { padding: 0; }
+  body.page-news .ytbl td:first-child { font-size: 14px; }
+}
+
+/* ───────── 7. アクセス・会社案内：情報の箱 ───────── */
+body:is(.page-access, .page-company) .info { padding: 24px 28px; }
+body:is(.page-access, .page-company) .info dl { gap: 0; margin-bottom: 0; grid-template-columns: 6.5em minmax(0, 1fr); }
+body:is(.page-access, .page-company) .info :is(dt, dd) {
+  padding: 13px 0; margin: 0;
+  border-top: 1px solid var(--hair, rgba(90, 58, 38, .13));
+}
+body:is(.page-access, .page-company) .info dt { padding-right: 14px; letter-spacing: .04em; }
+body.page-access .info dl > :is(dt, dd):nth-child(-n+2) { border-top: 0; padding-top: 2px; }
+body.page-access .info dl { margin-bottom: 20px; padding-bottom: 6px; border-bottom: 1px solid var(--hair, rgba(90, 58, 38, .13)); }
+body.page-company .info h2.sm { margin-bottom: 14px; letter-spacing: .06em; }
+body.page-company .info dl > :is(dt, dd):nth-last-child(-n+2) { padding-bottom: 2px; }
+@media (max-width: 720px) {
+  body:is(.page-access, .page-company) .info { padding: 18px 20px 20px; }
+}
+body:is(.page-access, .page-company) .info .telbtn { white-space: nowrap; }
+@media (max-width: 374px) {
+  body:is(.page-access, .page-company) .info { padding: 16px 16px 18px; }
+  body:is(.page-access, .page-company) .info dl { grid-template-columns: 5.3em minmax(0, 1fr); }
+  body:is(.page-access, .page-company) .info dt { padding-right: 8px; letter-spacing: 0; }
+}
+body.page-access .mapbox { border-radius: var(--r-m, 20px); box-shadow: 0 0 0 1px rgba(90, 58, 38, .08), var(--sh-1); }
+
+/* ───────── 8. アクセス：行き方 ───────── */
+@media (min-width: 761px) {
+  /* 絵の印は上に揃える（背の高いカードで真ん中に浮かない） */
+  body.page-access ol.steps li { padding-top: 20px; padding-bottom: 20px; align-content: start; }
+  body.page-access ol.steps li::before { top: 18px; margin-top: 0; }
+  body.page-access ol.steps li::after { top: 25px; margin-top: 0; }
+  body.page-access ol.steps li > h3 { margin-top: 5px; }
+  /* 道順のボタンは副ボタンの形（角丸12）に */
+  body.page-access ol.steps li > .go, body.page-access ol.steps li > .go:visited {
+    border: 1.5px solid var(--btn-line); border-radius: var(--r-s, 12px);
+    color: var(--ink); letter-spacing: .04em;
+    box-shadow: 0 1px 2px rgba(74, 40, 14, .05);
+  }
+  body.page-access ol.steps li > .go:hover { background: var(--tint); border-color: var(--main); }
+  body.page-access ol.steps li.bus > .go, body.page-access ol.steps li.bus > .go + br + .go { align-self: start; }
+}
+body.page-access ol.steps li > h3 { font-family: var(--round); letter-spacing: .05em; }
+body.page-access .taxis .tx { border-color: var(--card-line); border-radius: var(--r-s, 12px); }
+body.page-access .taxis .tel { border-radius: 9px; letter-spacing: .02em; }
+body.page-access .accph a { display: block; border-radius: var(--r-s, 12px); overflow: hidden; box-shadow: 0 0 0 1px rgba(60, 30, 10, .08); }
+body.page-access .accph figcaption { color: var(--muted); }
+body.page-access .route .rt-from { font-family: var(--round); letter-spacing: .05em; }
+body.page-access .facs li { border-bottom-color: var(--hair, rgba(90, 58, 38, .13)); }
+
+/* ───────── 9. 会社案内：ごあいさつ ───────── */
+body.page-company .greet-ph img { border-radius: var(--r-m, 20px); box-shadow: 0 0 0 6px #fff, var(--sh-2); }
+body.page-company .greet-ph figcaption { margin-top: 18px; font-size: 16px; }
+body.page-company .greet-tx { max-width: 42em; }
+body.page-company .greet-tx p { letter-spacing: .03em; }
+body.page-company .greet-tx .greet-sign {
+  margin-top: 2em; padding-top: 1.2em;
+  border-top: 1px solid var(--hair, rgba(90, 58, 38, .13));
+  letter-spacing: .08em;
+}
+@media (min-width: 901px) {
+  body.page-company .greet { grid-template-columns: minmax(0, 280px) 1fr; gap: 48px; }
+  body.page-company .greet-tx p { font-size: 17px; }
+}
+@media (max-width: 600px) {
+  body.page-company .greet { gap: 24px; }
+  body.page-company .greet-ph { padding-top: 6px; }
+  body.page-company .greet-tx .greet-sign { letter-spacing: .03em; }
+}
+
+/* ───────── 10. 求人 ───────── */
+body.page-recruit .jobs .job h3 { font-size: 16px; font-weight: 500; color: var(--muted); letter-spacing: .04em; }
+body.page-recruit .jobs .job .jrole { font-family: var(--round); letter-spacing: .04em; }
+body.page-recruit .jobs .job .jpay { letter-spacing: .04em; }
+body.page-recruit .jd summary { border-radius: var(--r-s, 12px); letter-spacing: .04em; }
+body.page-recruit .slot b { font-family: var(--round); letter-spacing: .05em; }
+
+/* ───────── 動きを止める設定 ───────── */
+@media (prefers-reduced-motion: reduce) {
+  body.page-shops .shop.hasph, body.page-news .flyer-card { transition: none; }
+}
+
+/* 11/26 孫悟空：飛び先が5つ（道順・路線バス・タクシー・港へ戻る・島の外から）になったので、スマホでは折り返して全部見せる */
+@media (max-width:720px){
+  body.page-access .jump{flex-wrap:wrap;gap:8px;padding:0 16px}
+  body.page-access .jump a{flex:1 1 calc(33.333% - 8px);min-width:0;white-space:normal;font-size:14px;padding:6px 8px}
+}

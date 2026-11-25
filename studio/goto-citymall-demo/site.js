@@ -17,6 +17,16 @@
       const box = document.createElement("div"); box.className = "nav-lang"; box.setAttribute("role", "group"); box.setAttribute("aria-label", lb.getAttribute("aria-label") || "言語 / Language");
       lb.querySelectorAll("a").forEach(a => box.append(a.cloneNode(true)));
       n.append(box); document.documentElement.classList.add("langin");
+      // 2026-11-26 操作性監査「日本語が読めない人は、文字のない三本線の奥の一番下まで辿り着けない」：
+      // スマホの上の帯に、いつも見える「Language」ボタン。押すと引き出しを開き、言葉えらびを先頭に出す
+      const lg = document.createElement("button"); lg.type = "button"; lg.className = "hd-lang";
+      lg.setAttribute("aria-controls", "gnav"); lg.setAttribute("aria-label", "言語 / Language / 語言 / 언어"); lg.setAttribute("aria-expanded", "false");
+      // 引き出しがどの閉じ方で閉じても、ボタンの状態と「言葉を先頭に」をそろえる
+      new MutationObserver(() => { const o = n.classList.contains("open"); const v = String(o && n.classList.contains("lang-first")); if (lg.getAttribute("aria-expanded") !== v) lg.setAttribute("aria-expanded", v); if (!o && n.classList.contains("lang-first")) n.classList.remove("lang-first"); }) /* 付いていない印を外すだけでも知らせが出て無限に回るので、付いている時だけ外す */.observe(n, {attributes: true, attributeFilter: ["class"]});
+      lg.innerHTML = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 3.8 5.6 3.8 9s-1.2 6.4-3.8 9c-2.6-2.6-3.8-5.6-3.8-9S9.4 5.6 12 3z"/></svg><span>Language</span>';
+      lg.addEventListener("click", ev => { ev.stopPropagation(); n.classList.add("lang-first"); set(true); const a = box.querySelector("a"); if (a) a.focus({preventScroll: true}); n.scrollTop = 0; });
+      b.addEventListener("click", () => n.classList.remove("lang-first"));
+      b.before(lg);
     }
   }
   // 2026-11-16 区切りを透明から出す動きはやめた（背の高い区切りが、画面に5%入らず出ないままになっていた）。中身は最初から見せる
@@ -55,6 +65,35 @@
     const st = new Date(b.dataset.start + "T00:00:00"), en = new Date(b.dataset.end + "T23:59:59");
     if (st <= today && today <= en) b.textContent = document.documentElement.lang === "ja" ? "開催中のイベント" : b.textContent;
   });
+  // 2026-11-26 操作性監査「最初の画面に『きょう・いま』が無い。12/31・1/1 でも同じ表示」：
+  // トップの帯の先頭に「きょう 11/25（水） いま営業中」。年末年始（お知らせの表と同じ時間）はその日の時間に替える
+  const hs = document.documentElement.lang === "ja" && document.querySelector(".hello .hstrip");
+  if (hs) {
+    let ymd = "", hm = 0;
+    try {
+      // 試験用の ?now=2026-12-31T14:00 は、端末の時刻帯によらず「日本の時計」として読む
+      const d = nowQ && String(nowQ).match(/^(\d{4}-\d{2}-\d{2})(?:[T ](\d{1,2}):(\d{2}))?/);
+      if (d) { ymd = d[1]; hm = d[2] ? +d[2] * 60 + +d[3] : 12 * 60; }
+      else {
+        const p = {}; new Intl.DateTimeFormat("en-CA", {timeZone: "Asia/Tokyo", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hourCycle: "h23"}).formatToParts(new Date()).forEach(x => { p[x.type] = x.value; });
+        ymd = p.year + "-" + p.month + "-" + p.day; hm = (+p.hour % 24) * 60 + +p.minute;
+      }
+    } catch (e) { ymd = ""; }
+    if (/^\d{4}-\d{2}-\d{2}$/.test(ymd)) {
+      const md = ymd.slice(5), SP = {"12-31": [9, 19], "01-01": [11, 19], "01-02": [10, 19], "01-03": [10, 19]};
+      const [o, c] = SP[md] || [10, 20], early = !SP[md]; // ふだんは つばき屋・ダイソーが9:00から
+      const wd = "日月火水木金土"[new Date(ymd + "T12:00:00").getDay()];
+      const st = hm < (early ? 9 : o) * 60 ? "before" : hm < o * 60 ? "early" : hm < c * 60 ? "open" : "closed";
+      const T = {before: `開店前・${o}:00から`, early: `まもなく開店・${o}:00から`, open: `いま営業中・${c}:00まで`, closed: "本日の営業は終了"}[st];
+      const sp = document.createElement("span"); sp.className = "hs-today " + st;
+      const lab = document.createElement("b"); lab.textContent = "きょう " + (+md.slice(0, 2)) + "/" + (+md.slice(3)) + "（" + wd + "）";
+      const v = document.createElement("em"); v.textContent = T;
+      sp.append(lab, v);
+      if (SP[md]) { const a = document.createElement("a"); a.href = "news.html#nenmatsu"; a.textContent = `年末年始の時間 ${o}:00〜${c}:00`; sp.append(a); }
+      else if (st === "early") { const s2 = document.createElement("small"); s2.textContent = "つばき屋・ダイソーは開いています"; sp.append(s2); }
+      hs.prepend(sp);
+    }
+  }
   // 「公開したときの見え方」：見本の説明（.prov）・例（.tag.ex のある物）・制作の説明を隠す。見本なので保存は端末の中だけ
   const pv = document.querySelector(".pubview");
   const setPub = on => { document.documentElement.classList.toggle("public", on); if (pv) pv.setAttribute("aria-pressed", on); try { sessionStorage.setItem("pubview", on ? "1" : ""); } catch (e) { /* 何もしない */ } };
