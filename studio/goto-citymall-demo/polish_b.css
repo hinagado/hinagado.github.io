@@ -404,3 +404,6 @@ body.page-recruit .slot b { font-family: var(--round); letter-spacing: .05em; }
 
 /* 11/26 見た目4回目：トップの PC でイベントが2枚になり右が空いた → キッチンカーも同じ列に並べる */
 @media (min-width:1000px){.page-index .evs .ev.car{grid-column:auto!important}}
+
+/* 11/25 見た目5回目：PCの写真の文句は位置を変えず（上は明るい壁で読みにくくなる）、文字の影を強めて屋根・車の上でも読めるようにする */
+@media (min-width:901px){.hello .hello-in p,.hello h1{text-shadow:0 2px 14px rgba(40,22,10,.62),0 1px 3px rgba(0,0,0,.45)}}
