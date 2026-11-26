@@ -162,6 +162,13 @@
   <url><loc>https://hinagado.github.io/items/haishin-thumbnail.html</loc></url>
   <url><loc>https://hinagado.github.io/items/shosetsu-hyoshi.html</loc></url>
   <url><loc>https://hinagado.github.io/items/kaiko-check.html</loc></url>
+  <url><loc>https://hinagado.github.io/items/shosetsu-okuzuke.html</loc></url>
+  <url><loc>https://hinagado.github.io/items/oshinagaki.html</loc></url>
+  <url><loc>https://hinagado.github.io/items/kuichigai-map.html</loc></url>
+  <url><loc>https://hinagado.github.io/items/shosetsu-kazari.html</loc></url>
+  <url><loc>https://hinagado.github.io/items/shosetsu-hoshizora.html</loc></url>
+  <url><loc>https://hinagado.github.io/items/shosetsu-coverunder.html</loc></url>
+  <url><loc>https://hinagado.github.io/items/shosetsu-pattern.html</loc></url>
   <url><loc>https://hinagado.github.io/items/trpg-tsuka.html</loc></url>
   <url><loc>https://hinagado.github.io/items/digital-techo-2027.html</loc></url>
   <url><loc>https://hinagado.github.io/items/digital-kakeibo-2027.html</loc></url>
@@ -200,6 +207,13 @@
   <url><loc>https://hinagado.github.io/items/haishin-schedule-lite.html</loc></url>
   <url><loc>https://hinagado.github.io/items/haishin-thumbnail-lite.html</loc></url>
   <url><loc>https://hinagado.github.io/items/shosetsu-hyoshi-lite.html</loc></url>
+  <url><loc>https://hinagado.github.io/items/shosetsu-okuzuke-lite.html</loc></url>
+  <url><loc>https://hinagado.github.io/items/oshinagaki-lite.html</loc></url>
+  <url><loc>https://hinagado.github.io/items/kuichigai-map-lite.html</loc></url>
+  <url><loc>https://hinagado.github.io/items/shosetsu-kazari-lite.html</loc></url>
+  <url><loc>https://hinagado.github.io/items/shosetsu-hoshizora-lite.html</loc></url>
+  <url><loc>https://hinagado.github.io/items/shosetsu-coverunder-lite.html</loc></url>
+  <url><loc>https://hinagado.github.io/items/shosetsu-pattern-lite.html</loc></url>
   <url><loc>https://hinagado.github.io/items/kodomo-fuyuyasumi-lite.html</loc></url>
   <url><loc>https://hinagado.github.io/items/kodomo-oshogatsu-lite.html</loc></url>
   <url><loc>https://hinagado.github.io/items/kodomo-otetsudai-lite.html</loc></url>
@@ -220,6 +234,7 @@
   <url><loc>https://hinagado.github.io/tokushu/nenmatsu.html</loc></url>
   <url><loc>https://hinagado.github.io/tokushu/osusume.html</loc></url>
   <url><loc>https://hinagado.github.io/tokushu/fuyu.html</loc></url>
+  <url><loc>https://hinagado.github.io/tokushu/shosetsu.html</loc></url>
   <url><loc>https://hinagado.github.io/keisan/</loc></url>
   <url><loc>https://hinagado.github.io/keisan/wareki.html</loc></url>
   <url><loc>https://hinagado.github.io/keisan/nenrei.html</loc></url>
