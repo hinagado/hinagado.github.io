@@ -57,6 +57,7 @@
       {shop: 'ボンパティ', title: 'クリスマスケーキ ご予約承り中（見本）', start: '2026-11-24', end: '2026-12-10', kind: 'image', img: 'img/flyer/bonpati_xmas_1_s.webp', open: 'img/flyer/bonpati_xmas_1.webp'} /* 11/25 先方の依頼で裏面は外した */,
       // 2026-11-22 吉田様経由でお店から届いたチラシ（元は PDF。img/flyer/）。1つの投稿に2枚（表・裏）載せる形の見本にした
       {shop: '家具プラス ツーピース', title: '秋のリビング・ダイニングフェア／快眠ベッドフェア', start: '2026-11-01', end: '2026-11-30', kind: 'image', img: 'img/flyer/twopiece_1_s.webp', open: 'img/flyer/twopiece_1.webp', img2: 'img/flyer/twopiece_2_s.webp', open2: 'img/flyer/twopiece_2.webp'},
+      {shop: '家具プラス ツーピース', title: 'LAST BARGAIN（ラストバーゲン）', start: '2026-12-01', end: '2026-12-31', kind: 'image', img: 'img/flyer/twopiece12_1_s.webp', open: 'img/flyer/twopiece12_1.webp', img2: 'img/flyer/twopiece12_2_s.webp', open2: 'img/flyer/twopiece12_2.webp'} /* 11/27 吉田様：12月分に差し替え・12月1日から（新聞折込は11月30日） */,
       {shop: '未来ごとう', title: 'シティモールにデイサービスがあります（見学歓迎）', always: '見学・資料請求はいつでも', kind: 'image', img: 'img/flyer/mirai_1_s.webp', open: 'img/flyer/mirai_1.webp'}
     ]);
     return [
@@ -80,6 +81,7 @@
     const flAlways = String(flItem.always || '').trim();
     if (!flShop || !flTitle || (!(flStart && flEnd) && !flAlways) || !flImageOk || !flOpenOk) return null;
     if (flItem.end && String(flItem.end) < flToday) return null; // 期日が終わったチラシは出さない
+    if (flItem.start && String(flItem.start) > flToday) return null; // 11/27 載せ始めの日より前は出さない（本番の箱と同じ。ツーピース12月分は12月1日から）
     const flHas2 = !!(flItem.img2 || flItem.open2);
     const fl2Ok = !flHas2 || (flTry ? flTryImg(flItem.img2) && flTryImg(flItem.open2) : flDemo ? /^img\/flyer\/[a-z0-9_]+\.(svg|webp)$/.test(String(flItem.img2 || '')) && /^img\/flyer\/[a-z0-9_]+\.(svg|webp)$/.test(String(flItem.open2 || '')) : flDriveImage(flItem.img2) && flDriveOpen(flItem.open2));
     if (!fl2Ok) return null;
