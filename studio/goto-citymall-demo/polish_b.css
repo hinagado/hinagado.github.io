@@ -420,3 +420,8 @@ body.page-recruit .slot b { font-family: var(--round); letter-spacing: .05em; }
 .sd dd.gd{background:#fff7ec;border-radius:12px;padding:10px 12px}
 .sd .chi{grid-template-columns:6.5em 1fr;gap:6px 10px}
 .sd .chi dd small{display:block;margin-top:2px}
+
+/* 11/27 外国語版：お店の札の定休日・ラストオーダー等と、運転手に見せるボタンの並び */
+.cnote{margin:6px 0 0;font-size:13px;line-height:1.5;color:#6e5747}
+.showrow{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 0}
+.showrow .showja{margin:0}
