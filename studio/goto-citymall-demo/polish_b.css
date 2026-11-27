@@ -413,3 +413,10 @@ body.page-recruit .slot b { font-family: var(--round); letter-spacing: .05em; }
 .chara-img{flex:none;width:96px;height:auto;filter:drop-shadow(0 3px 6px rgba(90,40,10,.18))}
 @media (min-width:900px){.chara-img{width:120px}}
 @media (min-width:900px){.chara{max-width:620px}}
+
+/* 11/27 託児所のご利用案内（スマホで3列に割れないよう、横いっぱいに） */
+.sd dt.gd,.sd dd.gd{grid-column:1/-1}
+.sd dt.gd{margin-top:6px;font-weight:700;color:#5a463a}
+.sd dd.gd{background:#fff7ec;border-radius:12px;padding:10px 12px}
+.sd .chi{grid-template-columns:6.5em 1fr;gap:6px 10px}
+.sd .chi dd small{display:block;margin-top:2px}
