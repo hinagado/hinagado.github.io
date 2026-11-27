@@ -428,3 +428,6 @@ body.page-recruit .slot b { font-family: var(--round); letter-spacing: .05em; }
 
 /* 2026-11-28 外国語版のお店の札のメニュー写真 */
 .shop .mnu{margin:8px 0 0}.shop .mnu p{margin:0 0 4px;font-size:13px;color:#6e5747}.shop .mnu .menus{display:flex;gap:6px;overflow-x:auto;padding:2px 0 6px;scroll-snap-type:x mandatory}.shop .mnu .menus a{flex:none;display:block;border:1px solid var(--line);border-radius:8px;overflow:hidden;scroll-snap-align:start;background:#fff}.shop .mnu .menus img{display:block;width:64px;height:auto}
+.sd .chi-sum{margin:0 0 8px;padding:8px 12px;background:#fdebd6;border-radius:10px;font-size:15px;line-height:1.6}
+.ncount{margin:4px 0 8px}
+.chi-sum .nw{white-space:nowrap}
