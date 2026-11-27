@@ -197,3 +197,19 @@ document.addEventListener("click", ev => {
     }, 300));
   }
 })();
+
+// 2026-11-28 デザイン審査「スマホは上の帯・検索欄・下のメニューが同時に残り、見る場所が狭い」：
+// 720px以下では、下へ動かしている間は上の帯を隠し、上へ戻すとすぐ出す（メニューや写真の窓を開いている間は隠さない）
+(function () {
+  var mq = window.matchMedia("(max-width:720px)"), root = document.documentElement, last = window.scrollY || 0;
+  function onScroll() {
+    var y = window.scrollY || 0, d = y - last;
+    var busy = root.classList.contains("lb-open") || document.querySelector("#gnav.open") || (document.activeElement && document.activeElement.closest && document.activeElement.closest("header"));
+    if (!mq.matches || busy || y < 120) root.classList.remove("hdr-up");
+    else if (d > 8) root.classList.add("hdr-up");
+    else if (d < -8) root.classList.remove("hdr-up");
+    if (Math.abs(d) > 8 || y < 120) last = y;
+  }
+  window.addEventListener("scroll", onScroll, {passive: true});
+  mq.addEventListener ? mq.addEventListener("change", onScroll) : 0;
+})();

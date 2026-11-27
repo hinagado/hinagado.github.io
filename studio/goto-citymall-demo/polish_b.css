@@ -431,3 +431,35 @@ body.page-recruit .slot b { font-family: var(--round); letter-spacing: .05em; }
 .sd .chi-sum{margin:0 0 8px;padding:8px 12px;background:#fdebd6;border-radius:10px;font-size:15px;line-height:1.6}
 .ncount{margin:4px 0 8px}
 .chi-sum .nw{white-space:nowrap}
+
+/* 2026-11-28 デザイン審査：スマホの固定部品・切れて見える列 */
+@media (max-width:720px){
+  header{transition:transform .22s ease}
+  html.hdr-up header{transform:translateY(-100%)}
+  .bar{transition:top .22s ease}
+  html.hdr-up .bar{top:0}
+  /* 絞り込み：貼り付く前と「しぼる」で開いた時は、横に流さず折り返して全部見せる */
+  body.page-shops .bar:not(.stuck) .filters,body.page-shops .bar.stuck.open .filters{flex-wrap:wrap;overflow:visible;margin:0;padding:0;row-gap:8px}
+  body.page-shops .bar:not(.stuck) .filters .chips,body.page-shops .bar.stuck.open .filters .chips{flex-wrap:wrap;flex:1 1 100%;row-gap:8px}
+  body.page-shops .bar:not(.stuck) .filters #owns,body.page-shops .bar.stuck.open .filters #owns{border-left:0;padding-left:0}
+  body.page-shops .bar:not(.stuck)::after,body.page-shops .bar.stuck.open::after{display:none}
+  /* おすすめの近道：横に流さず2列に */
+  .quick.shopquick{display:grid!important;grid-template-columns:1fr 1fr;gap:8px;overflow:visible!important;margin-left:0!important;margin-right:0!important;padding:0!important;-webkit-mask-image:none!important;mask-image:none!important}
+  .quick.shopquick a{min-width:0!important;width:auto!important}
+  .quick.shopquick a .qt{white-space:normal}
+}
+@media (prefers-reduced-motion:reduce){header,.bar{transition:none!important}}
+@media (max-width:720px){.page-shops .sph.cover .cv-main{aspect-ratio:2/1!important}}
+
+/* 2026-11-28 押した手ごたえ・開く時のなめらかさ（すべて 0.25 秒以内・1回きり） */
+@keyframes lbin{from{opacity:0}to{opacity:1}}
+@keyframes lbimg{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
+@keyframes sdin{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+html.anim .lb:not([hidden]){animation:lbin .18s ease both}
+html.anim .lb:not([hidden]) img{animation:lbimg .22s cubic-bezier(.2,.8,.2,1) both}
+html.anim details.sd[open]>.sd-in{animation:sdin .22s ease both}
+html.anim .bar.stuck.open .filters{animation:sdin .2s ease both}
+html.anim .btn,html.anim .acts a,html.anim .acts button,html.anim #filters button,html.anim .tools button,html.anim .chips button,html.anim .quick a,html.anim .tabbar a{transition:transform .12s ease,background-color .2s ease,box-shadow .2s ease}
+html.anim .btn:active,html.anim .acts a:active,html.anim .acts button:active,html.anim #filters button:active,html.anim .tools button:active,html.anim .quick a:active,html.anim .tabbar a:active{transform:scale(.97)}
+@media (hover:hover){html.anim .shop:hover{transform:translateY(-2px);box-shadow:0 10px 24px -14px rgba(74,40,14,.35)}html.anim .shop{transition:transform .2s ease,box-shadow .2s ease}}
+@media (prefers-reduced-motion:reduce){.lb,.lb img,details.sd>.sd-in,.filters,.shop,.btn{animation:none!important;transition:none!important}}
