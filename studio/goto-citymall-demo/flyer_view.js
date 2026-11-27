@@ -54,7 +54,7 @@
   function flDemoItems() {
     if (flBox.dataset.demo === '1') return flTryItems().concat([
       // 2026-11-24 チラシの箱の見本1号（表＝チラシ、裏＝予約申込書）。届いた写真は加工してから使う
-      {shop: 'ボンパティ', title: 'クリスマスケーキ ご予約承り中（見本）', start: '2026-11-24', end: '2026-12-10', kind: 'image', img: 'img/flyer/bonpati_xmas_1_s.webp', open: 'img/flyer/bonpati_xmas_1.webp'} /* 11/25 先方の依頼で裏面は外した */,
+      {shop: 'ボンパティ', title: 'クリスマスケーキ ご予約承り中', start: '2026-11-24', end: '2026-12-10', kind: 'image', img: 'img/flyer/bonpati_xmas_1_s.webp', open: 'img/flyer/bonpati_xmas_1.webp'} /* 11/25 先方の依頼で裏面は外した。11/27 代表：本番として扱う（見本の文字を外した） */,
       // 2026-11-22 吉田様経由でお店から届いたチラシ（元は PDF。img/flyer/）。1つの投稿に2枚（表・裏）載せる形の見本にした
       {shop: '家具プラス ツーピース', title: '秋のリビング・ダイニングフェア／快眠ベッドフェア', start: '2026-11-01', end: '2026-11-30', kind: 'image', img: 'img/flyer/twopiece_1_s.webp', open: 'img/flyer/twopiece_1.webp', img2: 'img/flyer/twopiece_2_s.webp', open2: 'img/flyer/twopiece_2.webp'},
       {shop: '家具プラス ツーピース', title: 'LAST BARGAIN（ラストバーゲン）', start: '2026-12-01', end: '2026-12-31', kind: 'image', img: 'img/flyer/twopiece12_1_s.webp', open: 'img/flyer/twopiece12_1.webp', img2: 'img/flyer/twopiece12_2_s.webp', open2: 'img/flyer/twopiece12_2.webp'} /* 11/27 吉田様：12月分に差し替え・12月1日から（新聞折込は11月30日） */,
