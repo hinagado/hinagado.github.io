@@ -41,7 +41,8 @@
     if (!list.length) return;
     at = (i + list.length) % list.length;
     const a = list[at], th = a.querySelector('img') || a.closest('article, .menus')?.querySelector('img');
-    img.src = a.getAttribute('href');
+    img.onerror = () => { cap.textContent = (a.dataset.cap || '') + '（この面は読み込めませんでした。時間をおいて開き直してください）'; }; // 2026-11-28 見直し
+    img.src = a.dataset.lbimg || a.getAttribute('href'); // 2026-11-28 チラシは絵の住所を別に持つ
     img.alt = (th && th.alt) || a.dataset.cap || '';
     cap.textContent = a.dataset.cap || img.alt;
     num.textContent = list.length > 1 ? (at + 1) + ' / ' + list.length : '';

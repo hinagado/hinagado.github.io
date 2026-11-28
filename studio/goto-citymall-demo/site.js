@@ -101,7 +101,7 @@
   const setPub = on => { document.documentElement.classList.toggle("public", on); if (pv) pv.setAttribute("aria-pressed", on); try { sessionStorage.setItem("pubview", on ? "1" : ""); } catch (e) { /* 何もしない */ } };
   let pub = false;
   try { pub = new URLSearchParams(location.search).get("view") === "public" || sessionStorage.getItem("pubview") === "1"; } catch (e) { /* 何もしない */ }
-  setPub(pub);
+  if (pv) setPub(pub); // 2026-11-28 見直し：切り替えのボタンがある見本のページだけ。公開版（ボタン無し・最初から public）では触らない
   if (pv) pv.addEventListener("click", () => setPub(!document.documentElement.classList.contains("public")));
 })();
 

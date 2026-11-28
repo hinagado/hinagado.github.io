@@ -39,9 +39,24 @@
     return a == null || b == null ? null : [a, b];
   }
 
+  // 定休日の文の「（…を除く）」から休みの日を拾う。「1月1日・2日」は 1-1 と 1-2。
+  function offDays(c) {
+    const out = new Set(), m = c.match(/（([^）]*)を除く）/);
+    if (!m) return out;
+    const re = /(\d{1,2})月(\d{1,2})日((?:・\d{1,2}日)*)/g;
+    let x;
+    while ((x = re.exec(m[1]))) {
+      out.add(+x[1] + '-' + +x[2]);
+      (x[3].match(/\d{1,2}/g) || []).forEach(d => out.add(+x[1] + '-' + +d));
+    }
+    return out;
+  }
+
   // 戻り値: null（出さない）/ {k: 'open'|'openIrr'|'before'|'after'|'closed', t}
   function judge(el, now) {
     if (now.mo === 12 && now.d === 31) return null;
+    // 2026-11-28 見直し：「（1月1日・2日を除く）」のような、お店ごとの休みの日を先に見る（全館共通の正月の時間より先）
+    if (offDays(el.dataset.c || '').has(now.mo + '-' + now.d)) return { k: 'closed' };
     if (now.mo === 1 && now.d <= 3) { // 2026-11-24 代表：1/1〜3 は毎年、全館統一の時間
       const r0 = now.d === 1 ? [660, 1140] : [600, 1140], m0 = now.h * 60 + now.mi;
       if (m0 < r0[0]) return { k: 'before', t: `${Math.floor(r0[0] / 60)}:00` };

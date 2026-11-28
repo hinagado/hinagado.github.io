@@ -44,8 +44,12 @@
   };
   fetch(src, {credentials: "omit"}).then(r => r.ok ? r.json() : null).then(d => {
     const ok = d && d.ok === true;
-    const items = ok && Array.isArray(d.items) ? d.items : [];
-    const pay = ok && d.pay && typeof d.pay === "object" ? d.pay : {};
+    // 2026-11-28 見直し：フォームの店名（短い名前）を、お店のカードの名前に読みかえる。読みかえないと求人・支払いの印が出ない
+    const ALIAS = {"ツーピース": "家具プラス ツーピース", "多津屋": "バッグの多津屋 Hanako", "森補正店": "森補正専門店", "Leon": "美髪・髪質改善クリニックLeon", "hair salon Vita": "hair salon VITA", "けいたい相談室": "携帯相談室"};
+    const nm = s => Object.prototype.hasOwnProperty.call(ALIAS, s) ? ALIAS[s] : s;
+    const items = (ok && Array.isArray(d.items) ? d.items : []).map(x => x && typeof x.shop === "string" ? Object.assign({}, x, {shop: nm(x.shop)}) : x);
+    const pay = {};
+    if (ok && d.pay && typeof d.pay === "object") Object.keys(d.pay).forEach(k => { const v = Array.isArray(d.pay[k]) ? d.pay[k] : []; const t = nm(k); pay[t] = Array.isArray(pay[t]) ? [...new Set(pay[t].concat(v))] : v; });
     boxes.forEach(box => {
       const kind = box.dataset.posts;
       const mine = items.filter(x => x && x.kind === kind && x.title && (kind !== "求人" || jobOk(x))).slice(0, 30);

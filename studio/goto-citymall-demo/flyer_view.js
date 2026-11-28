@@ -5,7 +5,8 @@
   if (!flBox) return;
   const flSection = flBox.closest('section') || flBox;
   const flParams = new URLSearchParams(location.search);
-  const flDemo = flParams.get('demo') === '1' || document.body.dataset.flyersDemo === '1' || flBox.dataset.demo === '1'; // 見本のページでは箱に data-demo="1"（公開するときに外す）
+  // 2026-11-28 見直し：?demo=1 は見本のページ（見本の帯がある）でだけ効く。公開版では効かない
+  const flDemo = !!document.querySelector('.demo-band') && (flParams.get('demo') === '1' || document.body.dataset.flyersDemo === '1' || flBox.dataset.demo === '1'); // 見本のページでは箱に data-demo="1"（公開するときに外す）
   const flSource = document.body.dataset.postsSrc;
   const FL_SLOTS = 8; // 2026-11-23 打合せ：ホームページに載るチラシは8枠まで
   // 日本時間の今日（YYYY-MM-DD）。載せ終わりが今日より前のチラシは出さない（期日が終わったら自動で消える）。試験用に ?today=2026-12-01
@@ -24,11 +25,11 @@
   }
 
   function flDriveImage(flUrl) {
-    return /^https:\/\/drive\.google\.com\/thumbnail\?id=[-\w]{20,}&sz=w1200$/.test(String(flUrl || ''));
+    return /^https:\/\/drive\.google\.com\/thumbnail\?id=[-\w]{20,}&sz=w1200(?:&resourcekey=[-\w]{1,500})?$/.test(String(flUrl || ''));
   }
 
   function flDriveOpen(flUrl) {
-    return /^https:\/\/drive\.google\.com\/file\/d\/[-\w]{20,}\/view$/.test(String(flUrl || ''));
+    return /^https:\/\/drive\.google\.com\/file\/d\/[-\w]{20,}\/view(?:\?resourcekey=[-\w]{1,500})?$/.test(String(flUrl || ''));
   }
 
   function flDemoSvg(flColor, flShop, flLine) {
@@ -91,6 +92,8 @@
     flImage.src = String(flItem.img);
     flImage.loading = 'lazy';
     flImage.alt = flShop + 'のチラシ：' + flTitle;
+    // 2026-11-28 見直し：絵が読めなかったチラシは、壊れた絵の印を出さずに外す（全部外れたら欄ごと隠す）
+    flImage.addEventListener('error', function () { flArticle.remove(); if (!flBox.querySelector('.flyer-card')) flSection.hidden = true; });
     const flText = flElement('div', 'flyer-text');
     flText.append(flElement('p', 'flyer-shop', flShop), flElement('h3', 'flyer-title', flTitle),
       flElement('p', 'flyer-period', flStart && flEnd ? flStart + '〜' + flEnd : flAlways));
@@ -98,6 +101,7 @@
     const flLink = flElement('a', 'flyer-open', flHas2 ? '表を大きく見る' : '大きく見る');
     flLink.href = String(flItem.open);
     flLink.dataset.lb = flGroup;
+    if (!flDemo) flLink.dataset.lbimg = String(flItem.img); // 2026-11-28 見直し：拡大の窓には絵の住所を渡す（open は Drive の閲覧ページで、絵として読めない）
     flLink.dataset.cap = flShop + '：' + flTitle + (flHas2 ? '（表）' : '');
     flText.appendChild(flLink);
     // 2026-11-25 第三者評価「チラシの絵を押しても開かない」：絵を押しても「大きく見る」と同じに開く（キーボードではボタンの方を使う）
@@ -107,6 +111,7 @@
       const flBack = flElement('a', 'flyer-open flyer-back', '裏面を見る');
       flBack.href = String(flItem.open2);
       flBack.dataset.lb = flGroup;
+      if (!flDemo) flBack.dataset.lbimg = String(flItem.img2);
       flBack.dataset.cap = flShop + '：' + flTitle + '（裏）';
       flText.appendChild(flBack);
       flArticle.classList.add('has-back');
